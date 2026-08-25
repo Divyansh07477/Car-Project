@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+*{font-family: "Outfit",sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+:root{
+    --main-color:#e53f28;
+    --text-color:#071344;
+    --bg-color:#fff;
+    --hover-color:hsl(7,78%,48%);
+    --container-color:#6c7283;
+
+
+}
+body{
+    color:var(--text-color);
+}
+a{
+    text-decoration:none;
+}
+section{
+    padding: 5rem;
+}
+li{
+    list-style:none;
+}
+img{
+    width:100%
+}
+
+.container{
+    max-width:1060px;
+    margin:auto;
+    width:100%;
+}
+/* header */
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:100;
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 0;
+}
+.logo{
+    font-size:1.2rem;
+    font-weight:700;
+    color:var(--text-color);
+}
+.logo span{
+    color:var(--main-color);
+}
+.nav-links{
+    display:flex;
+    align-items:center;
+    column-gap: 1.5rem;  
+}
+.nav-link{
+    font-size:1rem;
+    font-weight:500;
+    color:var(--text-color);
+}
+.nav-link:hover{
+    color:var(--main-color);
+    transition: 0.3s all;
+}
+.right-nav{
+    display:flex;
+    align-items:center;
+    column-gap:0.8rem;
+}
+.search-icon{
+    font-size:1.5rem;
+    cursor:pointer;
+}
+ 
+.search-box{
+position:absolute;
+top:110%;
+left:0;
+right:0;
+background:var(--bg-color);
+box-shadow:4px 4px 20px rgb(15 54 55 / 10%);  
+border-radius:0.5rem;
+border:1px solid var(--main-color);
+clip-path: circle(0% at 100% 0%);
+}
+.search-box.active{
+    clip-path: circle(144% at 100% 0%);
+    transition:0.4s;
+}
+.search-box input{
+   width:100%;
+   border:none;
+    padding: 20px;
+    outline:none;
+    background:transparent;
+    font-size: 1rem;
+}
+.login-btn{
+    font-size:0.875rem;
+    padding: 7px 18px;
+    border:1px solid #d4d9dd;
+    border-radius:0.4rem;
+    font-weight:500;
+    cursor:pointer;
+}
+.login-btn:hover{
+    background: #fafbfc;
+    transition:0.3s all;
+}
+.sign-up-btn{
+    font-size:0.875rem;
+    padding: 7px 18px;
+    border:1px solid var(--main-color);
+    border-radius:0.4rem;
+    font-weight:500;
+    cursor:pointer;
+    color:var(--bg-color);
+    background:var(--main-color);
+}
+.sign-up-btn:hover{
+    background:var(--hover-color);
+    transition:0.3s all;
+}
+.menu-icon{
+   display:none;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   row-gap: 5px;
+   cursor:pointer;
+   z-index: 200;
+   transition:0.3s all;
+}
+.menu-icon div{
+    width:25px;
+    height:2px;
+    background:var(--text-color);
+    display:block;
+    transition:0.3s all;
+}
+.move .line1{
+    transform: rotate(-45deg) translate(-5px,5px);
+}
+.move .line2{
+    opacity: 0;
+}
+.move .line3{
+    transform: rotate(45deg) translate(-5px,-5px);
+}
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+/* home */
+.home{
+    width:100%;
+    min-height:700px;
+    background: rgba(229, 63,42,0,00.039);
+    display:flex;
+    align-items:center;
+}
+.home-container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    align-items:center;
+    gap:1.5rem;
+}
+
+
+.home-form{
+    background:var(--bg-color);
+    display:grid;
+    padding:20px;
+    max-width:340px;
+    border-radius:0.4rem;
+    box-shadow:0 4px 16px hsl(355deg 25% 15% / 10%);
+}
+
+.home-form h2{
+    font-size:1.7rem;
+    font-weight:700;
+    margin-bottom:1.5rem;
+    
+}
+
+.home-form h2 span{
+    color:var(--main-color);
+}
+
+.home-form select, .home-form input{
+    width:100%;
+   border:none;
+   padding: 10px;
+   font-size:0.9rem ;
+   color:var(--text-color);
+   outline-color:var(--main-color);
+   border:1px solid #d4d9dd;
+   border-radius:4px;
+   margin-bottom:1rem;
+   
+}
+
+.home-form .home-form-btn{
+    border:none;
+    outline:none;
+    font-size:1rem;
+    letter-spacing:1px;
+    color:var(--bg-color);
+    background:var(--main-color);
+    cursor:pointer;
+
+}
+
+
+.home-form  .home-form-btn:hover{
+   background:var(--hover-color);
+   transition:0.3s all;
+
+}
