@@ -1,3 +1,4 @@
+
 //open search box
 let search= document.querySelector(".search-box");
 document.querySelector(".search-icon").onclick=()=>{
@@ -40,20 +41,44 @@ const rotateY = ((x - centerX) / centerX) * 15;
 }
 
 
-// header
-let lastScroll = 0;
-const header = document.querySelector(".header");
+// // header
+// let lastScroll = 0;
+// const header = document.querySelector(".header");
 
-window.addEventListener("scroll", () => {
-    const currentScroll = window.scrollY;
+// window.addEventListener("scroll", () => {
+//     const currentScroll = window.scrollY;
 
-    if (currentScroll === 0) {
-        // Sirf top par navbar show
-        header.classList.remove("hide");
-    } else if (currentScroll > lastScroll) {
-        // Scroll down → hide
-        header.classList.add("hide");
-    }
+//     if (currentScroll === 0) {
+//         // Sirf top par navbar show
+//         header.classList.remove("hide");
+//     } else if (currentScroll > lastScroll) {
+//         // Scroll down → hide
+//         header.classList.add("hide");
+//     }
 
-    lastScroll = currentScroll;
+//     lastScroll = currentScroll;
+// });
+
+
+
+//header backgorund change an scroll
+let header=document.querySelector("header");
+window.addEventListener("scroll",() => {
+    header.classList.toggle("shadow", window.scrollY > 0);
+})
+
+
+// FAQ
+const accordionItems = document.querySelectorAll(".accordion-item");
+
+accordionItems.forEach((item) => {
+
+    const header = item.querySelector(".accordion-header");
+
+    header.addEventListener("click", () => {
+
+        item.classList.toggle("active");
+
+    });
+
 });
