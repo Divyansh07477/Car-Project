@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Access - Car Rental</title>
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 20px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 36px 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .brand span {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .brand h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 8px;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
+    }
+
+    .toggle-box {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .toggle-box a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .toggle-box a:hover {
+      text-decoration: underline;
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 12px;
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="brand">
+      <span>🚗</span>
+      <h1 id="titleText">Welcome Back</h1>
+      <p id="subText">Sign in to manage your car bookings</p>
+    </div>
+
+    <form id="authForm" onsubmit="handleAuth(event)">
+      <div class="input-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="name@example.com" required autocomplete="email" />
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Log In</button>
+    </form>
+
+    <div class="toggle-box">
+      <span id="promptText">Don't have an account?</span>
+      <a onclick="switchMode()" id="toggleBtn">Sign Up</a>
+    </div>
+
+    <a href="index.html" class="home-link">← Back to Home</a>
+  </div>
+
+  <script>
+    // Supabase Credentials
+   const supabaseUrl = 'https://nqisunhjguxqdnlyckak.supabase.co'; // https://xyz.supabase.co
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xaXN1bmhqZ3V4cWRubHlja2FrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNjc3NjIsImV4cCI6MjEwMzg0Mzc2Mn0.IKfBiMjMwwa6qMwKIb8BsMCKIwDtAh-dOeScRCkvXI0';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+    let isLoginMode = true;
+
+    function switchMode() {
+      isLoginMode = !isLoginMode;
+      
+      document.getElementById('titleText').innerText = isLoginMode ? 'Welcome Back' : 'Create Account';
+      document.getElementById('subText').innerText = isLoginMode ? 'Sign in to manage your car bookings' : 'Register to start renting cars in minutes';
+      document.getElementById('submitBtn').innerText = isLoginMode ? 'Log In' : 'Sign Up';
+      document.getElementById('promptText').innerText = isLoginMode ? "Don't have an account?" : "Already have an account?";
+      document.getElementById('toggleBtn').innerText = isLoginMode ? 'Sign Up' : 'Log In';
+    }
+
+   async function handleAuth(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const submitBtn = document.getElementById('submitBtn');
+
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Processing...';
+
+  try {
+    if (isLoginMode) {
+      // 1. Supabase login call
+      const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      
+      alert('Login Successful!');
+
+      // 👇 METHOD 1 YAHAN LAGEGA (Previous page redirect)
+      if (document.referrer && document.referrer.includes(window.location.host) && !document.referrer.includes('login.html')) {
+        window.location.href = document.referrer;
+      } else {
+        window.location.href = 'index.html';
+      }
+
+    } else {
+      // Signup block
+      const { data, error } = await _supabase.auth.signUp({ email, password });
+      if (error) throw error;
+      alert('Account created! Please check your email inbox to verify your account.');
+      switchMode();
+    }
+  } catch (err) {
+    alert(err.message || 'Something went wrong!');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = isLoginMode ? 'Log In' : 'Sign Up';
+  }
+}
+  </script>
+</body>
+</html>

@@ -39,20 +39,30 @@
     </div> 
 
     <!--right-nav-->
-    <div class="right-nav">
- <i class=" bx bx-search search-icon"></i>
+    <!--right-nav-->
+<div class="right-nav">
+  <i class="bx bx-search search-icon"></i>
   <!--search input box---->
-   <div class="search-box container">
+  <div class="search-box container">
     <input type="search" name="" id="" placeholder="Search here...">
-   </div>   
-   <!--login and sign up btn-->
-   <div class="login-btn">
-       <span>Login</span>
-   </div>
-   <div class="sign-up-btn">
-         <span>Sign Up</span>
-   </div>
+  </div>   
+
+  <!-- Jab user Logged Out ho -->
+  <div class="auth-buttons-wrapper" id="authButtons" style="display: flex; gap: 8px;">
+    <div class="login-btn">
+      <a href="login.html" class="btn">Log In</a>           
     </div>
+    <div class="sign-up-btn">
+      <a href="login.html" class="btn">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Jab user Logged In ho (By default hidden) -->
+  <div class="user-profile-wrapper" id="userProfile" style="display: none; align-items: center; gap: 10px;">
+    <span id="userEmail" style="font-size: 14px; font-weight: 500; color: #333;"></span>
+    <button onclick="handleLogout()" class="btn" style="background-color: #ef4444; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer;">Log Out</button>
+  </div>
+</div>
 </div>
 </header>
 
@@ -460,6 +470,8 @@
 <div class="copyright">
     <p>&#169; RideWave 2026</p>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="js/main.js"></script>   
 </body>
 </html>
