@@ -1,238 +1,952 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Access - Car Rental</title>
 
-  <!-- Supabase JS Client CDN -->
+  <title>Login - RideWave</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <style>
+
+    /* =========================
+       RESET
+    ========================= */
+
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+
+      font-family:
+        'Segoe UI',
+        Roboto,
+        Arial,
+        sans-serif;
     }
+
+
+    /* =========================
+       BODY
+    ========================= */
 
     body {
       min-height: 100vh;
+
       display: flex;
-      justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      justify-content: center;
+
       padding: 20px;
+
+      position: relative;
+
+      overflow: hidden;
     }
+
+
+    /* =========================
+       BLURRED HOME BACKGROUND
+    ========================= */
+
+    .background {
+      position: fixed;
+
+      inset: -25px;
+
+      background:
+        linear-gradient(
+          rgba(10, 15, 25, 0.58),
+          rgba(10, 15, 25, 0.58)
+        ),
+        url("images/your-home-car-image.jpg");
+
+      background-size: cover;
+
+      background-position: center;
+
+      filter: blur(7px);
+
+      transform: scale(1.08);
+
+      z-index: -2;
+    }
+
+
+    /* =========================
+       ORANGE GLOW
+    ========================= */
+
+    body::before {
+      content: "";
+
+      position: fixed;
+
+      width: 350px;
+      height: 350px;
+
+      background:
+        rgba(229, 63, 40, 0.18);
+
+      border-radius: 50%;
+
+      filter: blur(100px);
+
+      top: -150px;
+      left: -100px;
+
+      z-index: -1;
+    }
+
+
+    /* =========================
+       AUTH CARD
+    ========================= */
 
     .auth-card {
       width: 100%;
-      max-width: 400px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 36px 30px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      color: #ffffff;
+
+      max-width: 430px;
+
+      padding: 34px;
+
+      background:
+        rgba(255, 255, 255, 0.97);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.7);
+
+      border-radius: 24px;
+
+      box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.42);
+
+      animation:
+        cardIn 0.6s ease;
+
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     }
+
+
+    .auth-card:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 35px 90px
+        rgba(0, 0, 0, 0.48);
+    }
+
+
+    /* =========================
+       CARD ANIMATION
+    ========================= */
+
+    @keyframes cardIn {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(25px)
+          scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
+    /* =========================
+       LOGO
+    ========================= */
+
+    .logo-link {
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      margin-bottom: 18px;
+
+      text-decoration: none;
+    }
+
+
+    .logo-link img {
+      width: 150px;
+
+      height: auto;
+
+      display: block;
+
+      transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+    }
+
+
+    .logo-link:hover img {
+      transform:
+        scale(1.06);
+
+      filter:
+        drop-shadow(
+          0 6px 12px
+          rgba(229, 63, 40, 0.28)
+        );
+    }
+
+
+    /* =========================
+       HEADING
+    ========================= */
 
     .brand {
       text-align: center;
-      margin-bottom: 24px;
+
+      margin-bottom: 27px;
     }
 
-    .brand span {
-      font-size: 32px;
-      display: block;
-      margin-bottom: 6px;
-    }
 
     .brand h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      font-size: 30px;
+
+      font-weight: 750;
+
+      color: #172554;
+
+      letter-spacing: -0.7px;
     }
+
+
+    .brand h1 span {
+      color: #e53f28;
+    }
+
 
     .brand p {
-      font-size: 13px;
-      color: #94a3b8;
-      margin-top: 4px;
+      margin-top: 7px;
+
+      font-size: 14px;
+
+      color: #718096;
     }
 
+
+    /* =========================
+       INPUT GROUP
+    ========================= */
+
     .input-group {
-      margin-bottom: 18px;
+      margin-bottom: 19px;
     }
+
 
     .input-group label {
       display: block;
+
+      margin-bottom: 7px;
+
       font-size: 13px;
-      font-weight: 500;
-      color: #cbd5e1;
-      margin-bottom: 6px;
+
+      font-weight: 600;
+
+      color: #333;
     }
 
-    .input-group input {
+
+    /* =========================
+       INPUT WRAPPER
+    ========================= */
+
+    .input-wrapper {
+      position: relative;
+    }
+
+
+    .input-wrapper > i {
+      position: absolute;
+
+      left: 15px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: #999;
+
+      font-size: 15px;
+
+      pointer-events: none;
+
+      transition:
+        color 0.25s ease;
+    }
+
+
+    .input-wrapper input {
       width: 100%;
-      padding: 12px 14px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid #334155;
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 14px;
+
+      height: 48px;
+
+      padding:
+        0 45px;
+
+      border:
+        1px solid #dedede;
+
+      border-radius: 11px;
+
       outline: none;
-      transition: all 0.2s ease;
+
+      background: #fff;
+
+      color: #222;
+
+      font-size: 14px;
+
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
     }
 
-    .input-group input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+
+    .input-wrapper input::placeholder {
+      color: #aaa;
     }
+
+
+    /* INPUT HOVER */
+
+    .input-wrapper input:hover {
+      border-color: #c4c4c4;
+    }
+
+
+    /* INPUT FOCUS */
+
+    .input-wrapper input:focus {
+      border-color: #e53f28;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(229, 63, 40, 0.10);
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    .input-wrapper:focus-within > i {
+      color: #e53f28;
+    }
+
+
+    /* =========================
+       PASSWORD EYE
+    ========================= */
+
+    .password-eye {
+      position: absolute;
+
+      right: 13px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      border: none;
+
+      background: transparent;
+
+      color: #888;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+
+    .password-eye:hover {
+      color: #e53f28;
+
+      transform:
+        translateY(-50%)
+        scale(1.1);
+    }
+
+
+    /* =========================
+       LOGIN BUTTON
+    ========================= */
 
     .submit-btn {
       width: 100%;
-      padding: 13px;
-      margin-top: 8px;
-      background: #2563eb;
-      color: #ffffff;
+
+      height: 48px;
+
+      margin-top: 5px;
+
       border: none;
-      border-radius: 10px;
+
+      border-radius: 11px;
+
+      background: #e53f28;
+
+      color: #fff;
+
       font-size: 15px;
-      font-weight: 600;
+
+      font-weight: 650;
+
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
+
+      box-shadow:
+        0 8px 18px
+        rgba(229, 63, 40, 0.22);
+
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
     }
+
 
     .submit-btn:hover {
-      background: #1d4ed8;
+      background: #cf351f;
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 12px 25px
+        rgba(229, 63, 40, 0.30);
     }
+
 
     .submit-btn:active {
-      transform: scale(0.99);
+      transform:
+        translateY(0);
     }
+
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+
+      cursor: not-allowed;
+
+      transform: none;
+
+      box-shadow: none;
+    }
+
+
+    /* =========================
+       SIGNUP TEXT
+    ========================= */
 
     .toggle-box {
-      margin-top: 22px;
+      margin-top: 21px;
+
       text-align: center;
+
       font-size: 13px;
-      color: #94a3b8;
+
+      color: #777;
     }
+
 
     .toggle-box a {
-      color: #60a5fa;
+      color: #e53f28;
+
+      font-weight: 700;
+
       text-decoration: none;
-      font-weight: 600;
-      margin-left: 5px;
-      cursor: pointer;
+
+      margin-left: 4px;
+
+      transition:
+        color 0.2s ease;
     }
 
+
     .toggle-box a:hover {
+      color: #b92d1b;
+
       text-decoration: underline;
     }
 
+
+    /* =========================
+       DIVIDER
+    ========================= */
+
+    .divider {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin: 22px 0;
+
+      color: #aaa;
+
+      font-size: 10px;
+
+      font-weight: 600;
+    }
+
+
+    .divider::before,
+    .divider::after {
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background: #e6e6e6;
+    }
+
+
+    /* =========================
+       SOCIAL BUTTONS
+    ========================= */
+
+    .social-buttons {
+      display: flex;
+
+      justify-content: center;
+
+      gap: 13px;
+    }
+
+
+    .social-btn {
+      width: 43px;
+
+      height: 43px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid #ddd;
+
+      background: #fff;
+
+      color: #444;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+
+    .social-btn:hover {
+      border-color: #e53f28;
+
+      color: #e53f28;
+
+      transform:
+        translateY(-4px);
+
+      box-shadow:
+        0 8px 18px
+        rgba(229, 63, 40, 0.14);
+    }
+
+
+    /* =========================
+       BACK TO HOME
+    ========================= */
+
     .home-link {
       display: block;
+
+      margin-top: 21px;
+
       text-align: center;
-      margin-top: 16px;
+
+      color: #777;
+
       font-size: 12px;
-      color: #64748b;
+
       text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
     }
+
 
     .home-link:hover {
-      color: #cbd5e1;
-    }
-  </style>
-</head>
-<body>
+      color: #e53f28;
 
-  <div class="auth-card">
-    <div class="brand">
-      <span>🚗</span>
-      <h1 id="titleText">Welcome Back</h1>
-      <p id="subText">Sign in to manage your car bookings</p>
-    </div>
-
-    <form id="authForm" onsubmit="handleAuth(event)">
-      <div class="input-group">
-        <label>Email Address</label>
-        <input type="email" id="email" placeholder="name@example.com" required autocomplete="email" />
-      </div>
-
-      <div class="input-group">
-        <label>Password</label>
-        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
-      </div>
-
-      <button type="submit" class="submit-btn" id="submitBtn">Log In</button>
-    </form>
-
-    <div class="toggle-box">
-      <span id="promptText">Don't have an account?</span>
-      <a onclick="switchMode()" id="toggleBtn">Sign Up</a>
-    </div>
-
-    <a href="index.html" class="home-link">← Back to Home</a>
-  </div>
-
-  <script>
-    // Supabase Credentials
-   const supabaseUrl = 'https://nqisunhjguxqdnlyckak.supabase.co'; // https://xyz.supabase.co
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xaXN1bmhqZ3V4cWRubHlja2FrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNjc3NjIsImV4cCI6MjEwMzg0Mzc2Mn0.IKfBiMjMwwa6qMwKIb8BsMCKIwDtAh-dOeScRCkvXI0';
-    const _supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
-
-    let isLoginMode = true;
-
-    function switchMode() {
-      isLoginMode = !isLoginMode;
-      
-      document.getElementById('titleText').innerText = isLoginMode ? 'Welcome Back' : 'Create Account';
-      document.getElementById('subText').innerText = isLoginMode ? 'Sign in to manage your car bookings' : 'Register to start renting cars in minutes';
-      document.getElementById('submitBtn').innerText = isLoginMode ? 'Log In' : 'Sign Up';
-      document.getElementById('promptText').innerText = isLoginMode ? "Don't have an account?" : "Already have an account?";
-      document.getElementById('toggleBtn').innerText = isLoginMode ? 'Sign Up' : 'Log In';
+      transform:
+        translateX(-2px);
     }
 
-   async function handleAuth(e) {
-  e.preventDefault();
-  
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const submitBtn = document.getElementById('submitBtn');
 
-  submitBtn.disabled = true;
-  submitBtn.innerText = 'Processing...';
+    /* =========================
+       MOBILE
+    ========================= */
 
-  try {
-    if (isLoginMode) {
-      // 1. Supabase login call
-      const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      
-      alert('Login Successful!');
+    @media (max-width: 480px) {
 
-      // 👇 METHOD 1 YAHAN LAGEGA (Previous page redirect)
-      if (document.referrer && document.referrer.includes(window.location.host) && !document.referrer.includes('login.html')) {
-        window.location.href = document.referrer;
-      } else {
-        window.location.href = 'index.html';
+      body {
+        padding: 15px;
       }
 
-    } else {
-      // Signup block
-      const { data, error } = await _supabase.auth.signUp({ email, password });
-      if (error) throw error;
-      alert('Account created! Please check your email inbox to verify your account.');
-      switchMode();
+
+      .auth-card {
+        padding: 28px 22px;
+
+        border-radius: 20px;
+      }
+
+
+      .logo-link img {
+        width: 135px;
+      }
+
+
+      .brand h1 {
+        font-size: 25px;
+      }
+
+
+      .brand p {
+        font-size: 12px;
+      }
+
     }
-  } catch (err) {
-    alert(err.message || 'Something went wrong!');
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerText = isLoginMode ? 'Log In' : 'Sign Up';
-  }
-}
+
+
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+  <!-- Blurred Background -->
+  <div class="background"></div>
+
+
+  <!-- =========================
+       LOGIN CARD
+  ========================= -->
+
+  <div class="auth-card">
+
+    <!-- Heading -->
+    <div class="brand">
+
+      <h1>
+        Welcome <span>Back</span>
+      </h1>
+
+      <p>
+        Sign in to manage your car bookings
+      </p>
+
+    </div>
+
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+
+      <!-- Email -->
+      <div class="input-group">
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <div class="input-wrapper">
+
+          <i class="fa-regular fa-envelope"></i>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="name@example.com"
+            required
+            autocomplete="email"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- Password -->
+      <div class="input-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <div class="input-wrapper">
+
+          <i class="fa-solid fa-lock"></i>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+            autocomplete="current-password"
+          >
+
+          <button
+            type="button"
+            class="password-eye"
+            id="eyeBtn"
+            onclick="togglePassword()"
+          >
+            <i class="fa-regular fa-eye"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        class="submit-btn"
+        id="loginBtn"
+      >
+        Log In
+      </button>
+
+    </form>
+
+
+    <!-- SIGNUP -->
+    <div class="toggle-box">
+
+      Don't have an account?
+
+      <a href="signup.html">
+        Sign Up
+      </a>
+
+    </div>
+
+
+    <!-- DIVIDER -->
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+
+    <!-- SOCIAL BUTTONS -->
+    <div class="social-buttons">
+
+      <button
+        type="button"
+        class="social-btn"
+        title="Google"
+      >
+        <i class="fa-brands fa-google"></i>
+      </button>
+
+      <button
+        type="button"
+        class="social-btn"
+        title="Facebook"
+      >
+        <i class="fa-brands fa-facebook-f"></i>
+      </button>
+
+      <button
+        type="button"
+        class="social-btn"
+        title="X"
+      >
+        <i class="fa-brands fa-x-twitter"></i>
+      </button>
+
+    </div>
+
+
+    <!-- HOME -->
+    <a
+      href="index.html"
+      class="home-link"
+    >
+      ← Back to Home
+    </a>
+
+  </div>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    const supabaseUrl =
+      'https://nqisunhjguxqdnlyckak.supabase.co';
+
+    const supabaseAnonKey =
+       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoibnFpc3VuaGpndXhxZG5seWNrYWsiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODI2Nzc2MiwiZXhwIjoyMTAzODQzNzYyfQ.IKfBiMjMwwa6qMwKIb8BsMCKIwDtAh-dOeScRCkvXI0';
+
+    const _supabase =
+      supabase.createClient(
+        supabaseUrl,
+        supabaseAnonKey
+      );
+
+
+    function togglePassword() {
+
+      const password =
+        document.getElementById('password');
+
+      const eyeBtn =
+        document.getElementById('eyeBtn');
+
+      if (password.type === 'password') {
+
+        password.type = 'text';
+
+        eyeBtn.innerHTML =
+          '<i class="fa-regular fa-eye-slash"></i>';
+
+      } else {
+
+        password.type = 'password';
+
+        eyeBtn.innerHTML =
+          '<i class="fa-regular fa-eye"></i>';
+
+      }
+
+    }
+
+
+    document
+      .getElementById('loginForm')
+      .addEventListener(
+        'submit',
+        async function(e) {
+
+          e.preventDefault();
+
+          const email =
+            document
+              .getElementById('email')
+              .value
+              .trim();
+
+          const password =
+            document
+              .getElementById('password')
+              .value;
+
+          const loginBtn =
+            document.getElementById('loginBtn');
+
+          loginBtn.disabled = true;
+          loginBtn.innerText = 'Logging In...';
+
+          try {
+
+            const { data, error } =
+              await _supabase.auth.signInWithPassword({
+
+                email: email,
+                password: password
+
+              });
+
+            if (error) {
+              throw error;
+            }
+
+            alert('Login Successful!');
+
+            window.location.href =
+              'index.html';
+
+          } catch (err) {
+
+            alert(
+              err.message ||
+              'Login failed!'
+            );
+
+          } finally {
+
+            loginBtn.disabled = false;
+            loginBtn.innerText = 'Log In';
+
+          }
+
+        }
+      );
+
   </script>
+
 </body>
 </html>

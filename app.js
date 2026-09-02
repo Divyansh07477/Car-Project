@@ -18,5 +18,5 @@ app.get('{*path}', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚗 CAR-RENTALS server running at http://localhost:${PORT}`);
+  console.log(` CAR-RENTALS server running at http://localhost:${PORT}`);
 });

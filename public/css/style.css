@@ -155,32 +155,141 @@ margin-bottom: 3rem;
     background:transparent;
     font-size: 1rem;
 }
-.login-btn{
-    font-size:0.875rem;
-    padding: 7px 18px;
-    border:1px solid #d4d9dd;
-    border-radius:0.4rem;
-    font-weight:500;
-    cursor:pointer;
+
+/* =========================
+   LOGIN & SIGNUP BUTTONS
+========================= */
+
+#authButtons {
+    display: flex;
+    align-items: center;
+    gap: 0;
 }
-.login-btn:hover{
-    background: #fafbfc;
-    transition:0.3s all;
+
+
+/* Login Button */
+
+.login-btn .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #000 !important;
+    background: #fff;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    padding: 5px 12px;
+   margin-right: 10px;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    transition: all 0.3s ease;
 }
-.sign-up-btn{
-    font-size:0.875rem;
-    padding: 7px 18px;
-    border:1px solid var(--main-color);
-    border-radius:0.4rem;
-    font-weight:500;
-    cursor:pointer;
-    color:var(--bg-color);
-    background:var(--main-color);
+
+
+/* Login Hover */
+
+.login-btn .btn:hover {
+    color: #fff !important;
+    background: var(--hover-color);
+
+    border-color: var(--hover-color);
+
+    transform: translateY(-2px);
 }
-.sign-up-btn:hover{
-    background:var(--hover-color);
-    transition:0.3s all;
+
+
+/* Sign Up Button */
+
+.sign-up-btn .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff !important;
+    background: #ef3f2e;
+
+    border: 1px solid #ef3f2e;
+    border-radius: 8px;
+
+    padding: 5px 12px;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
 }
+
+
+/* Sign Up Hover */
+
+.sign-up-btn .btn:hover {
+    color: #fff !important;
+    background: var(--hover-color);
+
+    border-color: var(--hover-color);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   LOGGED IN USER
+========================= */
+
+.user-profile-wrapper {
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* User Email */
+
+#userEmail {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+
+/* Logout */
+
+.logout-btn {
+    color: #fff;
+
+    background: #ef4444;
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 8px 15px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+
+/* Logout Hover */
+
+.logout-btn:hover {
+    background: #dc2626;
+
+    transform: translateY(-2px);
+}
+
+
+
 .menu-icon{
    display:none;
    flex-direction: column;

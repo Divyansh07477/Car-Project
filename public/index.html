@@ -38,24 +38,54 @@
 
     </div> 
 
-    <!--right-nav-->
-    <!--right-nav-->
+<!-- right-nav -->
 <div class="right-nav">
-  <i class="bx bx-search search-icon"></i>
-  <!--search input box---->
-  <div class="search-box container">
-    <input type="search" name="" id="" placeholder="Search here...">
-  </div>   
 
-  <!-- Jab user Logged Out ho -->
-  <div class="auth-buttons-wrapper" id="authButtons" style="display: flex; gap: 8px;">
-    <div class="login-btn">
-      <a href="login.html" class="btn">Log In</a>           
+    <i class="bx bx-search search-icon"></i>
+
+    <!-- Search input box -->
+    <div class="search-box container">
+        <input type="search" placeholder="Search here...">
     </div>
-    <div class="sign-up-btn">
-      <a href="login.html" class="btn">Sign Up</a>
+
+
+    <!-- ========================= -->
+    <!-- LOGGED OUT -->
+    <!-- ========================= -->
+
+    <div id="authButtons">
+
+        <div class="login-btn">
+            <a href="login.html" class="btn">Log In</a>
+        </div>
+
+        <div class="sign-up-btn">
+            <a href="signup.html" class="btn">Sign Up</a>
+        </div>
+
     </div>
-  </div>
+
+
+    <!-- ========================= -->
+    <!-- LOGGED IN -->
+    <!-- ========================= -->
+
+    <div class="user-profile-wrapper"
+         id="userProfile"
+         style="display: none; align-items: center; gap: 10px;">
+
+        <span id="userEmail"
+              style="font-size: 14px; font-weight: 500; color: #333;">
+        </span>
+
+        <button onclick="handleLogout()"
+                class="logout-btn">
+            Log Out
+        </button>
+
+    </div>
+
+</div>
 
   <!-- Jab user Logged In ho (By default hidden) -->
   <div class="user-profile-wrapper" id="userProfile" style="display: none; align-items: center; gap: 10px;">
