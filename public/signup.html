@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/title.png.jpeg">
   <title>Create Account - RideWave</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ 
 
   <style>
     * {
@@ -16,40 +16,170 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
     }
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+    position: relative;
+    overflow: hidden;
+    background: #071344;
+}
 
-      background:
+
+/* ===============================
+   BACKGROUND
+================================ */
+.background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("/images/background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    filter: blur(5px);
+    transform: scale(1.08);
+
+    z-index: -2;
+
+    animation: rideWaveBackground 16s ease-in-out infinite alternate;
+}
+
+@keyframes rideWaveBackground {
+
+    0% {
+        transform: scale(1.08) translateX(0);
+    }
+
+    50% {
+        transform: scale(1.11) translateX(-8px);
+    }
+
+    100% {
+        transform: scale(1.08) translateX(8px);
+    }
+}
+
+
+/* ===============================
+   RIDEWAVE ORANGE OVERLAY
+================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background:
         linear-gradient(
-          rgba(7, 19, 68, 0.78),
-          rgba(7, 19, 68, 0.78)
-        ),
-        linear-gradient(135deg, #f5f5f5, #dcdcdc);
+            120deg,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.50) 50%,
+            rgba(229, 63, 40, 0.18) 100%
+        );
 
-      position: relative;
-      overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+
+/* ===============================
+   SUBTLE ORANGE LIGHT
+================================ */
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 550px;
+    height: 550px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(229, 63, 40, 0.20) 0%,
+            rgba(229, 63, 40, 0.08) 35%,
+            transparent 70%
+        );
+
+    filter: blur(50px);
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: -1;
+    pointer-events: none;
+
+    animation: rideWaveLight 10s ease-in-out infinite alternate;
+}
+
+
+@keyframes rideWaveLight {
+
+    0% {
+        transform: translate(-55%, -50%) scale(0.85);
+        opacity: 0.45;
     }
 
-    /* Background blur effect */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: -40px;
-
-      background:
-        radial-gradient(circle at 80% 40%, #e53f28 0%, transparent 28%),
-        radial-gradient(circle at 20% 70%, #071344 0%, transparent 35%);
-
-      filter: blur(45px);
-      opacity: 0.75;
-      z-index: 0;
+    50% {
+        transform: translate(-45%, -50%) scale(1);
+        opacity: 0.65;
     }
 
+    100% {
+        transform: translate(-55%, -50%) scale(0.85);
+        opacity: 0.45;
+    }
+}
+
+
+/* ===============================
+   SIGNUP CARD
+================================ */
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 18px;
+    padding: 34px 32px 28px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.30);
+
+    position: relative;
+    z-index: 2;
+
+    animation: cardShow 0.5s ease;
+}
+
+
+@keyframes cardShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
     /* Signup Card */
     .auth-card {
       width: 100%;
@@ -80,6 +210,7 @@
         transform: translateY(0) scale(1);
       }
     }
+  
 
     /* Close button */
     .close-btn {
@@ -395,8 +526,58 @@
   display: inline-block;
 }
 
+.flash-message {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 99999;
 
-    
+    min-width: 280px;
+    max-width: 400px;
+
+    padding: 15px 20px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    opacity: 0;
+    transform: translateX(120%);
+
+    transition: all 0.4s ease;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.flash-message.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.flash-message.success {
+    background: #22c55e;
+    color: white;
+}
+
+.flash-message.error {
+    background: #ef4444;
+    color: white;
+}
+
+@media (max-width: 480px) {
+
+    .flash-message {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+        min-width: auto;
+    }
+
+}
+
+
+
   </style>
 
 
@@ -415,6 +596,11 @@
 
 
 <body>
+
+
+
+    <div class="background"></div>
+
 
   <div class="auth-card">
 
@@ -494,7 +680,7 @@
             id="password"
             placeholder="Create a password"
             required
-            minlength="6"
+            minlength="2"
             autocomplete="new-password"
           >
 
@@ -568,144 +754,154 @@
   </div>
 
 
-  <script>
+<!-- js -->
 
-    // =========================
-    // SUPABASE
-    // =========================
+<script>
 
-    const supabaseUrl =
-      'https://nqisunhjguxqdnlyckak.supabase.co';
+function showFlash(message, type = "success") {
 
-    const supabaseAnonKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoibnFpc3VuaGpndXhxZG5seWNrYWsiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODI2Nzc2MiwiZXhwIjoyMTAzODQzNzYyfQ.IKfBiMjMwwa6qMwKIb8BsMCKIwDtAh-dOeScRCkvXI0';
+    const flash = document.createElement("div");
 
-    const _supabase =
-      supabase.createClient(
-        supabaseUrl,
-        supabaseAnonKey
-      );
+    flash.className = `flash-message ${type}`;
+    flash.innerText = message;
 
+    document.body.appendChild(flash);
 
-    // =========================
-    // PASSWORD SHOW / HIDE
-    // =========================
-function togglePassword() {
+    setTimeout(() => {
+        flash.classList.add("show");
+    }, 10);
 
-  const password =
-    document.getElementById('password');
+    setTimeout(() => {
 
-  const eye =
-    document.getElementById('eyeBtn');
+        flash.classList.remove("show");
 
-  if (password.type === 'password') {
+        setTimeout(() => {
+            flash.remove();
+        }, 400);
 
-    password.type = 'text';
-
-    eye.innerHTML =
-      '<i class="fa-regular fa-eye-slash"></i>';
-
-  } else {
-
-    password.type = 'password';
-
-    eye.innerHTML =
-      '<i class="fa-regular fa-eye"></i>';
-
-  }
-
+    }, 3000);
 }
 
-    // =========================
-    // CLOSE BUTTON
-    // =========================
 
-    function goHome() {
+function togglePassword() {
 
-      window.location.href = 'index.html';
+    const passwordInput = document.getElementById("password");
+    const icon = document.querySelector("#eyeBtn i");
+    if (passwordInput.type === "password") {
 
+        passwordInput.type = "text";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+    } else {
+
+        passwordInput.type = "password";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+    }
+}
+
+
+document.getElementById("signupForm").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const signupBtn = document.getElementById("signupBtn");
+
+
+    if (!name || !email || !password) {
+
+        showFlash("Please fill all fields!", "error");
+
+        return;
     }
 
 
-    // =========================
-    // SIGNUP
-    // =========================
+    if (password.length < 2) {
 
-    document
-      .getElementById('signupForm')
-      .addEventListener('submit', async function(e) {
+        showFlash(
+            "Password must be at least 2 characters!",
+            "error"
+        );
 
-        e.preventDefault();
-
-        const email =
-          document
-            .getElementById('email')
-            .value
-            .trim();
-
-        const password =
-          document
-            .getElementById('password')
-            .value;
-
-        const signupBtn =
-          document.getElementById('signupBtn');
+        return;
+    }
 
 
-        signupBtn.disabled = true;
-
-        signupBtn.innerText =
-          'Creating Account...';
+    signupBtn.disabled = true;
+    signupBtn.innerText = "Creating Account...";
 
 
-        try {
+    try {
 
-          const { data, error } =
-            await _supabase.auth.signUp({
+        const response = await fetch("/api/auth/signup", {
 
-              email: email,
+            method: "POST",
 
-              password: password
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-            });
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            })
 
-
-          if (error) {
-
-            throw error;
-
-          }
-
-
-          alert(
-            'Account created successfully! Please check your email to verify your account.'
-          );
+        });
 
 
-          // Signup ke baad direct Login
-          window.location.href =
-            'login.html';
+        const result = await response.json();
 
 
-        } catch (err) {
+        if (!response.ok) {
 
-          alert(
-            err.message ||
-            'Signup failed!'
-          );
-
-        } finally {
-
-          signupBtn.disabled = false;
-
-          signupBtn.innerText =
-            'Create Account';
+            throw new Error(
+                result.message || "Signup failed!"
+            );
 
         }
 
-      });
 
-  </script>
+        showFlash(
+            result.message || "Account created successfully!",
+            "success"
+        );
+
+
+        setTimeout(() => {
+
+            window.location.href = "login.html";
+
+        }, 1200);
+
+
+    } catch (err) {
+
+        showFlash(
+            err.message || "Signup failed!",
+            "error"
+        );
+
+    } finally {
+
+        signupBtn.disabled = false;
+        signupBtn.innerText = "Create Account";
+
+    }
+
+});
+
+</script>
+
+
 
 </body>
 </html>

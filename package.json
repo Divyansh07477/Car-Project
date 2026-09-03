@@ -24,8 +24,10 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
+    "@supabase/server": "^1.5.2",
     "@supabase/supabase-js": "^2.112.4",
     "bcryptjs": "^3.0.3",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -36,6 +38,7 @@
     "joi": "^18.2.5",
     "jsonwebtoken": "^9.0.3",
     "method-override": "^3.0.0",
+    "mongoose": "^9.9.4",
     "multer": "^2.3.0"
   }
 }

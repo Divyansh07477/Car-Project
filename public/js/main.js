@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 //open search box
 let search= document.querySelector(".search-box");
 document.querySelector(".search-icon").onclick=()=>{
@@ -81,195 +88,101 @@ accordionItems.forEach((item) => {
 
 });
 
-// --- SUPABASE AUTH STATE & LOGOUT ---
+function showFlash(message, type = "success") {
 
+    const flash = document.createElement("div");
 
-const SUPABASE_URL = "https://nqisunhjguxqdnlyckak.supabase.co";
+    flash.className = `flash-message ${type}`;
+    flash.innerText = message;
 
-const SUPABASE_KEY =   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoibnFpc3VuaGpndXhxZG5seWNrYWsiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4ODI2Nzc2MiwiZXhwIjoyMTAzODQzNzYyfQ.IKfBiMjMwwa6qMwKIb8BsMCKIwDtAh-dOeScRCkvXI0';
+    document.body.appendChild(flash);
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+    setTimeout(() => {
+        flash.classList.add("show");
+    }, 10);
 
+    setTimeout(() => {
 
-// ==========================================
-// GET HTML ELEMENTS
-// ==========================================
+        flash.classList.remove("show");
 
-const authButtons = document.getElementById("authButtons");
-const userProfile = document.getElementById("userProfile");
-const userEmail = document.getElementById("userEmail");
+        setTimeout(() => {
+            flash.remove();
+        }, 400);
 
-
-// ==========================================
-// CHECK USER LOGIN
-// ==========================================
-
-async function checkUser() {
-
-    const {
-        data: { session },
-        error
-    } = await supabaseClient.auth.getSession();
-
-
-    if (error) {
-
-        console.error(
-            "Session Error:",
-            error
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // USER LOGGED IN
-    // ======================================
-
-    if (session) {
-
-        authButtons.style.display = "none";
-
-        userProfile.style.display = "flex";
-
-        userEmail.textContent =
-            session.user.email;
-
-    }
-
-
-    // ======================================
-    // USER LOGGED OUT
-    // ======================================
-
-    else {
-
-        authButtons.style.display = "flex";
-
-        userProfile.style.display = "none";
-
-        userEmail.textContent = "";
-
-    }
+    }, 3000);
 }
 
 
-// ==========================================
-// RUN WHEN PAGE LOADS
-// ==========================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        checkUser();
-
-    }
-);
 
 
-// ==========================================
-// AUTOMATIC LOGIN / LOGOUT DETECTION
-// ==========================================
-
-supabaseClient.auth.onAuthStateChange(
-    (event, session) => {
-
-        console.log(
-            "Auth Event:",
-            event
-        );
 
 
-        // ==================================
-        // USER LOGGED IN
-        // ==================================
+// ===============================
+// AUTH STATUS
+// ===============================
 
-        if (session) {
-
-            authButtons.style.display = "none";
-
-            userProfile.style.display = "flex";
-
-            userEmail.textContent =
-                session.user.email;
-
-        }
-
-
-        // ==================================
-        // USER LOGGED OUT
-        // ==================================
-
-        else {
-
-            authButtons.style.display = "flex";
-
-            userProfile.style.display = "none";
-
-            userEmail.textContent = "";
-
-        }
-
-    }
-);
-
-
-// ==========================================
-// LOGOUT FUNCTION
-// ==========================================
-
-async function handleLogout() {
-
+async function checkLoginStatus() {
     try {
+        const response = await fetch("/api/auth/me");
 
-        const {
-            error
-        } = await supabaseClient.auth.signOut();
+        const authButtons = document.getElementById("authButtons");
+        const userProfile = document.getElementById("userProfile");
+        const userEmail = document.getElementById("userEmail");
 
-
-        if (error) {
-
-            console.error(
-                "Logout Error:",
-                error
-            );
-
-            alert(
-                "Logout failed. Please try again."
-            );
-
+        if (!authButtons || !userProfile || !userEmail) {
             return;
         }
 
+        if (response.ok) {
+            const data = await response.json();
 
-        // Logout successful
+            authButtons.style.display = "none";
+            userProfile.style.display = "flex";
 
-        authButtons.style.display = "flex";
+            userEmail.textContent = data.user.name;
+        } else {
+            authButtons.style.display = "flex";
+            userProfile.style.display = "none";
+        }
 
-        userProfile.style.display = "none";
-
-        userEmail.textContent = "";
-
-
-        // Go to home page
-
-        window.location.href =
-            "index.html";
-
+    } catch (error) {
+        console.error("Auth Check Error:", error);
     }
-
-    catch (error) {
-
-        console.error(
-            "Logout Error:",
-            error
-        );
-
-    }
-
 }
+
+
+// ===============================
+// LOGOUT
+// ===============================
+async function handleLogout() {
+    try {
+        const response = await fetch("/api/auth/logout", {
+            method: "POST",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            window.location.href = "/";
+        } else {
+            console.log("Logout failed:", data.message);
+            alert(data.message || "Logout failed");
+        }
+
+    } catch (error) {
+        console.error("Logout Error:", error);
+        alert("Server se connection nahi ho raha.");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", handleLogout);
+    }
+
+    checkLoginStatus();
+});

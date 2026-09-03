@@ -10,7 +10,23 @@
     
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-<body bgcolor="white">
+<body>
+
+
+    <div class="background"></div>
+
+    <div class="auth-card">
+
+        <!-- tera signup form -->
+
+    </div>
+
+
+      <div class="background"></div>
+
+    <div class="auth-card">
+        <!-- tera signup form -->
+    </div>
    <!--header-->
    <header class="header">
 <!--nav-->
@@ -38,6 +54,7 @@
 
     </div> 
 
+
 <!-- right-nav -->
 <div class="right-nav">
 
@@ -48,11 +65,7 @@
         <input type="search" placeholder="Search here...">
     </div>
 
-
-    <!-- ========================= -->
     <!-- LOGGED OUT -->
-    <!-- ========================= -->
-
     <div id="authButtons">
 
         <div class="login-btn">
@@ -65,35 +78,30 @@
 
     </div>
 
-
-    <!-- ========================= -->
     <!-- LOGGED IN -->
-    <!-- ========================= -->
+    <div
+        id="userProfile"
+        style="display: none; align-items: center; gap: 10px;"
+    >
 
-    <div class="user-profile-wrapper"
-         id="userProfile"
-         style="display: none; align-items: center; gap: 10px;">
+        <span
+            id="userEmail"
+            style="font-size: 14px; font-weight: 500; color: #333;"
+        ></span>
 
-        <span id="userEmail"
-              style="font-size: 14px; font-weight: 500; color: #333;">
-        </span>
-
-        <button onclick="handleLogout()"
-                class="logout-btn">
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
             Log Out
         </button>
 
     </div>
 
 </div>
+  
+</div>
 
-  <!-- Jab user Logged In ho (By default hidden) -->
-  <div class="user-profile-wrapper" id="userProfile" style="display: none; align-items: center; gap: 10px;">
-    <span id="userEmail" style="font-size: 14px; font-weight: 500; color: #333;"></span>
-    <button onclick="handleLogout()" class="btn" style="background-color: #ef4444; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer;">Log Out</button>
-  </div>
-</div>
-</div>
 </header>
 
     <!-- home -->
@@ -500,7 +508,7 @@
 <div class="copyright">
     <p>&#169; RideWave 2026</p>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script src="js/main.js"></script>   
 </body>
