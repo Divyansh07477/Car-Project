@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Wave</title>
+
+    <link rel="icon" type="image/png" href="images/title.png.jpeg">
+    <link rel="stylesheet" href="css/style.css">
+    
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<style>
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form-box {
+    width: 100%;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form-box h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+    color: #222;
+}
+
+.contact-form-box p {
+    margin-bottom: 25px;
+    color: #777;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff6b00;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.contact-submit-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #ff6b00;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-submit-btn:hover {
+    background: #e85d00;
+    transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .contact-form-box {
+        margin: 25px 15px;
+        padding: 25px 20px;
+    }
+
+    .contact-form-box h2 {
+        font-size: 24px;
+    }
+}
+
+
+/* =========================
+   CONTACT FORM ANIMATIONS
+========================= */
+
+/* Form box entry animation */
+.contact-form-box {
+    animation: contactFormIn 0.8s ease-out both;
+}
+
+@keyframes contactFormIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Heading animation */
+.contact-form-box h2 {
+    animation: fadeDown 0.7s ease-out 0.2s both;
+}
+
+.contact-form-box p {
+    animation: fadeDown 0.7s ease-out 0.3s both;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Input fields animation */
+.form-group {
+    animation: fieldIn 0.6s ease-out both;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.7s;
+}
+
+@keyframes fieldIn {
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Input focus */
+.form-group input,
+.form-group textarea {
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    transform: translateY(-2px);
+}
+
+
+/* Button animation */
+.contact-submit-btn {
+    animation: buttonIn 0.7s ease-out 0.8s both;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes buttonIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Button shine effect */
+.contact-submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    );
+    transition: 0.6s;
+}
+
+.contact-submit-btn:hover::before {
+    left: 120%;
+}
+
+
+/* Send icon animation */
+.contact-submit-btn i {
+    display: inline-block;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+.contact-submit-btn:hover i {
+    transform: translateX(5px) rotate(-10deg);
+}
+
+
+/* Button hover */
+.contact-submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+}
+
+
+
+
+/* =========================
+   CONTACT PAGE HEADING
+========================= */
+
+.contact-page-heading {
+    text-align: center;
+    margin: 110px auto 35px;
+    animation: headingIn 0.8s ease-out both;
+}
+
+.contact-page-heading h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.contact-page-heading h1::after {
+    content: "";
+    display: block;
+    width: 65px;
+    height: 4px;
+    background: #ff6b00;
+    border-radius: 10px;
+    margin: 12px auto 0;
+}
+
+.contact-page-heading p {
+    color: #777;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+@keyframes headingIn {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .contact-page-heading {
+        margin: 90px auto 25px;
+        padding: 0 15px;
+    }
+
+    .contact-page-heading h1 {
+        font-size: 32px;
+    }
+
+    .contact-page-heading p {
+        font-size: 14px;
+    }
+}
+    </style>
+</head>
+<body>
+
+
+
+<!-- CONTACT FORM -->
+<!-- CONTACT PAGE HEADING -->
+
+<div class="contact-page-heading">
+    <h1>Contact Us</h1>
+    <p>We're here to help. Get in touch with the RideWave team.</p>
+</div>
+
+<!-- CONTACT FORM -->
+
+<div class="contact-form-box">
+
+    <form id="contactForm">
+
+        <!-- Name -->
+        <div class="form-group">
+            <label for="name">Your Name</label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+            >
+        </div>
+
+        <!-- Subject -->
+        <div class="form-group">
+            <label for="subject">Subject</label>
+
+            <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Enter subject"
+                required
+            >
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+            <label for="message">Message</label>
+
+            <textarea
+                id="message"
+                name="message"
+                rows="6"
+                placeholder="Write your message..."
+                required
+            ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="contact-submit-btn">
+            Send Message
+            <i class='bx bx-send'></i>
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value
+    };
+
+    try {
+
+        const response = await fetch("/api/contact", {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            alert("✅ " + data.message);
+
+            // Redirect to Home
+            window.location.href = "/";
+
+        } else {
+
+            alert("❌ " + data.message);
+
+        }
+
+    } catch (error) {
+
+        console.error("Contact Error:", error);
+
+        alert("❌ Server se connection nahi ho raha.");
+
+    }
+
+});
+</script>
+</body>
+</html>

@@ -2308,3 +2308,70 @@ margin-bottom: 3rem;
     }
 
 }
+/* logout flash */
+
+/* ===============================
+   FLASH MESSAGE
+================================ */
+
+.flash-message {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+
+    min-width: 280px;
+    max-width: 400px;
+
+    padding: 15px 22px;
+
+    background: #22c55e;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border-radius: 10px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(120%);
+
+    transition: all 0.3s ease;
+
+    z-index: 99999;
+}
+
+.flash-message.show {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateX(0);
+}
+
+
+/* ERROR */
+
+.flash-message.error {
+    background: #ef4444;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .flash-message {
+        top: 80px;
+        right: 15px;
+        left: 15px;
+
+        min-width: auto;
+        max-width: none;
+
+        text-align: center;
+    }
+
+}

@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 //open search box
 let search= document.querySelector(".search-box");
 document.querySelector(".search-icon").onclick=()=>{
@@ -150,12 +143,39 @@ async function checkLoginStatus() {
     }
 }
 
+// ===============================
+// FLASH MESSAGE
+// ===============================
+function showFlash(message, type = "success") {
+    const flash = document.createElement("div");
+
+    flash.className = `flash-message ${type}`;
+    flash.textContent = message;
+
+    document.body.appendChild(flash);
+
+    setTimeout(() => {
+        flash.classList.add("show");
+    }, 50);
+
+    setTimeout(() => {
+        flash.classList.remove("show");
+
+        setTimeout(() => {
+            flash.remove();
+        }, 300);
+
+    }, 2500);
+}
+
 
 // ===============================
 // LOGOUT
 // ===============================
 async function handleLogout() {
+
     try {
+
         const response = await fetch("/api/auth/logout", {
             method: "POST",
             credentials: "include"
@@ -164,24 +184,60 @@ async function handleLogout() {
         const data = await response.json();
 
         if (response.ok) {
+
+            // Flash message save karo
+            localStorage.setItem(
+                "flashMessage",
+                data.message || "Logged out successfully!"
+            );
+
+            // Home page par jao
             window.location.href = "/";
+
         } else {
-            console.log("Logout failed:", data.message);
-            alert(data.message || "Logout failed");
+
+            showFlash(
+                data.message || "Logout failed.",
+                "error"
+            );
         }
 
     } catch (error) {
+
         console.error("Logout Error:", error);
-        alert("Server se connection nahi ho raha.");
+
+        showFlash(
+            "Server se connection nahi ho raha.",
+            "error"
+        );
     }
 }
 
+
+// ===============================
+// PAGE LOAD
+// ===============================
 document.addEventListener("DOMContentLoaded", () => {
 
     const logoutBtn = document.getElementById("logoutBtn");
 
     if (logoutBtn) {
         logoutBtn.addEventListener("click", handleLogout);
+    }
+
+    // ===============================
+    // SHOW SAVED FLASH MESSAGE
+    // ===============================
+    const flashMessage = localStorage.getItem("flashMessage");
+
+    if (flashMessage) {
+
+        showFlash(
+            flashMessage,
+            "success"
+        );
+
+        localStorage.removeItem("flashMessage");
     }
 
     checkLoginStatus();

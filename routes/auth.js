@@ -161,22 +161,21 @@ router.post("/logout", (req, res) => {
 
 });
 
-
-module.exports = router;
-
-
+// ===============================
 // CHECK LOGIN SESSION
+// ===============================
+
 router.get("/me", async (req, res) => {
     try {
+
         if (!req.session.userId) {
             return res.status(401).json({
                 loggedIn: false
             });
         }
 
-        const user = await User.findById(req.session.userId).select(
-            "-password"
-        );
+        const user = await User.findById(req.session.userId)
+            .select("-password");
 
         if (!user) {
             return res.status(401).json({
@@ -184,7 +183,7 @@ router.get("/me", async (req, res) => {
             });
         }
 
-        res.json({
+        res.status(200).json({
             loggedIn: true,
             user: {
                 id: user._id,
@@ -192,7 +191,9 @@ router.get("/me", async (req, res) => {
                 email: user.email
             }
         });
+
     } catch (error) {
+
         console.error("Session Check Error:", error);
 
         res.status(500).json({
@@ -202,7 +203,12 @@ router.get("/me", async (req, res) => {
 });
 
 
+// ===============================
+// LOGOUT
+// ===============================
+
 router.post("/logout", (req, res) => {
+
     req.session.destroy((error) => {
 
         if (error) {
@@ -220,3 +226,24 @@ router.post("/logout", (req, res) => {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===============================
+// EXPORT ROUTER
+// ===============================
+
+module.exports = router;

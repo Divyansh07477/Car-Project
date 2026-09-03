@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="/images/title.png.jpeg"
+>
+
+<title>Create Account - RideWave</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+
+    /* ===============================
+       BODY
+    =============================== */
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        position: relative;
+        overflow: hidden;
+
+        background: #071344;
+    }
+
+
+    /* ===============================
+       BACKGROUND
+    =============================== */
+
+    .background {
+        position: fixed;
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background-image: url("/images/background.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        filter: blur(5px);
+        transform: scale(1.08);
+
+        z-index: -2;
+
+        animation:
+            rideWaveBackground
+            16s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes rideWaveBackground {
+
+        0% {
+            transform:
+                scale(1.08)
+                translateX(0);
+        }
+
+        50% {
+            transform:
+                scale(1.11)
+                translateX(-8px);
+        }
+
+        100% {
+            transform:
+                scale(1.08)
+                translateX(8px);
+        }
+
+    }
+
+
+    /* ===============================
+       DARK + ORANGE OVERLAY
+    =============================== */
+
+    body::before {
+        content: "";
+
+        position: fixed;
+        inset: 0;
+
+        background:
+            linear-gradient(
+                120deg,
+                rgba(0, 0, 0, 0.82) 0%,
+                rgba(0, 0, 0, 0.50) 50%,
+                rgba(229, 63, 40, 0.18) 100%
+            );
+
+        z-index: -1;
+        pointer-events: none;
+    }
+
+
+    /* ===============================
+       ORANGE LIGHT
+    =============================== */
+
+    body::after {
+        content: "";
+
+        position: fixed;
+
+        width: 550px;
+        height: 550px;
+
+        border-radius: 50%;
+
+        background:
+            radial-gradient(
+                circle,
+                rgba(229, 63, 40, 0.20) 0%,
+                rgba(229, 63, 40, 0.08) 35%,
+                transparent 70%
+            );
+
+        filter: blur(50px);
+
+        top: 50%;
+        left: 50%;
+
+        transform:
+            translate(-50%, -50%);
+
+        z-index: -1;
+
+        pointer-events: none;
+
+        animation:
+            rideWaveLight
+            10s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes rideWaveLight {
+
+        0% {
+            transform:
+                translate(-55%, -50%)
+                scale(0.85);
+
+            opacity: 0.45;
+        }
+
+        50% {
+            transform:
+                translate(-45%, -50%)
+                scale(1);
+
+            opacity: 0.65;
+        }
+
+        100% {
+            transform:
+                translate(-55%, -50%)
+                scale(0.85);
+
+            opacity: 0.45;
+        }
+
+    }
+
+
+    /* ===============================
+       SIGNUP CARD
+    =============================== */
+
+    .auth-card {
+        width: 100%;
+        max-width: 430px;
+
+        background:
+            rgba(255, 255, 255, 0.96);
+
+        border-radius: 18px;
+
+        padding:
+            34px
+            32px
+            28px;
+
+        box-shadow:
+            0 25px 70px
+            rgba(0, 0, 0, 0.30);
+
+        position: relative;
+        z-index: 2;
+
+        animation:
+            cardShow
+            0.5s ease;
+    }
+
+
+    @keyframes cardShow {
+
+        from {
+            opacity: 0;
+
+            transform:
+                translateY(25px)
+                scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+    }
+
+
+    /* ===============================
+       BRAND
+    =============================== */
+
+    .brand {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+
+    .brand-icon {
+        width: 52px;
+        height: 52px;
+
+        margin:
+            0 auto
+            10px;
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        background: #fff1ee;
+
+        border-radius: 50%;
+
+        font-size: 25px;
+
+        color: #e53f28;
+    }
+
+
+    .brand h1 {
+        font-size: 25px;
+
+        color: #071344;
+
+        font-weight: 700;
+    }
+
+
+    .brand h1 span {
+        color: #e53f28;
+    }
+
+
+    .brand p {
+        margin-top: 6px;
+
+        font-size: 13px;
+
+        color: #7b8190;
+    }
+
+
+    /* ===============================
+       INPUT
+    =============================== */
+
+    .input-group {
+        margin-bottom: 17px;
+    }
+
+
+    .input-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        color: #303746;
+    }
+
+
+    .input-wrapper {
+        position: relative;
+    }
+
+
+    .input-wrapper > i {
+        position: absolute;
+
+        left: 13px;
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        color: #9ca3af;
+
+        font-size: 15px;
+
+        pointer-events: none;
+    }
+
+
+    .input-group input {
+        width: 100%;
+
+        height: 48px;
+
+        padding:
+            0
+            45px
+            0
+            40px;
+
+        border:
+            1px solid
+            #dedfe3;
+
+        border-radius: 9px;
+
+        outline: none;
+
+        font-size: 14px;
+
+        color: #222;
+
+        background: #fff;
+
+        transition: 0.2s;
+    }
+
+
+    .input-group input:focus {
+        border-color: #e53f28;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(229, 63, 40, 0.10);
+    }
+
+
+    .input-group input::placeholder {
+        color: #a5a8ae;
+    }
+
+
+    /* ===============================
+       PASSWORD EYE
+    =============================== */
+
+    .password-eye {
+        position: absolute;
+
+        right: 13px;
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        border: none;
+
+        background: transparent;
+
+        color: #8b8f98;
+
+        cursor: pointer;
+
+        font-size: 15px;
+    }
+
+
+    .password-eye:hover {
+        color: #e53f28;
+    }
+
+
+    /* ===============================
+       SIGNUP BUTTON
+    =============================== */
+
+    .submit-btn {
+        width: 100%;
+
+        height: 49px;
+
+        margin-top: 5px;
+
+        border: none;
+
+        border-radius: 9px;
+
+        background: #e53f28;
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.25s;
+    }
+
+
+    .submit-btn:hover {
+        background: #c93220;
+
+        transform:
+            translateY(-1px);
+
+        box-shadow:
+            0 8px 20px
+            rgba(229, 63, 40, 0.25);
+    }
+
+
+    .submit-btn:disabled {
+        opacity: 0.65;
+
+        cursor: not-allowed;
+
+        transform: none;
+    }
+
+
+    /* ===============================
+       DIVIDER
+    =============================== */
+
+    .divider {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin:
+            22px
+            0
+            18px;
+
+        color: #a2a5ab;
+
+        font-size: 12px;
+    }
+
+
+    .divider::before,
+    .divider::after {
+        content: "";
+
+        height: 1px;
+
+        flex: 1;
+
+        background: #e3e3e3;
+    }
+
+
+    /* ===============================
+       SOCIAL BUTTONS
+    =============================== */
+
+    .social-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 13px;
+    }
+
+
+    .social-btn {
+        width: 42px;
+        height: 42px;
+
+        border:
+            1px solid
+            #e2e2e2;
+
+        border-radius: 50%;
+
+        background: white;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        color: #333;
+
+        font-size: 15px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .social-btn:hover {
+        border-color: #e53f28;
+
+        color: #e53f28;
+
+        transform:
+            translateY(-2px);
+    }
+
+
+    /* ===============================
+       LOGIN LINK
+    =============================== */
+
+    .login-text {
+        text-align: center;
+
+        margin-top: 22px;
+
+        font-size: 13px;
+
+        color: #777;
+    }
+
+
+    .login-text a {
+        color: #e53f28;
+
+        font-weight: 600;
+
+        text-decoration: none;
+
+        margin-left: 4px;
+    }
+
+
+    .login-text a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* ===============================
+       HOME LINK
+    =============================== */
+
+    .home-link {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 14px;
+
+        color: #999;
+
+        font-size: 12px;
+
+        text-decoration: none;
+    }
+
+
+    .home-link:hover {
+        color: #e53f28;
+    }
+
+
+    /* ===============================
+       FLASH MESSAGE
+    =============================== */
+
+    .flash-message {
+        position: fixed;
+
+        top: 25px;
+        right: 25px;
+
+        z-index: 99999;
+
+        min-width: 280px;
+        max-width: 400px;
+
+        padding:
+            15px
+            20px;
+
+        border-radius: 10px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        opacity: 0;
+
+        transform:
+            translateX(120%);
+
+        transition:
+            all
+            0.4s
+            ease;
+
+        box-shadow:
+            0 8px 25px
+            rgba(0, 0, 0, 0.25);
+    }
+
+
+    .flash-message.show {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+
+
+    .flash-message.success {
+        background: #22c55e;
+
+        color: white;
+    }
+
+
+    .flash-message.error {
+        background: #ef4444;
+
+        color: white;
+    }
+
+
+    /* ===============================
+       MOBILE
+    =============================== */
+
+    @media (max-width: 480px) {
+
+        body {
+            padding: 15px;
+        }
+
+
+        .auth-card {
+            padding:
+                30px
+                22px
+                25px;
+        }
+
+
+        .brand h1 {
+            font-size: 23px;
+        }
+
+
+        .flash-message {
+            top: 15px;
+
+            right: 15px;
+            left: 15px;
+
+            min-width: auto;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- BACKGROUND -->
+<div class="background"></div>
+
+
+<!-- SIGNUP CARD -->
+<div class="auth-card">
+
+    <!-- BRAND -->
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+
+        <h1>
+            Create <span>Account</span>
+        </h1>
+
+        <p>
+            Register to start renting cars in minutes
+        </p>
+
+    </div>
+
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm">
+
+        <!-- NAME -->
+        <div class="input-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="fa-regular fa-user"></i>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required
+                    autocomplete="name"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+        <div class="input-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="fa-regular fa-envelope"></i>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="name@example.com"
+                    required
+                    autocomplete="email"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+        <div class="input-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a password"
+                    required
+                    minlength="6"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    type="button"
+                    class="password-eye"
+                    id="eyeBtn"
+                    onclick="togglePassword()"
+                    aria-label="Show password"
+                >
+                    <i
+                        id="eyeIcon"
+                        class="fa-regular fa-eye"
+                    ></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIGNUP BUTTON -->
+        <button
+            type="submit"
+            class="submit-btn"
+            id="signupBtn"
+        >
+            Create Account
+        </button>
+
+    </form>
+
+
+    <!-- DIVIDER -->
+    <div class="divider">
+        <span>or continue with</span>
+    </div>
+
+
+    <!-- SOCIAL -->
+    <div class="social-buttons">
+
+        <button
+            class="social-btn"
+            type="button"
+            title="Google"
+        >
+            <i class="fa-brands fa-google"></i>
+        </button>
+
+
+        <button
+            class="social-btn"
+            type="button"
+            title="Facebook"
+        >
+            <i class="fa-brands fa-facebook-f"></i>
+        </button>
+
+
+        <button
+            class="social-btn"
+            type="button"
+            title="X"
+        >
+            <i class="fa-brands fa-x-twitter"></i>
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+    <div class="login-text">
+
+        Already have an account?
+
+        <!-- Express route -->
+        <a href="/login">
+            Log In
+        </a>
+
+    </div>
+
+
+    <!-- HOME -->
+    <!-- Express home route -->
+    <a
+        href="/"
+        class="home-link"
+    >
+        ← Back to Home
+    </a>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    // ===============================
+    // FLASH MESSAGE
+    // ===============================
+
+    function showFlash(
+        message,
+        type = "success"
+    ) {
+
+        const flash =
+            document.createElement("div");
+
+        flash.className =
+            `flash-message ${type}`;
+
+        flash.innerText =
+            message;
+
+        document.body.appendChild(
+            flash
+        );
+
+
+        setTimeout(() => {
+
+            flash.classList.add(
+                "show"
+            );
+
+        }, 10);
+
+
+        setTimeout(() => {
+
+            flash.classList.remove(
+                "show"
+            );
+
+
+            setTimeout(() => {
+
+                flash.remove();
+
+            }, 400);
+
+        }, 3000);
+
+    }
+
+
+    // ===============================
+    // PASSWORD TOGGLE
+    // ===============================
+
+    function togglePassword() {
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+        const icon =
+            document.getElementById(
+                "eyeIcon"
+            );
+
+
+        if (
+            passwordInput.type ===
+            "password"
+        ) {
+
+            passwordInput.type =
+                "text";
+
+            icon.classList.remove(
+                "fa-eye"
+            );
+
+            icon.classList.add(
+                "fa-eye-slash"
+            );
+
+        } else {
+
+            passwordInput.type =
+                "password";
+
+            icon.classList.remove(
+                "fa-eye-slash"
+            );
+
+            icon.classList.add(
+                "fa-eye"
+            );
+
+        }
+
+    }
+
+
+    // ===============================
+    // SIGNUP
+    // ===============================
+
+    document
+        .getElementById("signupForm")
+        .addEventListener(
+            "submit",
+            async function (e) {
+
+                e.preventDefault();
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                const signupBtn =
+                    document.getElementById(
+                        "signupBtn"
+                    );
+
+
+                // Basic validation
+
+                if (
+                    !name ||
+                    !email ||
+                    !password
+                ) {
+
+                    showFlash(
+                        "Please fill all fields!",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                // Match backend validation
+
+                if (
+                    password.length < 6
+                ) {
+
+                    showFlash(
+                        "Password must be at least 6 characters!",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                signupBtn.disabled =
+                    true;
+
+                signupBtn.innerText =
+                    "Creating Account...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/api/auth/signup",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        name: name,
+                                        email: email,
+                                        password: password
+                                    })
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok
+                    ) {
+
+                        throw new Error(
+                            result.message ||
+                            "Signup failed!"
+                        );
+
+                    }
+
+
+                    showFlash(
+                        result.message ||
+                        "Account created successfully!",
+                        "success"
+                    );
+
+
+                    // Go to login after signup
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "/";
+
+                    }, 1200);
+
+
+                } catch (err) {
+
+                    showFlash(
+                        err.message ||
+                        "Signup failed!",
+                        "error"
+                    );
+
+                } finally {
+
+                    signupBtn.disabled =
+                        false;
+
+                    signupBtn.innerText =
+                        "Create Account";
+
+                }
+
+            }
+        );
+
+</script>
+```
+
+</body>
+
+</html>
