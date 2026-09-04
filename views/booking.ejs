@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/images/title.png.jpeg">
+    <title>RideWave - Book Your Car</title>
+
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    min-height: 100vh;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.78),
+            rgba(0, 0, 0, 0.88)
+        ),
+        url("/images/background.png");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+.booking-page {
+    min-height: 100vh;
+
+    padding: 45px 20px 70px;
+}
+
+/* =========================
+   BACK HOME
+========================= */
+
+.back-home {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 7px;
+
+    width: fit-content;
+
+    margin: 0 auto 30px 0;   
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+.back-home i {
+    font-size: 20px;
+}
+
+.back-home:hover {
+    color: #ff7200;
+
+    transform: translateX(-4px);
+}
+/* =========================
+   HEADING
+========================= */
+
+.booking-heading {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.booking-heading .small-title {
+    display: block;
+
+    color: #ff7200;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 8px;
+}
+
+.booking-heading h1 {
+    font-size: 43px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.booking-heading h1 span {
+    color: #ff7200;
+}
+
+.booking-heading p {
+    margin-top: 10px;
+
+    color: #bdbdbd;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   BOOKING CARD
+========================= */
+
+.booking-card {
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 35px;
+
+    /* WHITE FORM */
+    background: #ffffff;
+
+    color: #111111;
+
+    border: 1px solid rgba(255, 114, 0, 0.25);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.40),
+        0 0 40px rgba(255, 114, 0, 0.08);
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.booking-form {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================
+   LABEL
+========================= */
+
+.form-group label {
+    margin-bottom: 8px;
+
+    color: #222222;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.form-group label i {
+    color: #ff7200;
+
+    font-size: 17px;
+
+    vertical-align: middle;
+
+    margin-right: 5px;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.form-group input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #d8d8d8;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder {
+    color: #999999;
+}
+
+
+/* Focus */
+
+.form-group input:focus {
+    border-color: #ff7200;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 114, 0, 0.10);
+}
+
+
+/* =========================
+   SELECTED CAR
+========================= */
+
+.form-group input[readonly] {
+    color: #ff7200;
+
+    font-weight: 600;
+
+    cursor: not-allowed;
+
+    background: #fff7f0;
+
+    border-color: rgba(255, 114, 0, 0.35);
+}
+
+
+/* =========================
+   DATE INPUT
+========================= */
+
+input[type="date"] {
+    color-scheme: light;
+
+    color: #111111;
+}
+
+
+/* Date placeholder */
+
+input[type="date"]::-webkit-datetime-edit {
+    color: #111111;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.booking-btn {
+    grid-column: 1 / -1;
+
+    height: 55px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        #ff6500,
+        #ff8a2a
+    );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(255, 114, 0, 0.25);
+
+    transition: 0.3s;
+}
+
+.booking-btn i {
+    font-size: 19px;
+
+    vertical-align: middle;
+
+    margin-left: 6px;
+}
+
+.booking-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(255, 114, 0, 0.35);
+}
+
+.booking-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.booking-info {
+    margin-top: 20px;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: #fff7f0;
+
+    border: 1px solid rgba(255, 114, 0, 0.15);
+
+    color: #666666;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.booking-info i {
+    color: #ff7200;
+
+    font-size: 16px;
+
+    vertical-align: middle;
+
+    margin-right: 5px;
+}
+
+
+/* =========================
+   FLASH MESSAGE
+========================= */
+
+.flash-message {
+    position: fixed;
+
+    top: 25px;
+    right: 25px;
+
+    min-width: 280px;
+    max-width: 380px;
+
+    padding: 15px 20px;
+
+    border-radius: 10px;
+
+    background: #16a34a;
+
+    color: #fff;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35);
+
+    z-index: 99999;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateX(120%);
+
+    transition: all 0.4s ease;
+}
+
+
+/* =========================
+   FLASH SHOW
+========================= */
+
+.flash-message.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateX(0);
+}
+
+
+/* =========================
+   SUCCESS ICON
+========================= */
+
+.flash-message::before {
+    content: "✓";
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 25px;
+
+    height: 25px;
+
+    margin-right: 8px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.2);
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.flash-message.error {
+    background: #dc2626;
+}
+
+
+/* =========================
+   ERROR ICON
+========================= */
+
+.flash-message.error::before {
+    content: "!";
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .booking-page {
+        padding: 30px 15px 50px;
+    }
+
+
+    .booking-heading h1 {
+        font-size: 32px;
+    }
+
+
+    .booking-heading p {
+        font-size: 14px;
+    }
+
+
+    .booking-card {
+        padding: 25px 18px;
+
+        border-radius: 17px;
+    }
+
+
+    .booking-form {
+        grid-template-columns: 1fr;
+
+        gap: 17px;
+    }
+
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+
+    .booking-btn {
+        grid-column: auto;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .flash-message {
+        top: 15px;
+
+        left: 15px;
+
+        right: 15px;
+
+        min-width: auto;
+
+        max-width: none;
+
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .booking-heading h1 {
+        font-size: 28px;
+    }
+
+
+    .booking-card {
+        padding: 22px 15px;
+    }
+
+
+    .form-group input {
+        height: 49px;
+
+        font-size: 14px;
+    }
+}
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="booking-page">
+
+
+        <!-- BACK HOME -->
+
+        <a href="/" class="back-home">
+
+            <i class='bx bx-arrow-back'></i>
+
+            Back to Home
+
+        </a>
+
+
+        <!-- HEADING -->
+
+        <div class="booking-heading">
+
+            <span class="small-title">
+                RIDEWAVE
+            </span>
+
+            <h1>
+                Book Your <span>Car</span>
+            </h1>
+
+            <p>
+                Fill in your details to rent your car
+            </p>
+
+        </div>
+
+
+        <!-- BOOKING CARD -->
+
+        <div class="booking-card">
+
+
+            <form
+                id="bookingForm"
+                class="booking-form"
+            >
+
+
+                <!-- SELECTED CAR -->
+
+                <div class="form-group full">
+
+                    <label>
+
+                        <i class='bx bx-car'></i>
+
+                        Selected Car
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="car"
+                        name="car"
+                        value="<%= car %>"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-user'></i>
+
+                        Your Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-envelope'></i>
+
+                        Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-phone'></i>
+
+                        Phone
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-map'></i>
+
+                        Pickup Location
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="pickupLocation"
+                        name="pickupLocation"
+                        placeholder="Enter pickup location"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PICKUP DATE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-calendar'></i>
+
+                        Pickup Date
+
+                    </label>
+
+                    <input
+                        type="date"
+                        id="pickupDate"
+                        name="pickupDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- RETURN DATE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        <i class='bx bx-calendar-check'></i>
+
+                        Return Date
+
+                    </label>
+
+                    <input
+                        type="date"
+                        id="returnDate"
+                        name="returnDate"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="booking-btn"
+                >
+
+                    Confirm Booking
+
+                    <i class='bx bx-check-circle'></i>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- INFO -->
+
+            <div class="booking-info">
+
+                <i class='bx bx-info-circle'></i>
+
+                Your booking will be reviewed and confirmed
+                by the RideWave team.
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+function showFlash(message, type = "success") {
+    const flash = document.createElement("div");
+
+    flash.className = `flash-message ${type}`;
+
+    flash.innerText = message;
+
+    document.body.appendChild(flash);
+
+    setTimeout(() => flash.classList.add("show"), 10);
+
+    setTimeout(() => {
+        flash.classList.remove("show");
+
+        setTimeout(() => flash.remove(), 400);
+    }, 1000);
+}
+
+
+
+
+
+
+
+
+        const bookingForm =
+            document.getElementById("bookingForm");
+
+
+        /* TODAY */
+
+        const today =
+            new Date().toISOString().split("T")[0];
+
+
+        document.getElementById("pickupDate").min =
+            today;
+
+        document.getElementById("returnDate").min =
+            today;
+
+
+        /* PICKUP DATE */
+
+        document
+            .getElementById("pickupDate")
+            .addEventListener("change", function () {
+
+                document.getElementById("returnDate").min =
+                    this.value;
+
+            });
+
+
+        /* BOOKING */
+
+        bookingForm.addEventListener(
+            "submit",
+            async function (e) {
+
+                e.preventDefault();
+
+
+                const bookingData = {
+
+                    car:
+                        document.getElementById("car").value,
+
+                    name:
+                        document.getElementById("name").value,
+
+                    email:
+                        document.getElementById("email").value,
+
+                    phone:
+                        document.getElementById("phone").value,
+
+                    pickupLocation:
+                        document.getElementById("pickupLocation").value,
+
+                    pickupDate:
+                        document.getElementById("pickupDate").value,
+
+                    returnDate:
+                        document.getElementById("returnDate").value
+
+                };
+
+
+                /* DATE CHECK */
+
+              if (
+    new Date(bookingData.returnDate) <
+    new Date(bookingData.pickupDate)
+) {
+
+    showFlash(
+        "Return date pickup date se pehle nahi ho sakti.",
+        "error"
+    );
+
+    return;
+}
+
+
+try {
+
+    const response =
+        await fetch("/api/bookings", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body:
+                JSON.stringify(bookingData)
+
+        });
+
+
+    const data =
+        await response.json();
+
+if (response.ok) {
+    showFlash(
+        "Booking confirmed successfully! 🚗",
+        "success"
+    );
+
+    bookingForm.reset();
+
+    document.getElementById("car").value = "<%= car %>";
+
+    // Flash dikhne ke baad Home page par redirect
+    setTimeout(() => {
+        window.location.href = "/";
+    }, 1000);
+}
+        
+        else {
+
+        showFlash(
+            data.message ||
+            "Booking failed.",
+            "error"
+        );
+
+    }
+
+
+} catch (error) {
+
+    console.error(
+        "Booking Error:",
+        error
+    );
+
+    showFlash(
+        "Server se connection nahi ho raha.",
+        "error"
+    );
+
+}
+
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

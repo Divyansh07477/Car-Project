@@ -5,65 +5,42 @@ const carSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-    },
-
-    brand: {
-      type: String,
-      required: true,
-    },
-
-    model: {
-      type: String,
-      required: true,
-    },
-
-    year: {
-      type: Number,
-      required: true,
+      trim: true
     },
 
     category: {
       type: String,
-      enum: ["Sedan", "SUV", "Luxury", "Sports", "Hatchback"],
       required: true,
+      enum: ["Sedan", "SUV", "Hatchback", "Luxury", "Sports"]
+    },
+
+    transmission: {
+      type: String,
+      required: true,
+      enum: ["Automatic", "Manual"]
     },
 
     pricePerDay: {
       type: Number,
       required: true,
+      min: 0
     },
 
     image: {
       type: String,
-      default: "",
+      required: true
     },
 
-    description: {
-      type: String,
-      default: "",
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     },
 
-    seats: {
-      type: Number,
-      default: 5,
-    },
-
-    fuelType: {
-      type: String,
-      enum: ["Petrol", "Diesel", "Electric", "Hybrid"],
-      default: "Petrol",
-    },
-
-    transmission: {
-      type: String,
-      enum: ["Manual", "Automatic"],
-      default: "Automatic",
-    },
-
-    available: {
+    isAvailable: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   { timestamps: true }
 );

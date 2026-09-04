@@ -150,7 +150,7 @@
     position: relative;
 
     padding: 10px;
-
+    margin-top: 30px;
     border-radius: 25px;
 
     background: rgba(255, 255, 255, 0.88);
@@ -756,7 +756,31 @@
     cursor: pointer;
 }
 
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+    background: #ff6b00;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.25);
+}
 
+.back-home-btn i {
+    font-size: 20px;
+}
+
+.back-home-btn:hover {
+    background: #e85d00;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 107, 0, 0.35);
+}
 
 
 
@@ -817,20 +841,26 @@
 <body>
 
     <!-- TEAM PAGE -->
-    <section class="team-page" id="team">
+   <section class="team-page" id="team">
 
-        <!-- Heading -->
-        <div class="team-page-heading">
-            <span>Meet Our Expert Members</span>
+    <a href="/" class="back-home-btn">
+        <i class="bx bx-arrow-back"></i>
+        Back to Home
+    </a>
 
-            <h1>
-                Dedicated to Your <span>Satisfaction</span>
-            </h1>
+    <div class="team-heading">
+        <h1>
+            Meet Our Expert Members
+        </h1>
 
-            <p>
-                Meet the talented people behind RideWave.
-            </p>
-        </div>
+        <h2>
+            Dedicated to Your <span>Satisfaction</span>
+        </h2>
+
+        <p>
+            Meet the talented people behind RideWave.
+        </p>
+    </div>
 
 
         <!-- Team Container -->
@@ -857,15 +887,15 @@
         <i class="bx bxl-facebook"></i>
     </a>
 
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
+      <a href="https://github.com/Divyansh07477/Car-Project.git" target="_blank" rel="noopener noreferrer">
+    <i class="bx bxl-github"></i>
+</a>
 
     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
         <i class="bx bxl-instagram"></i>
     </a>
 
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+    <a href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
         <i class="bx bxl-linkedin"></i>
     </a>
 </div>
@@ -891,9 +921,9 @@
         <i class="bx bxl-facebook"></i>
     </a>
 
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
+    <a href="https://github.com/NikhilDhakad14/CAR-RENTALS" target="_blank" rel="noopener noreferrer">
+    <i class="bx bxl-github"></i>
+</a>
 
     <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
         <i class="bx bxl-instagram"></i>
@@ -953,34 +983,34 @@
 
             </div>
 
-           <div class="modal-social">
+         <div class="modal-social">
 
-    <a href="https://www.facebook.com/"
+    <a id="modalFacebook"
+       href="#"
        target="_blank"
-       rel="noopener noreferrer"
-       onclick="event.stopPropagation();">
+       rel="noopener noreferrer">
         <i class="bx bxl-facebook"></i>
     </a>
 
-    <a href="https://www.instagram.com/"
+    <a id="modalGithub"
+       href="#"
        target="_blank"
-       rel="noopener noreferrer"
-       onclick="event.stopPropagation();">
+       rel="noopener noreferrer">
+        <i class="bx bxl-github"></i>
+    </a>
+
+    <a id="modalInstagram"
+       href="#"
+       target="_blank"
+       rel="noopener noreferrer">
         <i class="bx bxl-instagram"></i>
     </a>
 
-    <a href="https://www.linkedin.com/"
+    <a id="modalLinkedin"
+       href="#"
        target="_blank"
-       rel="noopener noreferrer"
-       onclick="event.stopPropagation();">
+       rel="noopener noreferrer">
         <i class="bx bxl-linkedin"></i>
-    </a>
-
-    <a href="https://twitter.com/"
-       target="_blank"
-       rel="noopener noreferrer"
-       onclick="event.stopPropagation();">
-        <i class="bx bxl-twitter"></i>
     </a>
 
 </div>
@@ -994,7 +1024,6 @@
 
 
 
-
 <script>
 
 const teamMembers = {
@@ -1004,7 +1033,16 @@ const teamMembers = {
         role: "CEO",
         position: "Chief Executive Officer",
         image: "/images/ceo.png.png",
-        description: "Divyansh Singh is leading RideWave toward a smarter, more convenient, and customer-focused future in car rental mobility."
+
+        description:
+            "Divyansh Singh is leading RideWave toward a smarter, more convenient, and customer-focused future in car rental mobility.",
+
+        social: {
+            facebook: "https://www.facebook.com/",
+            github: "https://github.com/Divyansh07477",
+            instagram: "https://www.instagram.com/",
+            linkedin: "https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        }
     },
 
     nikhil: {
@@ -1012,15 +1050,24 @@ const teamMembers = {
         role: "Owner & Founder",
         position: "Founder & Business Head",
         image: "/images/manager.png",
-        description: "Nikhil Dhakad is the Owner & Founder of RideWave, driving the company’s vision with a strong focus on trust, innovation, and delivering a seamless car rental experience for every customer."
+
+        description:
+            "Nikhil Dhakad is the Owner & Founder of RideWave, driving the company’s vision with a strong focus on trust, innovation, and delivering a seamless car rental experience for every customer.",
+
+        social: {
+            facebook: "https://www.facebook.com/",
+            github: "https://github.com/NikhilDhakad14",
+            instagram: "https://www.instagram.com/",
+            linkedin: "https://www.linkedin.com/"
+        }
     }
 
 };
 
 
-/* =========================
-   OPEN MODAL
-========================= */
+// =========================
+// OPEN MODAL
+// =========================
 
 function openTeamModal(memberName) {
 
@@ -1031,10 +1078,11 @@ function openTeamModal(memberName) {
         return;
     }
 
+    // IMAGE
     document.getElementById("modalTeamImage").src = member.image;
-
     document.getElementById("modalTeamImage").alt = member.name;
 
+    // BASIC DETAILS
     document.getElementById("modalTeamName").textContent =
         member.name;
 
@@ -1048,6 +1096,24 @@ function openTeamModal(memberName) {
         member.description;
 
 
+    // =========================
+    // SOCIAL LINKS
+    // =========================
+
+    document.getElementById("modalFacebook").href =
+        member.social.facebook;
+
+    document.getElementById("modalGithub").href =
+        member.social.github;
+
+    document.getElementById("modalInstagram").href =
+        member.social.instagram;
+
+    document.getElementById("modalLinkedin").href =
+        member.social.linkedin;
+
+
+    // OPEN MODAL
     const modal = document.getElementById("teamModal");
 
     modal.classList.add("active");
@@ -1056,9 +1122,9 @@ function openTeamModal(memberName) {
 }
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
+// =========================
+// CLOSE MODAL
+// =========================
 
 function closeTeamModal() {
 
@@ -1070,9 +1136,9 @@ function closeTeamModal() {
 }
 
 
-/* =========================
-   CLOSE BUTTON
-========================= */
+// =========================
+// CLOSE BUTTON
+// =========================
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1092,7 +1158,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* CLICK OUTSIDE */
+    // =========================
+    // CLICK OUTSIDE MODAL
+    // =========================
 
     const modal =
         document.getElementById("teamModal");
@@ -1114,9 +1182,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-/* =========================
-   ESC KEY
-========================= */
+// =========================
+// ESC KEY
+// =========================
 
 document.addEventListener("keydown", function (event) {
 

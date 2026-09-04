@@ -27,6 +27,7 @@
     "@supabase/server": "^1.5.2",
     "@supabase/supabase-js": "^2.112.4",
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
     "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",

@@ -107,9 +107,6 @@ function showFlash(message, type = "success") {
 
 
 
-
-
-
 // ===============================
 // AUTH STATUS
 // ===============================
@@ -120,9 +117,13 @@ async function checkLoginStatus() {
 
         const authButtons = document.getElementById("authButtons");
         const userProfile = document.getElementById("userProfile");
+
+        // Naye UI ke elements
+        const userNameDisplay = document.getElementById("userNameDisplay");
+        const dropdownUserName = document.getElementById("dropdownUserName");
         const userEmail = document.getElementById("userEmail");
 
-        if (!authButtons || !userProfile || !userEmail) {
+        if (!authButtons || !userProfile) {
             return;
         }
 
@@ -132,7 +133,10 @@ async function checkLoginStatus() {
             authButtons.style.display = "none";
             userProfile.style.display = "flex";
 
-            userEmail.textContent = data.user.name;
+            // User name aur email render karna
+            if (userNameDisplay) userNameDisplay.textContent = data.user.name || "Admin";
+            if (dropdownUserName) dropdownUserName.textContent = data.user.name || "Admin";
+            if (userEmail) userEmail.textContent = data.user.email || "";
         } else {
             authButtons.style.display = "flex";
             userProfile.style.display = "none";
@@ -168,14 +172,11 @@ function showFlash(message, type = "success") {
     }, 2500);
 }
 
-
 // ===============================
 // LOGOUT
 // ===============================
 async function handleLogout() {
-
     try {
-
         const response = await fetch("/api/auth/logout", {
             method: "POST",
             credentials: "include"
@@ -184,18 +185,12 @@ async function handleLogout() {
         const data = await response.json();
 
         if (response.ok) {
-
-            // Flash message save karo
             localStorage.setItem(
                 "flashMessage",
                 data.message || "Logged out successfully!"
             );
-
-            // Home page par jao
             window.location.href = "/";
-
         } else {
-
             showFlash(
                 data.message || "Logout failed.",
                 "error"
@@ -203,9 +198,7 @@ async function handleLogout() {
         }
 
     } catch (error) {
-
         console.error("Logout Error:", error);
-
         showFlash(
             "Server se connection nahi ho raha.",
             "error"
@@ -213,6 +206,35 @@ async function handleLogout() {
     }
 }
 
+// ===============================
+// DROPDOWN SETUP
+// ===============================
+function setupProfileDropdown() {
+    const dropdownBtn = document.getElementById("profileDropdownBtn");
+    const dropdownMenu = document.getElementById("profileDropdownMenu");
+    const dropdownArrow = document.getElementById("dropdownArrow");
+
+    if (dropdownBtn && dropdownMenu) {
+        // Toggle on click
+        dropdownBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle("hidden");
+            if (dropdownArrow) {
+                dropdownArrow.classList.toggle("rotate-180");
+            }
+        });
+
+        // Close on click outside
+        document.addEventListener("click", (e) => {
+            if (!dropdownMenu.contains(e.target) && !dropdownBtn.contains(e.target)) {
+                dropdownMenu.classList.add("hidden");
+                if (dropdownArrow) {
+                    dropdownArrow.classList.remove("rotate-180");
+                }
+            }
+        });
+    }
+}
 
 // ===============================
 // PAGE LOAD
@@ -225,20 +247,18 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutBtn.addEventListener("click", handleLogout);
     }
 
-    // ===============================
-    // SHOW SAVED FLASH MESSAGE
-    // ===============================
+    // Dropdown functionality initialize
+    setupProfileDropdown();
+
+    // Show saved flash message
     const flashMessage = localStorage.getItem("flashMessage");
 
     if (flashMessage) {
-
-        showFlash(
-            flashMessage,
-            "success"
-        );
-
+        showFlash(flashMessage, "success");
         localStorage.removeItem("flashMessage");
     }
 
     checkLoginStatus();
 });
+
+

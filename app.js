@@ -7,10 +7,10 @@ const { MongoStore } = require("connect-mongo");
 const path = require("path");
 const contactRoutes = require("./routes/contact");
 const authRoutes = require("./routes/auth");
-
+const carRoutes = require("./routes/carRoutes");
 const app = express();
 const PORT = process.env.PORT || 5500;
-
+const bookingRoutes = require("./routes/booking");
 const dbUrl = process.env.ATLASDB_URL;
 
 if (!dbUrl) {
@@ -52,16 +52,27 @@ app.use(
     })
 );
 
+app.use("/api/bookings", bookingRoutes);
+
+
+
 // teams
 app.get("/teams", (req, res) => {
     res.render("teams");
 });
 
-
+// Booking Page
+app.get("/booking", (req, res) => {
+    res.render("booking", {
+        car: req.query.car || ""
+    });
+});
 // contact routes
 app.use("/api/contact", contactRoutes);
 // Auth routes
 app.use("/api/auth", authRoutes);
+// Car routes
+app.use("/api/cars", carRoutes);
 
 // Test
 app.get("/test", (req, res) => {
@@ -87,6 +98,11 @@ app.get("/contact", (req, res) => {
 
 app.get("/admin", (req, res) => {
     res.render("admin");
+});
+
+
+app.get("/carAdmin", (req, res) => {
+    res.render("carAdmin");
 });
 
 // MongoDB + Server

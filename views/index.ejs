@@ -1,581 +1,1351 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Ride Wave</title>
 
-    <link rel="icon" type="image/png" href="images/title.png.jpeg">
-    <link rel="stylesheet" href="css/style.css">
-    
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
+    <!-- HEADER -->
+    <header class="header">
 
-    <div class="background"></div>
+        <div class="nav">
 
-    <div class="auth-card">
+            <!-- Menu Icon -->
+            <div class="menu-icon">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
 
-        <!-- tera signup form -->
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <img src="/images/logo.png" alt="RideWave">
+            </a>
 
-    </div>
+            <!-- NAV LINKS -->
+            <div class="nav-links">
 
+                <a href="/" class="nav-link">
+                    Home
+                </a>
 
-      <div class="background"></div>
+                <a href="/#rentals" class="nav-link">
+                    Rentals
+                </a>
 
-    <div class="auth-card">
-        <!-- tera signup form -->
-    </div>
-   <!--header-->
-   <header class="header">
-<!--nav-->
-<div class="nav">
-    <div class="menu-icon">
-        <!--menu icon-->
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-    </div>
-    <!--logo-->
-    
-   <a href="#" class="logo">
-    <img src="images/logo.png" alt="RideWave">
-</a>
-   <!-- nav links -->
-<div class="nav-links">
+                <a href="/teams" class="nav-link">
+                    Teams
+                </a>
 
-    <a href="/" class="nav-link">
-        Home
-    </a>
+                <a href="/#faq" class="nav-link">
+                    FAQ
+                </a>
 
-    <a href="/#rentals" class="nav-link">
-        Rentals
-    </a>
+                <a href="/#blog" class="nav-link">
+                    Blog
+                </a>
 
-    <a href="/teams" class="nav-link">
-        Teams
-    </a>
+                <a href="/contact" class="nav-link">
+                    Contact
+                </a>
 
-    <a href="/#faq" class="nav-link">
-        FAQ
-    </a>
-
-    <a href="/blog" class="nav-link">
-        Blog
-    </a>
-
-    <a href="/contact" class="nav-link">
-        Contact
-    </a>
-
-</div>
+            </div>
 
 
-<!-- right-nav -->
-<div class="right-nav">
+            <!-- RIGHT NAV -->
+            <div class="right-nav">
 
-    <i class="bx bx-search search-icon"></i>
+                <i class="bx bx-search search-icon"></i>
 
-    <!-- Search input box -->
-    <div class="search-box container">
-        <input type="search" placeholder="Search here...">
-    </div>
+                <!-- Search -->
+                <div class="search-box container">
+                    <input type="search" placeholder="Search here...">
+                </div>
 
-    <!-- LOGGED OUT -->
-    <div id="authButtons">
 
-        <div class="login-btn">
-            <a href="/login" class="btn">Log In</a>
+                <!-- LOGGED OUT -->
+                <div id="authButtons">
+
+                    <div class="login-btn">
+                        <a href="/login" class="btn">
+                            Log In
+                        </a>
+                    </div>
+
+                    <div class="sign-up-btn">
+                        <a href="/signup" class="btn">
+                            Sign Up
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- LOGGED IN -->
+                <div id="userProfile" class="relative hidden">
+
+                    <!-- Profile Button -->
+                    <button
+                        type="button"
+                        id="profileDropdownBtn"
+                        class="flex items-center gap-2.5 px-4 py-1.5 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-all shadow-sm"
+                    >
+
+                        <i class="bx bx-user-circle text-xl text-gray-500"></i>
+
+                        <span id="userNameDisplay">
+                            Admin
+                        </span>
+
+                        <i
+                            class="bx bx-chevron-down text-gray-400 text-sm transition-transform duration-200"
+                            id="dropdownArrow"
+                        ></i>
+
+                    </button>
+
+
+                    <!-- Dropdown -->
+                    <div
+                        id="profileDropdownMenu"
+                        class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl ring-1 ring-black/5 divide-y divide-gray-100 z-50 overflow-hidden"
+                    >
+
+                        <!-- User Info -->
+                        <div class="px-4 py-3 bg-white">
+
+                            <p
+                                class="text-sm font-semibold text-gray-800"
+                                id="dropdownUserName"
+                            >
+                                Admin
+                            </p>
+
+                            <p
+                                class="text-xs text-gray-500 truncate"
+                                id="userEmail"
+                            >
+                                admin@ridewave.com
+                            </p>
+
+                        </div>
+
+
+                        <!-- Menu -->
+                        <div class="py-1">
+
+                            <a
+                                href="/admin"
+                                class="flex items-center justify-between px-4 py-2.5 text-sm font-medium text-orange-500 bg-orange-50/50 hover:bg-orange-50 transition-colors"
+                            >
+
+                                <span class="flex items-center gap-2.5">
+
+                                    <i class="bx bx-tachometer text-base"></i>
+
+                                    <span>
+                                        Admin Dashboard
+                                    </span>
+
+                                </span>
+
+                                <i class="bx bx-chevrons-right text-base text-gray-400"></i>
+
+                            </a>
+
+
+                            <a
+                                href="/bookings"
+                                class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                            >
+
+                                <i class="bx bx-calendar-check text-base text-gray-400"></i>
+
+                                <span>
+                                    My Bookings
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="button"
+                                id="logoutBtn"
+                                class="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
+                            >
+
+                                <i class="bx bx-log-out text-base text-gray-400"></i>
+
+                                <span>
+                                    Logout
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="sign-up-btn">
-            <a href="/signup" class="btn">Sign Up</a>
-        </div>
-    </div>
+    </header>
 
-    <!-- LOGGED IN -->
-    <div
-        id="userProfile"
-        style="display: none; align-items: center; gap: 10px;"
-    >
 
-        <span
-            id="userEmail"
-            style="font-size: 14px; font-weight: 500; color: #333;"
-        ></span>
 
-        <button
-            id="logoutBtn"
-            class="logout-btn"
-        >
-            Log Out
-        </button>
-
-    </div>
-
-</div>
-  
-</div>
-
-</header>
-
-    <!-- home -->
+    <!-- HOME -->
     <section class="home" id="home">
-     <!-- home form -->
-        <div class="home-container container"> 
-         
-        <form action="" class="home-form"> 
-              <h2>Find your perfect <span>rental car today</span></h2>
+
+        <div class="home-container container">
+
+            <!-- HOME FORM -->
+          <form action="/search" method="GET" class="home-form">
+
+                <h2>
+                    Find your perfect
+                    <span>rental car today</span>
+                </h2>
+
+
                 <select name="" id="cars">
 
-                      <option value="cars"> Select Car Type</option> 
-                    <option value="cars"> Sedan</option> 
-                       <option value="cars">SUV</option> 
-                          <option value="cars">Sports</option>  
-                  
+                    <option value="cars">
+                        Select Car Type
+                    </option>
+
+                    <option value="cars">
+                        Sedan
+                    </option>
+
+                    <option value="cars">
+                        SUV
+                    </option>
+
+                    <option value="cars">
+                        Sports
+                    </option>
 
                 </select>
-             <input type="date" name="" id ="" placeholder="Pick-up Date">
-             <input type="date" name="" id ="" placeholder="Return Date">
-             <input type="text" name="" id ="" placeholder="Pick-up Location">
-             <input  type="submit" value="Search" class="home-form-btn">          
-        </form>
-          
-             <!-- home page  -->
-         <div class="bmw-card">
-    <img src="images/bmw m5.png" class="bmw-car" alt="BMW M5 CS">
-</div>
+
+
+                <input
+                    type="date"
+                    name=""
+                    id=""
+                    placeholder="Pick-up Date"
+                >
+
+                <input
+                    type="date"
+                    name=""
+                    id=""
+                    placeholder="Return Date"
+                >
+
+                <input
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Pick-up Location"
+                >
+
+                <input
+                    type="submit"
+                    value="Search"
+                    class="home-form-btn"
+                >
+
+            </form>
+
+
+            <!-- BMW -->
+            <div class="bmw-card">
+
+                <img
+                    src="/images/bmw m5.png"
+                    class="bmw-car"
+                    alt="BMW M5 CS"
+                >
+
+            </div>
+
         </div>
+
     </section>
 
 
 
+    <!-- RENTALS -->
+    <section class="rentals" id="rentals">
 
-<!-- Rentals  -->
-<section class="rentals" id="rentals">
-    <!--heading-->
-<div class="heading">
-    <span>Car Rentals</span>
-   <h2>Our Top Rentals <br>Comfort, Affordability & Convenience</h2>
-</div>
-<!--rental container--->
-<div class="rental-container container">
-    <!--box1-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-1.png" alt="">
-        <h3>Rolls-Royce Spectre</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div>
-     <!--box2-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-2.png" alt="">
-        <h3>Macan 4</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div> <!--box3-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-3.png" alt="">
-        <h3>Cayenne S E-Hybrid</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div> <!--box4-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-4.png" alt="">
-        <h3>Nissan GT-R</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div> <!--box5-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-5.png" alt="">
-        <h3>Panamera Turbo</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div> <!--box6-->
-    <div class="rental-box">
-        <div class="rental-top">
-            <h4>Sedan</h4>
-            <i class="bx bx-heart"></i>
-        </div>
-        <img src="images/rental-6.png" alt="">
-        <h3>Nissan Ariya</h3>
-        <span>Automatic</span>
-        <div class="rental-btn-wrapper">
-            <p class="price">$299<span></span></p>
-            <a href="#" class="rental-btn">Rent Now</a>
-        </div>
-    </div>
-</div>
-</section>
-<!-- Team Section -->
-<section class="team" id="team">
+        <!-- Heading -->
+        <div class="heading">
 
-    <!-- Heading -->
-    <div class="heading">
-        <span>Meet Our Expert Members</span>
-        <h2>Dedicated to Your Satisfaction</h2>
-    </div>
+            <span>
+                Car Rentals
+            </span>
 
-    <!-- Team Container -->
-    <div class="team-container container">
+            <h2>
+                Our Top Rentals
+                <br>
+                Comfort, Affordability & Convenience
+            </h2>
 
-        <!-- Team Box 1 -->
-        <div class="team-box">
-            <img src="images/owner.png.png" alt="" class="team-img">
+        </div>
 
-            <div class="team-data">
-                <h3>Nikhil Dhakad</h3>
-                <span>Owner & Founder</span>
 
-                <div class="team-social">
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+        <!-- Rental Container -->
+        <div class="rental-container container">
+
+
+            <!-- BOX 1 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        Luxury
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-1.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Rolls-Royce Spectre
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Rolls-Royce%20Spectre"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOX 2 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        SUV
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-2.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Macan 4
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Macan%204"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOX 3 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        SUV
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-3.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Cayenne S E-Hybrid
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Cayenne%20S%20E-Hybrid"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOX 4 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        Sports
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-4.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Nissan GT-R
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Nissan%20GT-R"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOX 5 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        Sports
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-5.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Panamera Turbo
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Panamera%20Turbo"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOX 6 -->
+            <div class="rental-box">
+
+                <div class="rental-top">
+
+                    <h4>
+                        SUV
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="/images/rental-6.png"
+                    alt=""
+                >
+
+
+                <h3>
+                    Nissan Ariya
+                </h3>
+
+                <span>
+                    Automatic
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        $299
+                        <span></span>
+                    </p>
+
+
+                    <a
+                        href="/booking?car=Nissan%20Ariya"
+                        class="rental-btn"
+                    >
+                        Rent Now
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TEAM SECTION -->
+    <section class="team" id="team">
+
+        <div class="heading">
+
+            <span>
+                Meet Our Expert Members
+            </span>
+
+            <h2>
+                Dedicated to Your Satisfaction
+            </h2>
+
+        </div>
+
+
+        <div class="team-container container">
+
+
+            <!-- TEAM 1 -->
+            <div class="team-box">
+
+                <img
+                    src="/images/owner.png.png"
+                    alt=""
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>
+                        Nikhil Dhakad
+                    </h3>
+
+                    <span>
+                        Owner & Founder
+                    </span>
+
+
+                    <div class="team-social">
+
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+
+                        <a
+                            href="https://github.com/NikhilDhakad14"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-github"></i>
+                        </a>
+
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-linkedin"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM 2 -->
+            <div class="team-box">
+
+                <img
+                    src="/images/ceo.png.png"
+                    alt=""
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>
+                        Divyansh Singh
+                    </h3>
+
+                    <span>
+                        CEO
+                    </span>
+
+
+                    <div class="team-social">
+
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+
+                        <a
+                            href="https://github.com/Divyansh07477"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-github"></i>
+                        </a>
+
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-linkedin"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM 3 -->
+            <div class="team-box">
+
+                <img
+                    src="/images/manager.png"
+                    alt=""
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>
+                        Nikhil Dhakad
+                    </h3>
+
+                    <span>
+                        General Manager
+                    </span>
+
+
+                    <div class="team-social">
+
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+
+                        <a
+                            href="https://github.com/NikhilDhakad14"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-github"></i>
+                        </a>
+
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-linkedin"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM 4 -->
+            <div class="team-box">
+
+                <img
+                    src="/images/enginner.png"
+                    alt=""
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>
+                        Divyansh Singh
+                    </h3>
+
+                    <span>
+                        Machenical Engineer
+                    </span>
+
+
+                    <div class="team-social">
+
+                        <a
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+
+                        <a
+                            href="https://github.com/Divyansh07477"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-github"></i>
+                        </a>
+
+                        <a
+                            href="https://www.instagram.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="bx bxl-linkedin"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+
+        <div class="heading">
+
+            <span>
+                FREQUENTLY ASKED
+            </span>
+
+            <h2>
+                Your Questions Answered
+            </h2>
+
+        </div>
+
+
+        <div class="accordion-container container">
+
+
+            <!-- FAQ 1 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        How much does it cost to rent a car
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        Rental prices very based on car type duration and season.
+                        Our rates start from $49/day for compact cars and go up
+                        to $299/day for luxary vehicles. Weekly and montly
+                        discounts are avaiable.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAQ 2 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        What do I need to rent a car
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        You need a valid driver license a credit card in your
+                        name and proof of insurance. International renters may
+                        need an International Driving Permit along with their
+                        license.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAQ 3 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        Can I rent a car for someone else?
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        The person renting the car must be present at pickup
+                        with their license and credit card; however, you can
+                        add additional drivers to the rental agreement for
+                        a small fee.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAQ 4 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        What is your cancellation policy?
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        Free cancellation up to 48 hours before pickup.
+                        Cancellation within 48 hours may incur a fee.
+                        No-shows are charged the full rental amount.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAQ 5 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        Is Insurance included in the rental?
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        Basic insurance is included in the rentals.
+                        Additional coverage options like collision damage
+                        and theft protection are available at checkout.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAQ 6 -->
+            <div class="accordion-item">
+
+                <div class="accordion-header">
+
+                    <h2 class="accordion-title">
+                        Can I return the car to a different location?
+                    </h2>
+
+                    <i class="bx bx-plus accordion-icon"></i>
+
+                </div>
+
+                <div class="accordion-content">
+
+                    <p class="accordion-answer">
+                        Yes, one-way rentals are available between most
+                        locations. A one-way fee may apply depending on
+                        the distance between pickup and drop-off locations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- BLOG -->
+    <section class="blog" id="blog">
+
+        <div class="heading">
+
+            <span>
+                Our Blog
+            </span>
+
+            <h2>
+                Blog & News
+            </h2>
+
+        </div>
+
+
+        <div class="blog-container container">
+
+
+            <!-- BLOG 1 -->
+            <div class="box">
+
+                <img
+                    src="/images/blog-1.jpg"
+                    alt=""
+                >
+
+                <span>
+                    15 May 2026
+                </span>
+
+                <h3>
+                    Top Rental Tips for 2025
+                </h3>
+
+                <p>
+                    Discover the best strategies to save money on car rentals
+                    and find the perfect vehicle for your journey.
+                </p>
+
+                <a href="#" class="blog-btn">
+                    Read More
+                    <i class="bx bx-right-arrow-alt"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- BLOG 2 -->
+            <div class="box">
+
+                <img
+                    src="/images/blog-2.jpg"
+                    alt=""
+                >
+
+                <span>
+                    31 July 2026
+                </span>
+
+                <h3>
+                    How to Choose Right Rental Car
+                </h3>
+
+                <p>
+                    Learn how to choose the right car based on your budget,
+                    trip type, comfort, and the number of passengers.
+                </p>
+
+                <a href="#" class="blog-btn">
+                    Read More
+                    <i class="bx bx-right-arrow-alt"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- BLOG 3 -->
+            <div class="box">
+
+                <img
+                    src="/images/blog-3.0.png"
+                    alt=""
+                >
+
+                <span>
+                    30 Aug 2026
+                </span>
+
+                <h3>
+                    Essential Things to Check Before Renting
+                </h3>
+
+                <p>
+                    Check these important things before renting a car,
+                    including documents, fuel, condition, insurance,
+                    and rental terms.
+                </p>
+
+                <a href="#" class="blog-btn">
+                    Read More
+                    <i class="bx bx-right-arrow-alt"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <section class="footer">
+
+        <div class="footer-container container">
+
+
+            <!-- Footer Box 1 -->
+            <div class="footer-box">
+
+                <a href="/" class="logo">
+
+                    <img
+                        src="/images/footer.png"
+                        alt="RideWave"
+                    >
+
+                </a>
+
+
+                <div class="social">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <i class="bx bxl-facebook"></i>
                     </a>
-                    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+
+                    <a
+                        href="https://twitter.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <i class="bx bxl-twitter"></i>
                     </a>
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+
+                    <a
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <i class="bx bxl-instagram"></i>
                     </a>
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                        <i class="bx bxl-linkedin"></i>
+
+                    <a
+                        href="https://www.youtube.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-youtube"></i>
                     </a>
+
                 </div>
+
             </div>
-        </div>
 
-        <!-- Team Box 2 -->
-        <div class="team-box">
-            <img src="images/ceo.png.png" alt="" class="team-img">
 
-            <div class="team-data">
-                <h3>Divyansh Singh</h3>
-                <span>CEO</span>
-<div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
 
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
+            <!-- Pages -->
+            <div class="footer-box">
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                <h3>
+                    Pages
+                </h3>
 
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/#rentals">
+                    Rentals
+                </a>
+
+                <a href="/teams">
+                    Teams
+                </a>
+
+                <a href="/contact">
+                    Contact
+                </a>
+
             </div>
-        </div>
 
-        <!-- Team Box 3 -->
-        <div class="team-box">
-            <img src="images/manager.png" alt="" class="team-img">
 
-            <div class="team-data">
-                <h3>Nikhil Dhakad</h3>
-                <span>General Manager</span>
 
-                <div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
+            <!-- Legal -->
+            <div class="footer-box">
 
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
+                <h3>
+                    Legal
+                </h3>
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                <a href="#">
+                    Privacy
+                </a>
 
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
+                <a href="#">
+                    Refunds Policy
+                </a>
+
+                <a href="#">
+                    Cookie Policy
+                </a>
+
             </div>
-        </div>
 
-        <!-- Team Box 4 -->
-        <div class="team-box">
-            <img src="images/enginner.png" alt="" class="team-img">
 
-            <div class="team-data">
-                <h3>Divyansh Singh</h3>
-                <span>Machenical Engineer</span>
-<div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
 
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
+            <!-- Contact -->
+            <div class="footer-box">
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                <h3>
+                    Contact
+                </h3>
 
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
+                <p>
+                    India
+                </p>
+
+                <p>
+                    United States
+                </p>
+
+                <p>
+                    Japan
+                </p>
+
+                <p>
+                    Germany
+                </p>
+
             </div>
-        </div>
-
-    </div>
-</section>
-<!-- FAQ -->
-
-<section class="faq" id="faq">
-    <!-- heading -->
-     <div class="heading">
-     
-  <span> FREQUENTLY ASKED</span>
-  <h2> Your Questions Answered</h2>
-</div>
-
-<!-- Faq container -->
-
-<div class="accordion-container  container">
-    <!-- accordion item 1-->
-
-    <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title"> How much does it cost to rent a car</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-                Rental prices very based on car type duration and season. Our 
-                rates start  from $49/day for compact cars and go up to $299/day
-                for luxary vehicles. Weekly and montly discounts are avaiable
-            </p>
-        </div>
-    </div>
-
-
-<!--accordion item 2  -->
-  <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title">What do I need to rent a car</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-              You need a valid driver license a credit card in your name 
-              and proof of insurance International renters may need an 
-              International Driving Permit along with their license 
-            </p>
-        </div>
-    </div>
-<!--accordion item 3  -->
-  <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title">Can I rent a car for someone else ?</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-              The per renting the car must be present of pickup with thier licens and credit card; however,you can add additional drivers to the rental agreement for a small fee.
-            </p>
-        </div>
-    </div>
-<!--accordion item 4 -->
-  <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title">What is your cancellation policy?</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-            Free cancellation up up to 48 hours before pickup. Cancellation within 48 hours may insure a fee. No-shows are charged the full rental amount;
-            </p>
-        </div>
-    </div>
-<!--accordion item 5  -->
-  <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title">Is Insurence included in the rental?</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-           Basic insurence is included in the rentals; Additional coverage options like collison damages and theft protection are available of checkout;
-            </p>
-        </div>
-    </div>
-<!--accordion item 6  -->
-  <div class="accordion-item">
-        <div class="accordion-header">
-            <h2 class="accordion-title">Can I return the car to a diffrent location?</h2>
-            <i class="bx bx-plus accordion-icon"></i>
-
-        </div>
-        <div class="accordion-content">
-            <p class="accordion-answer">
-            Yes, one-way rental are available between most location; A one way fee may apply depending on the distence between pickup and drop out locations;
-            </p>
-        </div>
-    </div>
-
-
-</div>
-
-
-</section>
-
-<!-- blog -->
-
-<section class="blog" id="blog">
-    <!-- heading -->
-
-    <div class="heading">
-        <span>Our Blog</span>
-        <h2> Blog & News</h2>
 
         </div>
 
-    <div class="blog-container container">
-        <!-- box 1 -->
-         <div class="box">
-            <img src="images/blog-1.jpg" alt="">
-            <span>15 May 2026</span>
-            <h3>Top Rental Tips for 2025</h3>
-            <p> Discover the best strategies to save money on car car rentals and find 
-                 the perfect vehicle for your journey</p>
-                 <a href="#" class="blog-btn"></a>
-                 Read More <i class="bx bx-right-arrow-alt"></i>
-
-                 </div>
-
-
-                  <!-- box 2 -->
-         <div class="box">
-            <img src="images/blog-2.jpg" alt="">
-           <span>31 July 2026</span>
-                    <h3>How to Choose Right Rental Car</h3>
-                   <p>Learn how to choose the right car based on your budget, trip type, comfort, and the number of passengers.</p>
-                 <a href="#" class="blog-btn"></a>
-                 Read More <i class="bx bx-right-arrow-alt"></i>
-
-                 </div>
-
-
-                  <!-- box 3 -->
-         <div class="box">
-            <img src="images/blog-3.0.png" alt="">
-           <span>30 Aug 2026</span>
-           <h3>Essential Things to Check Before Renting</h3>
-               <p>Check these important things before renting a car, including documents, fuel,
-                          condition, insurance, and rental terms.</p>
-                 <a href="#" class="blog-btn"></a>
-                 Read More <i class="bx bx-right-arrow-alt"></i>
-
-                 </div>
-         </div>
-    
-</section>
-
-
-<!--footer-->
-<section class="footer">
-    <div class="footer-container container">
-        <div class="footer-box">
-          <a href="#" class="logo">
-    <img src="images/footer.png" alt="RideWave">
-</a>
-             <div class="social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
-
-    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-twitter"></i>
-    </a>
-
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
-
-    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-youtube"></i>
-    </a>
-</div>
-        </div>
-    
-    <div class="footer-box">
-        <h3>Pages</h3>
-        <a href="#">Home</a>
-        <a href="#">Rentals</a>
-        <a href="#">Location</a>
-        <a href="#"> Deals</a>
-    </div>
-     <div class="footer-box">
-        <h3>Legal</h3>
-        <a href="#">Privacy</a>
-        <a href="#">Refunds Policy</a>
-        <a href="#">Cookie Policy</a>
-    </div>
-    <div class="footer-box">
-        <h3>Contact</h3>
-        <p>India</p>
-        <p>United States</p>
-        <p>Japan</p>
-        <p>Germany</p>
-    </div>
-</div>
     </section>
-<!--copyright-->
-<div class="copyright">
-    <p>&#169; RideWave 2026</p>
-</div>
 
 
-<script src="js/main.js"></script>   
+
+    <!-- COPYRIGHT -->
+    <div class="copyright">
+
+        <p>
+            &#169; RideWave 2026
+        </p>
+
+    </div>
+
+
+
+    <!-- MAIN JS -->
+    <script src="/js/main.js"></script>
+
 </body>
+
 </html>
