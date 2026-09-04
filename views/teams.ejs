@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Team | RideWave</title>
+      <link rel="icon" type="image/png" href="images/title.png.jpeg">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet">
+        <style>
+/* =====================================================
+   RIDEWAVE - PREMIUM TEAM PAGE
+   ===================================================== */
+
+.team-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 110px 6% 70px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background: #f8fafc;
+}
+
+
+/* Background glow */
+.team-page::before {
+    content: "";
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: -180px;
+    left: -160px;
+
+    background: rgba(194, 65, 12, 0.08);
+
+    border-radius: 50%;
+    filter: blur(90px);
+
+    pointer-events: none;
+}
+
+.team-page::after {
+    content: "";
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    right: -160px;
+    bottom: -180px;
+
+    background: rgba(23, 37, 84, 0.09);
+
+    border-radius: 50%;
+    filter: blur(90px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   HEADING
+   ===================================================== */
+
+.team-page-heading {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    margin-bottom: 55px;
+}
+
+.team-page-heading > span {
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    color: #c2410c;
+}
+
+.team-page-heading h1 {
+    margin: 0;
+
+    font-size: 44px;
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color: #172554;
+
+    letter-spacing: -1px;
+}
+
+.team-page-heading h1 span {
+    color: #c2410c;
+}
+
+.team-page-heading p {
+    margin-top: 15px;
+
+    font-size: 16px;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   TEAM CONTAINER
+   ===================================================== */
+
+.team-container {
+    width: 100%;
+    max-width: 1050px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 35px;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =====================================================
+   TEAM CARD
+   ===================================================== */
+
+.team-box {
+    position: relative;
+
+    padding: 10px;
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    border: 1px solid rgba(226, 232, 240, 0.9);
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10);
+
+    overflow: hidden;
+
+    transition: all 0.4s ease;
+}
+
+.team-box:hover {
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 30px 65px rgba(15, 23, 42, 0.15);
+}
+
+
+/* =====================================================
+   IMAGE
+   ===================================================== */
+
+.team-img {
+    width: 100%;
+    height: 350px;
+
+    display: block;
+
+    /*
+       IMPORTANT:
+       cover ki jagah contain
+       isse photo crop nahi hogi
+    */
+    object-fit: contain;
+
+    object-position: center;
+
+    border-radius: 19px;
+
+    background: #f1f5f9;
+
+    transition: transform 0.5s ease;
+}
+
+.team-box:hover .team-img {
+    transform: scale(1.02);
+}
+
+
+/* =====================================================
+   TEAM DATA
+   ===================================================== */
+
+.team-data {
+    position: relative;
+
+    text-align: center;
+
+    padding: 20px 10px 18px;
+
+    background: transparent !important;
+
+    margin: 0 !important;
+
+    z-index: 2;
+}
+
+.team-data h3 {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: 750;
+
+    color: #172554;
+}
+
+.team-data > span {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #c2410c;
+}
+
+
+/* =====================================================
+   SOCIAL ICONS
+   ===================================================== */
+
+.team-social {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.team-social a {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    text-decoration: none;
+
+    color: #172554;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.team-social a i {
+    font-size: 18px;
+}
+
+.team-social a:hover {
+    transform: translateY(-4px);
+
+    color: #ffffff;
+
+    background: #c2410c;
+
+    border-color: #c2410c;
+
+    box-shadow:
+        0 8px 20px rgba(194, 65, 12, 0.25);
+}
+
+
+/* =====================================================
+   TOP ORANGE LINE
+   ===================================================== */
+
+.team-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 3px;
+
+    background: #c2410c;
+
+    border-radius: 0 0 10px 10px;
+
+    transform: scaleX(0);
+
+    transition: transform 0.4s ease;
+
+    z-index: 5;
+}
+
+.team-box:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 800px) {
+
+    .team-page {
+        padding: 100px 25px 50px;
+    }
+
+    .team-page-heading h1 {
+        font-size: 36px;
+    }
+
+    .team-container {
+        grid-template-columns: 1fr;
+
+        max-width: 500px;
+    }
+
+    .team-img {
+        height: 350px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 500px) {
+
+    .team-page {
+        padding: 90px 15px 40px;
+    }
+
+    .team-page-heading {
+        margin-bottom: 35px;
+    }
+
+    .team-page-heading > span {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+    }
+
+    .team-page-heading h1 {
+        font-size: 29px;
+    }
+
+    .team-page-heading p {
+        font-size: 13px;
+    }
+
+    .team-container {
+        gap: 25px;
+    }
+
+    .team-box {
+        padding: 8px;
+        border-radius: 21px;
+    }
+
+    .team-img {
+        height: 300px;
+        border-radius: 16px;
+    }
+
+    .team-data {
+        padding: 17px 8px 15px;
+    }
+
+    .team-data h3 {
+        font-size: 21px;
+    }
+
+    .team-social a {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* =========================================
+   TEAM MODAL
+========================================= */
+
+.team-modal {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.65);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    z-index: 99999;
+}
+
+
+/* OPEN */
+
+.team-modal.active {
+    display: flex;
+}
+
+
+/* MODAL BOX */
+
+.team-modal-box {
+    width: 100%;
+    max-width: 850px;
+
+    display: grid;
+    grid-template-columns: 42% 58%;
+
+    background: #ffffff;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.25);
+
+    animation: modalShow 0.35s ease;
+}
+
+
+/* ANIMATION */
+
+@keyframes modalShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* CLOSE BUTTON */
+
+.team-modal-close {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    color: #172554;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+
+    transition: 0.3s;
+}
+
+.team-modal-close:hover {
+    background: #c2410c;
+
+    color: #ffffff;
+
+    transform: rotate(90deg);
+}
+
+
+/* MODAL IMAGE */
+
+.team-modal-image {
+    width: 100%;
+    height: 100%;
+
+    min-height: 450px;
+
+    background: #f1f5f9;
+}
+
+.team-modal-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* MODAL CONTENT */
+
+.team-modal-content {
+    padding: 55px 45px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* ROLE */
+
+.modal-role {
+    display: inline-block;
+
+    width: fit-content;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    background: rgba(194, 65, 12, 0.10);
+
+    color: #c2410c;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* NAME */
+
+.team-modal-content h2 {
+    margin: 14px 0 10px;
+
+    font-size: 36px;
+
+    font-weight: 800;
+
+    color: #172554;
+}
+
+
+/* DESCRIPTION */
+
+.team-modal-content > p {
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #64748b;
+}
+
+
+/* DETAILS */
+
+.modal-details {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+.modal-details div {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #334155;
+
+    font-size: 14px;
+}
+
+.modal-details i {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    color: #c2410c;
+
+    font-size: 17px;
+}
+
+
+/* SOCIAL */
+
+.modal-social {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.modal-social a {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    text-decoration: none;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    color: #172554;
+
+    transition: 0.3s;
+}
+
+.modal-social a:hover {
+    background: #c2410c;
+
+    color: #ffffff;
+
+    border-color: #c2410c;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   CLICK EFFECT
+========================================= */
+
+.team-box {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .team-modal {
+        padding: 15px;
+    }
+
+    .team-modal-box {
+        grid-template-columns: 1fr;
+
+        max-height: 90vh;
+
+        overflow-y: auto;
+
+        border-radius: 22px;
+    }
+
+    .team-modal-image {
+        height: 280px;
+        min-height: 0;
+    }
+
+    .team-modal-image img {
+        object-fit: cover;
+    }
+
+    .team-modal-content {
+        padding: 30px 25px;
+    }
+
+    .team-modal-content h2 {
+        font-size: 28px;
+    }
+
+    .team-modal-close {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+.team-social {
+    position: relative;
+    z-index: 20;
+}
+
+.team-social a {
+    position: relative;
+    z-index: 21;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   BLURRED BACKGROUND
+========================= */
+
+.contact-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+   background-image: url("/images/background.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(8px);
+    transform: scale(1.05);
+
+    z-index: -3;
+}
+
+
+/* Dark + Orange Overlay */
+
+.contact-page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.58),
+            rgba(0, 0, 0, 0.25),
+            rgba(255, 107, 0, 0.18)
+        );
+
+    z-index: -2;
+}
+
+
+
+
+
+
+
+        </style>
+</head>
+
+<body>
+
+    <!-- TEAM PAGE -->
+    <section class="team-page" id="team">
+
+        <!-- Heading -->
+        <div class="team-page-heading">
+            <span>Meet Our Expert Members</span>
+
+            <h1>
+                Dedicated to Your <span>Satisfaction</span>
+            </h1>
+
+            <p>
+                Meet the talented people behind RideWave.
+            </p>
+        </div>
+
+
+        <!-- Team Container -->
+        <div class="team-container">
+
+            <!-- Team 1 -->
+           
+
+
+            <!-- Team 1 -->
+           <div class="team-box" onclick="openTeamModal('divyansh')">
+
+                <img
+                    src="/images/ceo.png.png"
+                    alt="Divyansh Singh"
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>Divyansh Singh</h3>
+<div class="team-social">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-facebook"></i>
+    </a>
+
+    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-twitter"></i>
+    </a>
+
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-instagram"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-linkedin"></i>
+    </a>
+</div>
+
+                </div>
+            </div>
+
+
+            <!-- Team 2 -->
+       <div class="team-box" onclick="openTeamModal('nikhil')">
+
+                <img
+                    src="/images/manager.png"
+                    alt="Nikhil Dhakad"
+                    class="team-img"
+                >
+
+                <div class="team-data">
+
+                    <h3>Nikhil Dhakad</h3>
+<div class="team-social">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-facebook"></i>
+    </a>
+
+    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-twitter"></i>
+    </a>
+
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-instagram"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-linkedin"></i>
+    </a>
+</div>
+                </div>
+            </div>
+
+
+      
+           
+            
+
+        </div>
+
+    </section>
+
+
+
+<!-- ================= TEAM MODAL ================= -->
+
+<div id="teamModal" class="team-modal">
+
+    <div class="team-modal-box">
+
+        <button type="button" id="closeTeamModal" class="team-modal-close">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="team-modal-image">
+            <img id="modalTeamImage" src="" alt="">
+        </div>
+
+        <div class="team-modal-content">
+
+            <span id="modalTeamRole" class="modal-role"></span>
+
+            <h2 id="modalTeamName"></h2>
+
+            <p id="modalTeamDescription"></p>
+
+            <div class="modal-details">
+
+                <div>
+                    <i class="bx bx-briefcase"></i>
+                    <span id="modalTeamPosition"></span>
+                </div>
+
+                <div>
+                    <i class="bx bx-car"></i>
+                    <span>RideWave</span>
+                </div>
+
+            </div>
+
+           <div class="modal-social">
+
+    <a href="https://www.facebook.com/"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="event.stopPropagation();">
+        <i class="bx bxl-facebook"></i>
+    </a>
+
+    <a href="https://www.instagram.com/"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="event.stopPropagation();">
+        <i class="bx bxl-instagram"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="event.stopPropagation();">
+        <i class="bx bxl-linkedin"></i>
+    </a>
+
+    <a href="https://twitter.com/"
+       target="_blank"
+       rel="noopener noreferrer"
+       onclick="event.stopPropagation();">
+        <i class="bx bxl-twitter"></i>
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+
+const teamMembers = {
+
+    divyansh: {
+        name: "Divyansh Singh",
+        role: "CEO",
+        position: "Chief Executive Officer",
+        image: "/images/ceo.png.png",
+        description: "Divyansh Singh is leading RideWave toward a smarter, more convenient, and customer-focused future in car rental mobility."
+    },
+
+    nikhil: {
+        name: "Nikhil Dhakad",
+        role: "Owner & Founder",
+        position: "Founder & Business Head",
+        image: "/images/manager.png",
+        description: "Nikhil Dhakad is the Owner & Founder of RideWave, driving the company’s vision with a strong focus on trust, innovation, and delivering a seamless car rental experience for every customer."
+    }
+
+};
+
+
+/* =========================
+   OPEN MODAL
+========================= */
+
+function openTeamModal(memberName) {
+
+    const member = teamMembers[memberName];
+
+    if (!member) {
+        console.log("Member not found");
+        return;
+    }
+
+    document.getElementById("modalTeamImage").src = member.image;
+
+    document.getElementById("modalTeamImage").alt = member.name;
+
+    document.getElementById("modalTeamName").textContent =
+        member.name;
+
+    document.getElementById("modalTeamRole").textContent =
+        member.role;
+
+    document.getElementById("modalTeamPosition").textContent =
+        member.position;
+
+    document.getElementById("modalTeamDescription").textContent =
+        member.description;
+
+
+    const modal = document.getElementById("teamModal");
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeTeamModal() {
+
+    const modal = document.getElementById("teamModal");
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const closeBtn =
+        document.getElementById("closeTeamModal");
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener("click", function (event) {
+
+            event.stopPropagation();
+
+            closeTeamModal();
+
+        });
+
+    }
+
+
+    /* CLICK OUTSIDE */
+
+    const modal =
+        document.getElementById("teamModal");
+
+    if (modal) {
+
+        modal.addEventListener("click", function (event) {
+
+            if (event.target === modal) {
+
+                closeTeamModal();
+
+            }
+
+        });
+
+    }
+
+});
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+
+        closeTeamModal();
+
+    }
+
+});
+
+</script>
+
+
+
+</body>
+</html>

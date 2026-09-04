@@ -52,6 +52,12 @@ app.use(
     })
 );
 
+// teams
+app.get("/teams", (req, res) => {
+    res.render("teams");
+});
+
+
 // contact routes
 app.use("/api/contact", contactRoutes);
 // Auth routes

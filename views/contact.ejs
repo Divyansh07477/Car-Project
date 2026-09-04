@@ -5,149 +5,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ride Wave</title>
-
+     <link rel="icon" type="image/png" href="images/title.png.jpeg">
     <link rel="icon" type="image/png" href="images/title.png.jpeg">
     <link rel="stylesheet" href="css/style.css">
     
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <style>
+/* =========================
+   CONTACT PAGE
+========================= */
+
+.contact-page {
+    min-height: 100vh;
+    width: 100%;
+    padding: 110px 20px 60px;
+      margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
 
 /* =========================
-   CONTACT FORM
+   BLURRED BACKGROUND
+========================= */
+
+.contact-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+   background-image: url("/images/background.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(8px);
+    transform: scale(1.05);
+
+    z-index: -3;
+}
+
+
+/* Dark + Orange Overlay */
+
+.contact-page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.58),
+            rgba(0, 0, 0, 0.25),
+            rgba(255, 107, 0, 0.18)
+        );
+
+    z-index: -2;
+}
+/* =========================
+   CONTACT PAGE HEADING
+========================= */
+
+.contact-page-heading {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: -35px;
+
+    animation: headingIn 0.8s ease both;
+}
+
+.contact-page-heading h1 {
+    font-size: 42px;
+    font-weight: 700;
+       color: #172554;
+
+    margin-bottom: 8px;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.55);
+}
+.contact-page-heading h1 span {
+    color: #d6450b; 
+}
+.contact-page-heading h1::after {
+    content: "";
+
+    display: block;
+
+    width: 65px;
+    height: 4px;
+
+    margin: 12px auto 0;
+
+    border-radius: 10px;
+
+    background: #ff6b00;
+
+    box-shadow:
+        0 0 15px rgba(255, 107, 0, 0.65);
+}
+
+.contact-page-heading p {
+    color: rgba(255, 255, 255, 0.88);
+
+    font-size: 16px;
+
+    margin-top: 14px;
+}
+/* =========================
+   CONTACT FORM CARD
 ========================= */
 
 .contact-form-box {
     width: 100%;
     max-width: 700px;
-    margin: 40px auto;
-    padding: 35px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+    padding: 38px 40px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35),
+        0 0 35px rgba(255, 107, 0, 0.12);
+
+    position: relative;
+    overflow: hidden;
+
+    animation: contactFormIn 0.8s ease-out both;
 }
 
-.contact-form-box h2 {
-    margin-bottom: 10px;
-    font-size: 28px;
-    color: #222;
-}
 
-.contact-form-box p {
-    margin-bottom: 25px;
-    color: #777;
-}
+/* Orange glow inside card */
 
-.form-group {
-    margin-bottom: 20px;
-}
+.contact-form-box::before {
+    content: "";
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
-}
+    position: absolute;
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 13px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    outline: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
+    width: 180px;
+    height: 180px;
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #ff6b00;
-    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
-}
+    top: -100px;
+    right: -70px;
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 140px;
-}
+    background: rgba(255, 107, 0, 0.12);
 
-.contact-submit-btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    background: #ff6b00;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    filter: blur(55px);
 
-.contact-submit-btn:hover {
-    background: #e85d00;
-    transform: translateY(-2px);
-}
+    border-radius: 50%;
 
-/* Mobile */
-@media (max-width: 600px) {
-    .contact-form-box {
-        margin: 25px 15px;
-        padding: 25px 20px;
-    }
-
-    .contact-form-box h2 {
-        font-size: 24px;
-    }
+    pointer-events: none;
 }
 
 
 /* =========================
-   CONTACT FORM ANIMATIONS
+   FORM TITLE
 ========================= */
 
-/* Form box entry animation */
-.contact-form-box {
-    animation: contactFormIn 0.8s ease-out both;
-}
-
-@keyframes contactFormIn {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Heading animation */
 .contact-form-box h2 {
-    animation: fadeDown 0.7s ease-out 0.2s both;
+    position: relative;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #172554;
+
+    margin-bottom: 8px;
+
+    animation: fadeDown 0.7s ease 0.2s both;
+}
+
+.contact-form-box h2::first-letter {
+    color: #172554;
 }
 
 .contact-form-box p {
-    animation: fadeDown 0.7s ease-out 0.3s both;
-}
+    position: relative;
 
-@keyframes fadeDown {
-    from {
-        opacity: 0;
-        transform: translateY(-15px);
-    }
+    color: #777;
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    margin-bottom: 25px;
+
+    animation: fadeDown 0.7s ease 0.3s both;
 }
 
 
-/* Input fields animation */
+/* =========================
+   FORM GROUP
+========================= */
+
 .form-group {
-    animation: fieldIn 0.6s ease-out both;
+    margin-bottom: 19px;
+
+    animation: fieldIn 0.6s ease both;
 }
 
 .form-group:nth-child(1) {
@@ -170,147 +229,292 @@
     animation-delay: 0.7s;
 }
 
-@keyframes fieldIn {
-    from {
-        opacity: 0;
-        transform: translateX(-25px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* =========================
+   LABEL
+========================= */
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #333;
 }
 
 
-/* Input focus */
+/* =========================
+   INPUT
+========================= */
+
 .form-group input,
 .form-group textarea {
-    transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.3s ease;
+    width: 100%;
+
+    padding: 14px 16px;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    color: #222;
+
+    transition: 0.3s ease;
 }
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa;
+}
+
+
+/* Focus */
 
 .form-group input:focus,
 .form-group textarea:focus {
+
+    border-color: #ff6b00;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 107, 0, 0.10),
+        0 5px 18px rgba(255, 107, 0, 0.08);
+
     transform: translateY(-2px);
 }
 
 
-/* Button animation */
-.contact-submit-btn {
-    animation: buttonIn 0.7s ease-out 0.8s both;
-    position: relative;
-    overflow: hidden;
+/* Textarea */
+
+.form-group textarea {
+    resize: vertical;
+
+    min-height: 140px;
 }
-
-@keyframes buttonIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Button shine effect */
-.contact-submit-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.35),
-        transparent
-    );
-    transition: 0.6s;
-}
-
-.contact-submit-btn:hover::before {
-    left: 120%;
-}
-
-
-/* Send icon animation */
-.contact-submit-btn i {
-    display: inline-block;
-    margin-left: 6px;
-    transition: transform 0.3s ease;
-}
-
-.contact-submit-btn:hover i {
-    transform: translateX(5px) rotate(-10deg);
-}
-
-
-/* Button hover */
-.contact-submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
-}
-
-
 
 
 /* =========================
-   CONTACT PAGE HEADING
+   SEND BUTTON
 ========================= */
 
-.contact-page-heading {
-    text-align: center;
-    margin: 110px auto 35px;
-    animation: headingIn 0.8s ease-out both;
-}
+.contact-submit-btn {
 
-.contact-page-heading h1 {
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #222;
-}
+    width: 100%;
 
-.contact-page-heading h1::after {
-    content: "";
-    display: block;
-    width: 65px;
-    height: 4px;
-    background: #ff6b00;
+    padding: 14px;
+
+    border: none;
+
     border-radius: 10px;
-    margin: 12px auto 0;
-}
 
-.contact-page-heading p {
-    color: #777;
+    background: #ff6b00;
+
+    color: white;
+
     font-size: 16px;
-    margin-top: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation: buttonIn 0.7s ease 0.8s both;
+
+    transition: 0.3s ease;
 }
 
-@keyframes headingIn {
+
+.contact-submit-btn:hover {
+
+    background: #ff6b00;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(255, 107, 0, 0.35);
+}
+
+
+/* Button shine */
+
+.contact-submit-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: 0.7s;
+}
+
+.contact-submit-btn:hover::before {
+    left: 130%;
+}
+
+
+/* Icon */
+
+.contact-submit-btn i {
+
+    display: inline-block;
+
+    margin-left: 6px;
+
+    transition: 0.3s ease;
+}
+
+.contact-submit-btn:hover i {
+
+    transform:
+        translateX(5px)
+        rotate(-10deg);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes contactFormIn {
+
     from {
         opacity: 0;
-        transform: translateY(-25px);
+
+        transform:
+            translateY(50px)
+            scale(0.96);
+
+        filter: blur(8px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter: blur(0);
     }
 }
 
-/* Mobile */
+
+@keyframes headingIn {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(-25px);
+
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(-15px);
+
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes fieldIn {
+
+    from {
+        opacity: 0;
+
+        transform: translateX(-25px);
+
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateX(0);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes buttonIn {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(20px);
+
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+
+        filter: blur(0);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 600px) {
+
+    .contact-page {
+        padding: 100px 15px 40px;
+    }
+
     .contact-page-heading {
-        margin: 90px auto 25px;
-        padding: 0 15px;
+        margin-bottom: 25px;
     }
 
     .contact-page-heading h1 {
@@ -320,100 +524,165 @@
     .contact-page-heading p {
         font-size: 14px;
     }
+
+    .contact-form-box {
+        padding: 28px 20px;
+
+        border-radius: 20px;
+    }
+
+    .contact-form-box h2 {
+        font-size: 24px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 13px 14px;
+    }
 }
+
+
+
+/* SUCCESS */
+.flash-message.success {
+    border-left-color: #22c55e;
+}
+
+.flash-message.success .flash-icon {
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+}
+
+.flash-message.success .flash-progress {
+    background: #22c55e;
+}
+
+
+/* ERROR */
+.flash-message.error {
+    border-left-color: #ef4444;
+}
+
+.flash-message.error .flash-icon {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+.flash-message.error .flash-progress {
+    background: #ef4444;
+}
+
     </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
 
+    <div class="contact-page">
 
-
-<!-- CONTACT FORM -->
-<!-- CONTACT PAGE HEADING -->
-
-<div class="contact-page-heading">
-    <h1>Contact Us</h1>
-    <p>We're here to help. Get in touch with the RideWave team.</p>
-</div>
-
-<!-- CONTACT FORM -->
-
-<div class="contact-form-box">
-
-    <form id="contactForm">
-
-        <!-- Name -->
-        <div class="form-group">
-            <label for="name">Your Name</label>
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-                required
-            >
+        <!-- CONTACT PAGE HEADING -->
+        <div class="contact-page-heading">
+          <h1>Contact <span>Us</span></h1>
+            <p>We're here to help. Get in touch with the RideWave team.</p>
         </div>
 
-        <!-- Email -->
-        <div class="form-group">
-            <label for="email">Email Address</label>
+        <!-- CONTACT FORM -->
+        <div class="contact-form-box">
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-            >
+            <form id="contactForm">
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                    >
+                </div>
+
+                <!-- Subject -->
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="Enter subject"
+                        required
+                    >
+                </div>
+
+                <!-- Message -->
+                <div class="form-group">
+                    <label for="message">Message</label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="contact-submit-btn">
+                    Send Message
+                    <i class='bx bx-send'></i>
+                </button>
+
+            </form>
+
         </div>
 
-        <!-- Phone -->
-        <div class="form-group">
-            <label for="phone">Phone Number</label>
-
-            <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Enter your phone number"
-            >
-        </div>
-
-        <!-- Subject -->
-        <div class="form-group">
-            <label for="subject">Subject</label>
-
-            <input
-                type="text"
-                id="subject"
-                name="subject"
-                placeholder="Enter subject"
-                required
-            >
-        </div>
-
-        <!-- Message -->
-        <div class="form-group">
-            <label for="message">Message</label>
-
-            <textarea
-                id="message"
-                name="message"
-                rows="6"
-                placeholder="Write your message..."
-                required
-            ></textarea>
-        </div>
-
-        <!-- Submit -->
-        <button type="submit" class="contact-submit-btn">
-            Send Message
-            <i class='bx bx-send'></i>
-        </button>
-
-    </form>
-
-</div>
+    </div>
 
 <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
@@ -444,14 +713,15 @@ document.getElementById("contactForm").addEventListener("submit", async function
 
         if (response.ok) {
 
-            alert("✅ " + data.message);
+            showFlash(data.message, "success");
 
-            // Redirect to Home
-            window.location.href = "/";
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 2200);
 
         } else {
 
-            alert("❌ " + data.message);
+            showFlash(data.message, "error");
 
         }
 
@@ -459,11 +729,81 @@ document.getElementById("contactForm").addEventListener("submit", async function
 
         console.error("Contact Error:", error);
 
-        alert("❌ Server se connection nahi ho raha.");
+        showFlash("Server se connection nahi ho raha.", "error");
 
     }
 
 });
+
+
+/* =========================
+   FLASH MESSAGE
+========================= */
+
+function showFlash(message, type) {
+
+    // Remove existing flash
+    const oldFlash = document.querySelector(".flash-message");
+
+    if (oldFlash) {
+        oldFlash.remove();
+    }
+
+    const flash = document.createElement("div");
+
+    flash.className = `flash-message ${type}`;
+
+    flash.innerHTML = `
+        <div class="flash-icon">
+            ${
+                type === "success"
+                ? '<i class="bx bx-check"></i>'
+                : '<i class="bx bx-error"></i>'
+            }
+        </div>
+
+        <div class="flash-content">
+            <strong>
+                ${type === "success" ? "Success!" : "Error!"}
+            </strong>
+
+            <span>${message}</span>
+        </div>
+
+        <button class="flash-close" onclick="closeFlash(this)">
+            <i class="bx bx-x"></i>
+        </button>
+
+        <div class="flash-progress"></div>
+    `;
+
+    document.body.appendChild(flash);
+
+    // Show animation
+    setTimeout(() => {
+        flash.classList.add("show");
+    }, 50);
+
+    // Auto close
+    setTimeout(() => {
+        closeFlash(flash.querySelector(".flash-close"));
+    }, 2000);
+}
+
+
+function closeFlash(button) {
+
+    const flash = button.closest(".flash-message");
+
+    if (!flash) return;
+
+    flash.classList.remove("show");
+
+    setTimeout(() => {
+        flash.remove();
+    }, 400);
+}
 </script>
+
 </body>
 </html>
