@@ -41,20 +41,29 @@ router.post("/signup", async (req, res) => {
             password: hashedPassword
         });
 
-        // Signup ke baad seedha session start
-        req.session.userId = user._id;
+        // Store user details in session
+        req.session.userId = user._id.toString();
         req.session.userName = user.name;
         req.session.userEmail = user.email;
 
-        res.status(201).json({
-            message: "Account created successfully!",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role || 'User'
+        // Force session sync to cookie before sending response
+        req.session.save((err) => {
+            if (err) {
+                console.error("Signup Session Save Error:", err);
+                return res.status(500).json({ message: "Session saving failed." });
             }
+
+            res.status(201).json({
+                message: "Account created successfully!",
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role || "User"
+                }
+            });
         });
+
     } catch (error) {
         console.error("Signup Error:", error);
         res.status(500).json({
@@ -94,19 +103,29 @@ router.post("/login", async (req, res) => {
             });
         }
 
-        req.session.userId = user._id;
+        // Store user details in session
+        req.session.userId = user._id.toString();
         req.session.userName = user.name;
         req.session.userEmail = user.email;
 
-        res.status(200).json({
-            message: "Login Successful!",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role || 'User'
+        // Force session sync to cookie before sending response
+        req.session.save((err) => {
+            if (err) {
+                console.error("Login Session Save Error:", err);
+                return res.status(500).json({ message: "Session saving failed." });
             }
+
+            res.status(200).json({
+                message: "Login Successful!",
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role || "User"
+                }
+            });
         });
+
     } catch (error) {
         console.error("Login Error:", error);
         res.status(500).json({
@@ -140,7 +159,7 @@ router.get("/me", async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                role: user.role || 'User'
+                role: user.role || "User"
             }
         });
     } catch (error) {
@@ -170,7 +189,4 @@ router.post("/logout", (req, res) => {
     });
 });
 
-// ===============================
-// EXPORT ROUTER
-// ===============================
 module.exports = router;

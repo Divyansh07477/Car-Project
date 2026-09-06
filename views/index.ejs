@@ -15,9 +15,90 @@
 
     <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+
+
+<style>
+/* Flash Message */
+.flash-message.success {
+    color: white;
+    border-left: 5px solid #dc2626;
+}
+
+.flash-message.error {
+    color: white;
+    border-left: 5px solid #dc2626;
+}
+
+
+
+
+.flash-message {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+    z-index: 99999;
+
+    min-width: 280px;
+    max-width: 380px;
+
+    padding: 15px 20px;
+    border-radius: 10px;
+
+    background: #dc2626;
+   
+    color: #ffffff;
+    border-left: 5px solid #dc2626;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+    animation: flashIn 0.3s ease;
+}
+
+@keyframes flashIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
-<body>
+<body data-logged-in="<%= isLoggedIn %>">
 
     <!-- HEADER -->
     <header class="header">
@@ -71,10 +152,14 @@
 
                 <i class="bx bx-search search-icon"></i>
 
-                <!-- Search -->
-                <div class="search-box container">
-                    <input type="search" placeholder="Search here...">
-                </div>
+              <!-- Search -->
+<div class="search-box container">
+    <input
+        type="search"
+        id="homeSearch"
+        name="q"
+        placeholder="Search here...">
+</div>
 
 
                 <!-- LOGGED OUT -->
@@ -169,7 +254,7 @@
 
 
                             <a
-                                href="/bookings"
+                                href="/Mybookings"
                                 class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                             >
 
@@ -291,331 +376,21 @@
     </section>
 
 
-
-    <!-- RENTALS -->
-    <section class="rentals" id="rentals">
-
-        <!-- Heading -->
-        <div class="heading">
-
-            <span>
-                Car Rentals
-            </span>
-
-            <h2>
-                Our Top Rentals
-                <br>
-                Comfort, Affordability & Convenience
-            </h2>
-
-        </div>
-
-
-        <!-- Rental Container -->
-        <div class="rental-container container">
-
-
-            <!-- BOX 1 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        Luxury
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-1.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Rolls-Royce Spectre
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Rolls-Royce%20Spectre"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BOX 2 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        SUV
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-2.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Macan 4
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Macan%204"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BOX 3 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        SUV
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-3.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Cayenne S E-Hybrid
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Cayenne%20S%20E-Hybrid"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BOX 4 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        Sports
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-4.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Nissan GT-R
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Nissan%20GT-R"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BOX 5 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        Sports
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-5.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Panamera Turbo
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Panamera%20Turbo"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BOX 6 -->
-            <div class="rental-box">
-
-                <div class="rental-top">
-
-                    <h4>
-                        SUV
-                    </h4>
-
-                    <i class="bx bx-heart"></i>
-
-                </div>
-
-
-                <img
-                    src="/images/rental-6.png"
-                    alt=""
-                >
-
-
-                <h3>
-                    Nissan Ariya
-                </h3>
-
-                <span>
-                    Automatic
-                </span>
-
-
-                <div class="rental-btn-wrapper">
-
-                    <p class="price">
-                        $299
-                        <span></span>
-                    </p>
-
-
-                    <a
-                        href="/booking?car=Nissan%20Ariya"
-                        class="rental-btn"
-                    >
-                        Rent Now
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
+<!-- Rental Cars Section -->
+
+<!-- Heading -->
+<div class="heading">
+    <span>Car Rentals</span>
+    <h2>
+        Our Top Rentals <br>
+        Comfort, Affordability & Convenience
+    </h2>
+</div>
+
+<!-- Cars loaded from Database -->
+<div class="rental-container container" id="rentalContainer">
+</div>
+```
 
 
 
@@ -1346,6 +1121,60 @@
     <!-- MAIN JS -->
     <script src="/js/main.js"></script>
 
+<script>
+    const homeSearch = document.getElementById("homeSearch");
+    const homeSearchBtn = document.getElementById("homeSearchBtn");
+
+    function goToSearch() {
+
+        const query = homeSearch.value.trim();
+
+        if (query === "") {
+            window.location.href = "/search";
+            return;
+        }
+
+        window.location.href =
+            "/search?q=" + encodeURIComponent(query);
+    }
+
+
+    // Search button
+    if (homeSearchBtn) {
+
+        homeSearchBtn.addEventListener("click", function () {
+
+            goToSearch();
+
+        });
+
+    }
+
+
+    // Enter key
+    if (homeSearch) {
+
+        homeSearch.addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                goToSearch();
+
+            }
+
+        });
+
+    }
+</script>
+
 </body>
 
 </html>
+
+
+
+
+
+

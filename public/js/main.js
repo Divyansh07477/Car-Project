@@ -81,29 +81,29 @@ accordionItems.forEach((item) => {
 
 });
 
-function showFlash(message, type = "success") {
+// function showFlash(message, type = "success") {
 
-    const flash = document.createElement("div");
+//     const flash = document.createElement("div");
 
-    flash.className = `flash-message ${type}`;
-    flash.innerText = message;
+//     flash.className = `flash-message ${type}`;
+//     flash.innerText = message;
 
-    document.body.appendChild(flash);
+//     document.body.appendChild(flash);
 
-    setTimeout(() => {
-        flash.classList.add("show");
-    }, 10);
+//     setTimeout(() => {
+//         flash.classList.add("show");
+//     }, 10);
 
-    setTimeout(() => {
+//     setTimeout(() => {
 
-        flash.classList.remove("show");
+//         flash.classList.remove("show");
 
-        setTimeout(() => {
-            flash.remove();
-        }, 400);
+//         setTimeout(() => {
+//             flash.remove();
+//         }, 400);
 
-    }, 3000);
-}
+//     }, 3000);
+// }
 
 
 
@@ -262,3 +262,152 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// ===============================
+// LOAD CARS FROM DATABASE
+// ===============================
+
+async function loadCars() {
+
+    const rentalContainer = document.getElementById("rentalContainer");
+
+    if (!rentalContainer) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch("/api/cars", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            console.error("Failed to load cars:", data.message);
+
+            rentalContainer.innerHTML = `
+                <p>Unable to load cars.</p>
+            `;
+
+            return;
+        }
+
+
+        // No cars
+        if (!data.cars || data.cars.length === 0) {
+
+            rentalContainer.innerHTML = `
+                <p>No cars available right now.</p>
+            `;
+
+            return;
+        }
+
+
+        // Clear container
+        rentalContainer.innerHTML = "";
+
+
+        // Create car cards
+        data.cars.forEach(car => {
+
+            const carBox = document.createElement("div");
+
+            carBox.className = "rental-box";
+
+
+            carBox.innerHTML = `
+                
+                <div class="rental-top">
+
+                    <h4>
+                        ${car.category}
+                    </h4>
+
+                    <i class="bx bx-heart"></i>
+
+                </div>
+
+
+                <img
+                    src="${car.image}"
+                    alt="${car.name}"
+                >
+
+
+                <h3>
+                    ${car.name}
+                </h3>
+
+
+                <span>
+                    ${car.transmission}
+                </span>
+
+
+                <div class="rental-btn-wrapper">
+
+                    <p class="price">
+                        ₹${car.pricePerDay}
+                        <span>/day</span>
+                    </p>
+<a href="/booking?car=${car._id}" class="rental-btn">
+    Rent Now
+</a>
+
+                </div>
+
+            `;
+
+
+            rentalContainer.appendChild(carBox);
+
+        });
+
+
+    } catch (error) {
+
+        console.error("Load Cars Error:", error);
+
+        rentalContainer.innerHTML = `
+            <p>Server error. Unable to load cars.</p>
+        `;
+
+    }
+
+}
+
+
+// Load cars when page loads
+document.addEventListener("DOMContentLoaded", loadCars);
+
+
+
+// ===============================
+// RENT NOW - DYNAMIC CARS
+// ===============================
+
+document.addEventListener("click", (event) => {
+
+    const rentButton = event.target.closest(".rental-btn");
+
+    if (!rentButton) {
+        return;
+    }
+
+    const isLoggedIn =
+        document.body.dataset.loggedIn === "true";
+
+    if (!isLoggedIn) {
+
+        event.preventDefault();
+
+        showFlash(
+            "You are not logged in",
+            "error"
+        );
+    }
+
+});

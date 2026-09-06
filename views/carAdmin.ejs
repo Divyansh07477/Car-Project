@@ -1,204 +1,233 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RideWave Admin - Rental Cars</title>
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>RideWave Admin - Rental Cars</title>
+ <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+  <link
+    rel="icon"
+    type="image/png"
+    href="/images/title.png.jpeg"
+  >
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="/images/title.png.jpeg">
-<style>
-
-  body {
-    font-family: 'Inter', sans-serif;
-  }
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
 
-  /* ================= FLASH MESSAGE ================= */
 
-  .flash-message {
+  <style>
 
-    position: fixed;
-
-    top: 25px;
-    right: 25px;
-
-    min-width: 280px;
-    max-width: 380px;
-
-    padding: 15px 20px;
-
-    border-radius: 10px;
-
-    color: #ffffff;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-
-    z-index: 999999;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateX(120%);
-
-    transition:
-      opacity 0.35s ease,
-      transform 0.35s ease,
-      visibility 0.35s ease;
-
-    display: flex;
-    align-items: center;
-
-  }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
 
 
-  /* ================= SUCCESS ================= */
-
-  .flash-message.success {
-    background: #16a34a;
-  }
-
-
-  /* ================= ERROR ================= */
-
-  .flash-message.error {
-    background: #dc2626;
-  }
-
-
-  /* ================= SHOW ================= */
-
-  .flash-message.show {
-
-    opacity: 1;
-
-    visibility: visible;
-
-    transform: translateX(0);
-
-  }
-
-
-  /* ================= ICON ================= */
-
-  .flash-message::before {
-
-    content: "✓";
-
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 25px;
-    height: 25px;
-
-    min-width: 25px;
-
-    margin-right: 10px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.2);
-
-    font-size: 15px;
-
-  }
-
-
-  /* ERROR ICON */
-
-  .flash-message.error::before {
-    content: "!";
-  }
-
-
-  /* ================= MOBILE ================= */
-
-  @media (max-width: 500px) {
+    /* ================= FLASH MESSAGE ================= */
 
     .flash-message {
 
-      top: 15px;
+      position: fixed;
 
-      left: 15px;
-      right: 15px;
+      top: 25px;
+      right: 25px;
 
-      min-width: auto;
-      max-width: none;
+      min-width: 280px;
+      max-width: 380px;
 
-      width: auto;
+      padding: 15px 20px;
 
-      font-size: 14px;
+      border-radius: 10px;
 
-      padding: 14px 16px;
+      color: #ffffff;
+
+      font-size: 15px;
+      font-weight: 600;
+
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+      z-index: 999999;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translateX(120%);
+
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        visibility 0.35s ease;
+
+      display: flex;
+      align-items: center;
+    }
+
+
+    .flash-message.success {
+      background: #16a34a;
+    }
+
+
+    .flash-message.error {
+      background: #dc2626;
+    }
+
+
+    .flash-message.show {
+
+      opacity: 1;
+
+      visibility: visible;
+
+      transform: translateX(0);
+    }
+
+
+    .flash-message::before {
+
+      content: "✓";
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 25px;
+      height: 25px;
+
+      min-width: 25px;
+
+      margin-right: 10px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.2);
+
+      font-size: 15px;
+    }
+
+
+    .flash-message.error::before {
+      content: "!";
+    }
+
+
+    @media (max-width: 500px) {
+
+      .flash-message {
+
+        top: 15px;
+
+        left: 15px;
+        right: 15px;
+
+        min-width: auto;
+        max-width: none;
+
+        width: auto;
+
+        font-size: 14px;
+
+        padding: 14px 16px;
+      }
 
     }
 
-  }
+  </style>
 
-</style>
 </head>
+
 
 <body class="bg-[#F8F9FD] min-h-screen flex text-[#1E293B]">
 
+
   <!-- ================= SIDEBAR ================= -->
 
-  <aside class="w-64 bg-[#08123B] flex flex-col justify-between shrink-0 min-h-screen p-5 text-slate-400">
+  <aside
+    class="w-64 bg-[#08123B] flex flex-col justify-between shrink-0 min-h-screen p-5 text-slate-400"
+  >
 
     <div>
 
       <div class="flex items-center gap-2 px-3 py-4 mb-6">
+
         <span class="text-xl font-bold text-white tracking-wide">
+
           Ride<span class="text-[#FF532E]">Wave</span>
+
         </span>
 
-        <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#FF532E]/20 text-[#FF532E] border border-[#FF532E]/30">
+        <span
+          class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#FF532E]/20 text-[#FF532E] border border-[#FF532E]/30"
+        >
           ADMIN
         </span>
+
       </div>
+
 
       <div class="mb-6">
 
-        <p class="text-[11px] uppercase tracking-wider font-semibold text-slate-500 px-3 mb-2">
+        <p
+          class="text-[11px] uppercase tracking-wider font-semibold text-slate-500 px-3 mb-2"
+        >
           MAIN
         </p>
 
+
         <nav class="space-y-1">
 
-          <a href="/admin"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group">
+          <a
+            href="/admin"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group"
+          >
 
-            <i data-lucide="layout-grid"
-              class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors">
-            </i>
+            <i
+              data-lucide="layout-grid"
+              class="w-5 h-5 text-slate-400 group-hover:text-white"
+            ></i>
 
             <span>Dashboard</span>
 
           </a>
 
-          <a href="/carAdmin"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium bg-[#FF532E] text-white shadow-lg shadow-[#FF532E]/20">
 
-            <i data-lucide="car" class="w-5 h-5"></i>
+          <a
+            href="/carAdmin"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium bg-[#FF532E] text-white shadow-lg shadow-[#FF532E]/20"
+          >
+
+            <i
+              data-lucide="car"
+              class="w-5 h-5"
+            ></i>
 
             <span>Rental Cars</span>
 
           </a>
 
-          <a href="#"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group">
 
-            <i data-lucide="calendar-check"
-              class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors">
-            </i>
+          <a
+            href="#"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group"
+          >
+
+            <i
+              data-lucide="calendar-check"
+              class="w-5 h-5 text-slate-400 group-hover:text-white"
+            ></i>
 
             <span>Bookings</span>
 
@@ -208,20 +237,27 @@
 
       </div>
 
+
       <div>
 
-        <p class="text-[11px] uppercase tracking-wider font-semibold text-slate-500 px-3 mb-2">
+        <p
+          class="text-[11px] uppercase tracking-wider font-semibold text-slate-500 px-3 mb-2"
+        >
           OTHER
         </p>
 
+
         <nav class="space-y-1">
 
-          <a href="/"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group">
+          <a
+            href="/"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 hover:bg-[#FF532E] hover:text-white group"
+          >
 
-            <i data-lucide="arrow-left"
-              class="w-5 h-5 text-slate-400 group-hover:text-white transition-colors">
-            </i>
+            <i
+              data-lucide="arrow-left"
+              class="w-5 h-5 text-slate-400 group-hover:text-white"
+            ></i>
 
             <span>Back to Site</span>
 
@@ -233,9 +269,15 @@
 
     </div>
 
-    <div class="flex items-center gap-2 px-3 py-2 text-xs text-slate-400 border-t border-slate-800/80 pt-4">
 
-      <i data-lucide="shield" class="w-4 h-4 text-[#FF532E]"></i>
+    <div
+      class="flex items-center gap-2 px-3 py-2 text-xs text-slate-400 border-t border-slate-800/80 pt-4"
+    >
+
+      <i
+        data-lucide="shield"
+        class="w-4 h-4 text-[#FF532E]"
+      ></i>
 
       <span>Admin Panel</span>
 
@@ -244,11 +286,14 @@
   </aside>
 
 
+
   <!-- ================= MAIN ================= -->
 
   <main class="flex-1 p-8 lg:p-10 overflow-y-auto">
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+    <div
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8"
+    >
 
       <div>
 
@@ -262,11 +307,17 @@
 
       </div>
 
-      <button
-        onclick="openModal('carModal')"
-        class="inline-flex items-center justify-center gap-2 bg-[#FF532E] hover:bg-[#e04522] text-white font-medium px-5 py-2.5 rounded-xl transition-all shadow-md shadow-[#FF532E]/25">
 
-        <i data-lucide="plus" class="w-4 h-4"></i>
+      <button
+        type="button"
+        onclick="openModal('carModal')"
+        class="inline-flex items-center justify-center gap-2 bg-[#FF532E] hover:bg-[#e04522] text-white font-medium px-5 py-2.5 rounded-xl transition-all shadow-md shadow-[#FF532E]/25"
+      >
+
+        <i
+          data-lucide="plus"
+          class="w-4 h-4"
+        ></i>
 
         <span>Add New Car</span>
 
@@ -275,9 +326,12 @@
     </div>
 
 
+
     <!-- ================= CAR TABLE ================= -->
 
-    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div
+      class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
+    >
 
       <div class="overflow-x-auto">
 
@@ -285,304 +339,43 @@
 
           <thead>
 
-            <tr class="border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400 bg-white">
+            <tr
+              class="border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400 bg-white"
+            >
 
-              <th class="py-4 px-6">Image</th>
-              <th class="py-4 px-6">Name</th>
-              <th class="py-4 px-6">Category</th>
-              <th class="py-4 px-6">Transmission</th>
-              <th class="py-4 px-6">Price/Day</th>
-              <th class="py-4 px-6 text-center">Actions</th>
+              <th class="py-4 px-6">
+                Image
+              </th>
+
+              <th class="py-4 px-6">
+                Name
+              </th>
+
+              <th class="py-4 px-6">
+                Category
+              </th>
+
+              <th class="py-4 px-6">
+                Transmission
+              </th>
+
+              <th class="py-4 px-6">
+                Price/Day
+              </th>
+
+              <th class="py-4 px-6 text-center">
+                Actions
+              </th>
 
             </tr>
 
           </thead>
 
 
-          <tbody class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-
-            <!-- CAR 1 -->
-
-            <tr class="hover:bg-slate-50/60 transition-colors">
-
-              <td class="py-4 px-6">
-
-                <img
-                  src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=160&auto=format&fit=crop&q=60"
-                  alt="Nissan Ariya"
-                  class="w-16 h-10 object-cover rounded-md">
-
-              </td>
-
-              <td class="py-4 px-6 font-semibold text-[#08123B]">
-                Nissan Ariya
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-[#FF532E] bg-[#FF532E]/10 rounded-full">
-                  Sedan
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
-                  Manual
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6 font-bold text-[#08123B]">
-
-                $78
-                <span class="text-xs font-normal text-slate-400">
-                  /day
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <div class="flex items-center justify-center gap-2">
-
-                  <button
-                    onclick="openEditModal('Nissan Ariya', 'sedan', 'manual', 78)"
-                    class="p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Edit Car">
-
-                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-
-                  </button>
-
-                  <button
-                    onclick="openDeleteModal()"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Delete Car">
-
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-
-            <!-- CAR 2 -->
-
-            <tr class="hover:bg-slate-50/60 transition-colors">
-
-              <td class="py-4 px-6">
-
-                <img
-                  src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=160&auto=format&fit=crop&q=60"
-                  alt="Rolls-Royce"
-                  class="w-16 h-10 object-cover rounded-md">
-
-              </td>
-
-              <td class="py-4 px-6 font-semibold text-[#08123B]">
-                Rolls-Royce
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-[#FF532E] bg-[#FF532E]/10 rounded-full">
-                  Sedan
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
-                  Automatic
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6 font-bold text-[#08123B]">
-
-                $299
-                <span class="text-xs font-normal text-slate-400">
-                  /day
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <div class="flex items-center justify-center gap-2">
-
-                  <button
-                    onclick="openEditModal('Rolls-Royce', 'sedan', 'automatic', 299)"
-                    class="p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Edit Car">
-
-                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-
-                  </button>
-
-                  <button
-                    onclick="openDeleteModal()"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Delete Car">
-
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-
-            <!-- CAR 3 -->
-
-            <tr class="hover:bg-slate-50/60 transition-colors">
-
-              <td class="py-4 px-6">
-
-                <img
-                  src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=160&auto=format&fit=crop&q=60"
-                  alt="Macan 4"
-                  class="w-16 h-10 object-cover rounded-md">
-
-              </td>
-
-              <td class="py-4 px-6 font-semibold text-[#08123B]">
-                Macan 4
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-[#FF532E] bg-[#FF532E]/10 rounded-full">
-                  Sedan
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
-                  Automatic
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6 font-bold text-[#08123B]">
-
-                $299
-                <span class="text-xs font-normal text-slate-400">
-                  /day
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <div class="flex items-center justify-center gap-2">
-
-                  <button
-                    onclick="openEditModal('Macan 4', 'sedan', 'automatic', 299)"
-                    class="p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Edit Car">
-
-                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-
-                  </button>
-
-                  <button
-                    onclick="openDeleteModal()"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Delete Car">
-
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-
-            <!-- CAR 4 -->
-
-            <tr class="hover:bg-slate-50/60 transition-colors">
-
-              <td class="py-4 px-6">
-
-                <img
-                  src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=160&auto=format&fit=crop&q=60"
-                  alt="Cayenne S E-Hybrid"
-                  class="w-16 h-10 object-cover rounded-md">
-
-              </td>
-
-              <td class="py-4 px-6 font-semibold text-[#08123B]">
-                Cayenne S E-Hybrid
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-[#FF532E] bg-[#FF532E]/10 rounded-full">
-                  Sedan
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <span class="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
-                  Automatic
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6 font-bold text-[#08123B]">
-
-                $299
-                <span class="text-xs font-normal text-slate-400">
-                  /day
-                </span>
-
-              </td>
-
-              <td class="py-4 px-6">
-
-                <div class="flex items-center justify-center gap-2">
-
-                  <button
-                    onclick="openEditModal('Cayenne S E-Hybrid', 'sedan', 'automatic', 299)"
-                    class="p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Edit Car">
-
-                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-
-                  </button>
-
-                  <button
-                    onclick="openDeleteModal()"
-                    class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Delete Car">
-
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
+          <tbody
+            id="carsTableBody"
+            class="divide-y divide-slate-100 text-sm font-medium text-slate-700"
+          >
 
           </tbody>
 
@@ -595,21 +388,30 @@
   </main>
 
 
-  <!-- ================= ADD CAR MODAL ================= -->
+
+  <!-- ===================================================== -->
+  <!-- ================= ADD CAR MODAL ===================== -->
+  <!-- ===================================================== -->
 
   <div
     id="carModal"
-    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4">
+    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4"
+  >
 
     <div
-      class="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-6 sm:p-7 border border-slate-100">
+      class="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-6 sm:p-7 border border-slate-100"
+    >
 
       <button
         type="button"
         onclick="closeModal('carModal')"
-        class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition">
+        class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition"
+      >
 
-        <i data-lucide="x" class="w-4 h-4"></i>
+        <i
+          data-lucide="x"
+          class="w-4 h-4"
+        ></i>
 
       </button>
 
@@ -627,18 +429,26 @@
       </div>
 
 
-      <form id="addCarForm" class="space-y-3.5">
+      <form
+        id="addCarForm"
+        class="space-y-3.5"
+      >
 
-
-        <!-- CAR NAME -->
+        <!-- NAME -->
 
         <div class="relative">
 
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+          <span
+            class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+          >
 
-            <i data-lucide="car" class="w-4 h-4"></i>
+            <i
+              data-lucide="car"
+              class="w-4 h-4"
+            ></i>
 
           </span>
+
 
           <input
             id="carName"
@@ -646,9 +456,11 @@
             name="name"
             placeholder="Car Name (e.g. Rolls-Royce)"
             class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition"
-            required />
+            required
+          >
 
         </div>
+
 
 
         <!-- CATEGORY + TRANSMISSION -->
@@ -657,74 +469,103 @@
 
           <div class="relative">
 
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+            <span
+              class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+            >
 
-              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              <i
+                data-lucide="layout-grid"
+                class="w-4 h-4"
+              ></i>
 
             </span>
+
 
             <select
               id="carCategory"
               name="category"
               class="w-full pl-10 pr-8 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 bg-white appearance-none cursor-pointer"
-              required>
+              required
+            >
 
-              <option value="sedan">Sedan</option>
-              <option value="suv">SUV</option>
-              <option value="hatchback">Hatchback</option>
-              <option value="sports">Sports</option>
-              <option value="luxury">Luxury</option>
+              <option value="sedan">
+                Sedan
+              </option>
+
+              <option value="suv">
+                SUV
+              </option>
+
+              <option value="hatchback">
+                Hatchback
+              </option>
+
+              <option value="sports">
+                Sports
+              </option>
+
+              <option value="luxury">
+                Luxury
+              </option>
 
             </select>
-
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
-
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-
-            </span>
 
           </div>
 
 
+
           <div class="relative">
 
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+            <span
+              class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+            >
 
-              <i data-lucide="settings" class="w-4 h-4"></i>
+              <i
+                data-lucide="settings"
+                class="w-4 h-4"
+              ></i>
 
             </span>
+
 
             <select
               id="carTransmission"
               name="transmission"
-              class="w-full pl-10 pr-8 py-2.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 bg-white appearance-none cursor-pointer"
-              required>
+              class="w-full pl-10 pr-8 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 bg-white appearance-none cursor-pointer"
+              required
+            >
 
-              <option value="automatic">Automatic</option>
-              <option value="manual">Manual</option>
+              <option value="automatic">
+                Automatic
+              </option>
+
+              <option value="manual">
+                Manual
+              </option>
 
             </select>
-
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
-
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-
-            </span>
 
           </div>
 
         </div>
 
 
+
         <!-- PRICE -->
 
         <div class="relative">
 
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+          <span
+            class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+          >
 
-            <i data-lucide="circle-dollar-sign" class="w-4 h-4"></i>
+            <i
+              data-lucide="circle-dollar-sign"
+              class="w-4 h-4"
+            ></i>
 
           </span>
+
 
           <input
             id="carPrice"
@@ -733,28 +574,28 @@
             placeholder="Price per day (e.g. 299)"
             class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition"
             min="0"
-            required />
+            required
+          >
 
         </div>
 
 
-        <!-- ================= IMAGE UPLOAD ================= -->
+
+        <!-- IMAGE -->
 
         <label
-          id="imageUploadBox"
-          class="relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF532E]/60 bg-slate-50/50 hover:bg-orange-50/20 transition group overflow-hidden">
-
-
-          <!-- DEFAULT UPLOAD CONTENT -->
+          class="relative flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF532E]/60 bg-slate-50/50 hover:bg-orange-50/20 transition group overflow-hidden"
+        >
 
           <div
             id="uploadPlaceholder"
-            class="flex flex-col items-center justify-center pt-2 pb-2">
+            class="flex flex-col items-center justify-center pt-2 pb-2"
+          >
 
             <i
               data-lucide="cloud-upload"
-              class="w-7 h-7 text-slate-400 group-hover:text-[#FF532E] transition-colors mb-1.5">
-            </i>
+              class="w-7 h-7 text-slate-400 group-hover:text-[#FF532E] transition-colors mb-1.5"
+            ></i>
 
             <p class="text-xs font-semibold text-slate-700">
               Click or drag to upload car image
@@ -767,16 +608,13 @@
           </div>
 
 
-          <!-- IMAGE PREVIEW -->
-
           <img
             id="imagePreview"
             src=""
             alt="Car Preview"
-            class="hidden absolute inset-0 w-full h-full object-cover rounded-xl">
+            class="hidden absolute inset-0 w-full h-full object-cover rounded-xl"
+          >
 
-
-          <!-- FILE INPUT -->
 
           <input
             id="carImage"
@@ -784,19 +622,21 @@
             name="image"
             class="hidden"
             accept="image/png, image/jpeg, image/webp"
-            required />
+            required
+          >
 
         </label>
 
 
-        <!-- SUBMIT -->
+
+        <!-- ADD BUTTON -->
 
         <button
+          id="addCarBtn"
           type="submit"
-          class="w-full py-3 mt-1 bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold rounded-xl text-sm shadow-md shadow-[#FF532E]/25 transition duration-150">
-
+          class="w-full py-3 mt-1 bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold rounded-xl text-sm shadow-md shadow-[#FF532E]/25 transition duration-150"
+        >
           Add Car
-
         </button>
 
       </form>
@@ -806,21 +646,30 @@
   </div>
 
 
-  <!-- ================= EDIT MODAL ================= -->
+
+  <!-- ===================================================== -->
+  <!-- ================= EDIT CAR MODAL ==================== -->
+  <!-- ===================================================== -->
 
   <div
     id="editCarModal"
-    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4">
+    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4"
+  >
 
     <div
-      class="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-6 sm:p-7 border border-slate-100">
+      class="relative w-full max-w-[480px] bg-white rounded-2xl shadow-2xl p-6 sm:p-7 border border-slate-100"
+    >
 
       <button
         type="button"
         onclick="closeModal('editCarModal')"
-        class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition">
+        class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition"
+      >
 
-        <i data-lucide="x" class="w-4 h-4"></i>
+        <i
+          data-lucide="x"
+          class="w-4 h-4"
+        ></i>
 
       </button>
 
@@ -839,116 +688,172 @@
 
 
       <form
+        id="editCarForm"
         class="space-y-3.5"
-        onsubmit="event.preventDefault(); closeModal('editCarModal');">
+      >
 
+        <!-- NAME -->
 
         <div class="relative">
 
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+          <span
+            class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+          >
 
-            <i data-lucide="car" class="w-4 h-4"></i>
+            <i
+              data-lucide="car"
+              class="w-4 h-4"
+            ></i>
 
           </span>
+
 
           <input
             id="editCarName"
             type="text"
             placeholder="Car Name"
-            class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition" />
+            class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition"
+            required
+          >
 
         </div>
 
+
+
+        <!-- CATEGORY + TRANSMISSION -->
 
         <div class="grid grid-cols-2 gap-3">
 
-          <div class="relative">
+          <select
+            id="editCarCategory"
+            class="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] text-slate-700 bg-white"
+            required
+          >
 
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+            <option value="sedan">
+              Sedan
+            </option>
 
-              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            <option value="suv">
+              SUV
+            </option>
 
-            </span>
+            <option value="hatchback">
+              Hatchback
+            </option>
 
-            <select
-              id="editCarCategory"
-              class="w-full pl-10 pr-8 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 bg-white appearance-none cursor-pointer">
+            <option value="sports">
+              Sports
+            </option>
 
-              <option value="sedan">Sedan</option>
-              <option value="suv">SUV</option>
-              <option value="hatchback">Hatchback</option>
-              <option value="sports">Sports</option>
-              <option value="luxury">Luxury</option>
+            <option value="luxury">
+              Luxury
+            </option>
 
-            </select>
-
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
-
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-
-            </span>
-
-          </div>
+          </select>
 
 
-          <div class="relative">
+          <select
+            id="editCarTransmission"
+            class="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] text-slate-700 bg-white"
+            required
+          >
 
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+            <option value="automatic">
+              Automatic
+            </option>
 
-              <i data-lucide="settings" class="w-4 h-4"></i>
+            <option value="manual">
+              Manual
+            </option>
 
-            </span>
-
-            <select
-              id="editCarTransmission"
-              class="w-full pl-10 pr-8 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 bg-white appearance-none cursor-pointer">
-
-              <option value="automatic">Automatic</option>
-              <option value="manual">Manual</option>
-
-            </select>
-
-            <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
-
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-
-            </span>
-
-          </div>
+          </select>
 
         </div>
 
 
+
+        <!-- PRICE -->
+
         <div class="relative">
 
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+          <span
+            class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
+          >
 
-            <i data-lucide="circle-dollar-sign" class="w-4 h-4"></i>
+            <i
+              data-lucide="circle-dollar-sign"
+              class="w-4 h-4"
+            ></i>
 
           </span>
+
 
           <input
             id="editCarPrice"
             type="number"
+            min="0"
             placeholder="Price per day"
-            class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition" />
+            class="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#FF532E] focus:ring-1 focus:ring-[#FF532E] text-slate-700 transition"
+            required
+          >
 
         </div>
 
 
-        <!-- EDIT IMAGE -->
+
+        <!-- EXISTING IMAGE PREVIEW -->
+
+        <div
+          class="relative w-full h-32 rounded-xl overflow-hidden bg-slate-50 border border-slate-200"
+        >
+
+          <img
+            id="editImagePreview"
+            src=""
+            alt="Current Car Image"
+            class="hidden w-full h-full object-cover"
+          >
+
+          <div
+            id="editImagePlaceholder"
+            class="absolute inset-0 flex flex-col items-center justify-center text-slate-400"
+          >
+
+            <i
+              data-lucide="image"
+              class="w-7 h-7 mb-1"
+            ></i>
+
+            <span class="text-xs">
+              Current image
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- CHANGE IMAGE -->
 
         <label
-          class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF532E]/60 bg-slate-50/50 hover:bg-orange-50/20 transition group">
+          class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF532E]/60 bg-slate-50/50 hover:bg-orange-50/20 transition group"
+        >
 
-          <div class="flex flex-col items-center justify-center py-2">
+          <div
+            class="flex flex-col items-center justify-center py-2"
+          >
 
             <i
               data-lucide="cloud-upload"
-              class="w-6 h-6 text-slate-400 group-hover:text-[#FF532E] transition-colors mb-1">
-            </i>
+              class="w-6 h-6 text-slate-400 group-hover:text-[#FF532E] transition-colors mb-1"
+            ></i>
 
-            <p class="text-xs font-semibold text-slate-700">
+            <p
+              id="editImageLabel"
+              class="text-xs font-semibold text-slate-700"
+            >
               Change image (optional)
             </p>
 
@@ -958,31 +863,37 @@
 
           </div>
 
+
           <input
+            id="editCarImage"
             type="file"
             class="hidden"
-            accept="image/png, image/jpeg, image/webp" />
+            accept="image/png, image/jpeg, image/webp"
+          >
 
         </label>
 
+
+
+        <!-- BUTTONS -->
 
         <div class="flex gap-3 pt-2">
 
           <button
             type="button"
             onclick="closeModal('editCarModal')"
-            class="w-1/2 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition">
-
+            class="w-1/2 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition"
+          >
             Cancel
-
           </button>
 
+
           <button
+            id="saveEditBtn"
             type="submit"
-            class="w-1/2 py-2.5 bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold rounded-xl text-sm shadow-md shadow-[#FF532E]/25 transition">
-
+            class="w-1/2 py-2.5 bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold rounded-xl text-sm shadow-md shadow-[#FF532E]/25 transition"
+          >
             Save Changes
-
           </button>
 
         </div>
@@ -994,47 +905,61 @@
   </div>
 
 
-  <!-- ================= DELETE MODAL ================= -->
+
+  <!-- ===================================================== -->
+  <!-- ================= DELETE MODAL ====================== -->
+  <!-- ===================================================== -->
 
   <div
     id="deleteModal"
-    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4">
+    class="modal-backdrop fixed inset-0 z-50 hidden bg-[#08123B]/60 backdrop-blur-sm flex items-center justify-center p-4"
+  >
 
     <div
-      class="w-full max-w-[360px] bg-white rounded-2xl shadow-2xl p-6 text-center border border-slate-100">
+      class="w-full max-w-[360px] bg-white rounded-2xl shadow-2xl p-6 text-center border border-slate-100"
+    >
 
-      <div class="w-12 h-12 rounded-full bg-[#FF532E]/10 flex items-center justify-center mx-auto mb-4 text-[#FF532E]">
+      <div
+        class="w-12 h-12 rounded-full bg-[#FF532E]/10 flex items-center justify-center mx-auto mb-4 text-[#FF532E]"
+      >
 
-        <i data-lucide="trash-2" class="w-6 h-6"></i>
+        <i
+          data-lucide="trash-2"
+          class="w-6 h-6"
+        ></i>
 
       </div>
+
 
       <h3 class="text-lg font-bold text-[#08123B]">
         Delete Rental Car?
       </h3>
 
-      <p class="text-xs text-slate-500 mt-2 px-2 leading-relaxed">
+
+      <p
+        class="text-xs text-slate-500 mt-2 px-2 leading-relaxed"
+      >
         This action cannot be undone. The car will be permanently removed.
       </p>
+
 
       <div class="flex gap-3 mt-6">
 
         <button
           type="button"
           onclick="closeModal('deleteModal')"
-          class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition">
-
+          class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition"
+        >
           Cancel
-
         </button>
 
+
         <button
+          id="confirmDeleteBtn"
           type="button"
-          onclick="confirmDelete()"
-          class="flex-1 py-2.5 rounded-xl bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold text-sm shadow-md shadow-[#FF532E]/20 transition">
-
+          class="flex-1 py-2.5 rounded-xl bg-[#FF532E] hover:bg-[#e04522] text-white font-semibold text-sm shadow-md shadow-[#FF532E]/20 transition"
+        >
           Delete
-
         </button>
 
       </div>
@@ -1043,334 +968,1542 @@
 
   </div>
 
-<!-- ================= JAVASCRIPT ================= -->
 
-<script>
 
-  /* ================= LUCIDE ICONS ================= */
+  <!-- ===================================================== -->
+  <!-- ======================= JS =========================== -->
+  <!-- ===================================================== -->
 
-  lucide.createIcons();
+  <script>
 
+    /* =====================================================
+       GLOBAL VARIABLES
+    ===================================================== */
 
-  /* ================= ADD CAR FORM ================= */
+    let carToEdit = null;
 
-  const addCarForm =
-    document.getElementById("addCarForm");
+    let carToDelete = null;
 
-  const carImage =
-    document.getElementById("carImage");
+    let isAddingCar = false;
 
-  const imagePreview =
-    document.getElementById("imagePreview");
+    let isEditingCar = false;
 
-  const uploadPlaceholder =
-    document.getElementById("uploadPlaceholder");
+    let isDeletingCar = false;
 
 
-  /* ================= FLASH MESSAGE ================= */
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-  function showFlash(message, type = "success") {
+    const addCarForm =
+      document.getElementById("addCarForm");
 
-    const flash =
-      document.createElement("div");
+    const addCarBtn =
+      document.getElementById("addCarBtn");
 
-    flash.className =
-      `flash-message ${type}`;
+    const carImage =
+      document.getElementById("carImage");
 
-    flash.innerText = message;
+    const imagePreview =
+      document.getElementById("imagePreview");
 
-    document.body.appendChild(flash);
+    const uploadPlaceholder =
+      document.getElementById("uploadPlaceholder");
 
 
-    /* Show immediately */
+    const editCarForm =
+      document.getElementById("editCarForm");
 
-    requestAnimationFrame(() => {
+    const editCarImage =
+      document.getElementById("editCarImage");
 
-      flash.classList.add("show");
+    const editImagePreview =
+      document.getElementById("editImagePreview");
 
-    });
+    const editImagePlaceholder =
+      document.getElementById("editImagePlaceholder");
 
+    const editImageLabel =
+      document.getElementById("editImageLabel");
 
-    /* Remove after 3 seconds */
+    const saveEditBtn =
+      document.getElementById("saveEditBtn");
 
-    setTimeout(() => {
 
-      flash.classList.remove("show");
+    const confirmDeleteBtn =
+      document.getElementById("confirmDeleteBtn");
 
-      setTimeout(() => {
 
-        flash.remove();
+    const tableBody =
+      document.getElementById("carsTableBody");
 
-      }, 400);
 
-    }, 2000);
+    /* =====================================================
+       LUCIDE
+    ===================================================== */
 
-  }
+    lucide.createIcons();
 
 
+    /* =====================================================
+       FLASH MESSAGE
+    ===================================================== */
 
+    let flashTimer = null;
 
 
+    function showFlash(
+      message,
+      type = "success"
+    ) {
 
+      // Remove existing flash
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* ================= IMAGE PREVIEW ================= */
-
-  if (carImage) {
-
-    carImage.addEventListener("change", function () {
-
-      const file = this.files[0];
-
-
-      if (!file) {
-
-        return;
-
-      }
-
-
-      /* ================= FILE TYPE CHECK ================= */
-
-      if (!file.type.startsWith("image/")) {
-
-        showFlash(
-          "Please select a valid image.",
-          "error"
+      const oldFlash =
+        document.querySelector(
+          ".flash-message"
         );
 
-        carImage.value = "";
-
-        return;
-
+      if (oldFlash) {
+        oldFlash.remove();
       }
 
 
-      /* ================= FILE SIZE CHECK ================= */
+      if (flashTimer) {
+        clearTimeout(flashTimer);
+      }
 
-      if (file.size > 5 * 1024 * 1024) {
 
-        showFlash(
-          "Image size must be less than 5MB.",
-          "error"
+      const flash =
+        document.createElement("div");
+
+
+      flash.className =
+        `flash-message ${type}`;
+
+
+      flash.innerText =
+        message;
+
+
+      document.body.appendChild(
+        flash
+      );
+
+
+      requestAnimationFrame(() => {
+
+        flash.classList.add(
+          "show"
         );
 
-        carImage.value = "";
-
-        return;
-
-      }
+      });
 
 
-      /* ================= IMAGE PREVIEW ================= */
+      flashTimer =
+        setTimeout(() => {
 
-      const imageURL =
-        URL.createObjectURL(file);
-
-      imagePreview.src = imageURL;
-
-
-      /* Hide upload text */
-
-      uploadPlaceholder.classList.add("hidden");
-
-
-      /* Show preview */
-
-      imagePreview.classList.remove("hidden");
-
-    });
-
-  }
-
-
-  /* ================= ADD CAR TO BACKEND ================= */
-
-  if (addCarForm) {
-
-    addCarForm.addEventListener(
-      "submit",
-      async (e) => {
-
-        e.preventDefault();
-
-
-        /* ================= GET IMAGE ================= */
-
-        const imageFile =
-          document.getElementById(
-            "carImage"
-          ).files[0];
-
-
-        /* ================= IMAGE REQUIRED ================= */
-
-        if (!imageFile) {
-
-          showFlash(
-            "Please select a car image.",
-            "error"
+          flash.classList.remove(
+            "show"
           );
 
-          return;
 
-        }
+          setTimeout(() => {
+
+            if (flash.parentNode) {
+              flash.remove();
+            }
+
+          }, 400);
+
+        }, 1200);
+    }
 
 
-        /* ================= FORM DATA ================= */
 
-        const formData =
-          new FormData();
+    /* =====================================================
+       MODALS
+    ===================================================== */
+
+    function openModal(id) {
+
+      const modal =
+        document.getElementById(id);
 
 
-        formData.append(
-          "name",
-          document
-            .getElementById("carName")
-            .value
-            .trim()
+      if (modal) {
+
+        modal.classList.remove(
+          "hidden"
         );
 
+        lucide.createIcons();
+      }
+    }
 
-        formData.append(
-          "category",
-          document
-            .getElementById("carCategory")
-            .value
+
+    function closeModal(id) {
+
+      const modal =
+        document.getElementById(id);
+
+
+      if (modal) {
+
+        modal.classList.add(
+          "hidden"
         );
+      }
+    }
 
 
-        formData.append(
-          "transmission",
-          document
-            .getElementById("carTransmission")
-            .value
-        );
+
+    /* =====================================================
+       ADD IMAGE PREVIEW
+    ===================================================== */
+
+    if (carImage) {
+
+      carImage.addEventListener(
+        "change",
+        function () {
+
+          const file =
+            this.files[0];
 
 
-        formData.append(
-          "pricePerDay",
-          document
-            .getElementById("carPrice")
-            .value
-        );
+          if (!file) {
+            return;
+          }
 
 
-        /* ================= IMAGE ================= */
+          if (
+            !file.type.startsWith(
+              "image/"
+            )
+          ) {
 
-        formData.append(
-          "image",
-          imageFile
-        );
+            showFlash(
+              "Please select a valid image.",
+              "error"
+            );
+
+            carImage.value = "";
+
+            return;
+          }
 
 
-        /* ================= SEND TO BACKEND ================= */
+          if (
+            file.size >
+            5 * 1024 * 1024
+          ) {
 
-        try {
+            showFlash(
+              "Image size must be less than 5MB.",
+              "error"
+            );
 
-          const response =
-            await fetch(
-              "/api/cars",
-              {
+            carImage.value = "";
 
-                method: "POST",
+            return;
+          }
 
-                body: formData,
 
-                credentials: "include"
-
-              }
+          imagePreview.src =
+            URL.createObjectURL(
+              file
             );
 
 
-          const data =
-            await response.json();
+          imagePreview.classList.remove(
+            "hidden"
+          );
 
 
-          /* ================= ERROR ================= */
+          uploadPlaceholder.classList.add(
+            "hidden"
+          );
 
-          if (!response.ok) {
+        }
+      );
+    }
+
+
+
+    /* =====================================================
+       ADD CAR
+       
+       IMPORTANT:
+       onsubmit + isAddingCar prevents duplicate requests.
+    ===================================================== */
+
+    if (addCarForm) {
+
+      addCarForm.onsubmit =
+        async function (e) {
+
+          e.preventDefault();
+
+
+          // HARD STOP
+
+          if (isAddingCar) {
+            return;
+          }
+
+
+          const imageFile =
+            carImage.files[0];
+
+
+          if (!imageFile) {
 
             showFlash(
-              data.message ||
-              "Failed to add car.",
+              "Please select a car image.",
               "error"
             );
 
             return;
-
           }
 
 
-          /* ================= SUCCESS ================= */
+          const name =
+            document
+              .getElementById("carName")
+              .value
+              .trim();
 
-          showFlash(
-            "Car added successfully ",
-            "success"
+
+          const category =
+            document
+              .getElementById("carCategory")
+              .value;
+
+
+          const transmission =
+            document
+              .getElementById("carTransmission")
+              .value;
+
+
+          const price =
+            document
+              .getElementById("carPrice")
+              .value;
+
+
+          if (
+            !name ||
+            !category ||
+            !transmission ||
+            !price
+          ) {
+
+            showFlash(
+              "Please fill all required fields.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          // LOCK IMMEDIATELY
+
+          isAddingCar = true;
+
+
+          addCarBtn.disabled = true;
+
+          addCarBtn.innerText =
+            "Adding...";
+
+          addCarBtn.classList.add(
+            "opacity-70",
+            "cursor-not-allowed"
           );
 
 
-          /* ================= RESET FORM ================= */
+          const formData =
+            new FormData();
 
-          addCarForm.reset();
+
+          formData.append(
+            "name",
+            name
+          );
 
 
-          /* ================= RESET IMAGE ================= */
+          formData.append(
+            "category",
+            category
+          );
 
-          imagePreview.src = "";
 
-          imagePreview.classList.add(
+          formData.append(
+            "transmission",
+            transmission
+          );
+
+
+          formData.append(
+            "pricePerDay",
+            price
+          );
+
+
+          formData.append(
+            "image",
+            imageFile
+          );
+
+
+          try {
+
+            const response =
+              await fetch(
+                "/api/cars",
+                {
+                  method: "POST",
+                  body: formData,
+                  credentials: "include"
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.message ||
+                "Failed to add car."
+              );
+            }
+
+
+            showFlash(
+              "Car added successfully.",
+              "success"
+            );
+
+
+            // Reset
+
+            addCarForm.reset();
+
+
+            imagePreview.src =
+              "";
+
+            imagePreview.classList.add(
+              "hidden"
+            );
+
+            uploadPlaceholder.classList.remove(
+              "hidden"
+            );
+
+
+            closeModal(
+              "carModal"
+            );
+
+
+            // Reload
+
+           loadMyCars();
+
+          } catch (error) {
+
+            console.error(
+              "Add Car Error:",
+              error
+            );
+
+
+            showFlash(
+              error.message ||
+              "Server error. Please try again.",
+              "error"
+            );
+
+          } finally {
+
+            isAddingCar =
+              false;
+
+
+            addCarBtn.disabled =
+              false;
+
+
+            addCarBtn.innerText =
+              "Add Car";
+
+
+            addCarBtn.classList.remove(
+              "opacity-70",
+              "cursor-not-allowed"
+            );
+
+          }
+
+        };
+    }
+
+
+
+    /* =====================================================
+       EDIT MODAL
+    ===================================================== */
+
+    function openEditModal(
+      carId,
+      name,
+      category,
+      transmission,
+      price,
+      image
+    ) {
+
+      carToEdit =
+        carId;
+
+
+      document.getElementById(
+        "editCarName"
+      ).value =
+        name;
+
+
+      document.getElementById(
+        "editCarCategory"
+      ).value =
+        category;
+
+
+      document.getElementById(
+        "editCarTransmission"
+      ).value =
+        transmission;
+
+
+      document.getElementById(
+        "editCarPrice"
+      ).value =
+        price;
+
+
+      // Clear NEW image
+
+      editCarImage.value =
+        "";
+
+
+      // Show OLD image
+
+      if (image) {
+
+        editImagePreview.src =
+          image;
+
+
+        editImagePreview.classList.remove(
+          "hidden"
+        );
+
+
+        editImagePlaceholder.classList.add(
+          "hidden"
+        );
+
+
+        editImageLabel.innerText =
+          "Change image (optional)";
+
+      } else {
+
+        editImagePreview.src =
+          "";
+
+
+        editImagePreview.classList.add(
+          "hidden"
+        );
+
+
+        editImagePlaceholder.classList.remove(
+          "hidden"
+        );
+
+
+        editImageLabel.innerText =
+          "Upload image (optional)";
+      }
+
+
+      openModal(
+        "editCarModal"
+      );
+    }
+
+
+
+    /* =====================================================
+       EDIT IMAGE PREVIEW
+    ===================================================== */
+
+    if (editCarImage) {
+
+      editCarImage.addEventListener(
+        "change",
+        function () {
+
+          const file =
+            this.files[0];
+
+
+          if (!file) {
+            return;
+          }
+
+
+          if (
+            !file.type.startsWith(
+              "image/"
+            )
+          ) {
+
+            showFlash(
+              "Please select a valid image.",
+              "error"
+            );
+
+            editCarImage.value =
+              "";
+
+            return;
+          }
+
+
+          if (
+            file.size >
+            5 * 1024 * 1024
+          ) {
+
+            showFlash(
+              "Image size must be less than 5MB.",
+              "error"
+            );
+
+            editCarImage.value =
+              "";
+
+            return;
+          }
+
+
+          // NEW IMAGE PREVIEW
+
+          editImagePreview.src =
+            URL.createObjectURL(
+              file
+            );
+
+
+          editImagePreview.classList.remove(
             "hidden"
           );
 
-          uploadPlaceholder.classList.remove(
+
+          editImagePlaceholder.classList.add(
             "hidden"
           );
 
 
-          /* ================= CLOSE MODAL ================= */
+          editImageLabel.innerText =
+            "New image selected";
 
-          closeModal("carModal");
+        }
+      );
+    }
 
 
-        } catch (error) {
 
-          console.error(
-            "Add car error:",
-            error
+    /* =====================================================
+       EDIT API
+    ===================================================== */
+
+    if (editCarForm) {
+
+      editCarForm.onsubmit =
+        async function (e) {
+
+          e.preventDefault();
+
+
+          // Prevent duplicate request
+
+          if (isEditingCar) {
+            return;
+          }
+
+
+          if (!carToEdit) {
+
+            showFlash(
+              "Car not selected.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          const name =
+            document
+              .getElementById(
+                "editCarName"
+              )
+              .value
+              .trim();
+
+
+          const category =
+            document
+              .getElementById(
+                "editCarCategory"
+              )
+              .value;
+
+
+          const transmission =
+            document
+              .getElementById(
+                "editCarTransmission"
+              )
+              .value;
+
+
+          const price =
+            document
+              .getElementById(
+                "editCarPrice"
+              )
+              .value;
+
+
+          const imageFile =
+            editCarImage.files[0];
+
+
+          if (
+            !name ||
+            !category ||
+            !transmission ||
+            !price
+          ) {
+
+            showFlash(
+              "Please fill all required fields.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          // LOCK
+
+          isEditingCar =
+            true;
+
+
+          saveEditBtn.disabled =
+            true;
+
+
+          saveEditBtn.innerText =
+            "Saving...";
+
+
+          saveEditBtn.classList.add(
+            "opacity-70",
+            "cursor-not-allowed"
           );
 
 
-          showFlash(
-            "Server error. Please try again.",
-            "error"
+          const formData =
+            new FormData();
+
+
+          formData.append(
+            "name",
+            name
+          );
+
+
+          formData.append(
+            "category",
+            category
+          );
+
+
+          formData.append(
+            "transmission",
+            transmission
+          );
+
+
+          formData.append(
+            "pricePerDay",
+            price
+          );
+
+
+          /*
+            IMPORTANT:
+
+            New image selected:
+            send image.
+
+            No new image:
+            don't send image.
+
+            Backend will keep old image.
+          */
+
+          if (imageFile) {
+
+            formData.append(
+              "image",
+              imageFile
+            );
+          }
+
+
+          try {
+
+            const response =
+              await fetch(
+                `/api/cars/${carToEdit}`,
+                {
+                  method: "PUT",
+                  body: formData,
+                  credentials: "include"
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.message ||
+                "Failed to update car."
+              );
+            }
+
+
+            showFlash(
+              "Car updated successfully.",
+              "success"
+            );
+
+
+            closeModal(
+              "editCarModal"
+            );
+
+
+            carToEdit =
+              null;
+
+
+            editCarForm.reset();
+
+
+            editImagePreview.src =
+              "";
+
+            editImagePreview.classList.add(
+              "hidden"
+            );
+
+            editImagePlaceholder.classList.remove(
+              "hidden"
+            );
+
+
+            editImageLabel.innerText =
+              "Change image (optional)";
+
+
+            await loadMyCars();
+
+          } catch (error) {
+
+            console.error(
+              "Update Car Error:",
+              error
+            );
+
+
+            showFlash(
+              error.message ||
+              "Server error. Please try again.",
+              "error"
+            );
+
+          } finally {
+
+            isEditingCar =
+              false;
+
+
+            saveEditBtn.disabled =
+              false;
+
+
+            saveEditBtn.innerText =
+              "Save Changes";
+
+
+            saveEditBtn.classList.remove(
+              "opacity-70",
+              "cursor-not-allowed"
+            );
+
+          }
+
+        };
+    }
+
+
+
+    /* =====================================================
+       DELETE MODAL
+    ===================================================== */
+
+    function openDeleteModal(
+      carId
+    ) {
+
+      carToDelete =
+        carId;
+
+
+      openModal(
+        "deleteModal"
+      );
+    }
+
+
+
+    /* =====================================================
+       DELETE API
+    ===================================================== */
+
+    if (confirmDeleteBtn) {
+
+      confirmDeleteBtn.onclick =
+        async function () {
+
+          if (isDeletingCar) {
+            return;
+          }
+
+
+          if (!carToDelete) {
+
+            showFlash(
+              "Car not selected.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          isDeletingCar =
+            true;
+
+
+          confirmDeleteBtn.disabled =
+            true;
+
+
+          confirmDeleteBtn.innerText =
+            "Deleting...";
+
+
+          confirmDeleteBtn.classList.add(
+            "opacity-70",
+            "cursor-not-allowed"
+          );
+
+
+          try {
+
+            const response =
+              await fetch(
+                `/api/cars/${carToDelete}`,
+                {
+                  method: "DELETE",
+                  credentials: "include"
+                }
+              );
+
+
+            const data =
+              await response.json();
+
+
+            if (!response.ok) {
+
+              throw new Error(
+                data.message ||
+                "Failed to delete car."
+              );
+            }
+
+
+            closeModal(
+              "deleteModal"
+            );
+
+
+            showFlash(
+              "Car deleted successfully.",
+              "success"
+            );
+
+
+            carToDelete =
+              null;
+
+
+            await loadMyCars();
+
+          } catch (error) {
+
+            console.error(
+              "Delete Car Error:",
+              error
+            );
+
+
+            showFlash(
+              error.message ||
+              "Server error. Please try again.",
+              "error"
+            );
+
+          } finally {
+
+            isDeletingCar =
+              false;
+
+
+            confirmDeleteBtn.disabled =
+              false;
+
+
+            confirmDeleteBtn.innerText =
+              "Delete";
+
+
+            confirmDeleteBtn.classList.remove(
+              "opacity-70",
+              "cursor-not-allowed"
+            );
+
+          }
+
+        };
+    }
+
+
+
+    /* =====================================================
+       LOAD MY CARS
+    ===================================================== */
+
+    async function loadMyCars() {
+
+      if (!tableBody) {
+        return;
+      }
+
+
+      tableBody.innerHTML = `
+        <tr>
+          <td
+            colspan="6"
+            class="py-10 text-center text-slate-400"
+          >
+            Loading cars...
+          </td>
+        </tr>
+      `;
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/cars/my-cars",
+            {
+              method: "GET",
+              credentials: "include"
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (response.status === 401) {
+
+          tableBody.innerHTML = `
+            <tr>
+              <td
+                colspan="6"
+                class="py-10 text-center text-slate-400"
+              >
+                Please login to manage your cars.
+              </td>
+            </tr>
+          `;
+
+          return;
+        }
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Failed to load cars."
+          );
+        }
+
+
+        /*
+          Backend normally returns:
+
+          {
+            cars: [...]
+          }
+
+          This also supports direct array
+          response just in case.
+        */
+
+        const cars =
+          Array.isArray(data)
+            ? data
+            : Array.isArray(data.cars)
+              ? data.cars
+              : [];
+
+
+        if (cars.length === 0) {
+
+          tableBody.innerHTML = `
+            <tr>
+
+              <td
+                colspan="6"
+                class="py-12 text-center"
+              >
+
+                <div
+                  class="flex flex-col items-center"
+                >
+
+                  <i
+                    data-lucide="car"
+                    class="w-10 h-10 text-slate-300 mb-3"
+                  ></i>
+
+                  <p
+                    class="text-sm font-semibold text-slate-500"
+                  >
+                    You have not added any rental cars yet.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+          `;
+
+
+          lucide.createIcons();
+
+          return;
+        }
+
+
+        tableBody.innerHTML =
+          "";
+
+
+        cars.forEach(
+          car => {
+
+            const category =
+              String(
+                car.category || ""
+              ).toLowerCase();
+
+
+            const transmission =
+              String(
+                car.transmission || ""
+              ).toLowerCase();
+
+
+            const image =
+              car.image || "";
+
+
+            const row =
+              document.createElement(
+                "tr"
+              );
+
+
+            row.className =
+              "hover:bg-slate-50/60 transition-colors";
+
+
+            row.innerHTML = `
+
+              <!-- IMAGE -->
+
+              <td class="py-4 px-6">
+
+                <img
+                  src="${escapeAttribute(image)}"
+                  alt="${escapeAttribute(car.name || "Car")}"
+                  class="w-20 h-12 object-contain rounded-md bg-slate-50"
+                  onerror="this.style.display='none'"
+                >
+
+              </td>
+
+
+              <!-- NAME -->
+
+              <td
+                class="py-4 px-6 font-semibold text-[#08123B]"
+              >
+
+                ${escapeHTML(
+                  car.name || "Unnamed Car"
+                )}
+
+              </td>
+
+
+              <!-- CATEGORY -->
+
+              <td class="py-4 px-6">
+
+                <span
+                  class="px-2.5 py-1 text-xs font-semibold text-[#FF532E] bg-[#FF532E]/10 rounded-full capitalize"
+                >
+                  ${escapeHTML(category)}
+                </span>
+
+              </td>
+
+
+              <!-- TRANSMISSION -->
+
+              <td class="py-4 px-6">
+
+                <span
+                  class="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full capitalize"
+                >
+                  ${escapeHTML(transmission)}
+                </span>
+
+              </td>
+
+
+              <!-- PRICE -->
+
+              <td
+                class="py-4 px-6 font-bold text-[#08123B]"
+              >
+
+                ₹${Number(
+                  car.pricePerDay || 0
+                ).toLocaleString("en-IN")}
+
+                <span
+                  class="text-xs font-normal text-slate-400"
+                >
+                  /day
+                </span>
+
+              </td>
+
+
+              <!-- ACTIONS -->
+
+              <td class="py-4 px-6">
+
+                <div
+                  class="flex items-center justify-center gap-2"
+                >
+
+                  <!-- EDIT -->
+
+                  <button
+                    type="button"
+                    class="edit-car-btn p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                    title="Edit Car"
+
+                    data-id="${escapeAttribute(
+                      car._id || ""
+                    )}"
+
+                    data-name="${encodeURIComponent(
+                      car.name || ""
+                    )}"
+
+                    data-category="${escapeAttribute(
+                      category
+                    )}"
+
+                    data-transmission="${escapeAttribute(
+                      transmission
+                    )}"
+
+                    data-price="${escapeAttribute(
+                      car.pricePerDay || ""
+                    )}"
+
+                    data-image="${escapeAttribute(
+                      image
+                    )}"
+                  >
+
+                    <i
+                      data-lucide="edit-3"
+                      class="w-4 h-4 pointer-events-none"
+                    ></i>
+
+                  </button>
+
+
+                  <!-- DELETE -->
+
+                  <button
+                    type="button"
+                    class="delete-car-btn p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"
+                    title="Delete Car"
+
+                    data-id="${escapeAttribute(
+                      car._id || ""
+                    )}"
+                  >
+
+                    <i
+                      data-lucide="trash-2"
+                      class="w-4 h-4 pointer-events-none"
+                    ></i>
+
+                  </button>
+
+                </div>
+
+              </td>
+
+            `;
+
+
+            tableBody.appendChild(
+              row
+            );
+
+          }
+        );
+
+
+        lucide.createIcons();
+
+      } catch (error) {
+
+        console.error(
+          "Load My Cars Error:",
+          error
+        );
+
+
+        tableBody.innerHTML = `
+          <tr>
+
+            <td
+              colspan="6"
+              class="py-10 text-center text-rose-500"
+            >
+              Server error. Unable to load your cars.
+            </td>
+
+          </tr>
+        `;
+      }
+    }
+
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHTML(
+      value
+    ) {
+
+      return String(
+        value
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+
+    function escapeAttribute(
+      value
+    ) {
+
+      return escapeHTML(
+        value
+      );
+    }
+
+
+
+    /* =====================================================
+       CAR ACTION EVENTS
+       
+       Event delegation:
+       Edit/Delete buttons dynamic rows ke liye.
+    ===================================================== */
+
+    if (tableBody) {
+
+      tableBody.onclick =
+        function (e) {
+
+
+          /* ================= EDIT ================= */
+
+          const editButton =
+            e.target.closest(
+              ".edit-car-btn"
+            );
+
+
+          if (editButton) {
+
+            openEditModal(
+
+              editButton.dataset.id,
+
+              decodeURIComponent(
+                editButton.dataset.name ||
+                ""
+              ),
+
+              editButton.dataset.category ||
+              "",
+
+              editButton.dataset.transmission ||
+              "",
+
+              editButton.dataset.price ||
+              "",
+
+              editButton.dataset.image ||
+              ""
+            );
+
+
+            return;
+          }
+
+
+
+          /* ================= DELETE ================= */
+
+          const deleteButton =
+            e.target.closest(
+              ".delete-car-btn"
+            );
+
+
+          if (deleteButton) {
+
+            openDeleteModal(
+              deleteButton.dataset.id
+            );
+
+          }
+
+        };
+    }
+
+
+
+    /* =====================================================
+       BACKDROP CLICK
+    ===================================================== */
+
+    window.addEventListener(
+      "click",
+      function (e) {
+
+        if (
+          e.target.classList.contains(
+            "modal-backdrop"
+          )
+        ) {
+
+          e.target.classList.add(
+            "hidden"
           );
 
         }
@@ -1378,110 +2511,54 @@
       }
     );
 
-  }
 
 
-  /* ================= MODAL FUNCTIONS ================= */
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
 
-  function openModal(id) {
+    document.addEventListener(
+      "keydown",
+      function (e) {
 
-    document
-      .getElementById(id)
-      .classList.remove("hidden");
+        if (e.key === "Escape") {
 
-  }
+          closeModal(
+            "carModal"
+          );
 
+          closeModal(
+            "editCarModal"
+          );
 
-  function closeModal(id) {
+          closeModal(
+            "deleteModal"
+          );
 
-    document
-      .getElementById(id)
-      .classList.add("hidden");
-
-  }
-
-
-  /* ================= EDIT MODAL ================= */
-
-  function openEditModal(
-    name,
-    category,
-    transmission,
-    price
-  ) {
-
-    document.getElementById(
-      "editCarName"
-    ).value = name;
-
-
-    document.getElementById(
-      "editCarCategory"
-    ).value = category;
-
-
-    document.getElementById(
-      "editCarTransmission"
-    ).value = transmission;
-
-
-    document.getElementById(
-      "editCarPrice"
-    ).value = price;
-
-
-    openModal(
-      "editCarModal"
-    );
-
-  }
-
-
-  /* ================= DELETE MODAL ================= */
-
-  function openDeleteModal() {
-
-    openModal(
-      "deleteModal"
-    );
-
-  }
-
-
-  function confirmDelete() {
-
-    /* Backend delete API can be added here later */
-
-    closeModal(
-      "deleteModal"
-    );
-
-  }
-
-
-  /* ================= BACKDROP CLICK ================= */
-
-  window.addEventListener(
-    "click",
-    (e) => {
-
-      if (
-        e.target.classList.contains(
-          "modal-backdrop"
-        )
-      ) {
-
-        e.target.classList.add(
-          "hidden"
-        );
+        }
 
       }
+    );
 
-    }
-  );
 
-</script>
+
+    /* =====================================================
+       PAGE LOAD
+    ===================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        loadMyCars();
+
+        lucide.createIcons();
+
+      }
+    );
+
+  </script>
 
 </body>
+
 </html>
-```
