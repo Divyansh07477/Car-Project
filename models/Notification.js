@@ -2,28 +2,24 @@ const mongoose = require("mongoose");
 
 const notificationSchema = new mongoose.Schema(
     {
-        // User who will receive the notification
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
         },
 
-        // Related booking
         booking: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Booking",
             required: true
         },
 
-        // Notification message
         message: {
             type: String,
             required: true,
             trim: true
         },
 
-        // Type of notification
         type: {
             type: String,
             enum: [
@@ -36,7 +32,6 @@ const notificationSchema = new mongoose.Schema(
             required: true
         },
 
-        // Whether user has read it
         isRead: {
             type: Boolean,
             default: false
@@ -47,7 +42,4 @@ const notificationSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model(
-    "Notification",
-    notificationSchema
-);
+module.exports = mongoose.model("Notification", notificationSchema);

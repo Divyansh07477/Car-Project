@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Booking = require("../models/Booking");
 const Car = require("../models/Car");
-
+const Notification = require("../models/Notification");
 // =====================================================
 // 1. CREATE BOOKING
 // Customer creates a PENDING booking request
@@ -192,6 +192,16 @@ router.post("/", async (req, res) => {
 
         await booking.save();
 
+        // -------------------------------------------------
+// NOTIFICATION TO CAR OWNER
+// -------------------------------------------------
+
+await Notification.create({
+    user: booking.owner,
+    booking: booking._id,
+    message: `New booking request received for ${carData.name}.`,
+    type: "new_booking"
+});
         // -------------------------------------------------
         // RESPONSE
         // -------------------------------------------------
@@ -482,34 +492,52 @@ router.post("/:id/confirm", async (req, res) => {
         await booking.save();
 
         // -------------------------------------------------
-        // CANCEL OTHER OVERLAPPING PENDING BOOKINGS
-        // -------------------------------------------------
+// NOTIFICATION TO CUSTOMER
+// -------------------------------------------------
 
-        await Booking.updateMany(
-            {
-                _id: {
-                    $ne: booking._id
-                },
+await Notification.create({
+    user: booking.renter,
+    booking: booking._id,
+    message: "Your booking has been confirmed by the car owner.",
+    type: "booking_confirmed"
+});
+       // -------------------------------------------------
+// CANCEL OTHER OVERLAPPING PENDING BOOKINGS
+// -------------------------------------------------
 
-                car: booking.car,
+const overlappingBookings = await Booking.find({
+    _id: {
+        $ne: booking._id
+    },
 
-                status: "pending",
+    car: booking.car,
 
-                startDate: {
-                    $lt: booking.endDate
-                },
+    status: "pending",
 
-                endDate: {
-                    $gt: booking.startDate
-                }
-            },
-            {
-                $set: {
-                    status: "cancelled"
-                }
-            }
-        );
+    startDate: {
+        $lt: booking.endDate
+    },
 
+    endDate: {
+        $gt: booking.startDate
+    }
+});
+
+for (const otherBooking of overlappingBookings) {
+
+    otherBooking.status = "cancelled";
+
+    await otherBooking.save();
+
+    // Notification to affected customer
+    await Notification.create({
+        user: otherBooking.renter,
+        booking: otherBooking._id,
+        message:
+            "Your booking was automatically cancelled because another booking for this car was confirmed.",
+        type: "booking_auto_cancelled"
+    });
+}
         // -------------------------------------------------
         // RESPONSE
         // -------------------------------------------------
@@ -599,6 +627,16 @@ router.post("/:id/cancel", async (req, res) => {
         await booking.save();
 
         // -------------------------------------------------
+// NOTIFICATION TO CUSTOMER
+// -------------------------------------------------
+
+await Notification.create({
+    user: booking.renter,
+    booking: booking._id,
+    message: "The car owner has cancelled your booking request.",
+    type: "booking_cancelled"
+});
+        // -------------------------------------------------
         // RESPONSE
         // -------------------------------------------------
 
@@ -686,6 +724,16 @@ router.post("/:id/customer-cancel", async (req, res) => {
 
         await booking.save();
 
+        // -------------------------------------------------
+// NOTIFICATION TO OWNER
+// -------------------------------------------------
+
+await Notification.create({
+    user: booking.owner,
+    booking: booking._id,
+    message: "The customer has cancelled the booking request.",
+    type: "booking_cancelled"
+});
         // -------------------------------------------------
         // RESPONSE
         // -------------------------------------------------
@@ -782,6 +830,16 @@ router.post("/:id/complete", async (req, res) => {
 
         await booking.save();
 
+        // -------------------------------------------------
+// NOTIFICATION TO CUSTOMER
+// -------------------------------------------------
+
+await Notification.create({
+    user: booking.renter,
+    booking: booking._id,
+    message: "Your rental has been completed successfully.",
+    type: "booking_completed"
+});
         // -------------------------------------------------
         // RESPONSE
         // -------------------------------------------------

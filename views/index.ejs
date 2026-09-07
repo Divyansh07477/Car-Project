@@ -2,199 +2,780 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Ride Wave</title>
 
-    <link rel="icon" type="image/png" href="/images/title.png.jpeg">
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+        rel="icon"
+        type="image/png"
+        href="/images/title.png.jpeg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Boxicons -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
 
 
+    <style>
 
-<style>
-/* Flash Message */
-.flash-message.success {
-    color: white;
-    border-left: 5px solid #dc2626;
-}
+        /* =====================================================
+           FLASH MESSAGE
+        ===================================================== */
 
-.flash-message.error {
-    color: white;
-    border-left: 5px solid #dc2626;
-}
+        .flash-message.success {
+            color: white;
+            border-left: 5px solid #dc2626;
+        }
 
+        .flash-message.error {
+            color: white;
+            border-left: 5px solid #dc2626;
+        }
 
+        .flash-message {
 
+            position: fixed;
 
-.flash-message {
-    position: fixed;
-    top: 90px;
-    right: 25px;
-    z-index: 99999;
+            top: 90px;
+            right: 25px;
 
-    min-width: 280px;
-    max-width: 380px;
+            z-index: 99999;
 
-    padding: 15px 20px;
-    border-radius: 10px;
+            min-width: 280px;
+            max-width: 380px;
 
-    background: #dc2626;
-   
-    color: #ffffff;
-    border-left: 5px solid #dc2626;
+            padding: 15px 20px;
 
-    font-size: 15px;
-    font-weight: 600;
+            border-radius: 10px;
 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+            background: #dc2626;
 
-    animation: flashIn 0.3s ease;
-}
+            color: #ffffff;
 
-@keyframes flashIn {
-    from {
-        opacity: 0;
-        transform: translateX(40px);
-    }
+            border-left: 5px solid #dc2626;
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-</style>
+            font-size: 15px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.18);
+
+            animation: flashIn 0.3s ease;
+        }
 
 
+        @keyframes flashIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateX(40px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+
+            }
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION WRAPPER
+        ===================================================== */
+
+        .notification-wrapper {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            margin-right: 8px;
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION BUTTON
+        ===================================================== */
+
+        .notification-btn {
+
+            position: relative;
+
+            width: 42px;
+            height: 42px;
+
+            border: none;
+
+            background: transparent;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            border-radius: 50%;
+
+            transition: 0.2s ease;
+
+        }
 
 
+        .notification-btn:hover {
+
+            background: #f3f4f6;
+
+        }
 
 
+        .notification-btn i {
+
+            font-size: 24px;
+
+            color: #374151;
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION COUNT
+        ===================================================== */
+
+        .notification-count {
+
+            position: absolute;
+
+            top: 1px;
+            right: -1px;
+
+            min-width: 18px;
+            height: 18px;
+
+            padding: 0 4px;
+
+            border-radius: 50px;
+
+            background: #ef4444;
+
+            color: white;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 2px solid white;
+
+            line-height: 1;
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION DROPDOWN
+        ===================================================== */
+
+        .notification-dropdown {
+
+            position: absolute;
+
+            top: 50px;
+
+            right: -65px;
+
+            width: 370px;
+
+            max-height: 480px;
+
+            background: white;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.15);
+
+            border: 1px solid #e5e7eb;
+
+            z-index: 99999;
+
+            overflow: hidden;
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION HEADER
+        ===================================================== */
+
+        .notification-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 16px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+        }
 
 
+        .notification-header h3 {
+
+            margin: 0;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
 
 
+        .notification-header button {
+
+            border: none;
+
+            background: none;
+
+            color: #f97316;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
 
 
+        .notification-header button:hover {
+
+            text-decoration: underline;
+
+        }
 
 
+        /* =====================================================
+           NOTIFICATION LIST
+        ===================================================== */
 
+        .notification-list {
+
+            max-height: 410px;
+
+            overflow-y: auto;
+
+        }
+
+
+        /* =====================================================
+           SINGLE NOTIFICATION
+        ===================================================== */
+
+        .notification-item {
+
+            display: flex;
+
+            gap: 12px;
+
+            padding: 14px 16px;
+
+            border-bottom:
+                1px solid #f3f4f6;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease;
+
+        }
+
+
+        .notification-item:hover {
+
+            background: #f9fafb;
+
+        }
+
+
+        /* =====================================================
+           UNREAD NOTIFICATION
+        ===================================================== */
+
+        .notification-item.unread {
+
+            background: #fff7ed;
+
+        }
+
+
+        .notification-item.unread:hover {
+
+            background: #ffedd5;
+
+        }
+
+
+        /* =====================================================
+           NOTIFICATION ICON
+        ===================================================== */
+
+        .notification-item-icon {
+
+            width: 38px;
+            height: 38px;
+
+            min-width: 38px;
+
+            border-radius: 50%;
+
+            background: #fff1e6;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .notification-item-icon i {
+
+            font-size: 19px;
+
+            color: #f97316;
+
+        }
+
+
+        /* =====================================================
+           NOTIFICATION CONTENT
+        ===================================================== */
+
+        .notification-content {
+
+            flex: 1;
+
+        }
+
+
+        .notification-message {
+
+            margin: 0;
+
+            font-size: 13px;
+
+            line-height: 1.45;
+
+            color: #374151;
+
+        }
+
+
+        .notification-time {
+
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #9ca3af;
+
+        }
+
+
+        /* =====================================================
+           EMPTY NOTIFICATION
+        ===================================================== */
+
+        .notification-empty {
+
+            padding: 45px 20px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 14px;
+
+        }
+
+
+        .notification-empty i {
+
+            font-size: 32px;
+
+            display: block;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .notification-loading {
+
+            padding: 30px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE NOTIFICATION
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .notification-dropdown {
+
+                position: fixed;
+
+                top: 70px;
+
+                left: 10px;
+
+                right: 10px;
+
+                width: auto;
+
+                max-height: 70vh;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body data-logged-in="<%= isLoggedIn %>">
 
-    <!-- HEADER -->
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
     <header class="header">
 
         <div class="nav">
 
-            <!-- Menu Icon -->
+
+            <!-- MENU ICON -->
+
             <div class="menu-icon">
+
                 <div class="line1"></div>
+
                 <div class="line2"></div>
+
                 <div class="line3"></div>
+
             </div>
 
-            <!-- Logo -->
-            <a href="/" class="logo">
-                <img src="/images/logo.png" alt="RideWave">
+
+            <!-- LOGO -->
+
+            <a
+                href="/"
+                class="logo"
+            >
+
+                <img
+                    src="/images/logo.png"
+                    alt="RideWave"
+                >
+
             </a>
 
-            <!-- NAV LINKS -->
+
+            <!-- =================================================
+                 NAV LINKS
+            ================================================= -->
+
             <div class="nav-links">
 
-                <a href="/" class="nav-link">
+                <a
+                    href="/"
+                    class="nav-link"
+                >
                     Home
                 </a>
 
-                <a href="/#rentals" class="nav-link">
+
+                <a
+                    href="/#rentals"
+                    class="nav-link"
+                >
                     Rentals
                 </a>
 
-                <a href="/teams" class="nav-link">
+
+                <a
+                    href="/teams"
+                    class="nav-link"
+                >
                     Teams
                 </a>
 
-                <a href="/#faq" class="nav-link">
+
+                <a
+                    href="/#faq"
+                    class="nav-link"
+                >
                     FAQ
                 </a>
 
-                <a href="/#blog" class="nav-link">
+
+                <a
+                    href="/#blog"
+                    class="nav-link"
+                >
                     Blog
                 </a>
 
-                <a href="/contact" class="nav-link">
+
+                <a
+                    href="/contact"
+                    class="nav-link"
+                >
                     Contact
                 </a>
 
             </div>
 
 
-            <!-- RIGHT NAV -->
+            <!-- =================================================
+                 RIGHT NAV
+            ================================================= -->
+
             <div class="right-nav">
 
-                <i class="bx bx-search search-icon"></i>
 
-              <!-- Search -->
-<div class="search-box container">
-    <input
-        type="search"
-        id="homeSearch"
-        name="q"
-        placeholder="Search here...">
-</div>
+                <!-- SEARCH ICON -->
+
+                <i
+                    class="bx bx-search search-icon"
+                ></i>
 
 
-                <!-- LOGGED OUT -->
-                <div id="authButtons">
+                <!-- =================================================
+                     SEARCH BOX
+                ================================================= -->
 
-                    <div class="login-btn">
-                        <a href="/login" class="btn">
-                            Log In
-                        </a>
-                    </div>
+                <div class="search-box">
 
-                    <div class="sign-up-btn">
-                        <a href="/signup" class="btn">
-                            Sign Up
-                        </a>
+                    <input
+                        type="search"
+                        id="homeSearch"
+                        name="q"
+                        placeholder="Search here..."
+                    >
+
+                </div>
+
+
+                <!-- =================================================
+                     NOTIFICATION
+                     ONLY LOGGED-IN USERS
+                ================================================= -->
+
+                <div
+                    id="notificationWrapper"
+                    class="notification-wrapper hidden"
+                >
+
+
+                    <!-- BELL -->
+
+                    <button
+                        type="button"
+                        id="notificationBtn"
+                        class="notification-btn"
+                        title="Notifications"
+                    >
+
+                        <i
+                            class="bx bx-bell"
+                        ></i>
+
+
+                        <!-- UNREAD COUNT -->
+
+                        <span
+                            id="notificationCount"
+                            class="notification-count hidden"
+                        >
+                            0
+                        </span>
+
+                    </button>
+
+
+                    <!-- =================================================
+                         NOTIFICATION DROPDOWN
+                    ================================================= -->
+
+                    <div
+                        id="notificationDropdown"
+                        class="notification-dropdown hidden"
+                    >
+
+
+                        <!-- HEADER -->
+
+                        <div class="notification-header">
+
+                            <h3>
+                                Notifications
+                            </h3>
+
+
+                            <button
+                                type="button"
+                                id="markAllReadBtn"
+                            >
+                                Mark all as read
+                            </button>
+
+                        </div>
+
+
+                        <!-- NOTIFICATION LIST -->
+
+                        <div
+                            id="notificationList"
+                            class="notification-list"
+                        >
+
+                            <div
+                                class="notification-loading"
+                            >
+                                Loading...
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
 
-                <!-- LOGGED IN -->
-                <div id="userProfile" class="relative hidden">
+                <!-- =================================================
+                     LOGGED OUT
+                ================================================= -->
 
-                    <!-- Profile Button -->
+                <div id="authButtons">
+
+
+                    <div class="login-btn">
+
+                        <a
+                            href="/login"
+                            class="btn"
+                        >
+                            Log In
+                        </a>
+
+                    </div>
+
+
+                    <div class="sign-up-btn">
+
+                        <a
+                            href="/signup"
+                            class="btn"
+                        >
+                            Sign Up
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     LOGGED IN
+                ================================================= -->
+
+                <div
+                    id="userProfile"
+                    class="relative hidden"
+                >
+
+
+                    <!-- PROFILE BUTTON -->
+
                     <button
                         type="button"
                         id="profileDropdownBtn"
                         class="flex items-center gap-2.5 px-4 py-1.5 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-all shadow-sm"
                     >
 
-                        <i class="bx bx-user-circle text-xl text-gray-500"></i>
 
-                        <span id="userNameDisplay">
+                        <i
+                            class="bx bx-user-circle text-xl text-gray-500"
+                        ></i>
+
+
+                        <span
+                            id="userNameDisplay"
+                        >
                             Admin
                         </span>
+
 
                         <i
                             class="bx bx-chevron-down text-gray-400 text-sm transition-transform duration-200"
@@ -204,13 +785,18 @@
                     </button>
 
 
-                    <!-- Dropdown -->
+                    <!-- =================================================
+                         PROFILE DROPDOWN
+                    ================================================= -->
+
                     <div
                         id="profileDropdownMenu"
                         class="hidden absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl ring-1 ring-black/5 divide-y divide-gray-100 z-50 overflow-hidden"
                     >
 
-                        <!-- User Info -->
+
+                        <!-- USER INFO -->
+
                         <div class="px-4 py-3 bg-white">
 
                             <p
@@ -219,6 +805,7 @@
                             >
                                 Admin
                             </p>
+
 
                             <p
                                 class="text-xs text-gray-500 truncate"
@@ -230,17 +817,25 @@
                         </div>
 
 
-                        <!-- Menu -->
+                        <!-- PROFILE MENU -->
+
                         <div class="py-1">
+
+
+                            <!-- ADMIN -->
 
                             <a
                                 href="/admin"
                                 class="flex items-center justify-between px-4 py-2.5 text-sm font-medium text-orange-500 bg-orange-50/50 hover:bg-orange-50 transition-colors"
                             >
 
-                                <span class="flex items-center gap-2.5">
+                                <span
+                                    class="flex items-center gap-2.5"
+                                >
 
-                                    <i class="bx bx-tachometer text-base"></i>
+                                    <i
+                                        class="bx bx-tachometer text-base"
+                                    ></i>
 
                                     <span>
                                         Admin Dashboard
@@ -248,17 +843,24 @@
 
                                 </span>
 
-                                <i class="bx bx-chevrons-right text-base text-gray-400"></i>
+
+                                <i
+                                    class="bx bx-chevrons-right text-base text-gray-400"
+                                ></i>
 
                             </a>
 
+
+                            <!-- MY BOOKINGS -->
 
                             <a
                                 href="/Mybookings"
                                 class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                             >
 
-                                <i class="bx bx-calendar-check text-base text-gray-400"></i>
+                                <i
+                                    class="bx bx-calendar-check text-base text-gray-400"
+                                ></i>
 
                                 <span>
                                     My Bookings
@@ -267,13 +869,17 @@
                             </a>
 
 
+                            <!-- LOGOUT -->
+
                             <button
                                 type="button"
                                 id="logoutBtn"
                                 class="w-full text-left flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
                             >
 
-                                <i class="bx bx-log-out text-base text-gray-400"></i>
+                                <i
+                                    class="bx bx-log-out text-base text-gray-400"
+                                ></i>
 
                                 <span>
                                     Logout
@@ -294,34 +900,56 @@
     </header>
 
 
+    <!-- =====================================================
+         HOME
+    ===================================================== -->
 
-    <!-- HOME -->
-    <section class="home" id="home">
+    <section
+        class="home"
+        id="home"
+    >
 
-        <div class="home-container container">
+        <div class="home-container">
+
 
             <!-- HOME FORM -->
-          <form action="/search" method="GET" class="home-form">
+
+            <form
+                action="/search"
+                method="GET"
+                class="home-form"
+            >
 
                 <h2>
+
                     Find your perfect
-                    <span>rental car today</span>
+
+                    <span>
+                        rental car today
+                    </span>
+
                 </h2>
 
 
-                <select name="" id="cars">
+                <select
+                    name=""
+                    id="cars"
+                >
 
                     <option value="cars">
                         Select Car Type
                     </option>
 
+
                     <option value="cars">
                         Sedan
                     </option>
 
+
                     <option value="cars">
                         SUV
                     </option>
+
 
                     <option value="cars">
                         Sports
@@ -337,6 +965,7 @@
                     placeholder="Pick-up Date"
                 >
 
+
                 <input
                     type="date"
                     name=""
@@ -344,12 +973,14 @@
                     placeholder="Return Date"
                 >
 
+
                 <input
                     type="text"
                     name=""
                     id=""
                     placeholder="Pick-up Location"
                 >
+
 
                 <input
                     type="submit"
@@ -361,6 +992,7 @@
 
 
             <!-- BMW -->
+
             <div class="bmw-card">
 
                 <img
@@ -376,26 +1008,44 @@
     </section>
 
 
-<!-- Rental Cars Section -->
+    <!-- =====================================================
+         RENTAL CARS
+    ===================================================== -->
 
-<!-- Heading -->
-<div class="heading">
-    <span>Car Rentals</span>
-    <h2>
-        Our Top Rentals <br>
-        Comfort, Affordability & Convenience
-    </h2>
-</div>
+    <div class="heading">
 
-<!-- Cars loaded from Database -->
-<div class="rental-container container" id="rentalContainer">
-</div>
-```
+        <span>
+            Car Rentals
+        </span>
+
+        <h2>
+
+            Our Top Rentals <br>
+
+            Comfort, Affordability & Convenience
+
+        </h2>
+
+    </div>
 
 
+    <!-- CARS FROM DATABASE -->
 
-    <!-- TEAM SECTION -->
-    <section class="team" id="team">
+    <div
+        class="rental-container container"
+        id="rentalContainer"
+    >
+    </div>
+
+
+    <!-- =====================================================
+         TEAM SECTION
+    ===================================================== -->
+
+    <section
+        class="team"
+        id="team"
+    >
 
         <div class="heading">
 
@@ -410,10 +1060,11 @@
         </div>
 
 
-        <div class="team-container container">
+        <div class="team-container">
 
 
             <!-- TEAM 1 -->
+
             <div class="team-box">
 
                 <img
@@ -421,6 +1072,7 @@
                     alt=""
                     class="team-img"
                 >
+
 
                 <div class="team-data">
 
@@ -440,31 +1092,42 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-facebook"></i>
+                            <i
+                                class="bx bxl-facebook"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://github.com/NikhilDhakad14"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-github"></i>
+                            <i
+                                class="bx bxl-github"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.instagram.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-instagram"></i>
+                            <i
+                                class="bx bxl-instagram"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.linkedin.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-linkedin"></i>
+                            <i
+                                class="bx bxl-linkedin"
+                            ></i>
                         </a>
 
                     </div>
@@ -474,8 +1137,8 @@
             </div>
 
 
-
             <!-- TEAM 2 -->
+
             <div class="team-box">
 
                 <img
@@ -483,6 +1146,7 @@
                     alt=""
                     class="team-img"
                 >
+
 
                 <div class="team-data">
 
@@ -502,31 +1166,42 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-facebook"></i>
+                            <i
+                                class="bx bxl-facebook"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://github.com/Divyansh07477"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-github"></i>
+                            <i
+                                class="bx bxl-github"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.instagram.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-instagram"></i>
+                            <i
+                                class="bx bxl-instagram"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-linkedin"></i>
+                            <i
+                                class="bx bxl-linkedin"
+                            ></i>
                         </a>
 
                     </div>
@@ -536,8 +1211,8 @@
             </div>
 
 
-
             <!-- TEAM 3 -->
+
             <div class="team-box">
 
                 <img
@@ -545,6 +1220,7 @@
                     alt=""
                     class="team-img"
                 >
+
 
                 <div class="team-data">
 
@@ -564,31 +1240,42 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-facebook"></i>
+                            <i
+                                class="bx bxl-facebook"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://github.com/NikhilDhakad14"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-github"></i>
+                            <i
+                                class="bx bxl-github"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.instagram.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-instagram"></i>
+                            <i
+                                class="bx bxl-instagram"
+                            ></i>
                         </a>
+
 
                         <a
                             href="https://www.linkedin.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-linkedin"></i>
+                            <i
+                                class="bx bxl-linkedin"
+                            ></i>
                         </a>
 
                     </div>
@@ -599,74 +1286,68 @@
 
 
 
-            <!-- TEAM 4 -->
-            <div class="team-box">
+ <!-- Team Box 4 -->
+        <div class="team-box">
+            <img src="/images/enginner.png" alt="" class="team-img">
 
-                <img
-                    src="/images/enginner.png"
-                    alt=""
-                    class="team-img"
-                >
-
-                <div class="team-data">
-
-                    <h3>
-                        Divyansh Singh
-                    </h3>
-
-                    <span>
-                        Machenical Engineer
-                    </span>
-
-
-                    <div class="team-social">
-
-                        <a
-                            href="https://www.facebook.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i class="bx bxl-facebook"></i>
-                        </a>
+            <div class="team-data">
+                <h3>Divyansh Singh</h3>
+                <span>Mechanical Engineer</span>
+<div class="team-social">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-facebook"></i>
+    </a>
 
                         <a
                             href="https://github.com/Divyansh07477"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <i class="bx bxl-github"></i>
+                            <i
+                                class="bx bxl-github"
+                            ></i>
                         </a>
 
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i class="bx bxl-instagram"></i>
-                        </a>
 
-                        <a
-                            href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i class="bx bxl-linkedin"></i>
-                        </a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-instagram"></i>
+    </a>
 
-                    </div>
-
-                </div>
-
+    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+        <i class="bx bxl-linkedin"></i>
+    </a>
+</div>
             </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
     </section>
 
 
+    <!-- =====================================================
+         FAQ
+    ===================================================== -->
 
-    <!-- FAQ -->
-    <section class="faq" id="faq">
+    <section
+        class="faq"
+        id="faq"
+    >
 
         <div class="heading">
 
@@ -685,6 +1366,7 @@
 
 
             <!-- FAQ 1 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -693,17 +1375,22 @@
                         How much does it cost to rent a car
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         Rental prices very based on car type duration and season.
                         Our rates start from $49/day for compact cars and go up
                         to $299/day for luxary vehicles. Weekly and montly
                         discounts are avaiable.
+
                     </p>
 
                 </div>
@@ -711,8 +1398,8 @@
             </div>
 
 
-
             <!-- FAQ 2 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -721,17 +1408,22 @@
                         What do I need to rent a car
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         You need a valid driver license a credit card in your
                         name and proof of insurance. International renters may
                         need an International Driving Permit along with their
                         license.
+
                     </p>
 
                 </div>
@@ -739,8 +1431,8 @@
             </div>
 
 
-
             <!-- FAQ 3 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -749,17 +1441,22 @@
                         Can I rent a car for someone else?
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         The person renting the car must be present at pickup
                         with their license and credit card; however, you can
                         add additional drivers to the rental agreement for
                         a small fee.
+
                     </p>
 
                 </div>
@@ -767,8 +1464,8 @@
             </div>
 
 
-
             <!-- FAQ 4 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -777,16 +1474,21 @@
                         What is your cancellation policy?
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         Free cancellation up to 48 hours before pickup.
                         Cancellation within 48 hours may incur a fee.
                         No-shows are charged the full rental amount.
+
                     </p>
 
                 </div>
@@ -794,8 +1496,8 @@
             </div>
 
 
-
             <!-- FAQ 5 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -804,16 +1506,21 @@
                         Is Insurance included in the rental?
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         Basic insurance is included in the rentals.
                         Additional coverage options like collision damage
                         and theft protection are available at checkout.
+
                     </p>
 
                 </div>
@@ -821,8 +1528,8 @@
             </div>
 
 
-
             <!-- FAQ 6 -->
+
             <div class="accordion-item">
 
                 <div class="accordion-header">
@@ -831,16 +1538,21 @@
                         Can I return the car to a different location?
                     </h2>
 
-                    <i class="bx bx-plus accordion-icon"></i>
+                    <i
+                        class="bx bx-plus accordion-icon"
+                    ></i>
 
                 </div>
+
 
                 <div class="accordion-content">
 
                     <p class="accordion-answer">
+
                         Yes, one-way rentals are available between most
                         locations. A one-way fee may apply depending on
                         the distance between pickup and drop-off locations.
+
                     </p>
 
                 </div>
@@ -852,9 +1564,14 @@
     </section>
 
 
+    <!-- =====================================================
+         BLOG
+    ===================================================== -->
 
-    <!-- BLOG -->
-    <section class="blog" id="blog">
+    <section
+        class="blog"
+        id="blog"
+    >
 
         <div class="heading">
 
@@ -873,6 +1590,7 @@
 
 
             <!-- BLOG 1 -->
+
             <div class="box">
 
                 <img
@@ -880,29 +1598,43 @@
                     alt=""
                 >
 
+
                 <span>
                     15 May 2026
                 </span>
+
 
                 <h3>
                     Top Rental Tips for 2025
                 </h3>
 
+
                 <p>
+
                     Discover the best strategies to save money on car rentals
                     and find the perfect vehicle for your journey.
+
                 </p>
 
-                <a href="#" class="blog-btn">
+
+                <a
+                    href="#"
+                    class="blog-btn"
+                >
+
                     Read More
-                    <i class="bx bx-right-arrow-alt"></i>
+
+                    <i
+                        class="bx bx-right-arrow-alt"
+                    ></i>
+
                 </a>
 
             </div>
 
 
-
             <!-- BLOG 2 -->
+
             <div class="box">
 
                 <img
@@ -910,29 +1642,43 @@
                     alt=""
                 >
 
+
                 <span>
                     31 July 2026
                 </span>
+
 
                 <h3>
                     How to Choose Right Rental Car
                 </h3>
 
+
                 <p>
+
                     Learn how to choose the right car based on your budget,
                     trip type, comfort, and the number of passengers.
+
                 </p>
 
-                <a href="#" class="blog-btn">
+
+                <a
+                    href="#"
+                    class="blog-btn"
+                >
+
                     Read More
-                    <i class="bx bx-right-arrow-alt"></i>
+
+                    <i
+                        class="bx bx-right-arrow-alt"
+                    ></i>
+
                 </a>
 
             </div>
 
 
-
             <!-- BLOG 3 -->
+
             <div class="box">
 
                 <img
@@ -940,23 +1686,37 @@
                     alt=""
                 >
 
+
                 <span>
                     30 Aug 2026
                 </span>
+
 
                 <h3>
                     Essential Things to Check Before Renting
                 </h3>
 
+
                 <p>
+
                     Check these important things before renting a car,
                     including documents, fuel, condition, insurance,
                     and rental terms.
+
                 </p>
 
-                <a href="#" class="blog-btn">
+
+                <a
+                    href="#"
+                    class="blog-btn"
+                >
+
                     Read More
-                    <i class="bx bx-right-arrow-alt"></i>
+
+                    <i
+                        class="bx bx-right-arrow-alt"
+                    ></i>
+
                 </a>
 
             </div>
@@ -966,17 +1726,23 @@
     </section>
 
 
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
 
-    <!-- FOOTER -->
     <section class="footer">
 
         <div class="footer-container container">
 
 
-            <!-- Footer Box 1 -->
+            <!-- FOOTER BOX 1 -->
+
             <div class="footer-box">
 
-                <a href="/" class="logo">
+                <a
+                    href="/"
+                    class="logo"
+                >
 
                     <img
                         src="/images/footer.png"
@@ -993,31 +1759,42 @@
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="bx bxl-facebook"></i>
+                        <i
+                            class="bx bxl-facebook"
+                        ></i>
                     </a>
+
 
                     <a
                         href="https://twitter.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="bx bxl-twitter"></i>
+                        <i
+                            class="bx bxl-twitter"
+                        ></i>
                     </a>
+
 
                     <a
                         href="https://www.instagram.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="bx bxl-instagram"></i>
+                        <i
+                            class="bx bxl-instagram"
+                        ></i>
                     </a>
+
 
                     <a
                         href="https://www.youtube.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="bx bxl-youtube"></i>
+                        <i
+                            class="bx bxl-youtube"
+                        ></i>
                     </a>
 
                 </div>
@@ -1025,25 +1802,29 @@
             </div>
 
 
+            <!-- PAGES -->
 
-            <!-- Pages -->
             <div class="footer-box">
 
                 <h3>
                     Pages
                 </h3>
 
+
                 <a href="/">
                     Home
                 </a>
+
 
                 <a href="/#rentals">
                     Rentals
                 </a>
 
+
                 <a href="/teams">
                     Teams
                 </a>
+
 
                 <a href="/contact">
                     Contact
@@ -1052,21 +1833,24 @@
             </div>
 
 
+            <!-- LEGAL -->
 
-            <!-- Legal -->
             <div class="footer-box">
 
                 <h3>
                     Legal
                 </h3>
 
+
                 <a href="#">
                     Privacy
                 </a>
 
+
                 <a href="#">
                     Refunds Policy
                 </a>
+
 
                 <a href="#">
                     Cookie Policy
@@ -1075,25 +1859,29 @@
             </div>
 
 
+            <!-- CONTACT -->
 
-            <!-- Contact -->
             <div class="footer-box">
 
                 <h3>
                     Contact
                 </h3>
 
+
                 <p>
                     India
                 </p>
+
 
                 <p>
                     United States
                 </p>
 
+
                 <p>
                     Japan
                 </p>
+
 
                 <p>
                     Germany
@@ -1106,8 +1894,10 @@
     </section>
 
 
+    <!-- =====================================================
+         COPYRIGHT
+    ===================================================== -->
 
-    <!-- COPYRIGHT -->
     <div class="copyright">
 
         <p>
@@ -1117,64 +1907,775 @@
     </div>
 
 
+    <!-- =====================================================
+         MAIN JS
+    ===================================================== -->
 
-    <!-- MAIN JS -->
     <script src="/js/main.js"></script>
 
-<script>
-    const homeSearch = document.getElementById("homeSearch");
-    const homeSearchBtn = document.getElementById("homeSearchBtn");
 
-    function goToSearch() {
+    <!-- =====================================================
+         NOTIFICATION JS
+    ===================================================== -->
 
-        const query = homeSearch.value.trim();
+    <script>
 
-        if (query === "") {
-            window.location.href = "/search";
-            return;
-        }
-
-        window.location.href =
-            "/search?q=" + encodeURIComponent(query);
-    }
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
 
 
-    // Search button
-    if (homeSearchBtn) {
+                /* ============================================
+                   LOGIN STATUS
+                ============================================ */
 
-        homeSearchBtn.addEventListener("click", function () {
-
-            goToSearch();
-
-        });
-
-    }
+                const isLoggedIn =
+                    document.body.dataset.loggedIn === "true";
 
 
-    // Enter key
-    if (homeSearch) {
+                /* ============================================
+                   ELEMENTS
+                ============================================ */
 
-        homeSearch.addEventListener("keydown", function (event) {
+                const notificationWrapper =
+                    document.getElementById(
+                        "notificationWrapper"
+                    );
 
-            if (event.key === "Enter") {
 
-                event.preventDefault();
+                const notificationBtn =
+                    document.getElementById(
+                        "notificationBtn"
+                    );
 
-                goToSearch();
+
+                const notificationDropdown =
+                    document.getElementById(
+                        "notificationDropdown"
+                    );
+
+
+                const notificationCount =
+                    document.getElementById(
+                        "notificationCount"
+                    );
+
+
+                const notificationList =
+                    document.getElementById(
+                        "notificationList"
+                    );
+
+
+                const markAllReadBtn =
+                    document.getElementById(
+                        "markAllReadBtn"
+                    );
+
+
+                /* ============================================
+                   IF USER IS NOT LOGGED IN
+                ============================================ */
+
+                if (!isLoggedIn) {
+
+                    return;
+
+                }
+
+
+                /* ============================================
+                   SHOW NOTIFICATION BELL
+                ============================================ */
+
+                notificationWrapper.classList.remove(
+                    "hidden"
+                );
+
+
+                /* ============================================
+                   LOAD UNREAD COUNT
+                ============================================ */
+
+                async function loadNotificationCount() {
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/api/notifications/unread-count"
+                            );
+
+
+                        if (!response.ok) {
+
+                            return;
+
+                        }
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (
+                            data.success &&
+                            data.count > 0
+                        ) {
+
+                            notificationCount.textContent =
+                                data.count > 99
+                                    ? "99+"
+                                    : data.count;
+
+
+                            notificationCount.classList.remove(
+                                "hidden"
+                            );
+
+                        } else {
+
+                            notificationCount.classList.add(
+                                "hidden"
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Notification count error:",
+                            error
+                        );
+
+                    }
+
+                }
+
+
+                /* ============================================
+                   LOAD NOTIFICATIONS
+                ============================================ */
+
+                async function loadNotifications() {
+
+                    notificationList.innerHTML = `
+
+                        <div class="notification-loading">
+                            Loading...
+                        </div>
+
+                    `;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/api/notifications"
+                            );
+
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                "Failed to fetch notifications"
+                            );
+
+                        }
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (
+                            !data.success ||
+                            !data.notifications ||
+                            data.notifications.length === 0
+                        ) {
+
+                            notificationList.innerHTML = `
+
+                                <div class="notification-empty">
+
+                                    <i
+                                        class="bx bx-bell-off"
+                                    ></i>
+
+                                    No notifications yet.
+
+                                </div>
+
+                            `;
+
+                            return;
+
+                        }
+
+
+                        notificationList.innerHTML = "";
+
+
+                        data.notifications.forEach(
+                            notification => {
+
+
+                                const item =
+                                    document.createElement(
+                                        "div"
+                                    );
+
+
+                                item.className =
+                                    "notification-item";
+
+
+                                if (
+                                    !notification.isRead
+                                ) {
+
+                                    item.classList.add(
+                                        "unread"
+                                    );
+
+                                }
+
+
+                                const icon =
+                                    getNotificationIcon(
+                                        notification.type
+                                    );
+
+
+                                const time =
+                                    formatNotificationTime(
+                                        notification.createdAt
+                                    );
+
+
+                                item.innerHTML = `
+
+                                    <div
+                                        class="notification-item-icon"
+                                    >
+
+                                        <i
+                                            class="${icon}"
+                                        ></i>
+
+                                    </div>
+
+
+                                    <div
+                                        class="notification-content"
+                                    >
+
+                                        <p
+                                            class="notification-message"
+                                        >
+                                            ${escapeHtml(
+                                                notification.message
+                                            )}
+                                        </p>
+
+
+                                        <span
+                                            class="notification-time"
+                                        >
+                                            ${time}
+                                        </span>
+
+                                    </div>
+
+                                `;
+
+
+                                /* =================================
+                                   CLICK NOTIFICATION
+                                ================================= */
+
+                                item.addEventListener(
+                                    "click",
+                                    async function () {
+
+
+                                        if (
+                                            !notification.isRead
+                                        ) {
+
+                                            await markAsRead(
+                                                notification._id
+                                            );
+
+
+                                            notification.isRead =
+                                                true;
+
+
+                                            item.classList.remove(
+                                                "unread"
+                                            );
+
+
+                                            loadNotificationCount();
+
+                                        }
+
+                                    }
+                                );
+
+
+                                notificationList.appendChild(
+                                    item
+                                );
+
+                            }
+                        );
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Notification loading error:",
+                            error
+                        );
+
+
+                        notificationList.innerHTML = `
+
+                            <div
+                                class="notification-empty"
+                            >
+                                Unable to load notifications.
+                            </div>
+
+                        `;
+
+                    }
+
+                }
+
+
+                /* ============================================
+                   GET NOTIFICATION ICON
+                ============================================ */
+
+                function getNotificationIcon(type) {
+
+                    switch (type) {
+
+                        case "new_booking":
+
+                            return "bx bx-calendar-plus";
+
+
+                        case "booking_confirmed":
+
+                            return "bx bx-check-circle";
+
+
+                        case "booking_cancelled":
+
+                            return "bx bx-x-circle";
+
+
+                        case "booking_auto_cancelled":
+
+                            return "bx bx-error-circle";
+
+
+                        case "booking_completed":
+
+                            return "bx bx-check-double";
+
+
+                        default:
+
+                            return "bx bx-bell";
+
+                    }
+
+                }
+
+
+                /* ============================================
+                   FORMAT NOTIFICATION TIME
+                ============================================ */
+
+                function formatNotificationTime(
+                    dateString
+                ) {
+
+                    const date =
+                        new Date(
+                            dateString
+                        );
+
+
+                    const now =
+                        new Date();
+
+
+                    const diff =
+                        Math.floor(
+                            (
+                                now - date
+                            ) / 1000
+                        );
+
+
+                    if (diff < 60) {
+
+                        return "Just now";
+
+                    }
+
+
+                    if (diff < 3600) {
+
+                        return (
+                            Math.floor(
+                                diff / 60
+                            ) + " min ago"
+                        );
+
+                    }
+
+
+                    if (diff < 86400) {
+
+                        return (
+                            Math.floor(
+                                diff / 3600
+                            ) + " hours ago"
+                        );
+
+                    }
+
+
+                    if (diff < 604800) {
+
+                        return (
+                            Math.floor(
+                                diff / 86400
+                            ) + " days ago"
+                        );
+
+                    }
+
+
+                    return date.toLocaleDateString(
+                        "en-IN",
+                        {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                        }
+                    );
+
+                }
+
+
+                /* ============================================
+                   MARK SINGLE NOTIFICATION AS READ
+                ============================================ */
+
+                async function markAsRead(
+                    notificationId
+                ) {
+
+                    try {
+
+                        await fetch(
+                            `/api/notifications/${notificationId}/read`,
+                            {
+                                method: "PUT"
+                            }
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Mark notification read error:",
+                            error
+                        );
+
+                    }
+
+                }
+
+
+                /* ============================================
+                   MARK ALL NOTIFICATIONS AS READ
+                ============================================ */
+
+                markAllReadBtn.addEventListener(
+                    "click",
+                    async function (event) {
+
+
+                        event.stopPropagation();
+
+
+                        try {
+
+                            const response =
+                                await fetch(
+                                    "/api/notifications/read-all",
+                                    {
+                                        method: "PUT"
+                                    }
+                                );
+
+
+                            const data =
+                                await response.json();
+
+
+                            if (data.success) {
+
+
+                                document
+                                    .querySelectorAll(
+                                        ".notification-item.unread"
+                                    )
+                                    .forEach(
+                                        item => {
+
+                                            item.classList.remove(
+                                                "unread"
+                                            );
+
+                                        }
+                                    );
+
+
+                                notificationCount.classList.add(
+                                    "hidden"
+                                );
+
+                            }
+
+                        } catch (error) {
+
+                            console.error(
+                                "Mark all read error:",
+                                error
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* ============================================
+                   BELL CLICK
+                ============================================ */
+
+                notificationBtn.addEventListener(
+                    "click",
+                    async function (event) {
+
+
+                        event.stopPropagation();
+
+
+                        notificationDropdown.classList.toggle(
+                            "hidden"
+                        );
+
+
+                        if (
+                            !notificationDropdown.classList.contains(
+                                "hidden"
+                            )
+                        ) {
+
+                            await loadNotifications();
+
+                        }
+
+                    }
+                );
+
+
+                /* ============================================
+                   CLOSE DROPDOWN OUTSIDE CLICK
+                ============================================ */
+
+                document.addEventListener(
+                    "click",
+                    function (event) {
+
+
+                        if (
+                            !notificationWrapper.contains(
+                                event.target
+                            )
+                        ) {
+
+                            notificationDropdown.classList.add(
+                                "hidden"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* ============================================
+                   ESCAPE KEY
+                ============================================ */
+
+                document.addEventListener(
+                    "keydown",
+                    function (event) {
+
+                        if (
+                            event.key === "Escape"
+                        ) {
+
+                            notificationDropdown.classList.add(
+                                "hidden"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* ============================================
+                   ESCAPE HTML
+                ============================================ */
+
+                function escapeHtml(text) {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.textContent =
+                        text || "";
+
+
+                    return div.innerHTML;
+
+                }
+
+
+                /* ============================================
+                   INITIAL COUNT
+                ============================================ */
+
+                loadNotificationCount();
+
+
+                /* ============================================
+                   REFRESH EVERY 30 SECONDS
+                ============================================ */
+
+                setInterval(
+                    loadNotificationCount,
+                    30000
+                );
 
             }
 
-        });
+        );
 
-    }
-</script>
+    </script>
+
+
+    <!-- =====================================================
+         HOME SEARCH JS
+    ===================================================== -->
+
+    <script>
+
+        const homeSearch =
+            document.getElementById(
+                "homeSearch"
+            );
+
+
+        const homeSearchBtn =
+            document.getElementById(
+                "homeSearchBtn"
+            );
+
+
+        function goToSearch() {
+
+            const query =
+                homeSearch.value.trim();
+
+
+            if (query === "") {
+
+                window.location.href =
+                    "/search";
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "/search?q=" +
+                encodeURIComponent(
+                    query
+                );
+
+        }
+
+
+        /* SEARCH BUTTON */
+
+        if (homeSearchBtn) {
+
+            homeSearchBtn.addEventListener(
+                "click",
+                function () {
+
+                    goToSearch();
+
+                }
+            );
+
+        }
+
+
+        /* ENTER KEY */
+
+        if (homeSearch) {
+
+            homeSearch.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        goToSearch();
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
 
 </body>
 
 </html>
-
-
-
-
-
-

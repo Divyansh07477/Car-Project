@@ -1,12 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>My Bookings - RideWave</title>
 
     <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -22,275 +26,2001 @@
         }
     </script>
 
+
     <style>
-        * { box-sizing: border-box; }
-        body { margin: 0; padding-top: 72px !important; }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 92px !important;
+            background: #FBFBFC;
+        }
+
+
+        /* ============================= */
+        /* NAVBAR */
+        /* ============================= */
 
         .ridewave-navbar {
+
             position: fixed !important;
+
             top: 0 !important;
             left: 0 !important;
+
             width: 100% !important;
+
             height: 92px !important;
+
             background: #ffffff !important;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             padding: 0 40px;
+
             border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.04);
+
             z-index: 99998;
         }
 
+
         .ridewave-logo {
+
             width: 125px;
+
             height: 90px;
+
             object-fit: contain;
+
             display: block;
         }
 
+
+        /* ============================= */
+        /* MOBILE */
+        /* ============================= */
+
         @media (max-width: 768px) {
-            .ridewave-navbar { height: 64px !important; padding: 0 18px; }
-            body { padding-top: 64px !important; }
+
+            body {
+                padding-top: 64px !important;
+            }
+
+            .ridewave-navbar {
+
+                height: 64px !important;
+
+                padding: 0 18px;
+            }
+
+            .ridewave-logo {
+
+                width: 105px;
+
+                height: 58px;
+            }
+
         }
+
+
+        /* ============================= */
+        /* SCROLLBAR */
+        /* ============================= */
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+
+        /* ============================= */
+        /* BOOKING CARD */
+        /* ============================= */
+
+        .booking-card {
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .booking-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px rgba(15, 23, 42, 0.08);
+        }
+
+
+        /* ============================= */
+        /* CAR IMAGE */
+        /* ============================= */
+
+        .car-image-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fafc,
+                    #ffffff
+                );
+        }
+
     </style>
+
 </head>
 
-<body class="bg-[#FBFBFC] text-gray-900 min-h-screen">
 
+<body class="text-gray-900 min-h-screen">
+
+
+    <!-- ========================================= -->
     <!-- NAVBAR -->
+    <!-- ========================================= -->
+
     <header class="ridewave-navbar">
-        <a href="/" class="flex items-center">
-            <img src="/images/logo.png" alt="RideWave" class="ridewave-logo">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="/"
+            class="flex items-center"
+        >
+
+            <img
+                src="/images/logo.png"
+                alt="RideWave"
+                class="ridewave-logo"
+            >
+
         </a>
 
-        <a href="/" class="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-brand-primary transition-colors">
-            <span>&larr;</span>
-            <span>Browse Cars</span>
+
+        <!-- BROWSE CARS -->
+
+        <a
+            href="/"
+            class="flex items-center gap-2
+            text-sm font-semibold
+            text-slate-600
+            hover:text-brand-primary
+            transition-colors"
+        >
+
+            <span class="text-lg">
+                &larr;
+            </span>
+
+            <span>
+                Browse Cars
+            </span>
+
         </a>
+
+
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12 space-y-8">
 
-        <!-- PROFILE HEADER CARD -->
-        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-orange-50 text-brand-primary flex items-center justify-center text-xl font-bold border border-orange-100">
-                    <svg class="w-6 h-6 text-brand-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+
+    <!-- ========================================= -->
+    <!-- MAIN -->
+    <!-- ========================================= -->
+
+    <main
+        class="max-w-5xl
+        mx-auto
+        px-4
+        py-8
+        sm:py-12
+        space-y-8"
+    >
+
+
+        <!-- ========================================= -->
+        <!-- PROFILE HEADER -->
+        <!-- ========================================= -->
+
+        <div
+            class="bg-white
+            rounded-2xl
+            border border-slate-100
+            shadow-sm
+            p-6
+            flex flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-5"
+        >
+
+
+            <!-- USER -->
+
+            <div
+                class="flex items-center gap-4"
+            >
+
+                <div
+                    class="w-14 h-14
+                    rounded-full
+                    bg-orange-50
+                    text-brand-primary
+                    flex items-center
+                    justify-center
+                    border border-orange-100"
+                >
+
+                    <svg
+                        class="w-7 h-7"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+
                     </svg>
+
                 </div>
+
+
                 <div>
-                    <h2 id="userName" class="text-xl font-bold text-slate-900 leading-tight">Loading...</h2>
-                    <p id="userEmail" class="text-sm text-slate-500">Loading...</p>
+
+                    <h2
+                        id="userName"
+                        class="text-xl
+                        font-bold
+                        text-slate-900"
+                    >
+                        Loading...
+                    </h2>
+
+
+                    <p
+                        id="userEmail"
+                        class="text-sm
+                        text-slate-500"
+                    >
+                        Loading...
+                    </p>
+
                 </div>
+
             </div>
 
-            <button onclick="handleLogout()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl border border-orange-200 text-brand-primary font-semibold text-sm hover:bg-orange-50 transition-all self-start sm:self-auto active:scale-95">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+
+
+            <!-- LOGOUT -->
+
+            <button
+                onclick="handleLogout()"
+                class="inline-flex
+                items-center
+                justify-center
+                gap-2
+                px-5 py-2.5
+                rounded-xl
+                border border-orange-200
+                text-brand-primary
+                font-semibold
+                text-sm
+                hover:bg-orange-50
+                transition-all
+                active:scale-95"
+            >
+
+                <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+
                 </svg>
+
                 Logout
+
             </button>
+
         </div>
 
-        <!-- MY BOOKINGS HEADER & FILTER TABS -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h1 class="text-2xl font-extrabold text-slate-900">
-                My <span class="text-brand-primary">Bookings</span>
+
+
+        <!-- ========================================= -->
+        <!-- HEADING + FILTER -->
+        <!-- ========================================= -->
+
+        <div
+            class="flex flex-col
+            md:flex-row
+            md:items-center
+            md:justify-between
+            gap-4"
+        >
+
+
+            <h1
+                class="text-2xl
+                sm:text-3xl
+                font-extrabold
+                text-slate-900"
+            >
+
+                My
+
+                <span
+                    class="text-brand-primary"
+                >
+                    Bookings
+                </span>
+
             </h1>
 
+
+
             <!-- FILTERS -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 text-sm no-scrollbar">
-                <button onclick="filterBookings('all')" class="filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-brand-primary text-white shadow-sm" data-filter="all">All</button>
-                <button onclick="filterBookings('pending')" class="filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-white border border-slate-200 text-slate-600 hover:border-brand-primary hover:text-brand-primary" data-filter="pending">Pending</button>
-                <button onclick="filterBookings('confirmed')" class="filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-white border border-slate-200 text-slate-600 hover:border-brand-primary hover:text-brand-primary" data-filter="confirmed">Confirmed</button>
-                <button onclick="filterBookings('completed')" class="filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-white border border-slate-200 text-slate-600 hover:border-brand-primary hover:text-brand-primary" data-filter="completed">Completed</button>
-                <button onclick="filterBookings('cancelled')" class="filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-white border border-slate-200 text-slate-600 hover:border-brand-primary hover:text-brand-primary" data-filter="cancelled">Cancelled</button>
+
+            <div
+                class="flex items-center
+                gap-2
+                overflow-x-auto
+                pb-1
+                no-scrollbar"
+            >
+
+                <button
+                    onclick="filterBookings('all')"
+                    data-filter="all"
+                    class="filter-btn
+                    px-4 py-1.5
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    bg-brand-primary
+                    text-white
+                    shadow-sm
+                    whitespace-nowrap"
+                >
+                    All
+                </button>
+
+
+                <button
+                    onclick="filterBookings('pending')"
+                    data-filter="pending"
+                    class="filter-btn
+                    px-4 py-1.5
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    bg-white
+                    border border-slate-200
+                    text-slate-600
+                    hover:border-brand-primary
+                    hover:text-brand-primary
+                    whitespace-nowrap"
+                >
+                    Pending
+                </button>
+
+
+                <button
+                    onclick="filterBookings('confirmed')"
+                    data-filter="confirmed"
+                    class="filter-btn
+                    px-4 py-1.5
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    bg-white
+                    border border-slate-200
+                    text-slate-600
+                    hover:border-brand-primary
+                    hover:text-brand-primary
+                    whitespace-nowrap"
+                >
+                    Confirmed
+                </button>
+
+
+                <button
+                    onclick="filterBookings('completed')"
+                    data-filter="completed"
+                    class="filter-btn
+                    px-4 py-1.5
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    bg-white
+                    border border-slate-200
+                    text-slate-600
+                    hover:border-brand-primary
+                    hover:text-brand-primary
+                    whitespace-nowrap"
+                >
+                    Completed
+                </button>
+
+
+                <button
+                    onclick="filterBookings('cancelled')"
+                    data-filter="cancelled"
+                    class="filter-btn
+                    px-4 py-1.5
+                    rounded-full
+                    font-medium
+                    text-sm
+                    transition-all
+                    bg-white
+                    border border-slate-200
+                    text-slate-600
+                    hover:border-brand-primary
+                    hover:text-brand-primary
+                    whitespace-nowrap"
+                >
+                    Cancelled
+                </button>
+
             </div>
+
         </div>
 
-        <!-- BOOKINGS LIST CONTAINER -->
-        <div id="bookingsContainer" class="space-y-4">
-            <div class="bg-white rounded-2xl border border-slate-100 p-12 text-center text-slate-400 font-medium">
-                Loading your bookings...
+
+
+        <!-- ========================================= -->
+        <!-- BOOKINGS CONTAINER -->
+        <!-- ========================================= -->
+
+        <div
+            id="bookingsContainer"
+            class="space-y-5"
+        >
+
+            <!-- LOADING -->
+
+            <div
+                class="bg-white
+                rounded-2xl
+                border border-slate-100
+                p-12
+                text-center"
+            >
+
+                <div
+                    class="w-8 h-8
+                    border-4
+                    border-slate-200
+                    border-t-brand-primary
+                    rounded-full
+                    animate-spin
+                    mx-auto
+                    mb-4"
+                ></div>
+
+
+                <p
+                    class="text-slate-400
+                    font-medium"
+                >
+                    Loading your bookings...
+                </p>
+
             </div>
+
         </div>
 
     </main>
 
-    <footer class="py-8 text-center text-gray-400 border-t border-gray-100 mt-16">
-        <p class="text-xs tracking-wider">CARPOOL VENOM</p>
+
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    <footer
+        class="py-8
+        text-center
+        text-gray-400
+        border-t
+        border-gray-100
+        mt-16"
+    >
+
+        <p
+            class="text-xs
+            tracking-wider"
+        >
+            CARPOOL VENOM
+        </p>
+
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+
+
+    <!-- ========================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================= -->
+
     <script>
-       let allBookingsData = [];
-        let currentFilter = 'all';
 
-        // 1. Date Formatter
-        function formatBookingDate(dStr) {
-            if (!dStr) return "N/A";
-            const date = new Date(dStr);
-            if (isNaN(date.getTime())) return dStr;
-            return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+        // =========================================
+        // GLOBAL DATA
+        // =========================================
+
+        let allBookingsData = [];
+
+        let currentFilter = "all";
+
+
+
+        // =========================================
+        // ESCAPE HTML
+        // =========================================
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
-        // 2. Status Badge Mapper
+
+
+        // =========================================
+        // DATE FORMAT
+        // =========================================
+
+        function formatBookingDate(dateValue) {
+
+            if (!dateValue) {
+                return "N/A";
+            }
+
+            const date =
+                new Date(dateValue);
+
+
+            if (
+                isNaN(date.getTime())
+            ) {
+                return "N/A";
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+        }
+
+
+
+        // =========================================
+        // MONEY FORMAT
+        // =========================================
+
+        function formatMoney(value) {
+
+            const amount =
+                Number(value);
+
+
+            if (
+                isNaN(amount)
+            ) {
+                return "₹0";
+            }
+
+
+            return "₹" +
+                amount.toLocaleString(
+                    "en-IN"
+                );
+        }
+
+
+
+        // =========================================
+        // STATUS BADGE
+        // =========================================
+
         function getStatusBadge(status) {
-            const s = (status || "pending").toLowerCase();
+
+            const s =
+                String(
+                    status || "pending"
+                ).toLowerCase();
+
+
             if (s === "confirmed") {
-                return `<span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md">CONFIRMED</span>`;
-            } else if (s === "completed") {
-                return `<span class="text-xs font-bold uppercase tracking-wider text-sky-600 bg-sky-50 border border-sky-200 px-3 py-1 rounded-md">COMPLETED</span>`;
-            } else if (s === "cancelled") {
-                return `<span class="text-xs font-bold uppercase tracking-wider text-rose-500 bg-rose-50 border border-rose-100 px-3 py-1 rounded-md">CANCELLED</span>`;
-            }
-            return `<span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-md">PENDING</span>`;
-        }
-
-        // 3. Render Real Database Bookings
-        function renderBookings() {
-            const container = document.getElementById("bookingsContainer");
-            
-            const filtered = currentFilter === 'all' 
-                ? allBookingsData 
-                : allBookingsData.filter(b => (b.status || 'pending').toLowerCase() === currentFilter);
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="bg-white rounded-2xl border border-slate-100 p-12 text-center text-slate-400">
-                        Aapki koi real booking nahi mili (${currentFilter.toUpperCase()}).
-                    </div>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(item => {
-                // Real Car details check
-                const carObj = (typeof item.car === 'object' && item.car !== null) ? item.car : {};
-                const carName = carObj.name || item.carName || "Car Booking";
-                const carImg = carObj.image || item.carImage || "/images/title.png.jpeg";
-                
-                // Real Pricing and Dates
-                const price = Number(item.totalPrice || item.price || 0).toLocaleString("en-IN");
-                const pickup = formatBookingDate(item.pickupDate);
-                const ret = formatBookingDate(item.returnDate);
-                const location = item.pickupLocation || "Pickup address not specified";
-                const adminNote = item.adminNote || "";
 
                 return `
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all p-5 sm:p-6 space-y-4">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-                        
-                        <!-- Left Info -->
-                        <div class="flex items-center gap-5">
-                            <div class="w-28 h-20 bg-[#F7F8FA] rounded-xl p-2 flex items-center justify-center flex-shrink-0 border border-slate-100 overflow-hidden">
-                                <img src="${carImg}" alt="${carName}" class="max-w-full max-h-full object-contain">
-                            </div>
+                    <span
+                        class="
+                        inline-flex
+                        items-center
+                        gap-1.5
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-wider
+                        text-emerald-700
+                        bg-emerald-50
+                        border
+                        border-emerald-200
+                        px-3 py-1.5
+                        rounded-full
+                        "
+                    >
 
-                            <div class="space-y-1">
-                                <h3 class="text-lg font-extrabold text-slate-900">${carName}</h3>
-                                <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-500 font-medium">
-                                    <span>📅 ${pickup} &rarr; ${ret}</span>
-                                    <span>•</span>
-                                    <span>📍 ${location}</span>
-                                </div>
-                            </div>
+                        <span
+                            class="w-1.5 h-1.5
+                            rounded-full
+                            bg-emerald-500"
+                        ></span>
+
+                        CONFIRMED
+
+                    </span>
+                `;
+            }
+
+
+            if (s === "completed") {
+
+                return `
+                    <span
+                        class="
+                        inline-flex
+                        items-center
+                        gap-1.5
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-wider
+                        text-sky-700
+                        bg-sky-50
+                        border
+                        border-sky-200
+                        px-3 py-1.5
+                        rounded-full
+                        "
+                    >
+
+                        <span
+                            class="w-1.5 h-1.5
+                            rounded-full
+                            bg-sky-500"
+                        ></span>
+
+                        COMPLETED
+
+                    </span>
+                `;
+            }
+
+
+            if (s === "cancelled") {
+
+                return `
+                    <span
+                        class="
+                        inline-flex
+                        items-center
+                        gap-1.5
+                        text-xs
+                        font-bold
+                        uppercase
+                        tracking-wider
+                        text-rose-600
+                        bg-rose-50
+                        border
+                        border-rose-200
+                        px-3 py-1.5
+                        rounded-full
+                        "
+                    >
+
+                        <span
+                            class="w-1.5 h-1.5
+                            rounded-full
+                            bg-rose-500"
+                        ></span>
+
+                        CANCELLED
+
+                    </span>
+                `;
+            }
+
+
+            return `
+                <span
+                    class="
+                    inline-flex
+                    items-center
+                    gap-1.5
+                    text-xs
+                    font-bold
+                    uppercase
+                    tracking-wider
+                    text-amber-700
+                    bg-amber-50
+                    border
+                    border-amber-200
+                    px-3 py-1.5
+                    rounded-full
+                    "
+                >
+
+                    <span
+                        class="w-1.5 h-1.5
+                        rounded-full
+                        bg-amber-500"
+                    ></span>
+
+                    PENDING
+
+                </span>
+            `;
+        }
+
+
+
+        // =========================================
+        // RENDER BOOKINGS
+        // =========================================
+
+        function renderBookings() {
+
+            const container =
+                document.getElementById(
+                    "bookingsContainer"
+                );
+
+
+            const filteredBookings =
+                currentFilter === "all"
+
+                    ? allBookingsData
+
+                    : allBookingsData.filter(
+                        booking => {
+
+                            return String(
+                                booking.status ||
+                                "pending"
+                            ).toLowerCase()
+                            === currentFilter;
+
+                        }
+                    );
+
+
+
+            // =====================================
+            // NO BOOKINGS
+            // =====================================
+
+            if (
+                filteredBookings.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div
+                        class="
+                        bg-white
+                        rounded-2xl
+                        border
+                        border-slate-100
+                        p-12
+                        text-center
+                        "
+                    >
+
+                        <div
+                            class="
+                            w-16 h-16
+                            bg-orange-50
+                            rounded-full
+                            flex items-center
+                            justify-center
+                            mx-auto
+                            mb-4
+                            "
+                        >
+
+                            <svg
+                                class="w-7 h-7
+                                text-brand-primary"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                viewBox="0 0 24 24"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+                                />
+
+                            </svg>
+
                         </div>
 
-                        <!-- Right Details -->
-                        <div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-50">
-                            <span class="text-xl sm:text-2xl font-black text-brand-primary">₹${price}</span>
-                            ${getStatusBadge(item.status)}
-                        </div>
+
+                        <h3
+                            class="
+                            text-lg
+                            font-bold
+                            text-slate-800
+                            "
+                        >
+                            No bookings found
+                        </h3>
+
+
+                        <p
+                            class="
+                            text-sm
+                            text-slate-500
+                            mt-1
+                            "
+                        >
+                            You don't have any
+                            ${
+                                currentFilter === "all"
+                                    ? ""
+                                    : currentFilter
+                            }
+                            bookings.
+                        </p>
 
                     </div>
 
-                    ${adminNote ? `
-                    <div class="pt-3 border-t border-slate-50 flex items-start gap-2">
-                        <div class="w-1 bg-brand-primary self-stretch rounded-full"></div>
-                        <p class="text-xs sm:text-sm text-slate-600 bg-slate-50 px-3 py-2 rounded-lg w-full">
-                            <strong class="text-slate-800 font-semibold">Admin Note:</strong> ${adminNote}
-                        </p>
-                    </div>` : ''}
-                </div>
                 `;
-            }).join('');
+
+                return;
+            }
+
+
+
+            // =====================================
+            // BOOKING CARDS
+            // =====================================
+
+            container.innerHTML =
+                filteredBookings
+                .map(
+                    booking => {
+
+
+                        // =================================
+                        // POPULATED CAR OBJECT
+                        // =================================
+
+                        const car =
+                            booking.car &&
+                            typeof booking.car === "object"
+
+                                ? booking.car
+
+                                : {};
+
+
+
+                        // =================================
+                        // CAR DETAILS
+                        // =================================
+
+                        const carName =
+                            car.name ||
+                            "Car Booking";
+
+
+                        const carImage =
+                            car.image ||
+                            "/images/title.png.jpeg";
+
+
+                        const carCategory =
+                            car.category ||
+                            "N/A";
+
+
+                        const transmission =
+                            car.transmission ||
+                            "N/A";
+
+
+
+                        // =================================
+                        // BOOKING DETAILS
+                        // =================================
+
+                        const bookingId =
+                            booking._id ||
+                            "N/A";
+
+
+                        const customerName =
+                            booking.name ||
+                            "N/A";
+
+
+                        const customerEmail =
+                            booking.email ||
+                            "N/A";
+
+
+                        const phone =
+                            booking.phone ||
+                            "N/A";
+
+
+                        const pickupLocation =
+                            booking.pickupLocation ||
+                            "Pickup location not specified";
+
+
+
+                        // =================================
+                        // IMPORTANT:
+                        // CORRECT DATABASE FIELDS
+                        // =================================
+
+                        const pickupDate =
+                            formatBookingDate(
+                                booking.startDate
+                            );
+
+
+                        const returnDate =
+                            formatBookingDate(
+                                booking.endDate
+                            );
+
+
+                        const totalDays =
+                            Number(
+                                booking.totalDays
+                            ) || 1;
+
+
+                        const pricePerDay =
+                            formatMoney(
+                                booking.pricePerDay
+                            );
+
+
+                        const totalAmount =
+                            formatMoney(
+                                booking.totalAmount
+                            );
+
+
+                        const status =
+                            String(
+                                booking.status ||
+                                "pending"
+                            ).toLowerCase();
+
+
+
+                        // =================================
+                        // CARD
+                        // =================================
+
+                        return `
+
+                            <div
+                                class="
+                                booking-card
+                                bg-white
+                                rounded-2xl
+                                border
+                                border-slate-100
+                                shadow-sm
+                                overflow-hidden
+                                "
+                            >
+
+
+                                <!-- ========================= -->
+                                <!-- TOP SECTION -->
+                                <!-- ========================= -->
+
+                                <div
+                                    class="
+                                    p-5
+                                    sm:p-6
+                                    "
+                                >
+
+                                    <div
+                                        class="
+                                        flex
+                                        flex-col
+                                        lg:flex-row
+                                        gap-6
+                                        "
+                                    >
+
+
+                                        <!-- ===================== -->
+                                        <!-- CAR IMAGE -->
+                                        <!-- ===================== -->
+
+                                        <div
+                                            class="
+                                            car-image-box
+                                            w-full
+                                            lg:w-52
+                                            h-36
+                                            sm:h-40
+                                            rounded-xl
+                                            border
+                                            border-slate-100
+                                            overflow-hidden
+                                            flex-shrink-0
+                                            flex
+                                            items-center
+                                            justify-center
+                                            "
+                                        >
+
+                                            <img
+                                                src="${escapeHtml(carImage)}"
+                                                alt="${escapeHtml(carName)}"
+                                                class="
+                                                w-full
+                                                h-full
+                                                object-contain
+                                                p-3
+                                                "
+                                                onerror="
+                                                    this.onerror=null;
+                                                    this.src='/images/title.png.jpeg';
+                                                "
+                                            >
+
+                                        </div>
+
+
+
+                                        <!-- ===================== -->
+                                        <!-- CAR INFORMATION -->
+                                        <!-- ===================== -->
+
+                                        <div
+                                            class="
+                                            flex-1
+                                            min-w-0
+                                            "
+                                        >
+
+
+                                            <!-- CAR NAME + STATUS -->
+
+                                            <div
+                                                class="
+                                                flex
+                                                flex-col
+                                                sm:flex-row
+                                                sm:items-start
+                                                sm:justify-between
+                                                gap-3
+                                                "
+                                            >
+
+                                                <div>
+
+                                                    <p
+                                                        class="
+                                                        text-[11px]
+                                                        font-bold
+                                                        uppercase
+                                                        tracking-wider
+                                                        text-brand-primary
+                                                        mb-1
+                                                        "
+                                                    >
+                                                        Your Rental
+                                                    </p>
+
+
+                                                    <h2
+                                                        class="
+                                                        text-xl
+                                                        sm:text-2xl
+                                                        font-extrabold
+                                                        text-slate-900
+                                                        break-words
+                                                        "
+                                                    >
+                                                        ${escapeHtml(carName)}
+                                                    </h2>
+
+
+                                                    <!-- CATEGORY -->
+
+                                                    <div
+                                                        class="
+                                                        flex
+                                                        flex-wrap
+                                                        gap-2
+                                                        mt-2
+                                                        "
+                                                    >
+
+                                                        <span
+                                                            class="
+                                                            px-2.5
+                                                            py-1
+                                                            rounded-md
+                                                            bg-slate-100
+                                                            text-xs
+                                                            font-semibold
+                                                            text-slate-600
+                                                            "
+                                                        >
+                                                            ${escapeHtml(carCategory)}
+                                                        </span>
+
+
+                                                        <span
+                                                            class="
+                                                            px-2.5
+                                                            py-1
+                                                            rounded-md
+                                                            bg-slate-100
+                                                            text-xs
+                                                            font-semibold
+                                                            text-slate-600
+                                                            "
+                                                        >
+                                                            ${escapeHtml(transmission)}
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <!-- STATUS -->
+
+                                                <div>
+
+                                                    ${getStatusBadge(status)}
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <!-- BOOKING ID -->
+
+                                            <div
+                                                class="
+                                                mt-3
+                                                text-[11px]
+                                                text-slate-400
+                                                break-all
+                                                "
+                                            >
+
+                                                Booking ID:
+
+                                                <span
+                                                    class="
+                                                    font-semibold
+                                                    text-slate-500
+                                                    "
+                                                >
+                                                    ${escapeHtml(bookingId)}
+                                                </span>
+
+                                            </div>
+
+
+
+                                            <!-- ===================== -->
+                                            <!-- DATES + LOCATION -->
+                                            <!-- ===================== -->
+
+                                            <div
+                                                class="
+                                                grid
+                                                grid-cols-1
+                                                sm:grid-cols-2
+                                                gap-3
+                                                mt-5
+                                                "
+                                            >
+
+
+                                                <!-- DATES -->
+
+                                                <div
+                                                    class="
+                                                    rounded-xl
+                                                    bg-slate-50
+                                                    border
+                                                    border-slate-100
+                                                    p-4
+                                                    "
+                                                >
+
+                                                    <p
+                                                        class="
+                                                        text-[10px]
+                                                        font-bold
+                                                        uppercase
+                                                        tracking-wider
+                                                        text-slate-400
+                                                        mb-1
+                                                        "
+                                                    >
+                                                        Rental Dates
+                                                    </p>
+
+
+                                                    <p
+                                                        class="
+                                                        text-sm
+                                                        font-bold
+                                                        text-slate-700
+                                                        "
+                                                    >
+
+                                                        ${pickupDate}
+
+                                                        <span
+                                                            class="
+                                                            text-slate-400
+                                                            mx-1
+                                                            "
+                                                        >
+                                                            →
+                                                        </span>
+
+                                                        ${returnDate}
+
+                                                    </p>
+
+
+                                                    <p
+                                                        class="
+                                                        text-xs
+                                                        text-slate-500
+                                                        mt-1
+                                                        "
+                                                    >
+                                                        ${totalDays}
+                                                        Day(s)
+                                                    </p>
+
+                                                </div>
+
+
+
+                                                <!-- LOCATION -->
+
+                                                <div
+                                                    class="
+                                                    rounded-xl
+                                                    bg-slate-50
+                                                    border
+                                                    border-slate-100
+                                                    p-4
+                                                    "
+                                                >
+
+                                                    <p
+                                                        class="
+                                                        text-[10px]
+                                                        font-bold
+                                                        uppercase
+                                                        tracking-wider
+                                                        text-slate-400
+                                                        mb-1
+                                                        "
+                                                    >
+                                                        Pickup Location
+                                                    </p>
+
+
+                                                    <p
+                                                        class="
+                                                        text-sm
+                                                        font-bold
+                                                        text-slate-700
+                                                        break-words
+                                                        "
+                                                    >
+                                                        ${escapeHtml(pickupLocation)}
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ========================= -->
+                                <!-- BOTTOM DETAILS -->
+                                <!-- ========================= -->
+
+                                <div
+                                    class="
+                                    bg-slate-50
+                                    border-t
+                                    border-slate-100
+                                    px-5
+                                    sm:px-6
+                                    py-5
+                                    "
+                                >
+
+                                    <div
+                                        class="
+                                        grid
+                                        grid-cols-2
+                                        md:grid-cols-4
+                                        gap-5
+                                        "
+                                    >
+
+
+                                        <!-- CUSTOMER -->
+
+                                        <div>
+
+                                            <p
+                                                class="
+                                                text-[10px]
+                                                font-bold
+                                                uppercase
+                                                tracking-wider
+                                                text-slate-400
+                                                "
+                                            >
+                                                Customer
+                                            </p>
+
+
+                                            <p
+                                                class="
+                                                text-sm
+                                                font-semibold
+                                                text-slate-700
+                                                mt-1
+                                                "
+                                            >
+                                                ${escapeHtml(customerName)}
+                                            </p>
+
+                                        </div>
+
+
+
+                                        <!-- PHONE -->
+
+                                        <div>
+
+                                            <p
+                                                class="
+                                                text-[10px]
+                                                font-bold
+                                                uppercase
+                                                tracking-wider
+                                                text-slate-400
+                                                "
+                                            >
+                                                Phone
+                                            </p>
+
+
+                                            <p
+                                                class="
+                                                text-sm
+                                                font-semibold
+                                                text-slate-700
+                                                mt-1
+                                                "
+                                            >
+                                                ${escapeHtml(phone)}
+                                            </p>
+
+                                        </div>
+
+
+
+                                        <!-- PRICE PER DAY -->
+
+                                        <div>
+
+                                            <p
+                                                class="
+                                                text-[10px]
+                                                font-bold
+                                                uppercase
+                                                tracking-wider
+                                                text-slate-400
+                                                "
+                                            >
+                                                Price / Day
+                                            </p>
+
+
+                                            <p
+                                                class="
+                                                text-sm
+                                                font-bold
+                                                text-slate-700
+                                                mt-1
+                                                "
+                                            >
+                                                ${pricePerDay}
+                                            </p>
+
+                                        </div>
+
+
+
+                                        <!-- TOTAL -->
+
+                                        <div>
+
+                                            <p
+                                                class="
+                                                text-[10px]
+                                                font-bold
+                                                uppercase
+                                                tracking-wider
+                                                text-slate-400
+                                                "
+                                            >
+                                                Total Amount
+                                            </p>
+
+
+                                            <p
+                                                class="
+                                                text-xl
+                                                font-black
+                                                text-brand-primary
+                                                mt-1
+                                                "
+                                            >
+                                                ${totalAmount}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!-- EMAIL -->
+
+                                    <div
+                                        class="
+                                        mt-5
+                                        pt-4
+                                        border-t
+                                        border-slate-200
+                                        "
+                                    >
+
+                                        <p
+                                            class="
+                                            text-xs
+                                            text-slate-500
+                                            break-all
+                                            "
+                                        >
+
+                                            <span
+                                                class="
+                                                font-semibold
+                                                text-slate-600
+                                                "
+                                            >
+                                                Email:
+                                            </span>
+
+                                            ${escapeHtml(customerEmail)}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
         }
 
-        // 4. Tab Switcher
+
+
+        // =========================================
+        // FILTER
+        // =========================================
+
         function filterBookings(type) {
+
             currentFilter = type;
 
-            document.querySelectorAll(".filter-btn").forEach(btn => {
-                const btnType = btn.getAttribute("data-filter");
-                if (btnType === currentFilter) {
-                    btn.className = "filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-brand-primary text-white shadow-sm";
-                } else {
-                    btn.className = "filter-btn px-4 py-1.5 rounded-full font-medium transition-all bg-white border border-slate-200 text-slate-600 hover:border-brand-primary hover:text-brand-primary";
-                }
-            });
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(button => {
+
+                    const buttonType =
+                        button.getAttribute(
+                            "data-filter"
+                        );
+
+
+                    if (
+                        buttonType ===
+                        currentFilter
+                    ) {
+
+                        button.className = `
+                            filter-btn
+                            px-4 py-1.5
+                            rounded-full
+                            font-medium
+                            text-sm
+                            transition-all
+                            bg-brand-primary
+                            text-white
+                            shadow-sm
+                            whitespace-nowrap
+                        `;
+
+                    } else {
+
+                        button.className = `
+                            filter-btn
+                            px-4 py-1.5
+                            rounded-full
+                            font-medium
+                            text-sm
+                            transition-all
+                            bg-white
+                            border border-slate-200
+                            text-slate-600
+                            hover:border-brand-primary
+                            hover:text-brand-primary
+                            whitespace-nowrap
+                        `;
+
+                    }
+
+                });
+
 
             renderBookings();
         }
 
-        // 5. Fetch Actual User and Bookings
-        async function initPage() {
-            try {
-                // Step A: Logged in user fetch karo
-                const authRes = await fetch("/api/auth/me", { method: "GET", credentials: "include" });
-                const authData = await authRes.json();
 
-                if (!authRes.ok || !authData.loggedIn) {
-                    window.location.href = "/login";
+
+        // =========================================
+        // LOAD PAGE
+        // =========================================
+
+        async function initPage() {
+
+            const container =
+                document.getElementById(
+                    "bookingsContainer"
+                );
+
+
+            try {
+
+
+                // =====================================
+                // STEP 1
+                // CHECK LOGIN
+                // =====================================
+
+                const authRes =
+                    await fetch(
+                        "/api/auth/me",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                const authData =
+                    await authRes.json();
+
+
+                console.log(
+                    "AUTH RESPONSE:",
+                    authData
+                );
+
+
+                if (
+                    !authRes.ok ||
+                    !authData.loggedIn
+                ) {
+
+                    window.location.href =
+                        "/login";
+
                     return;
                 }
 
-                const user = authData.user || {};
-                document.getElementById("userName").textContent = user.name || "User";
-                document.getElementById("userEmail").textContent = user.email || "";
 
-                const userEmail = (user.email || "").trim();
 
-                // Step B: User ke email se database bookings mangwao
-                const bookRes = await fetch(`/api/bookings/my-bookings?email=${encodeURIComponent(userEmail)}`, {
-                    method: "GET",
-                    credentials: "include"
-                });
+                // =====================================
+                // STEP 2
+                // USER DETAILS
+                // =====================================
 
-                const bookData = await bookRes.json();
-                console.log("Database se aayi bookings:", bookData);
+                const user =
+                    authData.user || {};
 
-                if (bookData.success && Array.isArray(bookData.bookings)) {
-                    allBookingsData = bookData.bookings;
-                } else {
-                    allBookingsData = [];
+
+                document.getElementById(
+                    "userName"
+                ).textContent =
+                    user.name ||
+                    "User";
+
+
+                document.getElementById(
+                    "userEmail"
+                ).textContent =
+                    user.email ||
+                    "";
+
+
+
+                // =====================================
+                // STEP 3
+                // GET USER BOOKINGS
+                // =====================================
+
+                /*
+                    IMPORTANT:
+
+                    Backend route is:
+
+                    GET /api/bookings/my-bookings
+
+                    Backend already uses:
+
+                    req.session.userId
+
+                    Therefore email query parameter
+                    ki zarurat nahi hai.
+                */
+
+                const bookRes =
+                    await fetch(
+                        "/api/bookings/my-bookings",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                const bookData =
+                    await bookRes.json();
+
+
+                console.log(
+                    "BOOKINGS API RESPONSE:",
+                    bookData
+                );
+
+
+                // =====================================
+                // CHECK API
+                // =====================================
+
+                if (
+                    !bookRes.ok
+                ) {
+
+                    throw new Error(
+                        bookData.message ||
+                        "Unable to load bookings"
+                    );
                 }
+
+
+                if (
+                    !bookData.success
+                ) {
+
+                    throw new Error(
+                        bookData.message ||
+                        "Booking request failed"
+                    );
+                }
+
+
+                if (
+                    !Array.isArray(
+                        bookData.bookings
+                    )
+                ) {
+
+                    throw new Error(
+                        "Invalid bookings data received"
+                    );
+                }
+
+
+
+                // =====================================
+                // SAVE BOOKINGS
+                // =====================================
+
+                allBookingsData =
+                    bookData.bookings;
+
+
+                console.log(
+                    "TOTAL BOOKINGS:",
+                    allBookingsData.length
+                );
+
+
+                console.log(
+                    "BOOKINGS DATA:",
+                    allBookingsData
+                );
+
+
+
+                // =====================================
+                // RENDER
+                // =====================================
 
                 renderBookings();
 
-            } catch (err) {
-                console.error("Initialization error:", err);
-                document.getElementById("bookingsContainer").innerHTML = `
-                    <div class="bg-white rounded-2xl border border-rose-100 p-8 text-center text-rose-500 font-medium">
-                        Database se data load karne me problem aayi. Console (F12) check karein.
-                    </div>`;
+
+            } catch (error) {
+
+                console.error(
+                    "MY BOOKINGS ERROR:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <div
+                        class="
+                        bg-white
+                        rounded-2xl
+                        border
+                        border-rose-100
+                        p-10
+                        text-center
+                        "
+                    >
+
+                        <div
+                            class="
+                            w-14 h-14
+                            mx-auto
+                            mb-4
+                            rounded-full
+                            bg-rose-50
+                            flex
+                            items-center
+                            justify-center
+                            "
+                        >
+
+                            <svg
+                                class="
+                                w-7 h-7
+                                text-rose-500
+                                "
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 9v4m0 4h.01M10.29 3.86l-7.82 13a2 2 0 001.71 3h15.64a2 2 0 001.71-3l-7.82-13a2 2 0 00-3.42 0z"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <h3
+                            class="
+                            text-lg
+                            font-bold
+                            text-slate-800
+                            "
+                        >
+                            Unable to load bookings
+                        </h3>
+
+
+                        <p
+                            class="
+                            text-sm
+                            text-slate-500
+                            mt-2
+                            "
+                        >
+                            ${escapeHtml(
+                                error.message ||
+                                "Something went wrong."
+                            )}
+                        </p>
+
+
+                        <button
+                            onclick="initPage()"
+                            class="
+                            mt-5
+                            px-5 py-2.5
+                            rounded-xl
+                            bg-brand-primary
+                            text-white
+                            text-sm
+                            font-semibold
+                            hover:bg-brand-primary-hover
+                            transition
+                            "
+                        >
+                            Try Again
+                        </button>
+
+                    </div>
+
+                `;
+
             }
+
         }
 
-        // 6. Logout
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
         async function handleLogout() {
+
             try {
-                await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-                window.location.href = "/login";
-            } catch (err) {
-                window.location.href = "/login";
+
+                await fetch(
+                    "/api/auth/logout",
+                    {
+                        method: "POST",
+                        credentials: "include"
+                    }
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
             }
+
+
+            window.location.href =
+                "/login";
         }
 
-        document.addEventListener("DOMContentLoaded", initPage);
+
+
+        // =========================================
+        // START
+        // =========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                initPage();
+
+            }
+        );
+
     </script>
 
 </body>
+
 </html>

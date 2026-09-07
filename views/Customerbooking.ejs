@@ -4,296 +4,1562 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RideWave Admin - Bookings</title>
+
   <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
+    .booking-card {
+      transition: all 0.2s ease;
+    }
+
+    .booking-card.hidden-card {
+      display: none;
+    }
+
+    .loader {
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #FF462D;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body class="bg-[#F8FAFC] text-slate-800 flex min-h-screen relative">
 
+  <!-- ================= SIDEBAR ================= -->
+
   <aside class="w-64 bg-[#0B1536] text-white flex flex-col justify-between p-6 shrink-0">
+
     <div>
+
       <div class="flex items-center gap-2 mb-10">
-        <span class="text-2xl font-bold tracking-tight text-white">Ride<span class="text-[#FF462D]">Wave</span></span>
-        <span class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">ADMIN</span>
+        <span class="text-2xl font-bold tracking-tight text-white">
+          Ride<span class="text-[#FF462D]">Wave</span>
+        </span>
+
+        <span class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+          ADMIN
+        </span>
       </div>
 
       <div class="space-y-6">
+
+        <!-- MAIN -->
+
         <div>
-          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">Main</p>
+          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+            Main
+          </p>
+
           <nav class="space-y-1.5">
-            <a href="/admin" class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
+
+            <a href="/admin"
+              class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
+
               <i data-lucide="layout-grid" class="w-5 h-5"></i>
+
               <span>Dashboard</span>
-            </a>
-            
-            <a href="/carAdmin" class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
-              <i data-lucide="car" class="w-5 h-5"></i>
-              <span>Rental Cars</span>
+
             </a>
 
-            <a href="/Customerbooking" class="flex items-center justify-between px-4 py-3 bg-[#FF462D] text-white rounded-xl font-medium shadow-md shadow-[#FF462D]/20 transition-all duration-200">
-              <div class="flex items-center gap-3.5">
-                <i data-lucide="calendar" class="w-5 h-5"></i>
-                <span>Bookings</span>
-              </div>
-              <span class="bg-white/20 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">4</span>
+
+            <a href="/carAdmin"
+              class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
+
+              <i data-lucide="car" class="w-5 h-5"></i>
+
+              <span>Rental Cars</span>
+
             </a>
+
+
+            <a href="/Customerbooking"
+              class="flex items-center justify-between px-4 py-3 bg-[#FF462D] text-white rounded-xl font-medium shadow-md shadow-[#FF462D]/20 transition-all duration-200">
+
+              <div class="flex items-center gap-3.5">
+
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+
+                <span>Bookings</span>
+
+              </div>
+
+              <span id="pendingSidebarCount"
+                class="bg-[#FF9F1C] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                0
+              </span>
+
+            </a>
+
           </nav>
         </div>
+
+
+        <!-- OTHER -->
 
         <div>
-          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">Other</p>
+
+          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+            Other
+          </p>
+
           <nav class="space-y-1.5">
-            <a href="/" class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
+
+            <a href="/"
+              class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition-all duration-200">
+
               <i data-lucide="arrow-left" class="w-5 h-5"></i>
+
               <span>Back to Site</span>
+
             </a>
+
           </nav>
+
         </div>
+
       </div>
+
     </div>
+
 
     <div class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500">
+
       <i data-lucide="shield" class="w-4 h-4 text-[#FF462D]"></i>
+
       <span>Admin Panel</span>
+
     </div>
+
   </aside>
 
+
+  <!-- ================= MAIN ================= -->
+
   <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
-    <header class="p-8 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+    <!-- HEADER -->
+
+    <header class="p-8 pb-4 flex justify-between items-start">
+
       <div>
-        <div class="flex items-center gap-2.5">
-          <h1 class="text-2xl font-bold text-[#0B1536]">Bookings</h1>
-          <button class="text-slate-400 hover:text-slate-600 transition" title="Refresh">
-            <i data-lucide="rotate-cw" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p class="text-xs text-slate-400 mt-0.5">Review and manage customer bookings.</p>
+
+        <h1 class="text-2xl font-bold text-[#0B1536]">
+          Bookings
+        </h1>
+
+        <p class="text-sm text-slate-400 mt-1">
+          Manage customer bookings and rental status.
+        </p>
+
       </div>
 
-      <div class="flex items-center gap-2 text-xs font-semibold overflow-x-auto pb-1">
-        <button class="bg-[#FF462D] text-white px-4 py-1.5 rounded-full shadow-sm">All</button>
-        <button class="bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-1.5 rounded-full transition">Pending</button>
-        <button class="bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-1.5 rounded-full transition">Confirmed</button>
-        <button class="bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-1.5 rounded-full transition">Completed</button>
-        <button class="bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-1.5 rounded-full transition">Cancelled</button>
-      </div>
+
+      <button
+        id="refreshBtn"
+        type="button"
+        class="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+
+        <i data-lucide="refresh-cw" id="refreshIcon" class="w-4 h-4"></i>
+
+        Refresh
+
+      </button>
+
     </header>
 
-    <div class="p-8 pt-2 space-y-3">
-      
-      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-slate-200 transition-all">
-        <div class="flex items-center gap-5">
-          <div class="w-24 h-16 bg-slate-50 rounded-xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
-            <img src="https://purepng.com/public/uploads/large/purepng.com-green-porsche-macan-carcarvehicletransportporsche-9615246473185h93i.png" alt="Macan 4" class="max-h-full object-contain" />
-          </div>
-          <div class="space-y-1">
-            <h3 class="font-bold text-[#0B1536] text-base leading-tight">Macan 4</h3>
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
-              <i data-lucide="user" class="w-3.5 h-3.5"></i>
-              <span>Waseem (<span class="text-slate-500">waseemuser@gmail.com</span>)</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5">
-              <span class="flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 27 &rarr; Mar 3
-              </span>
-              <span class="flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> New York, USA
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="flex md:flex-col items-end justify-between w-full md:w-auto gap-2 self-stretch md:self-auto">
-          <div class="text-right">
-            <div class="text-base font-bold text-[#FF462D]">$1196</div>
-            <span class="inline-block bg-amber-50 text-amber-600 text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase mt-0.5">Pending</span>
-          </div>
-          <button data-booking-id="#8" class="open-modal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Update
-          </button>
-        </div>
+
+    <!-- ================= CONTENT ================= -->
+
+    <div class="p-8 pt-2">
+
+      <!-- FILTERS -->
+
+      <div class="flex flex-wrap gap-2 mb-6">
+
+        <button
+          type="button"
+          class="filter-btn active-filter px-4 py-2 rounded-xl bg-[#0B1536] text-white text-xs font-semibold"
+          data-filter="all">
+          All
+        </button>
+
+        <button
+          type="button"
+          class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
+          data-filter="pending">
+          Pending
+        </button>
+
+        <button
+          type="button"
+          class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
+          data-filter="confirmed">
+          Confirmed
+        </button>
+
+        <button
+          type="button"
+          class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
+          data-filter="completed">
+          Completed
+        </button>
+
+        <button
+          type="button"
+          class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
+          data-filter="cancelled">
+          Cancelled
+        </button>
+
       </div>
 
-      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-slate-200 transition-all">
-        <div class="flex items-center gap-5">
-          <div class="w-24 h-16 bg-slate-50 rounded-xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
-            <img src="https://purepng.com/public/uploads/large/purepng.com-green-porsche-macan-carcarvehicletransportporsche-9615246473185h93i.png" alt="Macan 4" class="max-h-full object-contain" />
-          </div>
-          <div class="space-y-1">
-            <h3 class="font-bold text-[#0B1536] text-base leading-tight">Macan 4</h3>
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
-              <i data-lucide="user" class="w-3.5 h-3.5"></i>
-              <span>Waseem (<span class="text-slate-500">waseemuser@gmail.com</span>)</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5">
-              <span class="flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 26 &rarr; Feb 27
-              </span>
-              <span class="flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> New York, USA
-              </span>
-            </div>
-          </div>
+
+      <!-- BOOKING COUNT -->
+
+      <div class="flex items-center justify-between mb-4">
+
+        <div>
+          <h2 class="text-lg font-bold text-[#0B1536]">
+            Customer Bookings
+          </h2>
+
+          <p id="bookingCountText"
+            class="text-xs text-slate-400 mt-1">
+            Loading bookings...
+          </p>
         </div>
-        <div class="flex md:flex-col items-end justify-between w-full md:w-auto gap-2 self-stretch md:self-auto">
-          <div class="text-right">
-            <div class="text-base font-bold text-[#FF462D]">$299</div>
-            <span class="inline-block bg-sky-50 text-sky-600 text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase mt-0.5">Completed</span>
-          </div>
-          <button data-booking-id="#9" class="open-modal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Update
-          </button>
-        </div>
+
       </div>
 
-      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-slate-200 transition-all">
-        <div class="flex items-center gap-5">
-          <div class="w-24 h-16 bg-slate-50 rounded-xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
-            <img src="https://purepng.com/public/uploads/large/purepng.com-white-nissan-gt-r-carcarvehicletransportnissan-961524643640w383f.png" alt="Nisan GT-R" class="max-h-full object-contain" />
-          </div>
-          <div class="space-y-1">
-            <h3 class="font-bold text-[#0B1536] text-base leading-tight">Nisan GT-R</h3>
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
-              <i data-lucide="user" class="w-3.5 h-3.5"></i>
-              <span>Admin (<span class="text-slate-500">admin@ridewave.com</span>)</span>
-            </div>
-            <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5">
-              <span class="flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Feb 26 &rarr; Feb 28
-              </span>
-              <span class="flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> New York, USA
-              </span>
-            </div>
-          </div>
+
+      <!-- LOADING -->
+
+      <div id="loadingState"
+        class="bg-white rounded-2xl border border-slate-100 p-12 flex flex-col items-center justify-center">
+
+        <div class="loader mb-4"></div>
+
+        <p class="text-sm text-slate-400">
+          Loading bookings...
+        </p>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div id="errorState"
+        class="hidden bg-white rounded-2xl border border-rose-100 p-10 text-center">
+
+        <div class="w-12 h-12 mx-auto rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mb-4">
+
+          <i data-lucide="alert-circle" class="w-6 h-6"></i>
+
         </div>
-        <div class="flex md:flex-col items-end justify-between w-full md:w-auto gap-2 self-stretch md:self-auto">
-          <div class="text-right">
-            <div class="text-base font-bold text-[#FF462D]">$598</div>
-            <span class="inline-block bg-sky-50 text-sky-600 text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase mt-0.5">Completed</span>
-          </div>
-          <button data-booking-id="#10" class="open-modal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Update
-          </button>
+
+        <h3 class="font-bold text-slate-700">
+          Failed to load bookings
+        </h3>
+
+        <p id="errorMessage"
+          class="text-xs text-slate-400 mt-1 mb-4">
+          Something went wrong.
+        </p>
+
+        <button
+          id="retryBtn"
+          type="button"
+          class="px-4 py-2 bg-[#FF462D] text-white rounded-xl text-xs font-semibold">
+
+          Try Again
+
+        </button>
+
+      </div>
+
+
+      <!-- NO BOOKINGS -->
+
+      <div id="emptyState"
+        class="hidden bg-white rounded-2xl border border-slate-100 p-12 text-center">
+
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-4">
+
+          <i data-lucide="calendar-x" class="w-7 h-7"></i>
+
         </div>
+
+        <h3 class="font-bold text-slate-700">
+          No bookings found
+        </h3>
+
+        <p class="text-xs text-slate-400 mt-1">
+          There are no bookings in this category.
+        </p>
+
+      </div>
+
+
+      <!-- BOOKINGS CONTAINER -->
+
+      <div id="bookingsContainer"
+        class="space-y-3 hidden">
       </div>
 
     </div>
+
   </main>
 
-  <div id="updateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0B1536]/40 backdrop-blur-sm hidden transition-all duration-200 p-4">
-    
-    <div class="bg-white w-full max-w-[480px] rounded-3xl p-8 shadow-2xl relative border border-slate-100 transform transition-all">
-      
-      <button id="closeModalBtn" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-700 transition">
+
+  <!-- ================= UPDATE MODAL ================= -->
+
+  <div id="updateModal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-[#0B1536]/40 backdrop-blur-sm hidden p-4">
+
+    <div
+      class="bg-white w-full max-w-[480px] rounded-3xl p-8 shadow-2xl relative border border-slate-100">
+
+      <!-- CLOSE -->
+
+      <button
+        id="closeModalBtn"
+        type="button"
+        class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-700 transition">
+
         <i data-lucide="x" class="w-4 h-4"></i>
+
       </button>
 
+
+      <!-- TITLE -->
+
       <div class="text-center mb-7">
-        <h2 class="text-2xl font-extrabold text-[#FF462D]">Update Status</h2>
-        <p id="modalBookingId" class="text-xs font-semibold text-slate-400 mt-1">Booking #8</p>
-      </div>
 
-      <div class="grid grid-cols-4 gap-3 mb-6">
-        
-        <button type="button" class="status-btn border-2 border-emerald-500 bg-emerald-50 text-emerald-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all hover:shadow-md" data-status="Confirm">
-          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-          <span class="text-xs font-bold">Confirm</span>
-        </button>
+        <h2 class="text-2xl font-extrabold text-[#FF462D]">
+          Update Status
+        </h2>
 
-        <button type="button" class="status-btn border border-slate-200 hover:border-sky-400 hover:bg-sky-50 hover:text-sky-600 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all" data-status="Complete">
-          <i data-lucide="check-check" class="w-5 h-5"></i>
-          <span class="text-xs font-bold">Complete</span>
-        </button>
-
-        <button type="button" class="status-btn border border-slate-200 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-600 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all" data-status="Cancel">
-          <i data-lucide="x-circle" class="w-5 h-5"></i>
-          <span class="text-xs font-bold">Cancel</span>
-        </button>
-
-        <button type="button" class="status-btn border border-slate-200 hover:border-amber-400 hover:bg-amber-50 hover:text-amber-600 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all" data-status="Pending">
-          <i data-lucide="clock" class="w-5 h-5"></i>
-          <span class="text-xs font-bold">Pending</span>
-        </button>
+        <p id="modalBookingId"
+          class="text-xs font-semibold text-slate-400 mt-1">
+          Booking
+        </p>
 
       </div>
 
-      <form id="statusUpdateForm" onsubmit="event.preventDefault();">
-        <div class="space-y-2 mb-6">
-          <label class="text-xs font-bold text-slate-700 block">Reason / Note <span class="font-normal text-slate-400">(optional)</span></label>
-          <textarea 
-            rows="3" 
-            placeholder="Add a reason or note for the customer..." 
-            class="w-full border border-slate-200 rounded-2xl p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF462D] focus:ring-1 focus:ring-[#FF462D] transition resize-none"></textarea>
+
+      <!-- CURRENT CAR -->
+
+      <div id="modalCarInfo"
+        class="bg-slate-50 rounded-2xl p-3 mb-5 flex items-center gap-3">
+
+        <div class="w-16 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center p-1">
+
+          <img
+            id="modalCarImage"
+            src=""
+            alt="Car"
+            class="max-h-full max-w-full object-contain">
+
         </div>
 
-        <button type="submit" class="w-full py-3.5 bg-[#FF462D] hover:bg-[#e03a22] text-white font-bold rounded-2xl text-sm shadow-md shadow-[#FF462D]/25 transition active:scale-[0.99]">
-          Update Status
+        <div>
+
+          <p id="modalCarName"
+            class="font-bold text-sm text-[#0B1536]">
+            Car
+          </p>
+
+          <p id="modalCustomerName"
+            class="text-xs text-slate-400">
+            Customer
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS BUTTONS -->
+
+      <div class="grid grid-cols-4 gap-3 mb-6">
+
+        <button
+          type="button"
+          class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all"
+          data-status="confirmed">
+
+          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+
+          <span class="text-xs font-bold">
+            Confirm
+          </span>
+
         </button>
+
+
+        <button
+          type="button"
+          class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all"
+          data-status="completed">
+
+          <i data-lucide="check-check" class="w-5 h-5"></i>
+
+          <span class="text-xs font-bold">
+            Complete
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all"
+          data-status="cancelled">
+
+          <i data-lucide="x-circle" class="w-5 h-5"></i>
+
+          <span class="text-xs font-bold">
+            Cancel
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all"
+          data-status="pending">
+
+          <i data-lucide="clock" class="w-5 h-5"></i>
+
+          <span class="text-xs font-bold">
+            Pending
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- NOTE -->
+
+      <form id="statusUpdateForm">
+
+        <div class="space-y-2 mb-6">
+
+          <label class="text-xs font-bold text-slate-700 block">
+            Reason / Note
+            <span class="font-normal text-slate-400">
+              (optional)
+            </span>
+          </label>
+
+          <textarea
+            id="modalNoteInput"
+            rows="3"
+            placeholder="Add a reason or note for the customer..."
+            class="w-full border border-slate-200 rounded-2xl p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF462D] focus:ring-1 focus:ring-[#FF462D] transition resize-none"></textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          id="submitUpdateBtn"
+          class="w-full py-3.5 bg-[#FF462D] hover:bg-[#e03a22] text-white font-bold rounded-2xl text-sm shadow-md shadow-[#FF462D]/25 transition active:scale-[0.99]">
+
+          Update Status
+
+        </button>
+
       </form>
 
     </div>
+
   </div>
 
+
+  <!-- ================= JAVASCRIPT ================= -->
+
   <script>
+
     lucide.createIcons();
 
-    const modal = document.getElementById('updateModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const openBtns = document.querySelectorAll('.open-modal-btn');
-    const modalBookingId = document.getElementById('modalBookingId');
-    const statusBtns = document.querySelectorAll('.status-btn');
 
-    // Open Modal with Booking ID
-    openBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-booking-id') || '#8';
-        modalBookingId.textContent = `Booking ${id}`;
-        modal.classList.remove('hidden');
-      });
-    });
+    // =====================================================
+    // VARIABLES
+    // =====================================================
 
-    // Close Modal
-    function closeModal() {
-      modal.classList.add('hidden');
-    }
+    const bookingsContainer =
+      document.getElementById("bookingsContainer");
 
-    closeModalBtn.addEventListener('click', closeModal);
+    const loadingState =
+      document.getElementById("loadingState");
 
-    // Close on overlay backdrop click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModal();
+    const errorState =
+      document.getElementById("errorState");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+    const bookingCountText =
+      document.getElementById("bookingCountText");
+
+    const pendingSidebarCount =
+      document.getElementById("pendingSidebarCount");
+
+    const refreshBtn =
+      document.getElementById("refreshBtn");
+
+    const retryBtn =
+      document.getElementById("retryBtn");
+
+    const refreshIcon =
+      document.getElementById("refreshIcon");
+
+
+    const modal =
+      document.getElementById("updateModal");
+
+    const closeModalBtn =
+      document.getElementById("closeModalBtn");
+
+    const modalBookingId =
+      document.getElementById("modalBookingId");
+
+    const modalCarImage =
+      document.getElementById("modalCarImage");
+
+    const modalCarName =
+      document.getElementById("modalCarName");
+
+    const modalCustomerName =
+      document.getElementById("modalCustomerName");
+
+    const modalNoteInput =
+      document.getElementById("modalNoteInput");
+
+    const statusForm =
+      document.getElementById("statusUpdateForm");
+
+    const submitBtn =
+      document.getElementById("submitUpdateBtn");
+
+
+    let allBookings = [];
+
+    let currentFilter = "all";
+
+    let currentBookingId = null;
+
+    let selectedStatus = "pending";
+
+
+    // =====================================================
+    // STATUS CONFIG
+    // =====================================================
+
+    const statusConfig = {
+
+      pending: {
+        label: "Pending",
+        bg: "bg-amber-50",
+        text: "text-amber-600",
+        border: "border-amber-500"
+      },
+
+      confirmed: {
+        label: "Confirmed",
+        bg: "bg-emerald-50",
+        text: "text-emerald-600",
+        border: "border-emerald-500"
+      },
+
+      completed: {
+        label: "Completed",
+        bg: "bg-sky-50",
+        text: "text-sky-600",
+        border: "border-sky-500"
+      },
+
+      cancelled: {
+        label: "Cancelled",
+        bg: "bg-rose-50",
+        text: "text-rose-500",
+        border: "border-rose-500"
       }
-    });
 
-    // Toggle active status styles
-    const statusStyles = {
-      Confirm: { border: 'border-emerald-500', bg: 'bg-emerald-50', text: 'text-emerald-600' },
-      Complete: { border: 'border-sky-500', bg: 'bg-sky-50', text: 'text-sky-600' },
-      Cancel: { border: 'border-rose-500', bg: 'bg-rose-50', text: 'text-rose-600' },
-      Pending: { border: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-600' }
     };
 
-    statusBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Reset all buttons to default grey state
-        statusBtns.forEach(b => {
-          b.className = 'status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all';
+
+    // =====================================================
+    // SAFE HTML
+    // =====================================================
+
+    function escapeHtml(value) {
+
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // =====================================================
+    // DATE FORMAT
+    // =====================================================
+
+    function formatDate(dateValue) {
+
+      if (!dateValue) {
+        return "N/A";
+      }
+
+      const date = new Date(dateValue);
+
+      if (isNaN(date.getTime())) {
+        return "N/A";
+      }
+
+      return date.toLocaleDateString("en-US", {
+
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+
+      });
+
+    }
+
+
+    // =====================================================
+    // MONEY FORMAT
+    // =====================================================
+
+    function formatMoney(amount) {
+
+      const number = Number(amount);
+
+      if (isNaN(number)) {
+        return "0";
+      }
+
+      return number.toLocaleString("en-US", {
+        maximumFractionDigits: 2
+      });
+
+    }
+
+
+    // =====================================================
+    // GET CAR IMAGE
+    // =====================================================
+
+    function getCarImage(booking) {
+
+      if (
+        booking.car &&
+        booking.car.image
+      ) {
+
+        return booking.car.image;
+
+      }
+
+      return "/images/title.png.jpeg";
+
+    }
+
+
+    // =====================================================
+    // GET CAR NAME
+    // =====================================================
+
+    function getCarName(booking) {
+
+      if (
+        booking.car &&
+        booking.car.name
+      ) {
+
+        return booking.car.name;
+
+      }
+
+      return "Rental Vehicle";
+
+    }
+
+
+    // =====================================================
+    // FETCH ALL BOOKINGS
+    // =====================================================
+
+    async function loadBookings() {
+
+      loadingState.classList.remove("hidden");
+
+      errorState.classList.add("hidden");
+
+      emptyState.classList.add("hidden");
+
+      bookingsContainer.classList.add("hidden");
+
+      refreshIcon.classList.add("animate-spin");
+
+
+      try {
+
+        const response =
+          await fetch("/api/bookings", {
+            method: "GET",
+            headers: {
+              "Accept": "application/json"
+            }
+          });
+
+
+        const contentType =
+          response.headers.get("content-type") || "";
+
+
+        if (!contentType.includes("application/json")) {
+
+          throw new Error(
+            "Server returned HTML instead of JSON. Check login/session and API route."
+          );
+
+        }
+
+
+        const result =
+          await response.json();
+
+
+        if (!response.ok || !result.success) {
+
+          throw new Error(
+            result.message ||
+            "Failed to fetch bookings."
+          );
+
+        }
+
+
+        allBookings =
+          Array.isArray(result.bookings)
+            ? result.bookings
+            : [];
+
+
+        // Update pending count
+
+        const pendingCount =
+          allBookings.filter(
+            booking =>
+              String(booking.status).toLowerCase() === "pending"
+          ).length;
+
+
+        pendingSidebarCount.textContent =
+          pendingCount;
+
+
+        renderBookings();
+
+
+      } catch (error) {
+
+        console.error(
+          "Bookings Fetch Error:",
+          error
+        );
+
+        loadingState.classList.add("hidden");
+
+        errorState.classList.remove("hidden");
+
+        errorMessage.textContent =
+          error.message ||
+          "Unable to load bookings.";
+
+        lucide.createIcons();
+
+      } finally {
+
+        loadingState.classList.add("hidden");
+
+        refreshIcon.classList.remove("animate-spin");
+
+      }
+
+    }
+
+
+    // =====================================================
+    // RENDER BOOKINGS
+    // =====================================================
+
+    function renderBookings() {
+
+      bookingsContainer.innerHTML = "";
+
+
+      const filteredBookings =
+        currentFilter === "all"
+          ? allBookings
+          : allBookings.filter(
+              booking =>
+                String(booking.status).toLowerCase() ===
+                currentFilter
+            );
+
+
+      bookingCountText.textContent =
+        `${filteredBookings.length} booking${
+          filteredBookings.length === 1 ? "" : "s"
+        } found`;
+
+
+      if (filteredBookings.length === 0) {
+
+        bookingsContainer.classList.add("hidden");
+
+        emptyState.classList.remove("hidden");
+
+        return;
+
+      }
+
+
+      emptyState.classList.add("hidden");
+
+      bookingsContainer.classList.remove("hidden");
+
+
+      filteredBookings.forEach(
+        booking => {
+
+          bookingsContainer.appendChild(
+            createBookingCard(booking)
+          );
+
+        }
+      );
+
+
+      lucide.createIcons();
+
+    }
+
+
+    // =====================================================
+    // CREATE BOOKING CARD
+    // =====================================================
+
+    function createBookingCard(booking) {
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "booking-card bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-slate-200";
+
+
+      card.dataset.status =
+        String(booking.status || "")
+          .toLowerCase();
+
+
+      const status =
+        String(booking.status || "pending")
+          .toLowerCase();
+
+
+      const config =
+        statusConfig[status] ||
+        statusConfig.pending;
+
+
+      const carImage =
+        getCarImage(booking);
+
+
+      const carName =
+        getCarName(booking);
+
+
+      const customerName =
+        booking.name ||
+        (
+          booking.renter &&
+          booking.renter.name
+        ) ||
+        "Customer";
+
+
+      const customerEmail =
+        booking.email ||
+        (
+          booking.renter &&
+          booking.renter.email
+        ) ||
+        "No email";
+
+
+      const phone =
+        booking.phone ||
+        "No phone";
+
+
+      const pickupLocation =
+        booking.pickupLocation ||
+        "N/A";
+
+
+      const totalAmount =
+        booking.totalAmount ??
+        0;
+
+
+      const totalDays =
+        booking.totalDays ??
+        1;
+
+
+      const pricePerDay =
+        booking.pricePerDay ??
+        0;
+
+
+      const startDate =
+        formatDate(booking.startDate);
+
+
+      const endDate =
+        formatDate(booking.endDate);
+
+
+      const bookingId =
+        booking._id || "";
+
+
+      card.innerHTML = `
+
+        <!-- LEFT -->
+
+        <div class="flex items-center gap-5 min-w-0">
+
+          <!-- CAR IMAGE -->
+
+          <div
+            class="w-28 h-20 bg-slate-50 rounded-xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
+
+            <img
+              src="${escapeHtml(carImage)}"
+              alt="${escapeHtml(carName)}"
+              class="max-h-full max-w-full object-contain"
+              onerror="this.onerror=null;this.src='/images/title.png.jpeg';">
+
+          </div>
+
+
+          <!-- DETAILS -->
+
+          <div class="space-y-1.5 min-w-0">
+
+            <h3
+              class="font-bold text-[#0B1536] text-base leading-tight truncate">
+
+              ${escapeHtml(carName)}
+
+            </h3>
+
+
+            <!-- CUSTOMER -->
+
+            <div
+              class="flex flex-wrap items-center gap-1.5 text-xs text-slate-400">
+
+              <i data-lucide="user" class="w-3.5 h-3.5 shrink-0"></i>
+
+              <span>
+
+                ${escapeHtml(customerName)}
+
+                <span class="text-slate-500">
+
+                  (${escapeHtml(customerEmail)})
+
+                </span>
+
+              </span>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div
+              class="flex items-center gap-1.5 text-xs text-slate-400">
+
+              <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+
+              <span>
+                ${escapeHtml(phone)}
+              </span>
+
+            </div>
+
+
+            <!-- DATE + LOCATION -->
+
+            <div
+              class="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5">
+
+              <span class="flex items-center gap-1">
+
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+
+                ${startDate}
+
+                <span>→</span>
+
+                ${endDate}
+
+              </span>
+
+
+              <span class="flex items-center gap-1">
+
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+
+                ${escapeHtml(pickupLocation)}
+
+              </span>
+
+            </div>
+
+
+            <!-- PRICE INFO -->
+
+            <div
+              class="flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
+
+              <span>
+
+                ${escapeHtml(totalDays)}
+                day${Number(totalDays) === 1 ? "" : "s"}
+
+              </span>
+
+              <span>
+                ₹${formatMoney(pricePerDay)}/day
+              </span>
+
+              <span class="font-semibold text-slate-500">
+
+                Booking ID:
+                ${escapeHtml(String(bookingId).slice(-8))}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div
+          class="flex md:flex-col items-end justify-between w-full md:w-auto gap-2 self-stretch md:self-auto">
+
+          <div class="text-right">
+
+            <div
+              class="text-base font-bold text-[#FF462D]">
+
+              ₹${formatMoney(totalAmount)}
+
+            </div>
+
+
+            <span
+              class="inline-block ${config.bg} ${config.text} text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase mt-0.5">
+
+              ${config.label}
+
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="open-modal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+            data-booking-id="${escapeHtml(bookingId)}">
+
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+
+            Update
+
+          </button>
+
+        </div>
+
+      `;
+
+
+      return card;
+
+    }
+
+
+    // =====================================================
+    // FILTER BUTTONS
+    // =====================================================
+
+    document
+      .querySelectorAll(".filter-btn")
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              btn.dataset.filter;
+
+
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach(button => {
+
+                button.className =
+                  "filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50";
+
+              });
+
+
+            btn.className =
+              "filter-btn active-filter px-4 py-2 rounded-xl bg-[#0B1536] text-white text-xs font-semibold";
+
+
+            renderBookings();
+
+          }
+        );
+
+      });
+
+
+    // =====================================================
+    // OPEN MODAL
+    // =====================================================
+
+    bookingsContainer.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(".open-modal-btn");
+
+
+        if (!button) {
+          return;
+        }
+
+
+        const bookingId =
+          button.dataset.bookingId;
+
+
+        const booking =
+          allBookings.find(
+            item =>
+              String(item._id) ===
+              String(bookingId)
+          );
+
+
+        if (!booking) {
+
+          alert("Booking not found.");
+
+          return;
+
+        }
+
+
+        openUpdateModal(booking);
+
+      }
+    );
+
+
+    // =====================================================
+    // OPEN UPDATE MODAL
+    // =====================================================
+
+    function openUpdateModal(booking) {
+
+      currentBookingId =
+        booking._id;
+
+
+      selectedStatus =
+        String(booking.status || "pending")
+          .toLowerCase();
+
+
+      modalBookingId.textContent =
+        `Booking #${String(booking._id).slice(-8)}`;
+
+
+      modalCarName.textContent =
+        getCarName(booking);
+
+
+      modalCustomerName.textContent =
+        `${booking.name || "Customer"} • ${
+          booking.email || "No email"
+        }`;
+
+
+      modalCarImage.src =
+        getCarImage(booking);
+
+
+      modalCarImage.onerror =
+        function () {
+
+          this.onerror = null;
+
+          this.src = "/images/title.png.jpeg";
+
+        };
+
+
+      modalNoteInput.value = "";
+
+
+      updateStatusButtons();
+
+
+      modal.classList.remove("hidden");
+
+    }
+
+
+    // =====================================================
+    // CLOSE MODAL
+    // =====================================================
+
+    function closeModal() {
+
+      modal.classList.add("hidden");
+
+      currentBookingId = null;
+
+    }
+
+
+    closeModalBtn.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    modal.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === modal) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          !modal.classList.contains("hidden")
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    // =====================================================
+    // STATUS BUTTONS
+    // =====================================================
+
+    document
+      .querySelectorAll(".status-btn")
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            selectedStatus =
+              btn.dataset.status;
+
+
+            updateStatusButtons();
+
+          }
+        );
+
+      });
+
+
+    function updateStatusButtons() {
+
+      document
+        .querySelectorAll(".status-btn")
+        .forEach(btn => {
+
+          const status =
+            btn.dataset.status;
+
+
+          const config =
+            statusConfig[status];
+
+
+          if (status === selectedStatus) {
+
+            btn.className =
+              `status-btn border-2 ${config.border} ${config.bg} ${config.text} rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all shadow-sm`;
+
+          } else {
+
+            btn.className =
+              "status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all hover:shadow-md";
+
+          }
+
         });
 
-        // Apply active style to selected button
-        const status = btn.getAttribute('data-status');
-        const style = statusStyles[status];
-        btn.className = `status-btn border-2 ${style.border} ${style.bg} ${style.text} rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all shadow-sm`;
-      });
-    });
+    }
+
+
+    // =====================================================
+    // UPDATE STATUS
+    // =====================================================
+
+    statusForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        if (!currentBookingId) {
+
+          alert("Booking ID missing.");
+
+          return;
+
+        }
+
+
+        if (!selectedStatus) {
+
+          alert("Please select a status.");
+
+          return;
+
+        }
+
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+          "Updating...";
+
+
+        try {
+
+          /*
+           * IMPORTANT:
+           *
+           * Your booking router is mounted as:
+           *
+           * app.use("/api/bookings", bookingRoutes);
+           *
+           * Therefore the correct endpoint is:
+           *
+           * POST /api/bookings/update-status
+           */
+
+          const response =
+            await fetch(
+              "/api/bookings/update-status",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json",
+
+                  "Accept":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+
+                  bookingId:
+                    currentBookingId,
+
+                  status:
+                    selectedStatus,
+
+                  note:
+                    modalNoteInput.value.trim()
+
+                })
+
+              }
+            );
+
+
+          const contentType =
+            response.headers.get(
+              "content-type"
+            ) || "";
+
+
+          if (!contentType.includes("application/json")) {
+
+            throw new Error(
+              "Server returned HTML instead of JSON. Check the API route."
+            );
+
+          }
+
+
+          const result =
+            await response.json();
+
+
+          if (!response.ok || !result.success) {
+
+            throw new Error(
+              result.message ||
+              "Status update failed."
+            );
+
+          }
+
+
+          alert(
+            result.message ||
+            "Booking status updated successfully."
+          );
+
+
+          closeModal();
+
+
+          // Reload fresh MongoDB data
+
+          await loadBookings();
+
+
+        } catch (error) {
+
+          console.error(
+            "Status Update Error:",
+            error
+          );
+
+
+          alert(
+            error.message ||
+            "Server communication error."
+          );
+
+        } finally {
+
+          submitBtn.disabled = false;
+
+          submitBtn.textContent =
+            "Update Status";
+
+        }
+
+      }
+    );
+
+
+    // =====================================================
+    // REFRESH
+    // =====================================================
+
+    refreshBtn.addEventListener(
+      "click",
+      loadBookings
+    );
+
+
+    retryBtn.addEventListener(
+      "click",
+      loadBookings
+    );
+
+
+    // =====================================================
+    // INITIAL LOAD
+    // =====================================================
+
+    loadBookings();
+
   </script>
+
 </body>
 </html>
