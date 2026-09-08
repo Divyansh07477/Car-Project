@@ -261,18 +261,12 @@ document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
 });
 
-
-// ===============================
-// LOAD CARS FROM DATABASE
-// ===============================
-
 async function loadCars() {
 
-    const rentalContainer = document.getElementById("rentalContainer");
+    const rentalContainer =
+        document.getElementById("rentalContainer");
 
-    if (!rentalContainer) {
-        return;
-    }
+    if (!rentalContainer) return;
 
     try {
 
@@ -285,41 +279,139 @@ async function loadCars() {
 
         if (!response.ok) {
 
-            console.error("Failed to load cars:", data.message);
+            console.error(
+                "Failed to load cars:",
+                data.message
+            );
 
-            rentalContainer.innerHTML = `
-                <p>Unable to load cars.</p>
-            `;
+            rentalContainer.innerHTML =
+                `<p>Unable to load cars.</p>`;
 
             return;
         }
 
-
-        // No cars
         if (!data.cars || data.cars.length === 0) {
 
-            rentalContainer.innerHTML = `
-                <p>No cars available right now.</p>
-            `;
+            rentalContainer.innerHTML =
+                `<p>No cars available right now.</p>`;
 
             return;
         }
 
-
-        // Clear container
         rentalContainer.innerHTML = "";
 
-
-        // Create car cards
         data.cars.forEach(car => {
 
-            const carBox = document.createElement("div");
+            const carBox =
+                document.createElement("div");
 
             carBox.className = "rental-box";
 
 
+            // ==========================================
+            // BOOKED DATE INFORMATION
+            // ==========================================
+
+            const bookedDates =
+                Array.isArray(car.bookedDates)
+                    ? car.bookedDates
+                    : [];
+
+
+            function formatDate(date) {
+
+                return new Date(date).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+            }
+
+
+            let availabilityHTML = "";
+
+
+            if (car.isAvailable === false) {
+
+                availabilityHTML = `
+                    <div class="car-availability unavailable">
+                        <i class="bx bx-x-circle"></i>
+                        <span>Currently unavailable</span>
+                    </div>
+                `;
+
+            } else if (bookedDates.length > 0) {
+
+                const firstBooking =
+                    bookedDates[0];
+
+                availabilityHTML = `
+                    <div class="car-availability booked">
+                        <div>
+                            <i class="bx bx-calendar-x"></i>
+                            <span>
+                                Booked:
+                                ${formatDate(firstBooking.startDate)}
+                                -
+                                ${formatDate(firstBooking.endDate)}
+                            </span>
+                        </div>
+
+                        <small>
+                            Available after
+                            ${formatDate(firstBooking.endDate)}
+                        </small>
+                    </div>
+                `;
+
+            } else {
+
+                availabilityHTML = `
+                    <div class="car-availability available">
+                        <i class="bx bx-check-circle"></i>
+                        <span>Available for booking</span>
+                    </div>
+                `;
+            }
+
+
+            // ==========================================
+            // RENT BUTTON
+            // ==========================================
+
+            const rentButton =
+                car.isAvailable === false
+
+                    ? `
+                        <button
+                            type="button"
+                            class="rental-btn"
+                            disabled
+                            style="opacity:0.5; cursor:not-allowed;"
+                        >
+                            Unavailable
+                        </button>
+                    `
+
+                    : `
+                        <a
+                            href="/booking?car=${car._id}"
+                            class="rental-btn"
+                        >
+                            Rent Now
+                        </a>
+                    `;
+
+
+            // ==========================================
+            // CARD
+            // ==========================================
+
             carBox.innerHTML = `
-                
+
                 <div class="rental-top">
 
                     <h4>
@@ -347,15 +439,20 @@ async function loadCars() {
                 </span>
 
 
+                ${availabilityHTML}
+
+
                 <div class="rental-btn-wrapper">
 
                     <p class="price">
                         ₹${car.pricePerDay}
-                        <span>/day</span>
+
+                        <span>
+                            /day
+                        </span>
                     </p>
-<a href="/booking?car=${car._id}" class="rental-btn">
-    Rent Now
-</a>
+
+                    ${rentButton}
 
                 </div>
 
@@ -366,24 +463,23 @@ async function loadCars() {
 
         });
 
-
     } catch (error) {
 
-        console.error("Load Cars Error:", error);
+        console.error(
+            "Load Cars Error:",
+            error
+        );
 
-        rentalContainer.innerHTML = `
-            <p>Server error. Unable to load cars.</p>
-        `;
-
+        rentalContainer.innerHTML =
+            `<p>Server error. Unable to load cars.</p>`;
     }
-
 }
 
 
-// Load cars when page loads
-document.addEventListener("DOMContentLoaded", loadCars);
-
-
+document.addEventListener(
+    "DOMContentLoaded",
+    loadCars
+);
 
 // ===============================
 // RENT NOW - DYNAMIC CARS

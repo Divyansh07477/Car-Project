@@ -79,6 +79,12 @@ const bookingSchema = new mongoose.Schema(
             required: true,
             min: 0
         },
+        // Optional note/reason added by car owner
+note: {
+    type: String,
+    trim: true,
+    default: ""
+},
 
         // Actual date when owner marks rental completed
         actualReturnDate: {

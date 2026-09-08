@@ -342,7 +342,7 @@ margin-bottom: 3rem;
 
 .home-container{
     width: 100% !important;
-    max-width: 1180px !important;
+    max-width: 1200px !important;
     margin: 0 auto !important;
 
     display: grid;
@@ -361,7 +361,7 @@ margin-bottom: 3rem;
 }
 
 .home-form h2{
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
@@ -412,7 +412,7 @@ margin-bottom: 3rem;
 .heading h2 {
     margin: 0.35rem 0 0;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.25;
     font-weight: 700;
     color: var(--text-color);
@@ -752,81 +752,296 @@ margin-bottom: 3rem;
     box-shadow:
         0 8px 18px rgba(255, 85, 0, 0.25);
 }
-/* =========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =====================================================
    TEAM SECTION
-========================= */
+===================================================== */
+
+.team {
+    width: 100%;
+    padding: 80px 20px;
+    background: #fff;
+}
+
+
+/* =====================================================
+   TEAM HEADING
+===================================================== */
+
+.team .heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.team .heading span {
+    display: block;
+    color: var(--main-color);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.team .heading h2 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+/* =====================================================
+   TEAM CONTAINER
+===================================================== */
+
 .team-container {
     width: 100% !important;
-    max-width: 1060px !important;
+    max-width: 1250px !important;
+
     margin: 0 auto !important;
     padding: 0 !important;
+
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5rem;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 2rem;
+
+    align-items: stretch;
 }
+
+
+/* =====================================================
+   TEAM CARD
+===================================================== */
 
 .team-box {
     position: relative;
+
     width: 100%;
     height: 400px;
+
     margin: 0 !important;
+
     overflow: hidden;
-    border-radius: 0.25rem;
+
+    border-radius: 4px;
+
+    background: #f5f5f5;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.06);
 }
+
+
+/* =====================================================
+   TEAM IMAGE
+===================================================== */
 
 .team-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center;
+
     display: block;
-    background: #f7f7f7;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.4s ease;
 }
+
+
+/* IMAGE HOVER */
+
+.team-box:hover .team-img {
+    transform: scale(1.03);
+}
+
+
+/* =====================================================
+   TEAM NAME BOX
+===================================================== */
 
 .team-data {
     position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    right: 1rem;
+
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+
     width: auto;
-    padding: 15px;
-    color: var(--bg-color);
+
+    padding: 14px 18px;
+
+    color: #fff;
+
     background: var(--main-color);
+
     overflow: hidden;
-    transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    border-radius: 0;
+
+    transition:
+        0.3s all
+        cubic-bezier(
+            0.075,
+            0.82,
+            0.165,
+            1
+        );
 }
+
+
+/* =====================================================
+   NAME
+===================================================== */
 
 .team-data h3 {
-    font-size: 1rem;
-    line-height: 1.2rem;
     margin: 0;
+
+    font-size: 1.15rem;
+    line-height: 1.35rem;
+
+    font-weight: 600;
+
+    color: #fff;
 }
 
+
+/* =====================================================
+   DESIGNATION
+===================================================== */
+
 .team-data span {
-    font-size: 1.1rem;
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 1.05rem;
+    line-height: 1.35rem;
+
+    font-weight: 400;
+
+    color: #fff;
 }
+
+
+/* =====================================================
+   SOCIAL ICONS
+===================================================== */
 
 .team-social {
     display: flex;
+
     align-items: center;
+
     column-gap: 1rem;
-    margin-top: 0.5rem;
+
+    margin-top: 0.6rem;
+
     margin-bottom: -2.4rem;
-    transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    transition:
+        0.3s all
+        cubic-bezier(
+            0.075,
+            0.82,
+            0.165,
+            1
+        );
 }
+
+
+.team-social a {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
 
 .team-social .bx {
     font-size: 1.2rem;
-    color: var(--bg-color);
+
+    color: #fff;
+
+    transition: 0.2s ease;
 }
+
+
+.team-social .bx:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
 
 .team-box:hover .team-social {
     margin-bottom: 0;
 }
 
+
 .team-box:hover .team-data {
-    color: var(--bg-color);
     background: var(--text-color);
+    color: #fff;
 }
 
 /* FAQ */
@@ -1348,6 +1563,14 @@ margin-bottom: 3rem;
     }
 }
 /* ================= BLOG ================= */
+
+
+.divyansh{
+    font-size: 1rem;
+}
+
+
+
 
 .blog-container {
     display: grid;
@@ -2329,4 +2552,46 @@ margin-bottom: 3rem;
         text-align: center;
     }
 
+}
+.car-availability {
+    margin: 12px 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.car-availability i {
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.car-availability.available {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.car-availability.booked {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.car-availability.booked div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.car-availability.booked small {
+    display: block;
+    margin-top: 4px;
+    margin-left: 21px;
+    font-size: 11px;
+    color: #9a3412;
+}
+
+.car-availability.unavailable {
+    background: #fef2f2;
+    color: #dc2626;
 }

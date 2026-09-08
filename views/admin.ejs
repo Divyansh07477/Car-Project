@@ -1118,7 +1118,7 @@
       try {
 
         const response =
-          await fetch("/api/bookings", {
+           await fetch("/api/bookings/owner-bookings", {
             method: "GET",
             headers: {
               "Accept": "application/json"
@@ -1216,7 +1216,7 @@
       try {
 
         const response =
-          await fetch("/api/cars", {
+        await fetch("/api/cars/my-cars", {
             headers: {
               "Accept": "application/json"
             }

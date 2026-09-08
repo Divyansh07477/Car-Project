@@ -91,27 +91,70 @@ router.get("/admin", async (req, res) => {
     }
 });
 
-// =====================================================
-// GET ALL CARS (Homepage)
-// =====================================================
 router.get("/", async (req, res) => {
     try {
+
         const cars = await Car.find()
             .populate("owner", "name email")
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .lean();
+
+        const carIds = cars.map(car => car._id);
+
+        const confirmedBookings = await Booking.find({
+            car: { $in: carIds },
+            status: "confirmed"
+        })
+            .select("car startDate endDate")
+            .sort({ startDate: 1 })
+            .lean();
+
+        const bookingsByCar = {};
+
+        confirmedBookings.forEach(booking => {
+
+            const carId = booking.car.toString();
+
+            if (!bookingsByCar[carId]) {
+                bookingsByCar[carId] = [];
+            }
+
+            bookingsByCar[carId].push({
+                startDate: booking.startDate,
+                endDate: booking.endDate
+            });
+        });
+
+        const carsWithAvailability = cars.map(car => {
+
+            const bookedDates =
+                bookingsByCar[car._id.toString()] || [];
+
+            return {
+                ...car,
+
+                bookedDates: bookedDates
+            };
+        });
 
         res.status(200).json({
             success: true,
-            cars: cars
+            cars: carsWithAvailability
         });
+
     } catch (error) {
-        console.error("Get Cars Error:", error);
+
+        console.error(
+            "Get Cars Error:",
+            error
+        );
+
         res.status(500).json({
             success: false,
             message: "Failed to fetch cars."
         });
     }
-});
+});;
 
 // =====================================================
 // GET LOGGED-IN USER'S CARS (API)

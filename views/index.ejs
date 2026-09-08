@@ -849,25 +849,28 @@
                                 ></i>
 
                             </a>
-
-
-                            <!-- MY BOOKINGS -->
+<!--booning notifications-->
 
                             <a
-                                href="/Mybookings"
-                                class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
-                            >
+    href="/Mybookings"
+    id="myBookingsLink"
+    class="flex items-center justify-between gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+>
+    <span class="flex items-center gap-2.5">
+        <i class="bx bx-calendar-check text-base text-gray-400"></i>
 
-                                <i
-                                    class="bx bx-calendar-check text-base text-gray-400"
-                                ></i>
+        <span>
+            My Bookings
+        </span>
+    </span>
 
-                                <span>
-                                    My Bookings
-                                </span>
-
-                            </a>
-
+    <!-- NEW BOOKING NOTIFICATION DOT -->
+    <span
+        id="myBookingsNotificationDot"
+        class="hidden w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-sm"
+        title="You have a new booking update"
+    ></span>
+</a>
 
                             <!-- LOGOUT -->
 
@@ -1037,308 +1040,258 @@
     >
     </div>
 
+<!-- =====================================================
+     TEAM SECTION
+===================================================== -->
 
-    <!-- =====================================================
-         TEAM SECTION
-    ===================================================== -->
+<section class="team" id="team">
 
-    <section
-        class="team"
-        id="team"
-    >
+    <!-- TEAM HEADING -->
+    <div class="heading">
+        <span>Meet Our Expert Members</span>
 
-        <div class="heading">
+        <h2>
+            Dedicated to Your Satisfaction
+        </h2>
+    </div>
 
-            <span>
-                Meet Our Expert Members
-            </span>
 
-            <h2>
-                Dedicated to Your Satisfaction
-            </h2>
+    <!-- TEAM CARDS -->
+    <div class="team-container">
 
-        </div>
 
+        <!-- ================= TEAM 1 ================= -->
 
-        <div class="team-container">
-
-
-            <!-- TEAM 1 -->
-
-            <div class="team-box">
-
-                <img
-                    src="/images/owner.png.png"
-                    alt=""
-                    class="team-img"
-                >
-
-
-                <div class="team-data">
-
-                    <h3>
-                        Nikhil Dhakad
-                    </h3>
-
-                    <span>
-                        Owner & Founder
-                    </span>
-
-
-                    <div class="team-social">
-
-                        <a
-                            href="https://www.facebook.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-facebook"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://github.com/NikhilDhakad14"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-github"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-instagram"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.linkedin.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-linkedin"
-                            ></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- TEAM 2 -->
-
-            <div class="team-box">
-
-                <img
-                    src="/images/ceo.png.png"
-                    alt=""
-                    class="team-img"
-                >
-
-
-                <div class="team-data">
-
-                    <h3>
-                        Divyansh Singh
-                    </h3>
-
-                    <span>
-                        CEO
-                    </span>
-
-
-                    <div class="team-social">
-
-                        <a
-                            href="https://www.facebook.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-facebook"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://github.com/Divyansh07477"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-github"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-instagram"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-linkedin"
-                            ></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- TEAM 3 -->
-
-            <div class="team-box">
-
-                <img
-                    src="/images/manager.png"
-                    alt=""
-                    class="team-img"
-                >
-
-
-                <div class="team-data">
-
-                    <h3>
-                        Nikhil Dhakad
-                    </h3>
-
-                    <span>
-                        General Manager
-                    </span>
-
-
-                    <div class="team-social">
-
-                        <a
-                            href="https://www.facebook.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-facebook"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://github.com/NikhilDhakad14"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-github"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-instagram"
-                            ></i>
-                        </a>
-
-
-                        <a
-                            href="https://www.linkedin.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-linkedin"
-                            ></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
- <!-- Team Box 4 -->
         <div class="team-box">
-            <img src="/images/enginner.png" alt="" class="team-img">
+
+            <img
+                src="/images/owner.png.png"
+                alt="Nikhil Dhakad"
+                class="team-img"
+            >
 
             <div class="team-data">
-                <h3>Divyansh Singh</h3>
-                <span>Mechanical Engineer</span>
-<div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
 
-                        <a
-                            href="https://github.com/Divyansh07477"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i
-                                class="bx bxl-github"
-                            ></i>
-                        </a>
+                <h3>
+                    Nikhil Dhakad
+                </h3>
+
+                <span>
+                    Owner & Founder
+                </span>
 
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                <div class="team-social">
 
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-facebook"></i>
+                    </a>
+
+
+                    <a
+                        href="https://github.com/NikhilDhakad14"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+<a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-twitter'></i>
+</a>
+<!-- <a href="https://www.linkedin.com/">
+    <i class='bx bxl-linkedin'></i>
+</a> -->
+
+                </div>
+
             </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
 
-    </section>
 
+        <!-- ================= TEAM 2 ================= -->
+
+        <div class="team-box">
+
+            <img
+                src="/images/ceo.png.png"
+                alt="Divyansh Singh"
+                class="team-img"
+            >
+
+            <div class="team-data">
+
+                <h3>
+                    Divyansh Singh
+                </h3>
+
+                <span>
+                    CEO
+                </span>
+
+
+                <div class="team-social">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-facebook"></i>
+                    </a>
+
+
+                    <a
+                        href="https://github.com/Divyansh07477"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+<a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-twitter'></i>
+</a>
+
+
+                    <a
+                        href="https://www.linkedin.com/in/divyansh-singh-b48198345"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-linkedin"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= TEAM 3 ================= -->
+
+        <div class="team-box">
+
+            <img
+                src="/images/manager.png"
+                alt="Nikhil Dhakad"
+                class="team-img"
+            >
+
+            <div class="team-data">
+
+                <h3>
+                    Nikhil Dhakad
+                </h3>
+
+                <span>
+                    General Manager
+                </span>
+
+
+                <div class="team-social">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-facebook"></i>
+                    </a>
+
+
+                    <a
+                        href="https://github.com/NikhilDhakad14"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+<a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-twitter'></i>
+</a>
+
+<!-- <a href="https://www.linkedin.com/">
+    <i class='bx bxl-linkedin'></i>
+</a> -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= TEAM 4 ================= -->
+
+        <div class="team-box">
+
+            <img
+                src="/images/enginner.png"
+                alt="Divyansh Singh"
+                class="team-img"
+            >
+
+            <div class="team-data">
+
+                <h3>
+                    Divyansh Singh
+                </h3>
+
+                <span>
+                    Mechanical Engineer
+                </span>
+
+
+                <div class="team-social">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-facebook"></i>
+                    </a>
+
+
+                    <a
+                        href="https://github.com/Divyansh07477"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+<a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-twitter'></i>
+</a>
+
+
+                    <a
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bx bxl-linkedin"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
 
     <!-- =====================================================
          FAQ
@@ -1575,7 +1528,7 @@
 
         <div class="heading">
 
-            <span>
+            <span class="divyansh">
                 Our Blog
             </span>
 

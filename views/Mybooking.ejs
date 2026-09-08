@@ -18,17 +18,15 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-primary': '#FF6B35',
-                        'brand-primary-hover': '#e85a26'
+                        "brand-primary": "#FF6B35",
+                        "brand-primary-hover": "#e85a26"
                     }
                 }
             }
-        }
+        };
     </script>
 
-
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -43,79 +41,52 @@
             background: #FBFBFC;
         }
 
-
         /* ============================= */
         /* NAVBAR */
         /* ============================= */
 
         .ridewave-navbar {
-
             position: fixed !important;
-
             top: 0 !important;
             left: 0 !important;
-
             width: 100% !important;
-
             height: 92px !important;
-
             background: #ffffff !important;
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             padding: 0 40px;
-
             border-bottom: 1px solid #e5e7eb;
-
-            box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.04);
-
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             z-index: 99998;
         }
 
-
         .ridewave-logo {
-
             width: 125px;
-
             height: 90px;
-
             object-fit: contain;
-
             display: block;
         }
-
 
         /* ============================= */
         /* MOBILE */
         /* ============================= */
 
         @media (max-width: 768px) {
-
             body {
                 padding-top: 64px !important;
             }
 
             .ridewave-navbar {
-
                 height: 64px !important;
-
                 padding: 0 18px;
             }
 
             .ridewave-logo {
-
                 width: 105px;
-
                 height: 58px;
             }
-
         }
-
 
         /* ============================= */
         /* SCROLLBAR */
@@ -130,41 +101,32 @@
             scrollbar-width: none;
         }
 
-
         /* ============================= */
         /* BOOKING CARD */
         /* ============================= */
 
         .booking-card {
-
             transition:
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
         }
 
         .booking-card:hover {
-
             transform: translateY(-2px);
-
-            box-shadow:
-                0 12px 30px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
         }
-
 
         /* ============================= */
         /* CAR IMAGE */
         /* ============================= */
 
         .car-image-box {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f8fafc,
-                    #ffffff
-                );
+            background: linear-gradient(
+                135deg,
+                #f8fafc,
+                #ffffff
+            );
         }
-
     </style>
 
 </head>
@@ -172,13 +134,11 @@
 
 <body class="text-gray-900 min-h-screen">
 
-
     <!-- ========================================= -->
     <!-- NAVBAR -->
     <!-- ========================================= -->
 
     <header class="ridewave-navbar">
-
 
         <!-- LOGO -->
 
@@ -217,9 +177,7 @@
 
         </a>
 
-
     </header>
-
 
 
     <!-- ========================================= -->
@@ -252,7 +210,6 @@
             sm:justify-between
             gap-5"
         >
-
 
             <!-- USER -->
 
@@ -300,7 +257,6 @@
                         Loading...
                     </h2>
 
-
                     <p
                         id="userEmail"
                         class="text-sm
@@ -312,7 +268,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- LOGOUT -->
@@ -357,7 +312,6 @@
         </div>
 
 
-
         <!-- ========================================= -->
         <!-- HEADING + FILTER -->
         <!-- ========================================= -->
@@ -369,7 +323,6 @@
             md:justify-between
             gap-4"
         >
-
 
             <h1
                 class="text-2xl
@@ -387,7 +340,6 @@
                 </span>
 
             </h1>
-
 
 
             <!-- FILTERS -->
@@ -502,7 +454,6 @@
         </div>
 
 
-
         <!-- ========================================= -->
         <!-- BOOKINGS CONTAINER -->
         <!-- ========================================= -->
@@ -548,7 +499,6 @@
     </main>
 
 
-
     <!-- ========================================= -->
     <!-- FOOTER -->
     <!-- ========================================= -->
@@ -572,13 +522,11 @@
     </footer>
 
 
-
     <!-- ========================================= -->
     <!-- JAVASCRIPT -->
     <!-- ========================================= -->
 
     <script>
-
 
         // =========================================
         // GLOBAL DATA
@@ -587,7 +535,6 @@
         let allBookingsData = [];
 
         let currentFilter = "all";
-
 
 
         // =========================================
@@ -612,7 +559,6 @@
         }
 
 
-
         // =========================================
         // DATE FORMAT
         // =========================================
@@ -626,13 +572,11 @@
             const date =
                 new Date(dateValue);
 
-
             if (
                 isNaN(date.getTime())
             ) {
                 return "N/A";
             }
-
 
             return date.toLocaleDateString(
                 "en-IN",
@@ -645,7 +589,6 @@
         }
 
 
-
         // =========================================
         // MONEY FORMAT
         // =========================================
@@ -655,20 +598,17 @@
             const amount =
                 Number(value);
 
-
             if (
                 isNaN(amount)
             ) {
                 return "₹0";
             }
 
-
             return "₹" +
                 amount.toLocaleString(
                     "en-IN"
                 );
         }
-
 
 
         // =========================================
@@ -817,7 +757,6 @@
         }
 
 
-
         // =========================================
         // RENDER BOOKINGS
         // =========================================
@@ -846,7 +785,6 @@
 
                         }
                     );
-
 
 
             // =====================================
@@ -930,12 +868,10 @@
                         </p>
 
                     </div>
-
                 `;
 
                 return;
             }
-
 
 
             // =====================================
@@ -946,7 +882,6 @@
                 filteredBookings
                 .map(
                     booking => {
-
 
                         // =================================
                         // POPULATED CAR OBJECT
@@ -959,7 +894,6 @@
                                 ? booking.car
 
                                 : {};
-
 
 
                         // =================================
@@ -984,7 +918,6 @@
                         const transmission =
                             car.transmission ||
                             "N/A";
-
 
 
                         // =================================
@@ -1016,10 +949,18 @@
                             "Pickup location not specified";
 
 
+                        // =================================
+                        // OWNER NOTE
+                        // =================================
+
+                        const ownerNote =
+                            booking.note
+                                ? String(booking.note).trim()
+                                : "";
+
 
                         // =================================
-                        // IMPORTANT:
-                        // CORRECT DATABASE FIELDS
+                        // DATES
                         // =================================
 
                         const pickupDate =
@@ -1033,6 +974,10 @@
                                 booking.endDate
                             );
 
+
+                        // =================================
+                        // PRICE
+                        // =================================
 
                         const totalDays =
                             Number(
@@ -1052,12 +997,15 @@
                             );
 
 
+                        // =================================
+                        // STATUS
+                        // =================================
+
                         const status =
                             String(
                                 booking.status ||
                                 "pending"
                             ).toLowerCase();
-
 
 
                         // =================================
@@ -1078,7 +1026,6 @@
                                 "
                             >
 
-
                                 <!-- ========================= -->
                                 <!-- TOP SECTION -->
                                 <!-- ========================= -->
@@ -1098,7 +1045,6 @@
                                         gap-6
                                         "
                                     >
-
 
                                         <!-- ===================== -->
                                         <!-- CAR IMAGE -->
@@ -1140,7 +1086,6 @@
                                         </div>
 
 
-
                                         <!-- ===================== -->
                                         <!-- CAR INFORMATION -->
                                         <!-- ===================== -->
@@ -1151,7 +1096,6 @@
                                             min-w-0
                                             "
                                         >
-
 
                                             <!-- CAR NAME + STATUS -->
 
@@ -1240,7 +1184,6 @@
                                                 </div>
 
 
-
                                                 <!-- STATUS -->
 
                                                 <div>
@@ -1250,7 +1193,6 @@
                                                 </div>
 
                                             </div>
-
 
 
                                             <!-- BOOKING ID -->
@@ -1278,7 +1220,6 @@
                                             </div>
 
 
-
                                             <!-- ===================== -->
                                             <!-- DATES + LOCATION -->
                                             <!-- ===================== -->
@@ -1292,7 +1233,6 @@
                                                 mt-5
                                                 "
                                             >
-
 
                                                 <!-- DATES -->
 
@@ -1358,7 +1298,6 @@
                                                 </div>
 
 
-
                                                 <!-- LOCATION -->
 
                                                 <div
@@ -1407,6 +1346,112 @@
                                 </div>
 
 
+                                <!-- ================================= -->
+                                <!-- OWNER NOTE -->
+                                <!-- ================================= -->
+
+                                ${
+                                    ownerNote
+                                        ? `
+
+                                <div
+                                    class="
+                                    mx-5
+                                    sm:mx-6
+                                    mb-5
+                                    rounded-xl
+                                    bg-amber-50
+                                    border
+                                    border-amber-200
+                                    px-4
+                                    py-3
+                                    "
+                                >
+
+                                    <div
+                                        class="
+                                        flex
+                                        items-start
+                                        gap-3
+                                        "
+                                    >
+
+                                        <!-- NOTE ICON -->
+
+                                        <div
+                                            class="
+                                            flex-shrink-0
+                                            w-8
+                                            h-8
+                                            rounded-lg
+                                            bg-amber-100
+                                            text-amber-600
+                                            flex
+                                            items-center
+                                            justify-center
+                                            "
+                                        >
+
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                viewBox="0 0 24 24"
+                                            >
+
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M8 10h8M8 14h5m6 7-3.5-3.5A8 8 0 1 1 12 20a8 8 0 0 1-5.5-2.2L3 21l1.5-4A8 8 0 1 1 20 14.5"
+                                                />
+
+                                            </svg>
+
+                                        </div>
+
+
+                                        <!-- NOTE TEXT -->
+
+                                        <div
+                                            class="min-w-0"
+                                        >
+
+                                            <p
+                                                class="
+                                                text-[10px]
+                                                font-bold
+                                                uppercase
+                                                tracking-wider
+                                                text-amber-700
+                                                "
+                                            >
+                                                Owner Note
+                                            </p>
+
+
+                                            <p
+                                                class="
+                                                mt-1
+                                                text-sm
+                                                leading-6
+                                                text-amber-900
+                                                break-words
+                                                "
+                                            >
+                                                ${escapeHtml(ownerNote)}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                `
+                                        : ""
+                                }
+
 
                                 <!-- ========================= -->
                                 <!-- BOTTOM DETAILS -->
@@ -1431,7 +1476,6 @@
                                         gap-5
                                         "
                                     >
-
 
                                         <!-- CUSTOMER -->
 
@@ -1462,7 +1506,6 @@
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- PHONE -->
@@ -1496,7 +1539,6 @@
                                         </div>
 
 
-
                                         <!-- PRICE PER DAY -->
 
                                         <div>
@@ -1526,7 +1568,6 @@
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- TOTAL -->
@@ -1560,7 +1601,6 @@
                                         </div>
 
                                     </div>
-
 
 
                                     <!-- EMAIL -->
@@ -1602,12 +1642,10 @@
                             </div>
 
                         `;
-
                     }
                 )
                 .join("");
         }
-
 
 
         // =========================================
@@ -1663,7 +1701,6 @@
                             hover:text-brand-primary
                             whitespace-nowrap
                         `;
-
                     }
 
                 });
@@ -1671,7 +1708,6 @@
 
             renderBookings();
         }
-
 
 
         // =========================================
@@ -1687,7 +1723,6 @@
 
 
             try {
-
 
                 // =====================================
                 // STEP 1
@@ -1730,7 +1765,6 @@
                 }
 
 
-
                 // =====================================
                 // STEP 2
                 // USER DETAILS
@@ -1754,26 +1788,10 @@
                     "";
 
 
-
                 // =====================================
                 // STEP 3
                 // GET USER BOOKINGS
                 // =====================================
-
-                /*
-                    IMPORTANT:
-
-                    Backend route is:
-
-                    GET /api/bookings/my-bookings
-
-                    Backend already uses:
-
-                    req.session.userId
-
-                    Therefore email query parameter
-                    ki zarurat nahi hai.
-                */
 
                 const bookRes =
                     await fetch(
@@ -1837,7 +1855,6 @@
                 }
 
 
-
                 // =====================================
                 // SAVE BOOKINGS
                 // =====================================
@@ -1856,7 +1873,6 @@
                     "BOOKINGS DATA:",
                     allBookingsData
                 );
-
 
 
                 // =====================================
@@ -1965,13 +1981,9 @@
                         </button>
 
                     </div>
-
                 `;
-
             }
-
         }
-
 
 
         // =========================================
@@ -1999,11 +2011,9 @@
 
             }
 
-
             window.location.href =
                 "/login";
         }
-
 
 
         // =========================================
@@ -2022,5 +2032,4 @@
     </script>
 
 </body>
-
 </html>
