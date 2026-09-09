@@ -85,6 +85,31 @@ note: {
     trim: true,
     default: ""
 },
+// Payment details
+payment: {
+    status: {
+        type: String,
+        enum: ["Pending", "Paid", "Failed"],
+        default: "Pending"
+    },
+
+    method: {
+        type: String,
+        default: "Other"
+    },
+
+    amountPaid: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
+
+    amountRemaining: {
+        type: Number,
+        default: 0,
+        min: 0
+    }
+},
 
         // Actual date when owner marks rental completed
         actualReturnDate: {

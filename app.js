@@ -12,7 +12,7 @@ const path = require("path");
 
 const Car = require("./models/Car");
 const Booking = require("./models/Booking");
-
+const Notification = require("./models/Notification");
 // =====================================================
 // ROUTES
 // =====================================================
@@ -22,6 +22,8 @@ const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/carRoutes");
 const bookingRoutes = require("./routes/booking");
 const notificationRoutes = require("./routes/notification");
+
+
 
 
 // =====================================================
@@ -264,116 +266,221 @@ app.get("/payment", (req, res) => {
 
 });
 
-
 // =====================================================
 // PAYMENT SUCCESS PAGE
 // =====================================================
 
-app.get(
-    "/payment-success",
-    async (req, res) => {
+app.get("/payment-success", async (req, res) => {
 
-        try {
+    try {
 
-            const bookingId =
-                req.query.booking || "";
+        const bookingId =
+            req.query.booking || "";
 
-            const paymentMethod =
-                req.query.method || "Online";
+        const paymentMethod =
+            req.query.method || "Online";
 
-            const upiApp =
-                req.query.app || "";
+        const upiApp =
+            req.query.app || "";
 
 
-            // ---------------------------------------------
-            // CHECK BOOKING ID
-            // ---------------------------------------------
+        // ---------------------------------------------
+        // CHECK LOGIN
+        // ---------------------------------------------
 
-            if (!bookingId) {
+        if (!req.session.userId) {
 
-                return res.redirect("/");
-
-            }
-
-
-            let amount = 0;
-
-
-            // ---------------------------------------------
-            // FETCH BOOKING AMOUNT
-            // ---------------------------------------------
-
-            try {
-
-                const booking =
-                    await Booking.findById(
-                        bookingId
-                    );
-
-
-                if (booking) {
-
-                    amount =
-                        Number(
-                            booking.totalPrice
-                        ) ||
-                        Number(
-                            booking.totalAmount
-                        ) ||
-                        Number(
-                            booking.price
-                        ) ||
-                        0;
-
-                }
-
-            } catch (error) {
-
-                console.log(
-                    "Payment amount fetch error:",
-                    error.message
-                );
-
-            }
-
-
-            // ---------------------------------------------
-            // RENDER SUCCESS PAGE
-            // ---------------------------------------------
-
-            res.render(
-                "payment-success",
-                {
-
-                    bookingId,
-
-                    amount:
-                        amount.toLocaleString(
-                            "en-IN"
-                        ),
-
-                    paymentMethod,
-
-                    upiApp
-
-                }
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Payment Success Route Error:",
-                error
-            );
-
-            res.redirect("/");
+            return res.redirect("/login");
 
         }
 
-    }
-);
 
+        // ---------------------------------------------
+        // CHECK BOOKING ID
+        // ---------------------------------------------
+
+        if (!bookingId) {
+
+            return res.redirect("/");
+
+        }
+
+
+        // ---------------------------------------------
+        // FIND BOOKING
+        // ---------------------------------------------
+
+        const booking =
+            await Booking.findById(bookingId);
+
+
+        if (!booking) {
+
+            return res.redirect("/Mybookings");
+
+        }
+
+
+        // ---------------------------------------------
+        // SECURITY CHECK
+        // ONLY BOOKING OWNER/CUSTOMER CAN PAY
+        // ---------------------------------------------
+
+        if (
+            !booking.renter ||
+            booking.renter.toString() !==
+                req.session.userId.toString()
+        ) {
+
+            return res.status(403).send(
+                "You are not allowed to make payment for this booking."
+            );
+
+        }
+
+
+        // ---------------------------------------------
+        // CHECK BOOKING STATUS
+        // PAYMENT ONLY AFTER CONFIRMATION
+        // ---------------------------------------------
+
+        if (booking.status !== "confirmed") {
+
+            return res.status(400).send(
+                "This booking is not confirmed yet."
+            );
+
+        }
+
+
+        // ---------------------------------------------
+        // PAYMENT AMOUNT
+        // ---------------------------------------------
+
+        const amount =
+            Number(booking.totalAmount) || 0;
+
+if (booking.payment && booking.payment.status === "Paid") {
+    return res.render("payment-success", {
+        bookingId,
+        amount: Number(booking.totalAmount || 0).toLocaleString("en-IN"),
+        paymentMethod: booking.payment.method || paymentMethod,
+        upiApp
+    });
+}
+        // ---------------------------------------------
+        // UPDATE PAYMENT
+        // ---------------------------------------------
+
+        if (!booking.payment) {
+
+            booking.payment = {};
+
+        }
+
+
+        booking.payment.status = "Paid";
+
+        booking.payment.method =
+            paymentMethod;
+
+        booking.payment.amountPaid =
+            amount;
+
+        booking.payment.amountRemaining =
+            0;
+
+
+        await booking.save();
+
+
+        // ---------------------------------------------
+        // GET CAR NAME
+        // ---------------------------------------------
+
+        const car =
+            await Car.findById(booking.car);
+
+
+        const carName =
+            car && car.name
+                ? car.name
+                : "your car";
+
+
+        // ---------------------------------------------
+        // USER PAYMENT NOTIFICATION
+        // ---------------------------------------------
+
+        await Notification.create({
+
+            user: booking.renter,
+
+            booking: booking._id,
+
+            message:
+                `Payment successful for your booking of ${carName}.`,
+
+            type:
+                "payment_success"
+
+        });
+
+
+        // ---------------------------------------------
+        // OWNER PAYMENT NOTIFICATION
+        // ---------------------------------------------
+
+        await Notification.create({
+
+            user: booking.owner,
+
+            booking: booking._id,
+
+            message:
+                `Payment received for the booking of ${carName}.`,
+
+            type:
+                "payment_received"
+
+        });
+
+
+        // ---------------------------------------------
+        // RENDER SUCCESS PAGE
+        // ---------------------------------------------
+
+        return res.render(
+            "payment-success",
+            {
+
+                bookingId,
+
+                amount:
+                    amount.toLocaleString(
+                        "en-IN"
+                    ),
+
+                paymentMethod,
+
+                upiApp
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Payment Success Route Error:",
+            error
+        );
+
+        return res.redirect("/");
+
+    }
+
+});
 
 // =====================================================
 // CUSTOMER BOOKING PAGE
@@ -704,7 +811,11 @@ app.get(
     }
 );
 
-
+app.get("/confirmationPage", (req, res) => {
+    res.render("confirmationPage", {
+        bookingId: req.query.booking || ""
+    });
+});
 // =====================================================
 // MONGODB + SERVER START
 // =====================================================

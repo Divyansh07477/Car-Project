@@ -39,10 +39,102 @@
         transform: rotate(360deg);
       }
     }
+
+    /* =====================================================
+       FLASH MESSAGE
+    ===================================================== */
+
+    #flashMessage {
+      transform: translateX(450px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    #flashMessage.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    #flashMessage.success {
+      background: green;
+      border-color: #a7f3d0;
+      color: white;
+    }
+
+    #flashMessage.success #flashIconBox {
+      background: green;
+      color: white;
+    }
+
+    #flashMessage.error {
+      background: #be123c;
+      border-color: #fecdd3;
+      color: white;
+    }
+
+    #flashMessage.error #flashIconBox {
+      background: #be123c;
+      color: white;
+    }
+
+    @media (max-width: 640px) {
+
+      #flashMessage {
+        left: 15px;
+        right: 15px;
+        top: 15px;
+        min-width: auto;
+        max-width: none;
+        transform: translateY(-150px);
+      }
+
+      #flashMessage.show {
+        transform: translateY(0);
+      }
+
+    }
   </style>
 </head>
 
 <body class="bg-[#F8FAFC] text-slate-800 flex min-h-screen relative">
+
+  <!-- =====================================================
+       FLASH MESSAGE
+  ===================================================== -->
+
+  <div id="flashMessage"
+    class="fixed top-6 right-6 z-[9999] min-w-[320px] max-w-[430px]
+           border rounded-2xl shadow-xl px-4 py-3
+           flex items-center gap-3">
+
+    <div id="flashIconBox"
+      class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+
+      <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+
+    </div>
+
+    <div class="flex-1">
+
+      <div id="flashTitle"
+        class="text-sm font-extrabold">
+
+        Success
+
+      </div>
+
+      <div id="flashText"
+        class="text-xs mt-0.5 opacity-80">
+
+        Booking updated successfully.
+
+      </div>
+
+    </div>
+
+  </div>
+
 
   <!-- ================= SIDEBAR ================= -->
 
@@ -51,23 +143,36 @@
     <div>
 
       <div class="flex items-center gap-2 mb-10">
+
         <span class="text-2xl font-bold tracking-tight text-white">
+
           Ride<span class="text-[#FF462D]">Wave</span>
+
         </span>
 
-        <span class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+        <span
+          class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+
           ADMIN
+
         </span>
+
       </div>
+
 
       <div class="space-y-6">
 
         <!-- MAIN -->
 
         <div>
-          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+
+          <p
+            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+
             Main
+
           </p>
+
 
           <nav class="space-y-1.5">
 
@@ -104,12 +209,15 @@
 
               <span id="pendingSidebarCount"
                 class="bg-[#FF9F1C] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+
                 0
+
               </span>
 
             </a>
 
           </nav>
+
         </div>
 
 
@@ -117,9 +225,13 @@
 
         <div>
 
-          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+          <p
+            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
+
             Other
+
           </p>
+
 
           <nav class="space-y-1.5">
 
@@ -141,7 +253,8 @@
     </div>
 
 
-    <div class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500">
+    <div
+      class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500">
 
       <i data-lucide="shield" class="w-4 h-4 text-[#FF462D]"></i>
 
@@ -163,11 +276,15 @@
       <div>
 
         <h1 class="text-2xl font-bold text-[#0B1536]">
+
           Bookings
+
         </h1>
 
         <p class="text-sm text-slate-400 mt-1">
+
           Manage customer bookings and rental status.
+
         </p>
 
       </div>
@@ -199,35 +316,49 @@
           type="button"
           class="filter-btn active-filter px-4 py-2 rounded-xl bg-[#0B1536] text-white text-xs font-semibold"
           data-filter="all">
+
           All
+
         </button>
+
 
         <button
           type="button"
           class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
           data-filter="pending">
+
           Pending
+
         </button>
+
 
         <button
           type="button"
           class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
           data-filter="confirmed">
+
           Confirmed
+
         </button>
+
 
         <button
           type="button"
           class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
           data-filter="completed">
+
           Completed
+
         </button>
+
 
         <button
           type="button"
           class="filter-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-semibold hover:bg-slate-50"
           data-filter="cancelled">
+
           Cancelled
+
         </button>
 
       </div>
@@ -238,14 +369,20 @@
       <div class="flex items-center justify-between mb-4">
 
         <div>
+
           <h2 class="text-lg font-bold text-[#0B1536]">
+
             Customer Bookings
+
           </h2>
 
           <p id="bookingCountText"
             class="text-xs text-slate-400 mt-1">
+
             Loading bookings...
+
           </p>
+
         </div>
 
       </div>
@@ -259,7 +396,9 @@
         <div class="loader mb-4"></div>
 
         <p class="text-sm text-slate-400">
+
           Loading bookings...
+
         </p>
 
       </div>
@@ -270,19 +409,24 @@
       <div id="errorState"
         class="hidden bg-white rounded-2xl border border-rose-100 p-10 text-center">
 
-        <div class="w-12 h-12 mx-auto rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 mx-auto rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mb-4">
 
           <i data-lucide="alert-circle" class="w-6 h-6"></i>
 
         </div>
 
         <h3 class="font-bold text-slate-700">
+
           Failed to load bookings
+
         </h3>
 
         <p id="errorMessage"
           class="text-xs text-slate-400 mt-1 mb-4">
+
           Something went wrong.
+
         </p>
 
         <button
@@ -302,18 +446,23 @@
       <div id="emptyState"
         class="hidden bg-white rounded-2xl border border-slate-100 p-12 text-center">
 
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-4">
+        <div
+          class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-4">
 
           <i data-lucide="calendar-x" class="w-7 h-7"></i>
 
         </div>
 
         <h3 class="font-bold text-slate-700">
+
           No bookings found
+
         </h3>
 
         <p class="text-xs text-slate-400 mt-1">
+
           There are no bookings in this category.
+
         </p>
 
       </div>
@@ -323,6 +472,7 @@
 
       <div id="bookingsContainer"
         class="space-y-3 hidden">
+
       </div>
 
     </div>
@@ -355,12 +505,16 @@
       <div class="text-center mb-7">
 
         <h2 class="text-2xl font-extrabold text-[#FF462D]">
+
           Update Status
+
         </h2>
 
         <p id="modalBookingId"
           class="text-xs font-semibold text-slate-400 mt-1">
+
           Booking
+
         </p>
 
       </div>
@@ -371,7 +525,8 @@
       <div id="modalCarInfo"
         class="bg-slate-50 rounded-2xl p-3 mb-5 flex items-center gap-3">
 
-        <div class="w-16 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center p-1">
+        <div
+          class="w-16 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center p-1">
 
           <img
             id="modalCarImage"
@@ -385,12 +540,16 @@
 
           <p id="modalCarName"
             class="font-bold text-sm text-[#0B1536]">
+
             Car
+
           </p>
 
           <p id="modalCustomerName"
             class="text-xs text-slate-400">
+
             Customer
+
           </p>
 
         </div>
@@ -410,7 +569,9 @@
           <i data-lucide="check-circle-2" class="w-5 h-5"></i>
 
           <span class="text-xs font-bold">
+
             Confirm
+
           </span>
 
         </button>
@@ -424,7 +585,9 @@
           <i data-lucide="check-check" class="w-5 h-5"></i>
 
           <span class="text-xs font-bold">
+
             Complete
+
           </span>
 
         </button>
@@ -438,7 +601,9 @@
           <i data-lucide="x-circle" class="w-5 h-5"></i>
 
           <span class="text-xs font-bold">
+
             Cancel
+
           </span>
 
         </button>
@@ -452,7 +617,9 @@
           <i data-lucide="clock" class="w-5 h-5"></i>
 
           <span class="text-xs font-bold">
+
             Pending
+
           </span>
 
         </button>
@@ -467,10 +634,15 @@
         <div class="space-y-2 mb-6">
 
           <label class="text-xs font-bold text-slate-700 block">
+
             Reason / Note
+
             <span class="font-normal text-slate-400">
+
               (optional)
+
             </span>
+
           </label>
 
           <textarea
@@ -568,6 +740,153 @@
       document.getElementById("submitUpdateBtn");
 
 
+    // =====================================================
+    // FLASH MESSAGE VARIABLES
+    // =====================================================
+
+    const flashMessage =
+      document.getElementById("flashMessage");
+
+    const flashIconBox =
+      document.getElementById("flashIconBox");
+
+    const flashTitle =
+      document.getElementById("flashTitle");
+
+    const flashText =
+      document.getElementById("flashText");
+
+    let flashTimer = null;
+
+
+    // =====================================================
+    // SHOW FLASH MESSAGE
+    // =====================================================
+
+    function showFlash(type, title, message) {
+
+      clearTimeout(flashTimer);
+
+      flashMessage.classList.remove(
+        "success",
+        "error",
+        "show"
+      );
+
+
+      if (type === "success") {
+
+        flashMessage.classList.add("success");
+
+        flashTitle.textContent =
+          title || "Success";
+
+        flashText.textContent =
+          message ||
+          "Operation completed successfully.";
+
+        flashIconBox.innerHTML = `
+          <i data-lucide="check-circle-2"
+             class="w-5 h-5">
+          </i>
+        `;
+
+      } else {
+
+        flashMessage.classList.add("error");
+
+        flashTitle.textContent =
+          title || "Error";
+
+        flashText.textContent =
+          message ||
+          "Something went wrong.";
+
+        flashIconBox.innerHTML = `
+          <i data-lucide="alert-circle"
+             class="w-5 h-5">
+          </i>
+        `;
+
+      }
+
+
+      lucide.createIcons();
+
+
+      requestAnimationFrame(() => {
+
+        flashMessage.classList.add("show");
+
+      });
+
+
+      flashTimer = setTimeout(() => {
+
+        flashMessage.classList.remove("show");
+
+      }, 2000);
+
+    }
+
+
+    // =====================================================
+    // STATUS FLASH MESSAGE
+    // =====================================================
+
+    function getStatusFlash(status) {
+
+      switch (status) {
+
+        case "confirmed":
+
+          return {
+            title: "Booking Confirmed",
+            message:
+              "Booking has been confirmed successfully."
+          };
+
+
+        case "completed":
+
+          return {
+            title: "Booking Completed",
+            message:
+              "Booking has been marked as completed."
+          };
+
+
+        case "cancelled":
+
+          return {
+            title: "Booking Cancelled",
+            message:
+              "Booking has been cancelled successfully."
+          };
+
+
+        case "pending":
+
+          return {
+            title: "Booking Pending",
+            message:
+              "Booking has been moved to pending."
+          };
+
+
+        default:
+
+          return {
+            title: "Booking Updated",
+            message:
+              "Booking status updated successfully."
+          };
+
+      }
+
+    }
+
+
     let allBookings = [];
 
     let currentFilter = "all";
@@ -620,8 +939,13 @@
 
     function escapeHtml(value) {
 
-      if (value === null || value === undefined) {
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
         return "";
+
       }
 
       return String(value)
@@ -641,22 +965,28 @@
     function formatDate(dateValue) {
 
       if (!dateValue) {
+
         return "N/A";
+
       }
 
-      const date = new Date(dateValue);
+      const date =
+        new Date(dateValue);
 
       if (isNaN(date.getTime())) {
+
         return "N/A";
+
       }
 
-      return date.toLocaleDateString("en-US", {
-
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-
-      });
+      return date.toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        }
+      );
 
     }
 
@@ -667,15 +997,21 @@
 
     function formatMoney(amount) {
 
-      const number = Number(amount);
+      const number =
+        Number(amount);
 
       if (isNaN(number)) {
+
         return "0";
+
       }
 
-      return number.toLocaleString("en-US", {
-        maximumFractionDigits: 2
-      });
+      return number.toLocaleString(
+        "en-US",
+        {
+          maximumFractionDigits: 2
+        }
+      );
 
     }
 
@@ -740,19 +1076,30 @@
       try {
 
         const response =
-          await fetch("/api/bookings/owner-bookings", {
-            method: "GET",
-            headers: {
-              "Accept": "application/json"
+          await fetch(
+            "/api/bookings/owner-bookings",
+            {
+              method: "GET",
+
+              headers: {
+                "Accept":
+                  "application/json"
+              }
             }
-          });
+          );
 
 
         const contentType =
-          response.headers.get("content-type") || "";
+          response.headers.get(
+            "content-type"
+          ) || "";
 
 
-        if (!contentType.includes("application/json")) {
+        if (
+          !contentType.includes(
+            "application/json"
+          )
+        ) {
 
           throw new Error(
             "Server returned HTML instead of JSON. Check login/session and API route."
@@ -765,7 +1112,10 @@
           await response.json();
 
 
-        if (!response.ok || !result.success) {
+        if (
+          !response.ok ||
+          !result.success
+        ) {
 
           throw new Error(
             result.message ||
@@ -786,7 +1136,10 @@
         const pendingCount =
           allBookings.filter(
             booking =>
-              String(booking.status).toLowerCase() === "pending"
+              String(
+                booking.status
+              ).toLowerCase() ===
+              "pending"
           ).length;
 
 
@@ -804,9 +1157,14 @@
           error
         );
 
-        loadingState.classList.add("hidden");
 
-        errorState.classList.remove("hidden");
+        loadingState.classList.add(
+          "hidden"
+        );
+
+        errorState.classList.remove(
+          "hidden"
+        );
 
         errorMessage.textContent =
           error.message ||
@@ -814,11 +1172,16 @@
 
         lucide.createIcons();
 
+
       } finally {
 
-        loadingState.classList.add("hidden");
+        loadingState.classList.add(
+          "hidden"
+        );
 
-        refreshIcon.classList.remove("animate-spin");
+        refreshIcon.classList.remove(
+          "animate-spin"
+        );
 
       }
 
@@ -839,31 +1202,45 @@
           ? allBookings
           : allBookings.filter(
               booking =>
-                String(booking.status).toLowerCase() ===
+                String(
+                  booking.status
+                ).toLowerCase() ===
                 currentFilter
             );
 
 
       bookingCountText.textContent =
         `${filteredBookings.length} booking${
-          filteredBookings.length === 1 ? "" : "s"
+          filteredBookings.length === 1
+            ? ""
+            : "s"
         } found`;
 
 
-      if (filteredBookings.length === 0) {
+      if (
+        filteredBookings.length === 0
+      ) {
 
-        bookingsContainer.classList.add("hidden");
+        bookingsContainer.classList.add(
+          "hidden"
+        );
 
-        emptyState.classList.remove("hidden");
+        emptyState.classList.remove(
+          "hidden"
+        );
 
         return;
 
       }
 
 
-      emptyState.classList.add("hidden");
+      emptyState.classList.add(
+        "hidden"
+      );
 
-      bookingsContainer.classList.remove("hidden");
+      bookingsContainer.classList.remove(
+        "hidden"
+      );
 
 
       filteredBookings.forEach(
@@ -897,13 +1274,16 @@
 
 
       card.dataset.status =
-        String(booking.status || "")
-          .toLowerCase();
+        String(
+          booking.status || ""
+        ).toLowerCase();
 
 
       const status =
-        String(booking.status || "pending")
-          .toLowerCase();
+        String(
+          booking.status ||
+          "pending"
+        ).toLowerCase();
 
 
       const config =
@@ -952,6 +1332,23 @@
         0;
 
 
+      /* =====================================================
+         PAYMENT STATUS
+         ===================================================== */
+
+      const paymentStatus =
+        booking.payment &&
+        booking.payment.status
+          ? String(
+              booking.payment.status
+            ).toLowerCase()
+          : "pending";
+
+
+      const isPaid =
+        paymentStatus === "paid";
+
+
       const totalDays =
         booking.totalDays ??
         1;
@@ -963,11 +1360,15 @@
 
 
       const startDate =
-        formatDate(booking.startDate);
+        formatDate(
+          booking.startDate
+        );
 
 
       const endDate =
-        formatDate(booking.endDate);
+        formatDate(
+          booking.endDate
+        );
 
 
       const bookingId =
@@ -1011,7 +1412,8 @@
             <div
               class="flex flex-wrap items-center gap-1.5 text-xs text-slate-400">
 
-              <i data-lucide="user" class="w-3.5 h-3.5 shrink-0"></i>
+              <i data-lucide="user"
+                class="w-3.5 h-3.5 shrink-0"></i>
 
               <span>
 
@@ -1033,10 +1435,13 @@
             <div
               class="flex items-center gap-1.5 text-xs text-slate-400">
 
-              <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+              <i data-lucide="phone"
+                class="w-3.5 h-3.5"></i>
 
               <span>
+
                 ${escapeHtml(phone)}
+
               </span>
 
             </div>
@@ -1049,7 +1454,8 @@
 
               <span class="flex items-center gap-1">
 
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                <i data-lucide="calendar"
+                  class="w-3.5 h-3.5"></i>
 
                 ${startDate}
 
@@ -1062,7 +1468,8 @@
 
               <span class="flex items-center gap-1">
 
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <i data-lucide="map-pin"
+                  class="w-3.5 h-3.5"></i>
 
                 ${escapeHtml(pickupLocation)}
 
@@ -1079,18 +1486,31 @@
               <span>
 
                 ${escapeHtml(totalDays)}
-                day${Number(totalDays) === 1 ? "" : "s"}
+
+                day${
+                  Number(totalDays) === 1
+                    ? ""
+                    : "s"
+                }
 
               </span>
 
               <span>
+
                 ₹${formatMoney(pricePerDay)}/day
+
               </span>
 
-              <span class="font-semibold text-slate-500">
+              <span
+                class="font-semibold text-slate-500">
 
                 Booking ID:
-                ${escapeHtml(String(bookingId).slice(-8))}
+
+                ${escapeHtml(
+                  String(
+                    bookingId
+                  ).slice(-8)
+                )}
 
               </span>
 
@@ -1116,12 +1536,59 @@
             </div>
 
 
+            <!-- BOOKING STATUS -->
+
             <span
               class="inline-block ${config.bg} ${config.text} text-[10px] font-bold px-2 py-0.5 rounded tracking-wide uppercase mt-0.5">
 
               ${config.label}
 
             </span>
+
+
+            <!-- PAYMENT STATUS -->
+
+            <div class="mt-2">
+
+              ${
+                isPaid
+                  ? `
+                    <span
+                      class="inline-flex items-center gap-1.5
+                             bg-emerald-50 text-emerald-600
+                             border border-emerald-100
+                             text-[10px] font-extrabold
+                             px-2.5 py-1 rounded-lg uppercase">
+
+                      <i
+                        data-lucide="badge-check"
+                        class="w-3.5 h-3.5">
+                      </i>
+
+                      Paid
+
+                    </span>
+                  `
+                  : `
+                    <span
+                      class="inline-flex items-center gap-1.5
+                             bg-amber-50 text-amber-600
+                             border border-amber-100
+                             text-[10px] font-extrabold
+                             px-2.5 py-1 rounded-lg uppercase">
+
+                      <i
+                        data-lucide="clock-3"
+                        class="w-3.5 h-3.5">
+                      </i>
+
+                      Payment Pending
+
+                    </span>
+                  `
+              }
+
+            </div>
 
           </div>
 
@@ -1131,7 +1598,8 @@
             class="open-modal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
             data-booking-id="${escapeHtml(bookingId)}">
 
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+            <i data-lucide="edit-3"
+              class="w-3.5 h-3.5"></i>
 
             Update
 
@@ -1164,7 +1632,9 @@
 
 
             document
-              .querySelectorAll(".filter-btn")
+              .querySelectorAll(
+                ".filter-btn"
+              )
               .forEach(button => {
 
                 button.className =
@@ -1194,11 +1664,15 @@
       event => {
 
         const button =
-          event.target.closest(".open-modal-btn");
+          event.target.closest(
+            ".open-modal-btn"
+          );
 
 
         if (!button) {
+
           return;
+
         }
 
 
@@ -1216,7 +1690,11 @@
 
         if (!booking) {
 
-          alert("Booking not found.");
+          showFlash(
+            "error",
+            "Booking Error",
+            "Booking not found."
+          );
 
           return;
 
@@ -1240,12 +1718,16 @@
 
 
       selectedStatus =
-        String(booking.status || "pending")
-          .toLowerCase();
+        String(
+          booking.status ||
+          "pending"
+        ).toLowerCase();
 
 
       modalBookingId.textContent =
-        `Booking #${String(booking._id).slice(-8)}`;
+        `Booking #${String(
+          booking._id
+        ).slice(-8)}`;
 
 
       modalCarName.textContent =
@@ -1267,7 +1749,8 @@
 
           this.onerror = null;
 
-          this.src = "/images/title.png.jpeg";
+          this.src =
+            "/images/title.png.jpeg";
 
         };
 
@@ -1278,7 +1761,9 @@
       updateStatusButtons();
 
 
-      modal.classList.remove("hidden");
+      modal.classList.remove(
+        "hidden"
+      );
 
     }
 
@@ -1289,7 +1774,9 @@
 
     function closeModal() {
 
-      modal.classList.add("hidden");
+      modal.classList.add(
+        "hidden"
+      );
 
       currentBookingId = null;
 
@@ -1306,7 +1793,9 @@
       "click",
       event => {
 
-        if (event.target === modal) {
+        if (
+          event.target === modal
+        ) {
 
           closeModal();
 
@@ -1322,7 +1811,9 @@
 
         if (
           event.key === "Escape" &&
-          !modal.classList.contains("hidden")
+          !modal.classList.contains(
+            "hidden"
+          )
         ) {
 
           closeModal();
@@ -1338,7 +1829,9 @@
     // =====================================================
 
     document
-      .querySelectorAll(".status-btn")
+      .querySelectorAll(
+        ".status-btn"
+      )
       .forEach(btn => {
 
         btn.addEventListener(
@@ -1360,7 +1853,9 @@
     function updateStatusButtons() {
 
       document
-        .querySelectorAll(".status-btn")
+        .querySelectorAll(
+          ".status-btn"
+        )
         .forEach(btn => {
 
           const status =
@@ -1371,7 +1866,10 @@
             statusConfig[status];
 
 
-          if (status === selectedStatus) {
+          if (
+            status ===
+            selectedStatus
+          ) {
 
             btn.className =
               `status-btn border-2 ${config.border} ${config.bg} ${config.text} rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition-all shadow-sm`;
@@ -1401,7 +1899,11 @@
 
         if (!currentBookingId) {
 
-          alert("Booking ID missing.");
+          showFlash(
+            "error",
+            "Booking Error",
+            "Booking ID is missing."
+          );
 
           return;
 
@@ -1410,7 +1912,11 @@
 
         if (!selectedStatus) {
 
-          alert("Please select a status.");
+          showFlash(
+            "error",
+            "Status Required",
+            "Please select a booking status."
+          );
 
           return;
 
@@ -1436,6 +1942,7 @@
            *
            * POST /api/bookings/update-status
            */
+
 
           const response =
             await fetch(
@@ -1474,7 +1981,11 @@
             ) || "";
 
 
-          if (!contentType.includes("application/json")) {
+          if (
+            !contentType.includes(
+              "application/json"
+            )
+          ) {
 
             throw new Error(
               "Server returned HTML instead of JSON. Check the API route."
@@ -1487,7 +1998,10 @@
             await response.json();
 
 
-          if (!response.ok || !result.success) {
+          if (
+            !response.ok ||
+            !result.success
+          ) {
 
             throw new Error(
               result.message ||
@@ -1497,16 +2011,28 @@
           }
 
 
-          alert(
+          // =================================================
+          // SUCCESS FLASH
+          // =================================================
+
+          const flash =
+            getStatusFlash(
+              selectedStatus
+            );
+
+
+          showFlash(
+            "success",
+            flash.title,
             result.message ||
-            "Booking status updated successfully."
+            flash.message
           );
 
 
           closeModal();
 
 
-          // Reload fresh MongoDB data
+          // Reload fresh data
 
           await loadBookings();
 
@@ -1519,14 +2045,22 @@
           );
 
 
-          alert(
+          // =================================================
+          // ERROR FLASH
+          // =================================================
+
+          showFlash(
+            "error",
+            "Update Failed",
             error.message ||
             "Server communication error."
           );
 
+
         } finally {
 
-          submitBtn.disabled = false;
+          submitBtn.disabled =
+            false;
 
           submitBtn.textContent =
             "Update Status";

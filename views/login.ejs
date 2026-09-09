@@ -17,7 +17,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 >
- <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+<link rel="icon" type="image/png" href="/images/title.png.jpeg">
 <style>
     * {
         margin: 0;
@@ -319,33 +319,54 @@
     }
 
     .social-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 13px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+}
 
-    .social-btn {
-        width: 43px;
-        height: 43px;
-        border-radius: 50%;
-        border: 1px solid #ddd;
-        background: #fff;
-        color: #444;
-        cursor: pointer;
-        font-size: 15px;
-        transition:
-            transform 0.25s ease,
-            border-color 0.25s ease,
-            color 0.25s ease,
-            box-shadow 0.25s ease;
-    }
+.social-btn {
+    width: 43px;
+    height: 43px;
 
-    .social-btn:hover {
-        border-color: #e53f28;
-        color: #e53f28;
-        transform: translateY(-4px);
-        box-shadow: 0 8px 18px rgba(229, 63, 40, 0.14);
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid #ddd;
+
+    background: #fff;
+    color: #444;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.social-btn:hover {
+    border-color: #e53f28;
+    color: #e53f28;
+    background: #fff;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 18px rgba(229, 63, 40, 0.14);
+}
+
+.social-btn:active {
+    transform: translateY(-1px);
+}
 
     .home-link {
         display: block;
@@ -522,36 +543,40 @@
     <div class="divider">
         <span>OR</span>
     </div>
+<!-- SOCIAL BUTTONS -->
+<div class="social-buttons">
 
-    <!-- SOCIAL BUTTONS -->
-    <div class="social-buttons">
+    <!-- GOOGLE -->
+    <a
+        href="https://accounts.google.com/"
+        target="_blank"
+        class="social-btn"
+        title="Google"
+    >
+        <i class="fa-brands fa-google"></i>
+    </a>
 
-        <button
-            type="button"
-            class="social-btn"
-            title="Google"
-        >
-            <i class="fa-brands fa-google"></i>
-        </button>
+    <!-- FACEBOOK -->
+    <a
+        href="https://www.facebook.com/"
+        target="_blank"
+        class="social-btn"
+        title="Facebook"
+    >
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
 
-        <button
-            type="button"
-            class="social-btn"
-            title="Facebook"
-        >
-            <i class="fa-brands fa-facebook-f"></i>
-        </button>
+    <!-- X -->
+    <a
+        href="https://x.com/"
+        target="_blank"
+        class="social-btn"
+        title="X"
+    >
+        <i class="fa-brands fa-x-twitter"></i>
+    </a>
 
-        <button
-            type="button"
-            class="social-btn"
-            title="X"
-        >
-            <i class="fa-brands fa-x-twitter"></i>
-        </button>
-
-    </div>
-
+</div>
     <!-- BACK TO HOME -->
     <!-- IMPORTANT: Express home route -->
     <a href="/" class="home-link">

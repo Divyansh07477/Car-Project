@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Submitted - RideWave</title>
+
+    <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-primary': '#FF6B35',
+                        'brand-primary-hover': '#e85a26'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ridewave-navbar {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 72px !important;
+            background: #ffffff !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            z-index: 99998;
+        }
+
+        .ridewave-logo {
+            width: 125px;
+            height: 90px;
+            object-fit: contain;
+            display: block;
+            background: transparent;
+        }
+
+        .ridewave-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .ridewave-nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #334155 !important;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .ridewave-nav-links a:hover {
+            color: #FF6B35 !important;
+        }
+
+        body {
+            padding-top: 72px !important;
+        }
+
+        @media (max-width: 768px) {
+            .ridewave-navbar {
+                height: 64px !important;
+                padding: 0 18px;
+            }
+            .ridewave-logo {
+                width: 105px;
+                height: 38px;
+            }
+            .ridewave-nav-links {
+                gap: 14px;
+            }
+            .ridewave-nav-links a {
+                font-size: 14px;
+            }
+            body {
+                padding-top: 64px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 min-h-screen flex flex-col justify-between">
+
+    <!-- NAVBAR -->
+    <header class="ridewave-navbar">
+        <a href="/" class="flex items-center">
+            <img src="/images/logo.png" alt="RideWave" class="ridewave-logo">
+        </a>
+
+        <nav class="ridewave-nav-links">
+            <a href="/">
+                <span>&larr;</span>
+                <span>Back to Cars</span>
+            </a>
+
+            <a href="/Mybookings">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-5 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <span>My Bookings</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- MAIN CONFIRMATION CONTENT -->
+    <main class="flex-grow flex items-center justify-center px-4 py-16">
+        <div class="max-w-md w-full text-center flex flex-col items-center">
+            
+            <!-- Success Green Check Icon -->
+            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-6">
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0B1527] tracking-tight">
+                Booking <span class="text-brand-primary">Submitted!</span>
+            </h1>
+
+            <!-- Subtitle Description -->
+            <p class="mt-3 text-slate-500 text-sm sm:text-base leading-relaxed max-w-xs sm:max-w-sm">
+                Your booking is pending confirmation. We'll review it shortly.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex items-center justify-center gap-3 w-full">
+                <a href="/Mybookings" class="px-5 sm:px-6 py-2.5 rounded-lg bg-brand-primary hover:bg-brand-primary-hover text-white text-sm sm:text-base font-semibold transition-all shadow-md active:scale-95 text-center">
+                    View My Bookings
+                </a>
+
+                <a href="/" class="px-5 sm:px-6 py-2.5 rounded-lg bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0B1527] text-sm sm:text-base font-semibold transition-all active:scale-95 text-center">
+                    Browse More Cars
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-6 text-center text-gray-400 border-t border-gray-100">
+        <p class="text-xs tracking-wider">CARPOOL VENOM</p>
+    </footer>
+
+</body>
+</html>

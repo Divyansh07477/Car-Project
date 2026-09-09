@@ -119,7 +119,7 @@ router.post("/", async (req, res) => {
         if (
             carData.owner &&
             carData.owner.toString() ===
-                req.session.userId.toString()
+            req.session.userId.toString()
         ) {
             return res.status(403).json({
                 success: false,
@@ -163,34 +163,39 @@ router.post("/", async (req, res) => {
                 message: "Return date cannot be before pickup date."
             });
         }
-// -------------------------------------------------
-// CHECK CONFIRMED BOOKING DATE OVERLAP
-// -------------------------------------------------
 
-const overlappingBooking = await Booking.findOne({
-    car: carData._id,
 
-    status: "confirmed",
+        // -------------------------------------------------
+        // CHECK CONFIRMED BOOKING DATE OVERLAP
+        // -------------------------------------------------
 
-    startDate: {
-        $lt: returnDateObj
-    },
+        const overlappingBooking = await Booking.findOne({
+            car: carData._id,
 
-    endDate: {
-        $gt: pickup
-    }
-});
+            status: "confirmed",
 
-if (overlappingBooking) {
+            startDate: {
+                $lt: returnDateObj
+            },
 
-    return res.status(400).json({
-        success: false,
-        message:
-            "This car is already booked for the selected dates.",
-        bookedFrom: overlappingBooking.startDate,
-        bookedUntil: overlappingBooking.endDate
-    });
-}
+            endDate: {
+                $gt: pickup
+            }
+        });
+
+        if (overlappingBooking) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "This car is already booked for the selected dates.",
+                bookedFrom:
+                    overlappingBooking.startDate,
+                bookedUntil:
+                    overlappingBooking.endDate
+            });
+        }
+
 
         // -------------------------------------------------
         // DATE CALCULATION
@@ -198,10 +203,12 @@ if (overlappingBooking) {
         // -------------------------------------------------
 
         const diffTime =
-            returnDateObj.getTime() - pickup.getTime();
+            returnDateObj.getTime() -
+            pickup.getTime();
 
         let totalDays = Math.ceil(
-            diffTime / (1000 * 60 * 60 * 24)
+            diffTime /
+            (1000 * 60 * 60 * 24)
         );
 
         if (totalDays < 1) {
@@ -214,7 +221,8 @@ if (overlappingBooking) {
         // Price always comes from database
         // -------------------------------------------------
 
-        const pricePerDay = Number(carData.pricePerDay);
+        const pricePerDay =
+            Number(carData.pricePerDay);
 
         if (
             isNaN(pricePerDay) ||
@@ -236,12 +244,17 @@ if (overlappingBooking) {
             pricePerDay * totalDays;
 
 
-        // -------------------------------------------------
+        // =================================================
         // CREATE BOOKING
         // Booking starts as PENDING
-        // -------------------------------------------------
+        //
+        // IMPORTANT:
+        // Payment starts as Pending.
+        // Customer can pay ONLY after owner confirms.
+        // =================================================
 
         const booking = new Booking({
+
             car: carData._id,
 
             renter: req.session.userId,
@@ -250,11 +263,14 @@ if (overlappingBooking) {
 
             name: name.trim(),
 
-            email: email.toLowerCase().trim(),
+            email: email
+                .toLowerCase()
+                .trim(),
 
             phone: phone.trim(),
 
-            pickupLocation: pickupLocation.trim(),
+            pickupLocation:
+                pickupLocation.trim(),
 
             startDate: pickup,
 
@@ -266,12 +282,32 @@ if (overlappingBooking) {
 
             totalAmount: totalAmount,
 
+
+            // ---------------------------------------------
+            // PAYMENT DETAILS
+            // ---------------------------------------------
+
+            payment: {
+
+                status: "Pending",
+
+                method: "Other",
+
+                amountPaid: 0,
+
+                amountRemaining: totalAmount
+
+            },
+
+
             actualReturnDate: null,
 
             note: "",
 
             status: "pending"
+
         });
+
 
         await booking.save();
 
@@ -281,11 +317,16 @@ if (overlappingBooking) {
         // -------------------------------------------------
 
         await Notification.create({
+
             user: booking.owner,
+
             booking: booking._id,
+
             message:
                 `New booking request received for ${carData.name}.`,
+
             type: "new_booking"
+
         });
 
 
@@ -294,19 +335,30 @@ if (overlappingBooking) {
         // -------------------------------------------------
 
         return res.status(201).json({
+
             success: true,
+
             message:
                 "Booking request sent successfully. Waiting for owner confirmation.",
+
             booking
+
         });
 
     } catch (error) {
 
-        console.error("Create Booking Error:", error);
+        console.error(
+            "Create Booking Error:",
+            error
+        );
 
         return res.status(500).json({
+
             success: false,
-            message: "Failed to create booking."
+
+            message:
+                "Failed to create booking."
+
         });
     }
 });
@@ -320,21 +372,12 @@ if (overlappingBooking) {
 router.get("/my-bookings", async (req, res) => {
     try {
 
-        // -------------------------------------------------
-        // LOGIN CHECK
-        // -------------------------------------------------
-
         if (!req.session.userId) {
             return res.status(401).json({
                 success: false,
                 message: "Please login first."
             });
         }
-
-
-        // -------------------------------------------------
-        // FIND ONLY CURRENT USER'S BOOKINGS
-        // -------------------------------------------------
 
         const bookings = await Booking.find({
             renter: req.session.userId
@@ -344,7 +387,6 @@ router.get("/my-bookings", async (req, res) => {
             .sort({ createdAt: -1 })
             .lean();
 
-
         return res.status(200).json({
             success: true,
             bookings: bookings || []
@@ -352,11 +394,15 @@ router.get("/my-bookings", async (req, res) => {
 
     } catch (error) {
 
-        console.error("My Bookings Fetch Error:", error);
+        console.error(
+            "My Bookings Fetch Error:",
+            error
+        );
 
         return res.status(500).json({
             success: false,
-            message: "Failed to fetch your bookings.",
+            message:
+                "Failed to fetch your bookings.",
             bookings: []
         });
     }
@@ -365,9 +411,6 @@ router.get("/my-bookings", async (req, res) => {
 
 // =====================================================
 // 4. GET ALL BOOKINGS
-// NOTE:
-// This route returns all bookings.
-// Owner dashboard should use /owner-bookings instead.
 // =====================================================
 
 router.get("/", async (req, res) => {
@@ -393,11 +436,15 @@ router.get("/", async (req, res) => {
 
     } catch (error) {
 
-        console.error("Get Bookings Error:", error);
+        console.error(
+            "Get Bookings Error:",
+            error
+        );
 
         return res.status(500).json({
             success: false,
-            message: "Failed to fetch bookings."
+            message:
+                "Failed to fetch bookings."
         });
     }
 });
@@ -412,16 +459,10 @@ router.get("/", async (req, res) => {
 // pending   -> cancelled
 // confirmed -> completed
 // confirmed -> cancelled
-//
-// Also saves owner's note.
 // =====================================================
 
 router.post("/update-status", async (req, res) => {
     try {
-
-        // -------------------------------------------------
-        // LOGIN CHECK
-        // -------------------------------------------------
 
         if (!req.session.userId) {
             return res.status(401).json({
@@ -430,10 +471,6 @@ router.post("/update-status", async (req, res) => {
             });
         }
 
-
-        // -------------------------------------------------
-        // GET REQUEST DATA
-        // -------------------------------------------------
 
         const {
             bookingId,
@@ -445,14 +482,11 @@ router.post("/update-status", async (req, res) => {
         if (!bookingId || !status) {
             return res.status(400).json({
                 success: false,
-                message: "Booking ID and status are required."
+                message:
+                    "Booking ID and status are required."
             });
         }
 
-
-        // -------------------------------------------------
-        // NORMALIZE STATUS
-        // -------------------------------------------------
 
         const newStatus =
             String(status)
@@ -468,38 +502,42 @@ router.post("/update-status", async (req, res) => {
         ];
 
 
-        if (!allowedStatuses.includes(newStatus)) {
+        if (
+            !allowedStatuses.includes(
+                newStatus
+            )
+        ) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid booking status."
+                message:
+                    "Invalid booking status."
             });
         }
 
 
-        // -------------------------------------------------
-        // FIND BOOKING
-        // -------------------------------------------------
-
         const booking =
-            await Booking.findById(bookingId);
+            await Booking.findById(
+                bookingId
+            );
 
 
         if (!booking) {
             return res.status(404).json({
                 success: false,
-                message: "Booking not found."
+                message:
+                    "Booking not found."
             });
         }
 
 
         // -------------------------------------------------
-        // ONLY OWNER CAN UPDATE STATUS
+        // ONLY OWNER
         // -------------------------------------------------
 
         if (
             !booking.owner ||
             booking.owner.toString() !==
-                req.session.userId.toString()
+            req.session.userId.toString()
         ) {
             return res.status(403).json({
                 success: false,
@@ -510,10 +548,13 @@ router.post("/update-status", async (req, res) => {
 
 
         // -------------------------------------------------
-        // SAME STATUS CHECK
+        // SAME STATUS
         // -------------------------------------------------
 
-        if (booking.status === newStatus) {
+        if (
+            booking.status ===
+            newStatus
+        ) {
             return res.status(400).json({
                 success: false,
                 message:
@@ -523,7 +564,7 @@ router.post("/update-status", async (req, res) => {
 
 
         // -------------------------------------------------
-        // ALLOWED STATUS TRANSITIONS
+        // VALID TRANSITIONS
         // -------------------------------------------------
 
         const validTransitions = {
@@ -541,14 +582,15 @@ router.post("/update-status", async (req, res) => {
             cancelled: [],
 
             completed: []
+
         };
 
 
         if (
             !validTransitions[booking.status] ||
-            !validTransitions[booking.status].includes(
-                newStatus
-            )
+            !validTransitions[
+                booking.status
+            ].includes(newStatus)
         ) {
             return res.status(400).json({
                 success: false,
@@ -562,9 +604,10 @@ router.post("/update-status", async (req, res) => {
         // GET CAR
         // -------------------------------------------------
 
-        const car = await Car.findById(
-            booking.car
-        );
+        const car =
+            await Car.findById(
+                booking.car
+            );
 
 
         const carName =
@@ -575,37 +618,48 @@ router.post("/update-status", async (req, res) => {
 
         // -------------------------------------------------
         // CONFIRM BOOKING
-        // Check overlapping confirmed booking
         // -------------------------------------------------
 
-        if (newStatus === "confirmed") {
+        if (
+            newStatus === "confirmed"
+        ) {
 
             const overlappingBooking =
                 await Booking.findOne({
 
                     _id: {
-                        $ne: booking._id
+                        $ne:
+                            booking._id
                     },
 
-                    car: booking.car,
+                    car:
+                        booking.car,
 
-                    status: "confirmed",
+                    status:
+                        "confirmed",
 
                     startDate: {
-                        $lt: booking.endDate
+                        $lt:
+                            booking.endDate
                     },
 
                     endDate: {
-                        $gt: booking.startDate
+                        $gt:
+                            booking.startDate
                     }
+
                 });
 
 
             if (overlappingBooking) {
+
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "This car is already booked for these dates."
+
                 });
             }
         }
@@ -625,9 +679,14 @@ router.post("/update-status", async (req, res) => {
         // ACTUAL RETURN DATE
         // -------------------------------------------------
 
-        if (newStatus === "completed") {
+        if (
+            newStatus ===
+            "completed"
+        ) {
+
             booking.actualReturnDate =
                 new Date();
+
         }
 
 
@@ -635,7 +694,9 @@ router.post("/update-status", async (req, res) => {
         // UPDATE STATUS
         // -------------------------------------------------
 
-        booking.status = newStatus;
+        booking.status =
+            newStatus;
+
 
         await booking.save();
 
@@ -649,7 +710,10 @@ router.post("/update-status", async (req, res) => {
         let notificationType = "";
 
 
-        if (newStatus === "confirmed") {
+        if (
+            newStatus ===
+            "confirmed"
+        ) {
 
             notificationMessage =
                 `Your booking for ${carName} has been confirmed by the owner.`;
@@ -659,7 +723,10 @@ router.post("/update-status", async (req, res) => {
         }
 
 
-        if (newStatus === "cancelled") {
+        if (
+            newStatus ===
+            "cancelled"
+        ) {
 
             notificationMessage =
                 `Your booking for ${carName} has been cancelled by the owner.`;
@@ -669,7 +736,10 @@ router.post("/update-status", async (req, res) => {
         }
 
 
-        if (newStatus === "completed") {
+        if (
+            newStatus ===
+            "completed"
+        ) {
 
             notificationMessage =
                 `Your booking for ${carName} has been completed.`;
@@ -686,13 +756,18 @@ router.post("/update-status", async (req, res) => {
 
             await Notification.create({
 
-                user: booking.renter,
+                user:
+                    booking.renter,
 
-                booking: booking._id,
+                booking:
+                    booking._id,
 
-                message: notificationMessage,
+                message:
+                    notificationMessage,
 
-                type: notificationType
+                type:
+                    notificationType
+
             });
         }
 
@@ -701,26 +776,35 @@ router.post("/update-status", async (req, res) => {
         // AUTO CANCEL OVERLAPPING PENDING BOOKINGS
         // -------------------------------------------------
 
-        if (newStatus === "confirmed") {
+        if (
+            newStatus ===
+            "confirmed"
+        ) {
 
             const overlappingBookings =
                 await Booking.find({
 
                     _id: {
-                        $ne: booking._id
+                        $ne:
+                            booking._id
                     },
 
-                    car: booking.car,
+                    car:
+                        booking.car,
 
-                    status: "pending",
+                    status:
+                        "pending",
 
                     startDate: {
-                        $lt: booking.endDate
+                        $lt:
+                            booking.endDate
                     },
 
                     endDate: {
-                        $gt: booking.startDate
+                        $gt:
+                            booking.startDate
                     }
+
                 });
 
 
@@ -732,9 +816,8 @@ router.post("/update-status", async (req, res) => {
                 otherBooking.status =
                     "cancelled";
 
-                // Auto-cancelled booking
-                // should not contain owner's note
-                otherBooking.note = "";
+                otherBooking.note =
+                    "";
 
                 await otherBooking.save();
 
@@ -752,6 +835,7 @@ router.post("/update-status", async (req, res) => {
 
                     type:
                         "booking_auto_cancelled"
+
                 });
             }
         }
@@ -776,10 +860,6 @@ router.post("/update-status", async (req, res) => {
                 );
 
 
-        // -------------------------------------------------
-        // RESPONSE
-        // -------------------------------------------------
-
         return res.status(200).json({
 
             success: true,
@@ -787,7 +867,9 @@ router.post("/update-status", async (req, res) => {
             message:
                 `Booking ${newStatus} successfully.`,
 
-            booking: updatedBooking
+            booking:
+                updatedBooking
+
         });
 
     } catch (error) {
@@ -798,826 +880,1069 @@ router.post("/update-status", async (req, res) => {
         );
 
         return res.status(500).json({
+
             success: false,
+
             message:
                 "Failed to update booking status."
+
         });
     }
 });
 
+
 // =====================================================
-// CHECK CAR AVAILABILITY FOR SELECTED DATES
-// GET /api/bookings/availability/:carId?startDate=...&endDate=...
+// 6. CHECK CAR AVAILABILITY
 // =====================================================
 
-router.get("/availability/:carId", async (req, res) => {
-    try {
+router.get(
+    "/availability/:carId",
+    async (req, res) => {
 
-        const { carId } = req.params;
-        const { startDate, endDate } = req.query;
+        try {
 
-        if (!carId || !startDate || !endDate) {
-            return res.status(400).json({
-                success: false,
-                message: "Car ID, start date and end date are required."
-            });
-        }
+            const {
+                carId
+            } = req.params;
 
-        const car = await Car.findById(carId);
+            const {
+                startDate,
+                endDate
+            } = req.query;
 
-        if (!car) {
-            return res.status(404).json({
-                success: false,
-                message: "Car not found."
-            });
-        }
 
-        if (car.isAvailable === false) {
-            return res.status(200).json({
-                success: true,
-                available: false,
-                message: "This car is currently unavailable."
-            });
-        }
+            if (
+                !carId ||
+                !startDate ||
+                !endDate
+            ) {
 
-        const pickup = new Date(startDate);
-        const returnDate = new Date(endDate);
+                return res.status(400).json({
 
-        if (
-            isNaN(pickup.getTime()) ||
-            isNaN(returnDate.getTime())
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid dates."
-            });
-        }
+                    success: false,
 
-        if (returnDate < pickup) {
-            return res.status(400).json({
-                success: false,
-                message: "Return date cannot be before pickup date."
-            });
-        }
+                    message:
+                        "Car ID, start date and end date are required."
 
-        const overlappingBooking = await Booking.findOne({
-            car: carId,
-
-            status: "confirmed",
-
-            startDate: {
-                $lt: returnDate
-            },
-
-            endDate: {
-                $gt: pickup
+                });
             }
-        }).sort({
-            startDate: 1
-        });
 
-        if (overlappingBooking) {
+
+            const car =
+                await Car.findById(
+                    carId
+                );
+
+
+            if (!car) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Car not found."
+
+                });
+            }
+
+
+            if (
+                car.isAvailable ===
+                false
+            ) {
+
+                return res.status(200).json({
+
+                    success: true,
+
+                    available: false,
+
+                    message:
+                        "This car is currently unavailable."
+
+                });
+            }
+
+
+            const pickup =
+                new Date(
+                    startDate
+                );
+
+            const returnDate =
+                new Date(
+                    endDate
+                );
+
+
+            if (
+                isNaN(
+                    pickup.getTime()
+                ) ||
+                isNaN(
+                    returnDate.getTime()
+                )
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid dates."
+
+                });
+            }
+
+
+            if (
+                returnDate <
+                pickup
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Return date cannot be before pickup date."
+
+                });
+            }
+
+
+            const overlappingBooking =
+                await Booking.findOne({
+
+                    car:
+                        carId,
+
+                    status:
+                        "confirmed",
+
+                    startDate: {
+                        $lt:
+                            returnDate
+                    },
+
+                    endDate: {
+                        $gt:
+                            pickup
+                    }
+
+                }).sort({
+
+                    startDate: 1
+
+                });
+
+
+            if (
+                overlappingBooking
+            ) {
+
+                return res.status(200).json({
+
+                    success: true,
+
+                    available: false,
+
+                    message:
+                        "This car is already booked for the selected dates.",
+
+                    bookedFrom:
+                        overlappingBooking.startDate,
+
+                    bookedUntil:
+                        overlappingBooking.endDate
+
+                });
+            }
+
+
             return res.status(200).json({
+
                 success: true,
-                available: false,
+
+                available: true,
 
                 message:
-                    "This car is already booked for the selected dates.",
+                    "Car is available for the selected dates."
 
-                bookedFrom: overlappingBooking.startDate,
-                bookedUntil: overlappingBooking.endDate
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Car Availability Check Error:",
+                error
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to check car availability."
+
             });
         }
-
-        return res.status(200).json({
-            success: true,
-            available: true,
-            message: "Car is available for the selected dates."
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Car Availability Check Error:",
-            error
-        );
-
-        return res.status(500).json({
-            success: false,
-            message: "Failed to check car availability."
-        });
     }
-});
+);
+
+
 // =====================================================
-// 6. OWNER CONFIRM BOOKING
+// 7. OWNER CONFIRM BOOKING
 // pending → confirmed
-//
-// This route is kept for compatibility.
 // =====================================================
 
-router.post("/:id/confirm", async (req, res) => {
-    try {
+router.post(
+    "/:id/confirm",
+    async (req, res) => {
 
-        if (!req.session.userId) {
-            return res.status(401).json({
-                success: false,
-                message: "Please login first."
-            });
-        }
+        try {
 
+            if (!req.session.userId) {
 
-        const booking =
-            await Booking.findById(
-                req.params.id
-            );
+                return res.status(401).json({
 
+                    success: false,
 
-        if (!booking) {
-            return res.status(404).json({
-                success: false,
-                message: "Booking not found."
-            });
-        }
+                    message:
+                        "Please login first."
+
+                });
+            }
 
 
-        if (
-            !booking.owner ||
-            booking.owner.toString() !==
+            const booking =
+                await Booking.findById(
+                    req.params.id
+                );
+
+
+            if (!booking) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+            }
+
+
+            if (
+                !booking.owner ||
+                booking.owner.toString() !==
                 req.session.userId.toString()
-        ) {
-            return res.status(403).json({
-                success: false,
+            ) {
+
+                return res.status(403).json({
+
+                    success: false,
+
+                    message:
+                        "You are not allowed to confirm this booking."
+
+                });
+            }
+
+
+            if (
+                booking.status !==
+                "pending"
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        `This booking is already ${booking.status}.`
+
+                });
+            }
+
+
+            // ---------------------------------------------
+            // CHECK OVERLAP
+            // ---------------------------------------------
+
+            const existingConfirmedBooking =
+                await Booking.findOne({
+
+                    _id: {
+                        $ne:
+                            booking._id
+                    },
+
+                    car:
+                        booking.car,
+
+                    status:
+                        "confirmed",
+
+                    startDate: {
+                        $lt:
+                            booking.endDate
+                    },
+
+                    endDate: {
+                        $gt:
+                            booking.startDate
+                    }
+
+                });
+
+
+            if (
+                existingConfirmedBooking
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "This car is already booked for the selected dates."
+
+                });
+            }
+
+
+            // ---------------------------------------------
+            // CONFIRM BOOKING
+            // ---------------------------------------------
+
+            booking.status =
+                "confirmed";
+
+
+            booking.note =
+                typeof req.body.note ===
+                "string"
+                    ? req.body.note.trim()
+                    : "";
+
+
+            // ---------------------------------------------
+            // MAKE SURE PAYMENT EXISTS
+            // ---------------------------------------------
+
+            if (!booking.payment) {
+
+                booking.payment = {
+
+                    status:
+                        "Pending",
+
+                    method:
+                        "Other",
+
+                    amountPaid:
+                        0,
+
+                    amountRemaining:
+                        Number(
+                            booking.totalAmount
+                        ) || 0
+
+                };
+
+            }
+
+
+            await booking.save();
+
+
+            const car =
+                await Car.findById(
+                    booking.car
+                );
+
+
+            const carName =
+                car && car.name
+                    ? car.name
+                    : "your car";
+
+
+            // ---------------------------------------------
+            // NOTIFICATION
+            // ---------------------------------------------
+
+            await Notification.create({
+
+                user:
+                    booking.renter,
+
+                booking:
+                    booking._id,
+
                 message:
-                    "You are not allowed to confirm this booking."
+                    `Your booking for ${carName} has been confirmed by the owner.`,
+
+                type:
+                    "booking_confirmed"
+
             });
-        }
 
 
-        if (booking.status !== "pending") {
-            return res.status(400).json({
-                success: false,
+            // ---------------------------------------------
+            // AUTO CANCEL OVERLAPPING PENDING BOOKINGS
+            // ---------------------------------------------
+
+            const overlappingBookings =
+                await Booking.find({
+
+                    _id: {
+                        $ne:
+                            booking._id
+                    },
+
+                    car:
+                        booking.car,
+
+                    status:
+                        "pending",
+
+                    startDate: {
+                        $lt:
+                            booking.endDate
+                    },
+
+                    endDate: {
+                        $gt:
+                            booking.startDate
+                    }
+
+                });
+
+
+            for (
+                const otherBooking
+                of overlappingBookings
+            ) {
+
+                otherBooking.status =
+                    "cancelled";
+
+                otherBooking.note =
+                    "";
+
+                await otherBooking.save();
+
+
+                await Notification.create({
+
+                    user:
+                        otherBooking.renter,
+
+                    booking:
+                        otherBooking._id,
+
+                    message:
+                        `Your booking for ${carName} was automatically cancelled because the car was already booked for those dates.`,
+
+                    type:
+                        "booking_auto_cancelled"
+
+                });
+            }
+
+
+            return res.status(200).json({
+
+                success: true,
+
                 message:
-                    `This booking is already ${booking.status}.`
-            });
-        }
+                    "Booking confirmed successfully.",
 
+                booking
 
-        const existingConfirmedBooking =
-            await Booking.findOne({
-
-                _id: {
-                    $ne: booking._id
-                },
-
-                car: booking.car,
-
-                status: "confirmed",
-
-                startDate: {
-                    $lt: booking.endDate
-                },
-
-                endDate: {
-                    $gt: booking.startDate
-                }
             });
 
+        } catch (error) {
 
-        if (existingConfirmedBooking) {
-            return res.status(400).json({
-                success: false,
-                message:
-                    "This car is already booked for the selected dates."
-            });
-        }
-
-
-        booking.status =
-            "confirmed";
-
-        booking.note =
-            typeof req.body.note === "string"
-                ? req.body.note.trim()
-                : "";
-
-        await booking.save();
-
-
-        const car =
-            await Car.findById(
-                booking.car
+            console.error(
+                "Confirm Booking Error:",
+                error
             );
 
+            return res.status(500).json({
 
-        const carName =
-            car && car.name
-                ? car.name
-                : "your car";
+                success: false,
 
+                message:
+                    "Failed to confirm booking."
 
-        await Notification.create({
-
-            user: booking.renter,
-
-            booking: booking._id,
-
-            message:
-                `Your booking for ${carName} has been confirmed by the owner.`,
-
-            type:
-                "booking_confirmed"
-        });
-
-
-        const overlappingBookings =
-            await Booking.find({
-
-                _id: {
-                    $ne: booking._id
-                },
-
-                car: booking.car,
-
-                status: "pending",
-
-                startDate: {
-                    $lt: booking.endDate
-                },
-
-                endDate: {
-                    $gt: booking.startDate
-                }
             });
+        }
+    }
+);
 
 
-        for (
-            const otherBooking
-            of overlappingBookings
-        ) {
+// =====================================================
+// 8. OWNER CANCEL BOOKING
+// pending / confirmed → cancelled
+// =====================================================
 
-            otherBooking.status =
+router.post(
+    "/:id/cancel",
+    async (req, res) => {
+
+        try {
+
+            if (!req.session.userId) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Please login first."
+
+                });
+            }
+
+
+            const booking =
+                await Booking.findById(
+                    req.params.id
+                );
+
+
+            if (!booking) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+            }
+
+
+            if (
+                !booking.owner ||
+                booking.owner.toString() !==
+                req.session.userId.toString()
+            ) {
+
+                return res.status(403).json({
+
+                    success: false,
+
+                    message:
+                        "You are not allowed to cancel this booking."
+
+                });
+            }
+
+
+            if (
+                booking.status !==
+                "pending" &&
+                booking.status !==
+                "confirmed"
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        `This booking cannot be cancelled because it is already ${booking.status}.`
+
+                });
+            }
+
+
+            booking.note =
+                typeof req.body.note ===
+                "string"
+                    ? req.body.note.trim()
+                    : "";
+
+
+            booking.status =
                 "cancelled";
 
-            otherBooking.note = "";
 
-            await otherBooking.save();
+            await booking.save();
+
+
+            const car =
+                await Car.findById(
+                    booking.car
+                );
+
+
+            const carName =
+                car && car.name
+                    ? car.name
+                    : "your car";
 
 
             await Notification.create({
 
                 user:
-                    otherBooking.renter,
+                    booking.renter,
 
                 booking:
-                    otherBooking._id,
+                    booking._id,
 
                 message:
-                    `Your booking for ${carName} was automatically cancelled because the car was already booked for those dates.`,
+                    `Your booking for ${carName} has been cancelled by the owner.`,
 
                 type:
-                    "booking_auto_cancelled"
+                    "booking_cancelled"
+
             });
-        }
 
 
-        return res.status(200).json({
+            return res.status(200).json({
 
-            success: true,
+                success: true,
 
-            message:
-                "Booking confirmed successfully.",
+                message:
+                    "Booking cancelled successfully.",
 
-            booking
-        });
+                booking
 
-    } catch (error) {
-
-        console.error(
-            "Confirm Booking Error:",
-            error
-        );
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "Failed to confirm booking."
-        });
-    }
-});
-
-
-// =====================================================
-// 7. OWNER CANCEL BOOKING
-// pending / confirmed → cancelled
-// =====================================================
-
-router.post("/:id/cancel", async (req, res) => {
-    try {
-
-        if (!req.session.userId) {
-            return res.status(401).json({
-                success: false,
-                message: "Please login first."
             });
-        }
 
+        } catch (error) {
 
-        const booking =
-            await Booking.findById(
-                req.params.id
+            console.error(
+                "Owner Cancel Booking Error:",
+                error
             );
 
+            return res.status(500).json({
 
-        if (!booking) {
-            return res.status(404).json({
                 success: false,
-                message: "Booking not found."
-            });
-        }
 
-
-        // -------------------------------------------------
-        // ONLY OWNER
-        // -------------------------------------------------
-
-        if (
-            !booking.owner ||
-            booking.owner.toString() !==
-                req.session.userId.toString()
-        ) {
-            return res.status(403).json({
-                success: false,
                 message:
-                    "You are not allowed to cancel this booking."
+                    "Failed to cancel booking."
+
             });
         }
-
-
-        // -------------------------------------------------
-        // PENDING OR CONFIRMED CAN BE CANCELLED
-        // -------------------------------------------------
-
-        if (
-            booking.status !== "pending" &&
-            booking.status !== "confirmed"
-        ) {
-            return res.status(400).json({
-                success: false,
-                message:
-                    `This booking cannot be cancelled because it is already ${booking.status}.`
-            });
-        }
-
-
-        // -------------------------------------------------
-        // SAVE NOTE
-        // -------------------------------------------------
-
-        booking.note =
-            typeof req.body.note === "string"
-                ? req.body.note.trim()
-                : "";
-
-
-        booking.status =
-            "cancelled";
-
-
-        await booking.save();
-
-
-        const car =
-            await Car.findById(
-                booking.car
-            );
-
-
-        const carName =
-            car && car.name
-                ? car.name
-                : "your car";
-
-
-        // -------------------------------------------------
-        // NOTIFICATION TO CUSTOMER
-        // -------------------------------------------------
-
-        await Notification.create({
-
-            user: booking.renter,
-
-            booking: booking._id,
-
-            message:
-                `Your booking for ${carName} has been cancelled by the owner.`,
-
-            type:
-                "booking_cancelled"
-        });
-
-
-        return res.status(200).json({
-
-            success: true,
-
-            message:
-                "Booking cancelled successfully.",
-
-            booking
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Owner Cancel Booking Error:",
-            error
-        );
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "Failed to cancel booking."
-        });
     }
-});
+);
 
 
 // =====================================================
-// 8. CUSTOMER CANCEL BOOKING
+// 9. CUSTOMER CANCEL BOOKING
 // pending → cancelled
 // =====================================================
 
-router.post("/:id/customer-cancel", async (req, res) => {
-    try {
+router.post(
+    "/:id/customer-cancel",
+    async (req, res) => {
 
-        if (!req.session.userId) {
-            return res.status(401).json({
-                success: false,
-                message: "Please login first."
-            });
-        }
+        try {
 
+            if (!req.session.userId) {
 
-        const booking =
-            await Booking.findById(
-                req.params.id
-            );
+                return res.status(401).json({
 
+                    success: false,
 
-        if (!booking) {
-            return res.status(404).json({
-                success: false,
-                message: "Booking not found."
-            });
-        }
+                    message:
+                        "Please login first."
 
+                });
+            }
 
-        // -------------------------------------------------
-        // ONLY RENTER
-        // -------------------------------------------------
 
-        if (
-            !booking.renter ||
-            booking.renter.toString() !==
-                req.session.userId.toString()
-        ) {
-            return res.status(403).json({
-                success: false,
-                message:
-                    "You are not allowed to cancel this booking."
-            });
-        }
-
-
-        // -------------------------------------------------
-        // ONLY PENDING
-        // -------------------------------------------------
-
-        if (booking.status !== "pending") {
-            return res.status(400).json({
-                success: false,
-                message:
-                    `This booking cannot be cancelled because it is already ${booking.status}.`
-            });
-        }
-
-
-        booking.status =
-            "cancelled";
-
-
-        await booking.save();
-
-
-        const car =
-            await Car.findById(
-                booking.car
-            );
-
-
-        const carName =
-            car && car.name
-                ? car.name
-                : "the car";
-
-
-        // -------------------------------------------------
-        // NOTIFICATION TO OWNER
-        // -------------------------------------------------
-
-        await Notification.create({
-
-            user: booking.owner,
-
-            booking: booking._id,
-
-            message:
-                `The customer has cancelled the booking for ${carName}.`,
-
-            type:
-                "booking_cancelled"
-        });
-
-
-        return res.status(200).json({
-
-            success: true,
-
-            message:
-                "Booking cancelled successfully.",
-
-            booking
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Customer Cancel Booking Error:",
-            error
-        );
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "Failed to cancel booking."
-        });
-    }
-});
-
-
-// =====================================================
-// 9. OWNER COMPLETE BOOKING
-// confirmed → completed
-// =====================================================
-
-router.post("/:id/complete", async (req, res) => {
-    try {
-
-        if (!req.session.userId) {
-            return res.status(401).json({
-                success: false,
-                message: "Please login first."
-            });
-        }
-
-
-        const booking =
-            await Booking.findById(
-                req.params.id
-            );
-
-
-        if (!booking) {
-            return res.status(404).json({
-                success: false,
-                message: "Booking not found."
-            });
-        }
-
-
-        // -------------------------------------------------
-        // ONLY OWNER
-        // -------------------------------------------------
-
-        if (
-            !booking.owner ||
-            booking.owner.toString() !==
-                req.session.userId.toString()
-        ) {
-            return res.status(403).json({
-                success: false,
-                message:
-                    "You are not allowed to complete this booking."
-            });
-        }
-
-
-        // -------------------------------------------------
-        // ONLY CONFIRMED
-        // -------------------------------------------------
-
-        if (booking.status !== "confirmed") {
-            return res.status(400).json({
-                success: false,
-                message:
-                    `This booking cannot be completed because it is ${booking.status}.`
-            });
-        }
-
-
-        // -------------------------------------------------
-        // SAVE NOTE
-        // -------------------------------------------------
-
-        booking.note =
-            typeof req.body.note === "string"
-                ? req.body.note.trim()
-                : "";
-
-
-        // -------------------------------------------------
-        // ACTUAL RETURN DATE
-        // -------------------------------------------------
-
-        booking.actualReturnDate =
-            new Date();
-
-
-        // -------------------------------------------------
-        // COMPLETE BOOKING
-        // -------------------------------------------------
-
-        booking.status =
-            "completed";
-
-
-        await booking.save();
-
-
-        const car =
-            await Car.findById(
-                booking.car
-            );
-
-
-        const carName =
-            car && car.name
-                ? car.name
-                : "your car";
-
-
-        // -------------------------------------------------
-        // NOTIFICATION TO CUSTOMER
-        // -------------------------------------------------
-
-        await Notification.create({
-
-            user: booking.renter,
-
-            booking: booking._id,
-
-            message:
-                `Your booking for ${carName} has been completed.`,
-
-            type:
-                "booking_completed"
-        });
-
-
-        return res.status(200).json({
-
-            success: true,
-
-            message:
-                "Booking completed successfully.",
-
-            booking
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Complete Booking Error:",
-            error
-        );
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "Failed to complete booking."
-        });
-    }
-});
-
-
-// =====================================================
-// 10. GET SINGLE BOOKING
-// MUST BE LAST
-// =====================================================
-
-router.get("/:id", async (req, res) => {
-    try {
-
-        // -------------------------------------------------
-        // LOGIN CHECK
-        // -------------------------------------------------
-
-        if (!req.session.userId) {
-            return res.status(401).json({
-                success: false,
-                message: "Please login first."
-            });
-        }
-
-
-        // -------------------------------------------------
-        // FIND BOOKING
-        // -------------------------------------------------
-
-        const booking =
-            await Booking.findById(
-                req.params.id
-            )
-                .populate("car")
-                .populate(
-                    "renter",
-                    "name email"
-                )
-                .populate(
-                    "owner",
-                    "name email"
+            const booking =
+                await Booking.findById(
+                    req.params.id
                 );
 
 
-        if (!booking) {
-            return res.status(404).json({
-                success: false,
-                message: "Booking not found."
-            });
-        }
+            if (!booking) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+            }
 
 
-        // -------------------------------------------------
-        // SECURITY
-        // Only renter or owner can see booking
-        // -------------------------------------------------
+            if (
+                !booking.renter ||
+                booking.renter.toString() !==
+                req.session.userId.toString()
+            ) {
 
-        const isRenter =
-            booking.renter &&
-            booking.renter._id.toString() ===
-                req.session.userId.toString();
+                return res.status(403).json({
+
+                    success: false,
+
+                    message:
+                        "You are not allowed to cancel this booking."
+
+                });
+            }
 
 
-        const isOwner =
-            booking.owner &&
-            booking.owner._id.toString() ===
-                req.session.userId.toString();
+            if (
+                booking.status !==
+                "pending"
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        `This booking cannot be cancelled because it is already ${booking.status}.`
+
+                });
+            }
 
 
-        if (!isRenter && !isOwner) {
-            return res.status(403).json({
-                success: false,
+            booking.status =
+                "cancelled";
+
+
+            await booking.save();
+
+
+            const car =
+                await Car.findById(
+                    booking.car
+                );
+
+
+            const carName =
+                car && car.name
+                    ? car.name
+                    : "the car";
+
+
+            await Notification.create({
+
+                user:
+                    booking.owner,
+
+                booking:
+                    booking._id,
+
                 message:
-                    "You are not allowed to view this booking."
+                    `The customer has cancelled the booking for ${carName}.`,
+
+                type:
+                    "booking_cancelled"
+
+            });
+
+
+            return res.status(200).json({
+
+                success: true,
+
+                message:
+                    "Booking cancelled successfully.",
+
+                booking
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Customer Cancel Booking Error:",
+                error
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to cancel booking."
+
             });
         }
-
-
-        // -------------------------------------------------
-        // RESPONSE
-        // -------------------------------------------------
-
-        return res.status(200).json({
-
-            success: true,
-
-            booking
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Get Booking Error:",
-            error
-        );
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "Failed to fetch booking."
-        });
     }
-});
+);
+
+
+// =====================================================
+// 10. OWNER COMPLETE BOOKING
+// confirmed → completed
+// =====================================================
+
+router.post(
+    "/:id/complete",
+    async (req, res) => {
+
+        try {
+
+            if (!req.session.userId) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Please login first."
+
+                });
+            }
+
+
+            const booking =
+                await Booking.findById(
+                    req.params.id
+                );
+
+
+            if (!booking) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+            }
+
+
+            if (
+                !booking.owner ||
+                booking.owner.toString() !==
+                req.session.userId.toString()
+            ) {
+
+                return res.status(403).json({
+
+                    success: false,
+
+                    message:
+                        "You are not allowed to complete this booking."
+
+                });
+            }
+
+
+            if (
+                booking.status !==
+                "confirmed"
+            ) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        `This booking cannot be completed because it is ${booking.status}.`
+
+                });
+            }
+
+
+            booking.note =
+                typeof req.body.note ===
+                "string"
+                    ? req.body.note.trim()
+                    : "";
+
+
+            booking.actualReturnDate =
+                new Date();
+
+
+            booking.status =
+                "completed";
+
+
+            await booking.save();
+
+
+            const car =
+                await Car.findById(
+                    booking.car
+                );
+
+
+            const carName =
+                car && car.name
+                    ? car.name
+                    : "your car";
+
+
+            await Notification.create({
+
+                user:
+                    booking.renter,
+
+                booking:
+                    booking._id,
+
+                message:
+                    `Your booking for ${carName} has been completed.`,
+
+                type:
+                    "booking_completed"
+
+            });
+
+
+            return res.status(200).json({
+
+                success: true,
+
+                message:
+                    "Booking completed successfully.",
+
+                booking
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Complete Booking Error:",
+                error
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to complete booking."
+
+            });
+        }
+    }
+);
+
+
+// =====================================================
+// 11. GET SINGLE BOOKING
+// MUST BE LAST
+// =====================================================
+
+router.get(
+    "/:id",
+    async (req, res) => {
+
+        try {
+
+            if (!req.session.userId) {
+
+                return res.status(401).json({
+
+                    success: false,
+
+                    message:
+                        "Please login first."
+
+                });
+            }
+
+
+            const booking =
+                await Booking.findById(
+                    req.params.id
+                )
+                    .populate("car")
+                    .populate(
+                        "renter",
+                        "name email"
+                    )
+                    .populate(
+                        "owner",
+                        "name email"
+                    );
+
+
+            if (!booking) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Booking not found."
+
+                });
+            }
+
+
+            const isRenter =
+                booking.renter &&
+                booking.renter._id
+                    .toString() ===
+                req.session.userId.toString();
+
+
+            const isOwner =
+                booking.owner &&
+                booking.owner._id
+                    .toString() ===
+                req.session.userId.toString();
+
+
+            if (
+                !isRenter &&
+                !isOwner
+            ) {
+
+                return res.status(403).json({
+
+                    success: false,
+
+                    message:
+                        "You are not allowed to view this booking."
+
+                });
+            }
+
+
+            return res.status(200).json({
+
+                success: true,
+
+                booking
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Get Booking Error:",
+                error
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to fetch booking."
+
+            });
+        }
+    }
+);
 
 
 module.exports = router;

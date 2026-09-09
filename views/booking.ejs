@@ -1400,11 +1400,10 @@
                     // ======================================
                     // BOOKING SUCCESS
                     // ======================================
-
-                    showFlash(
-                        "Booking confirmed successfully!",
-                        "success"
-                    );
+showFlash(
+    "Your booking has been sent to the owner. Please wait for confirmation.",
+    "success"
+);
 
 
                     /*
@@ -1414,16 +1413,14 @@
                      * Example:
                      * /booking-confirm?booking=68xxxxxxxx
                      */
+setTimeout(() => {
 
-                    setTimeout(() => {
+    window.location.href =
+        `/confirmationPage?booking=${encodeURIComponent(
+            data.booking._id
+        )}`;
 
-                        window.location.href =
-                            `/booking-confirm?booking=${encodeURIComponent(
-                                data.booking._id
-                            )}`;
-
-                    }, 700);
-
+}, 700);
 
                 } catch (error) {
 
