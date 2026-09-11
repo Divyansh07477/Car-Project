@@ -2,21 +2,13 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Bookings - RideWave</title>
 
-    <link
-        rel="icon"
-        type="image/png"
-        href="/images/title.png.jpeg"
-    >
+    <link rel="icon" type="image/png" href="/images/title.png.jpeg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,35 +20,21 @@
     >
 
     <script>
-
         tailwind.config = {
-
             theme: {
-
                 extend: {
-
                     colors: {
-
                         brand: {
-
                             primary: "#2563eb",
-
                             "primary-hover": "#1d4ed8"
-
                         }
-
                     }
-
                 }
-
             }
-
         };
-
     </script>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -101,113 +79,93 @@
         }
 
         @keyframes spin {
-
             to {
                 transform: rotate(360deg);
             }
-
         }
 
-    </style>
+        /* CAR IMAGE - FULL IMAGE, NO CROP */
+        .booking-car-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            padding: 8px;
+            display: block;
+        }
 
+        /* CANCEL BUTTON */
+        .cancel-booking-btn {
+            transition: all 0.2s ease;
+        }
+
+        .cancel-booking-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* MODAL */
+        #cancelModal {
+            backdrop-filter: blur(4px);
+        }
+
+        .cancel-modal-box {
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+    </style>
 </head>
 
 
 <body class="text-slate-800">
 
-
     <!-- ================================================= -->
     <!-- NAVBAR -->
     <!-- ================================================= -->
 
-    <nav
-        class="
-        bg-white
-        border-b
-        border-slate-200
-        sticky
-        top-0
-        z-50
-        "
-    >
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
 
-        <div
-            class="
-            max-w-7xl
-            mx-auto
-            px-5
-            lg:px-8
-            h-20
-            flex
-            items-center
-            justify-between
-            "
-        >
+        <div class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex items-center justify-between">
 
             <!-- LOGO -->
-
             <a
                 href="/"
-                class="
-                text-2xl
-                md:text-3xl
-                font-extrabold
-                tracking-tight
-                text-slate-900
-                "
+                class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900"
             >
-
-                Ride<span class="text-blue-600">
-                    Wave
-                </span>
-
+                Ride<span class="text-blue-600">Wave</span>
             </a>
 
 
             <!-- NAV LINKS -->
-
-            <div
-                class="
-                hidden
-                md:flex
-                items-center
-                gap-8
-                "
-            >
+            <div class="hidden md:flex items-center gap-8">
 
                 <a
                     href="/"
-                    class="
-                    text-sm
-                    font-semibold
-                    text-slate-600
-                    hover:text-blue-600
-                    transition
-                    "
+                    class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition"
                 >
                     Home
                 </a>
 
                 <a
                     href="/search"
-                    class="
-                    text-sm
-                    font-semibold
-                    text-slate-600
-                    hover:text-blue-600
-                    transition
-                    "
+                    class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition"
                 >
                     Cars
                 </a>
 
                 <a
                     href="/Mybookings"
-                    class="
-                    text-sm
-                    font-semibold
-                    text-blue-600
-                    "
+                    class="text-sm font-semibold text-blue-600"
                 >
                     My Bookings
                 </a>
@@ -216,71 +174,27 @@
 
 
             <!-- RIGHT SIDE -->
-
             <div class="flex items-center gap-4">
 
                 <button
                     id="notificationBtn"
-                    class="
-                    relative
-                    w-10
-                    h-10
-                    rounded-full
-                    bg-slate-100
-                    hover:bg-blue-50
-                    flex
-                    items-center
-                    justify-center
-                    transition
-                    "
+                    class="relative w-10 h-10 rounded-full bg-slate-100 hover:bg-blue-50 flex items-center justify-center transition"
                     title="Notifications"
                 >
-
-                    <i
-                        class="
-                        bx
-                        bx-bell
-                        text-xl
-                        text-slate-700
-                        "
-                    ></i>
+                    <i class="bx bx-bell text-xl text-slate-700"></i>
 
                     <span
                         id="notificationDot"
-                        class="
-                        hidden
-                        absolute
-                        top-1
-                        right-1
-                        w-2
-                        h-2
-                        bg-red-500
-                        rounded-full
-                        "
+                        class="hidden absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"
                     ></span>
-
                 </button>
 
 
                 <button
                     id="logoutBtn"
-                    class="
-                    hidden
-                    md:block
-                    px-5
-                    py-2.5
-                    rounded-xl
-                    bg-slate-900
-                    text-white
-                    text-sm
-                    font-bold
-                    hover:bg-slate-700
-                    transition
-                    "
+                    class="hidden md:block px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-700 transition"
                 >
-
                     Logout
-
                 </button>
 
             </div>
@@ -290,140 +204,56 @@
     </nav>
 
 
-
     <!-- ================================================= -->
     <!-- MAIN -->
     <!-- ================================================= -->
 
-    <main
-        class="
-        max-w-7xl
-        mx-auto
-        px-5
-        lg:px-8
-        py-10
-        "
-    >
+    <main class="max-w-7xl mx-auto px-5 lg:px-8 py-10">
 
-
-        <!-- ================================================= -->
         <!-- PAGE HEADER -->
-        <!-- ================================================= -->
+        <div class="mb-8">
 
-        <div
-            class="
-            mb-8
-            "
-        >
-
-            <p
-                class="
-                text-sm
-                font-bold
-                uppercase
-                tracking-widest
-                text-blue-600
-                mb-2
-                "
-            >
+            <p class="text-sm font-bold uppercase tracking-widest text-blue-600 mb-2">
                 RideWave
             </p>
 
-            <h1
-                class="
-                text-3xl
-                md:text-4xl
-                font-extrabold
-                text-slate-900
-                "
-            >
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">
                 My Bookings
             </h1>
 
-            <p
-                class="
-                mt-2
-                text-slate-500
-                "
-            >
+            <p class="mt-2 text-slate-500">
                 View and manage all your car rental bookings.
             </p>
 
         </div>
 
 
-
-        <!-- ================================================= -->
-        <!-- PROFILE HEADER -->
-        <!-- ================================================= -->
-
+        <!-- PROFILE -->
         <div
             id="profileCard"
-            class="
-            bg-white
-            rounded-2xl
-            border
-            border-slate-200
-            p-5
-            md:p-6
-            mb-8
-            "
+            class="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 mb-8"
         >
 
-            <div
-                class="
-                flex
-                flex-col
-                sm:flex-row
-                sm:items-center
-                gap-4
-                "
-            >
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
 
                 <div
-                    class="
-                    w-14
-                    h-14
-                    rounded-full
-                    bg-blue-100
-                    flex
-                    items-center
-                    justify-center
-                    "
+                    class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center"
                 >
-
-                    <i
-                        class="
-                        bx
-                        bx-user
-                        text-3xl
-                        text-blue-600
-                        "
-                    ></i>
-
+                    <i class="bx bx-user text-3xl text-blue-600"></i>
                 </div>
-
 
                 <div>
 
                     <p
                         id="profileName"
-                        class="
-                        text-xl
-                        font-bold
-                        text-slate-900
-                        "
+                        class="text-xl font-bold text-slate-900"
                     >
                         Welcome
                     </p>
 
                     <p
                         id="profileEmail"
-                        class="
-                        text-sm
-                        text-slate-500
-                        mt-1
-                        "
+                        class="text-sm text-slate-500 mt-1"
                     >
                         Loading...
                     </p>
@@ -435,109 +265,39 @@
         </div>
 
 
-
-        <!-- ================================================= -->
         <!-- FILTERS -->
-        <!-- ================================================= -->
-
-        <div
-            class="
-            flex
-            flex-wrap
-            gap-3
-            mb-8
-            "
-        >
+        <div class="flex flex-wrap gap-3 mb-8">
 
             <button
-                class="
-                filter-btn
-                active
-                px-5
-                py-2.5
-                rounded-xl
-                border
-                border-slate-200
-                bg-white
-                text-sm
-                font-bold
-                "
+                class="filter-btn active px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-bold"
                 data-filter="all"
             >
                 All
             </button>
 
-
             <button
-                class="
-                filter-btn
-                px-5
-                py-2.5
-                rounded-xl
-                border
-                border-slate-200
-                bg-white
-                text-sm
-                font-bold
-                text-slate-600
-                "
+                class="filter-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-600"
                 data-filter="pending"
             >
                 Pending
             </button>
 
-
             <button
-                class="
-                filter-btn
-                px-5
-                py-2.5
-                rounded-xl
-                border
-                border-slate-200
-                bg-white
-                text-sm
-                font-bold
-                text-slate-600
-                "
+                class="filter-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-600"
                 data-filter="confirmed"
             >
                 Confirmed
             </button>
 
-
             <button
-                class="
-                filter-btn
-                px-5
-                py-2.5
-                rounded-xl
-                border
-                border-slate-200
-                bg-white
-                text-sm
-                font-bold
-                text-slate-600
-                "
+                class="filter-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-600"
                 data-filter="completed"
             >
                 Completed
             </button>
 
-
             <button
-                class="
-                filter-btn
-                px-5
-                py-2.5
-                rounded-xl
-                border
-                border-slate-200
-                bg-white
-                text-sm
-                font-bold
-                text-slate-600
-                "
+                class="filter-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-600"
                 data-filter="cancelled"
             >
                 Cancelled
@@ -546,98 +306,43 @@
         </div>
 
 
-
-        <!-- ================================================= -->
         <!-- LOADING -->
-        <!-- ================================================= -->
-
         <div
             id="loadingState"
-            class="
-            flex
-            flex-col
-            items-center
-            justify-center
-            py-20
-            "
+            class="flex flex-col items-center justify-center py-20"
         >
 
             <div class="loading-spinner"></div>
 
-            <p
-                class="
-                mt-4
-                text-slate-500
-                font-medium
-                "
-            >
+            <p class="mt-4 text-slate-500 font-medium">
                 Loading your bookings...
             </p>
 
         </div>
 
 
-
-        <!-- ================================================= -->
         <!-- ERROR -->
-        <!-- ================================================= -->
-
         <div
             id="errorState"
-            class="
-            hidden
-            bg-red-50
-            border
-            border-red-200
-            rounded-2xl
-            p-6
-            text-center
-            "
+            class="hidden bg-red-50 border border-red-200 rounded-2xl p-6 text-center"
         >
 
-            <i
-                class="
-                bx
-                bx-error-circle
-                text-4xl
-                text-red-500
-                "
-            ></i>
+            <i class="bx bx-error-circle text-4xl text-red-500"></i>
 
-            <h3
-                class="
-                mt-3
-                font-bold
-                text-red-700
-                "
-            >
+            <h3 class="mt-3 font-bold text-red-700">
                 Unable to load bookings
             </h3>
 
             <p
                 id="errorMessage"
-                class="
-                mt-1
-                text-sm
-                text-red-600
-                "
+                class="mt-1 text-sm text-red-600"
             >
                 Something went wrong.
             </p>
 
             <button
                 id="retryBtn"
-                class="
-                mt-4
-                px-5
-                py-2.5
-                rounded-xl
-                bg-red-600
-                text-white
-                font-bold
-                text-sm
-                hover:bg-red-700
-                "
+                class="mt-4 px-5 py-2.5 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700"
             >
                 Try Again
             </button>
@@ -645,86 +350,32 @@
         </div>
 
 
-
-        <!-- ================================================= -->
         <!-- EMPTY -->
-        <!-- ================================================= -->
-
         <div
             id="emptyState"
-            class="
-            hidden
-            bg-white
-            border
-            border-slate-200
-            rounded-2xl
-            p-10
-            text-center
-            "
+            class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center"
         >
 
             <div
-                class="
-                w-20
-                h-20
-                mx-auto
-                rounded-full
-                bg-slate-100
-                flex
-                items-center
-                justify-center
-                "
+                class="w-20 h-20 mx-auto rounded-full bg-slate-100 flex items-center justify-center"
             >
-
-                <i
-                    class="
-                    bx
-                    bx-car
-                    text-4xl
-                    text-slate-400
-                    "
-                ></i>
-
+                <i class="bx bx-car text-4xl text-slate-400"></i>
             </div>
 
-
-            <h3
-                class="
-                mt-5
-                text-xl
-                font-bold
-                text-slate-900
-                "
-            >
+            <h3 class="mt-5 text-xl font-bold text-slate-900">
                 No bookings found
             </h3>
 
             <p
                 id="emptyMessage"
-                class="
-                mt-2
-                text-slate-500
-                "
+                class="mt-2 text-slate-500"
             >
                 You haven't made any bookings yet.
             </p>
 
-
             <a
                 href="/search"
-                class="
-                inline-flex
-                mt-6
-                px-6
-                py-3
-                rounded-xl
-                bg-blue-600
-                text-white
-                font-bold
-                text-sm
-                hover:bg-blue-700
-                transition
-                "
+                class="inline-flex mt-6 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition"
             >
                 Browse Cars
             </a>
@@ -732,22 +383,68 @@
         </div>
 
 
-
-        <!-- ================================================= -->
         <!-- BOOKINGS -->
-        <!-- ================================================= -->
-
         <div
             id="bookingsContainer"
-            class="
-            hidden
-            space-y-6
-            "
+            class="hidden space-y-6"
         ></div>
-
 
     </main>
 
+
+    <!-- ================================================= -->
+    <!-- CANCEL MODAL -->
+    <!-- ================================================= -->
+
+    <div
+        id="cancelModal"
+        class="hidden fixed inset-0 z-[100] bg-slate-900/60 flex items-center justify-center px-5"
+    >
+
+        <div
+            class="cancel-modal-box bg-white w-full max-w-md rounded-2xl shadow-2xl p-6"
+        >
+
+            <div
+                class="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center"
+            >
+                <i class="bx bx-x-circle text-3xl text-red-600"></i>
+            </div>
+
+
+            <h3 class="mt-5 text-xl font-extrabold text-center text-slate-900">
+                Cancel Booking?
+            </h3>
+
+
+            <p class="mt-2 text-sm text-slate-500 text-center">
+                Are you sure you want to cancel this booking?
+                The owner will be notified automatically.
+            </p>
+
+
+            <div class="mt-6 flex gap-3">
+
+                <button
+                    id="closeCancelModal"
+                    class="flex-1 px-5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold hover:bg-slate-50"
+                >
+                    Keep Booking
+                </button>
+
+
+                <button
+                    id="confirmCancelBtn"
+                    class="flex-1 px-5 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700"
+                >
+                    Yes, Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <!-- ================================================= -->
@@ -760,6 +457,8 @@
 
         let currentFilter = "all";
 
+        let selectedBookingIdForCancel = null;
+
 
         // =================================================
         // ESCAPE HTML
@@ -767,10 +466,7 @@
 
         function escapeHtml(value) {
 
-            if (
-                value === null ||
-                value === undefined
-            ) {
+            if (value === null || value === undefined) {
                 return "";
             }
 
@@ -780,9 +476,20 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
-
         }
 
+
+        // =================================================
+        // GET BOOKING STATUS
+        // =================================================
+
+        function getBookingStatus(booking) {
+
+            return String(
+                booking?.status || "pending"
+            ).toLowerCase();
+
+        }
 
 
         // =================================================
@@ -809,9 +516,7 @@
                     year: "numeric"
                 }
             );
-
         }
-
 
 
         // =================================================
@@ -820,15 +525,10 @@
 
         function formatMoney(amount) {
 
-            const number =
-                Number(amount) || 0;
+            const number = Number(amount) || 0;
 
-            return number.toLocaleString(
-                "en-IN"
-            );
-
+            return number.toLocaleString("en-IN");
         }
-
 
 
         // =================================================
@@ -837,9 +537,9 @@
 
         function getStatusBadge(status) {
 
-            status =
-                String(status || "pending")
-                    .toLowerCase();
+            status = String(
+                status || "pending"
+            ).toLowerCase();
 
 
             if (status === "confirmed") {
@@ -861,7 +561,6 @@
                         font-bold
                         "
                     >
-
                         <span
                             class="
                             w-1.5
@@ -872,10 +571,8 @@
                         ></span>
 
                         Confirmed
-
                     </span>
                 `;
-
             }
 
 
@@ -898,7 +595,6 @@
                         font-bold
                         "
                     >
-
                         <span
                             class="
                             w-1.5
@@ -909,10 +605,8 @@
                         ></span>
 
                         Completed
-
                     </span>
                 `;
-
             }
 
 
@@ -935,7 +629,6 @@
                         font-bold
                         "
                     >
-
                         <span
                             class="
                             w-1.5
@@ -946,10 +639,8 @@
                         ></span>
 
                         Cancelled
-
                     </span>
                 `;
-
             }
 
 
@@ -970,7 +661,6 @@
                     font-bold
                     "
                 >
-
                     <span
                         class="
                         w-1.5
@@ -981,12 +671,9 @@
                     ></span>
 
                     Pending
-
                 </span>
             `;
-
         }
-
 
 
         // =================================================
@@ -1008,9 +695,688 @@
             }
 
             return "pending";
-
         }
 
+
+        // =================================================
+        // CHECK PAID
+        // =================================================
+
+        function isBookingPaid(booking) {
+
+            const paymentStatus =
+                getPaymentStatus(booking);
+
+            return [
+                "paid",
+                "success",
+                "completed"
+            ].includes(paymentStatus);
+        }
+
+
+        // =================================================
+        // CHECK REFUNDED
+        // =================================================
+
+        function isBookingRefunded(booking) {
+
+            const paymentStatus =
+                getPaymentStatus(booking);
+
+            const status =
+                getBookingStatus(booking);
+
+
+            /*
+             * Direct refund status
+             */
+
+            if (
+                paymentStatus === "refunded" ||
+                paymentStatus === "refund" ||
+                paymentStatus === "refunded_success"
+            ) {
+
+                return true;
+            }
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Owner cancelled a PAID booking.
+             *
+             * If backend still sends payment.status = paid,
+             * cancelled + paid means refunded from
+             * user-side perspective.
+             */
+
+            if (
+                status === "cancelled" &&
+                isBookingPaid(booking)
+            ) {
+
+                return true;
+            }
+
+
+            return false;
+        }
+
+
+        // =================================================
+        // USER CAN CANCEL
+        // =================================================
+
+        function canUserCancelBooking(booking) {
+
+            if (!booking) {
+                return false;
+            }
+
+            const status =
+                getBookingStatus(booking);
+
+
+            /*
+             * PAID BOOKING:
+             *
+             * User cannot cancel.
+             */
+
+            if (isBookingPaid(booking)) {
+                return false;
+            }
+
+
+            /*
+             * REFUNDED BOOKING:
+             *
+             * Already cancelled/refunded.
+             */
+
+            if (isBookingRefunded(booking)) {
+                return false;
+            }
+
+
+            /*
+             * Already cancelled/completed.
+             */
+
+            if (
+                status === "cancelled" ||
+                status === "completed"
+            ) {
+
+                return false;
+            }
+
+
+            /*
+             * ONLY pending and confirmed
+             * unpaid bookings can be cancelled.
+             */
+
+            return (
+                status === "pending" ||
+                status === "confirmed"
+            );
+        }
+
+
+        // =================================================
+        // REFUNDED PAYMENT UI
+        // =================================================
+
+        function refundedPaymentHtml() {
+
+            return `
+                <div
+                    class="
+                    mt-6
+                    pt-6
+                    border-t
+                    border-slate-200
+                    flex
+                    flex-col
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                    gap-4
+                    "
+                >
+
+                    <div>
+
+                        <p
+                            class="
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-wider
+                            text-slate-400
+                            "
+                        >
+                            Payment Status
+                        </p>
+
+                        <div
+                            class="
+                            mt-1
+                            flex
+                            items-center
+                            gap-2
+                            "
+                        >
+
+                            <span
+                                class="
+                                flex
+                                items-center
+                                justify-center
+                                w-6
+                                h-6
+                                rounded-full
+                                bg-emerald-100
+                                text-emerald-600
+                                font-bold
+                                "
+                            >
+                                ✓
+                            </span>
+
+                            <p
+                                class="
+                                text-sm
+                                font-bold
+                                text-emerald-600
+                                "
+                            >
+                                Payment Refunded
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        justify-center
+                        gap-2
+                        px-6
+                        py-2.5
+                        rounded-xl
+                        bg-emerald-50
+                        border
+                        border-emerald-200
+                        text-emerald-700
+                        text-sm
+                        font-bold
+                        transition-all
+                        hover:bg-emerald-100
+                        hover:border-emerald-300
+                        hover:text-emerald-800
+                        hover:-translate-y-0.5
+                        "
+                    >
+                        <span>✓</span>
+
+                        Refunded
+                    </div>
+
+                </div>
+            `;
+        }
+
+
+        // =================================================
+        // PAID PAYMENT UI
+        // =================================================
+
+        function paidPaymentHtml() {
+
+            return `
+                <div
+                    class="
+                    mt-6
+                    pt-6
+                    border-t
+                    border-slate-200
+                    flex
+                    flex-col
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                    gap-4
+                    "
+                >
+
+                    <div>
+
+                        <p
+                            class="
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-wider
+                            text-slate-400
+                            "
+                        >
+                            Payment Status
+                        </p>
+
+                        <div
+                            class="
+                            mt-1
+                            flex
+                            items-center
+                            gap-2
+                            "
+                        >
+
+                            <span
+                                class="
+                                flex
+                                items-center
+                                justify-center
+                                w-6
+                                h-6
+                                rounded-full
+                                bg-emerald-100
+                                text-emerald-600
+                                font-bold
+                                "
+                            >
+                                ✓
+                            </span>
+
+                            <p
+                                class="
+                                text-sm
+                                font-bold
+                                text-emerald-600
+                                "
+                            >
+                                Payment Completed
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        justify-center
+                        gap-2
+                        px-6
+                        py-2.5
+                        rounded-xl
+                        bg-emerald-50
+                        border
+                        border-emerald-200
+                        text-emerald-700
+                        text-sm
+                        font-bold
+                        "
+                    >
+                        <span>✓</span>
+
+                        Paid
+                    </div>
+
+                </div>
+            `;
+        }
+
+
+        // =================================================
+        // CANCEL BUTTON HTML
+        // =================================================
+
+        function cancelButtonHtml(
+            bookingId,
+            text = "Cancel Booking"
+        ) {
+
+            return `
+                <button
+                    type="button"
+                    class="
+                    cancel-booking-btn
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-2
+                    px-5
+                    py-3
+                    rounded-xl
+                    bg-red-50
+                    border
+                    border-red-200
+                    text-red-600
+                    text-sm
+                    font-bold
+                    hover:bg-red-100
+                    hover:border-red-300
+                    hover:text-red-700
+                    "
+                    data-cancel-id="${escapeHtml(bookingId)}"
+                >
+
+                    <i class="bx bx-x text-lg"></i>
+
+                    ${escapeHtml(text)}
+
+                </button>
+            `;
+        }
+
+
+        // =================================================
+        // PAYMENT SECTION
+        // =================================================
+
+        function renderPaymentSection(
+            booking,
+            status,
+            bookingId
+        ) {
+
+            const paid =
+                isBookingPaid(booking);
+
+            const refunded =
+                isBookingRefunded(booking);
+
+
+            // ---------------------------------------------
+            // CANCELLED
+            // ---------------------------------------------
+
+            if (status === "cancelled") {
+
+                if (refunded) {
+                    return refundedPaymentHtml();
+                }
+
+
+                return `
+                    <div
+                        class="
+                        mt-6
+                        pt-6
+                        border-t
+                        border-slate-200
+                        "
+                    >
+
+                        <p
+                            class="
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-wider
+                            text-slate-400
+                            "
+                        >
+                            Booking Status
+                        </p>
+
+                        <p
+                            class="
+                            mt-1
+                            text-sm
+                            font-bold
+                            text-red-600
+                            "
+                        >
+                            Booking Cancelled
+                        </p>
+
+                    </div>
+                `;
+            }
+
+
+            // ---------------------------------------------
+            // COMPLETED
+            // ---------------------------------------------
+
+            if (status === "completed") {
+
+                return `
+                    <div
+                        class="
+                        mt-6
+                        pt-6
+                        border-t
+                        border-slate-200
+                        "
+                    >
+
+                        <p
+                            class="
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-wider
+                            text-slate-400
+                            "
+                        >
+                            Booking Status
+                        </p>
+
+                        <p
+                            class="
+                            mt-1
+                            text-sm
+                            font-bold
+                            text-blue-600
+                            "
+                        >
+                            Rental Completed
+                        </p>
+
+                    </div>
+                `;
+            }
+
+
+            // ---------------------------------------------
+            // CONFIRMED
+            // ---------------------------------------------
+
+            if (status === "confirmed") {
+
+                /*
+                 * CONFIRMED + PAID
+                 *
+                 * No cancel button.
+                 */
+
+                if (paid) {
+
+                    return paidPaymentHtml();
+                }
+
+
+                /*
+                 * CONFIRMED + UNPAID
+                 *
+                 * Pay Now + Cancel
+                 */
+
+                return `
+                    <div
+                        class="
+                        mt-6
+                        pt-6
+                        border-t
+                        border-slate-200
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                        gap-4
+                        "
+                    >
+
+                        <div>
+
+                            <p
+                                class="
+                                text-[10px]
+                                font-bold
+                                uppercase
+                                tracking-wider
+                                text-slate-400
+                                "
+                            >
+                                Payment Status
+                            </p>
+
+                            <p
+                                class="
+                                mt-1
+                                text-sm
+                                font-bold
+                                text-amber-600
+                                "
+                            >
+                                Payment Pending
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="
+                            flex
+                            flex-wrap
+                            items-center
+                            gap-3
+                            "
+                        >
+
+                            <a
+                                href="/payment?booking=${encodeURIComponent(bookingId)}"
+                                class="
+                                inline-flex
+                                items-center
+                                justify-center
+                                gap-2
+                                px-6
+                                py-3
+                                rounded-xl
+                                bg-blue-600
+                                text-white
+                                text-sm
+                                font-bold
+                                shadow-sm
+                                hover:bg-blue-700
+                                hover:-translate-y-0.5
+                                transition-all
+                                "
+                            >
+
+                                Pay Now
+
+                                <i class="bx bx-right-arrow-alt text-lg"></i>
+
+                            </a>
+
+
+                            ${
+                                canUserCancelBooking(booking)
+                                    ? cancelButtonHtml(
+                                        bookingId,
+                                        "Cancel"
+                                    )
+                                    : ""
+                            }
+
+                        </div>
+
+                    </div>
+                `;
+            }
+
+
+            // ---------------------------------------------
+            // PENDING
+            // ---------------------------------------------
+
+            if (status === "pending") {
+
+                return `
+                    <div
+                        class="
+                        mt-6
+                        pt-6
+                        border-t
+                        border-slate-200
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                        gap-4
+                        "
+                    >
+
+                        <div>
+
+                            <p
+                                class="
+                                text-[10px]
+                                font-bold
+                                uppercase
+                                tracking-wider
+                                text-slate-400
+                                "
+                            >
+                                Booking Status
+                            </p>
+
+                            <p
+                                class="
+                                mt-1
+                                text-sm
+                                font-bold
+                                text-amber-600
+                                "
+                            >
+                                Waiting for owner confirmation
+                            </p>
+
+                        </div>
+
+
+                        ${
+                            canUserCancelBooking(booking)
+                                ? cancelButtonHtml(
+                                    bookingId,
+                                    "Cancel Booking"
+                                )
+                                : ""
+                        }
+
+                    </div>
+                `;
+            }
+
+
+            return "";
+        }
 
 
         // =================================================
@@ -1039,9 +1405,7 @@
                 allBookingsData;
 
 
-            // ---------------------------------------------
             // FILTER
-            // ---------------------------------------------
 
             if (currentFilter !== "all") {
 
@@ -1050,25 +1414,20 @@
                         booking => {
 
                             const status =
-                                String(
-                                    booking.status ||
-                                    "pending"
-                                ).toLowerCase();
+                                getBookingStatus(
+                                    booking
+                                );
 
                             return (
                                 status ===
                                 currentFilter
                             );
-
                         }
                     );
-
             }
 
 
-            // ---------------------------------------------
             // EMPTY
-            // ---------------------------------------------
 
             if (
                 !filteredBookings ||
@@ -1077,13 +1436,9 @@
 
                 container.innerHTML = "";
 
-                container.classList.add(
-                    "hidden"
-                );
+                container.classList.add("hidden");
 
-                emptyState.classList.remove(
-                    "hidden"
-                );
+                emptyState.classList.remove("hidden");
 
 
                 if (
@@ -1098,64 +1453,31 @@
 
                     emptyMessage.textContent =
                         "You haven't made any bookings yet.";
-
                 }
 
                 return;
-
             }
 
 
-            emptyState.classList.add(
-                "hidden"
-            );
+            emptyState.classList.add("hidden");
 
-            container.classList.remove(
-                "hidden"
-            );
+            container.classList.remove("hidden");
 
 
-
-            // ---------------------------------------------
             // CREATE CARDS
-            // ---------------------------------------------
 
             container.innerHTML =
-                filteredBookings.map(
-                    booking => {
-
+                filteredBookings
+                    .map(booking => {
 
                         const status =
-                            String(
-                                booking.status ||
-                                "pending"
-                            ).toLowerCase();
-
-
-                        const paymentStatus =
-                            getPaymentStatus(
+                            getBookingStatus(
                                 booking
                             );
 
 
-                        const isConfirmed =
-                            status ===
-                            "confirmed";
-
-
-                        const isPaid =
-                            paymentStatus ===
-                            "paid";
-
-
                         const car =
-                            booking.car ||
-                            {};
-
-
-                        const owner =
-                            booking.owner ||
-                            {};
+                            booking.car || {};
 
 
                         const carName =
@@ -1198,12 +1520,6 @@
                             ) || 0;
 
 
-                        const ownerName =
-                            owner.name ||
-                            owner.username ||
-                            "Car Owner";
-
-
                         const note =
                             booking.note ||
                             "";
@@ -1222,17 +1538,9 @@
                                 "
                             >
 
-
-                                <!-- ================================= -->
                                 <!-- TOP CAR SECTION -->
-                                <!-- ================================= -->
 
-                                <div
-                                    class="
-                                    p-5
-                                    md:p-6
-                                    "
-                                >
+                                <div class="p-5 md:p-6">
 
                                     <div
                                         class="
@@ -1242,7 +1550,6 @@
                                         gap-6
                                         "
                                     >
-
 
                                         <!-- CAR IMAGE -->
 
@@ -1255,18 +1562,18 @@
                                             overflow-hidden
                                             bg-slate-100
                                             flex-shrink-0
+                                            flex
+                                            items-center
+                                            justify-center
                                             "
                                         >
 
                                             <img
                                                 src="${escapeHtml(carImage)}"
                                                 alt="${escapeHtml(carName)}"
-                                                class="
-                                                w-full
-                                                h-full
-                                                object-cover
-                                                "
+                                                class="booking-car-image"
                                                 onerror="
+                                                    this.onerror=null;
                                                     this.src='/images/car-placeholder.jpg';
                                                 "
                                             >
@@ -1274,14 +1581,9 @@
                                         </div>
 
 
-
                                         <!-- CAR DETAILS -->
 
-                                        <div
-                                            class="
-                                            flex-1
-                                            "
-                                        >
+                                        <div class="flex-1">
 
                                             <div
                                                 class="
@@ -1308,6 +1610,7 @@
                                                         ${escapeHtml(category)}
                                                     </p>
 
+
                                                     <h2
                                                         class="
                                                         mt-1
@@ -1323,13 +1626,10 @@
 
 
                                                 <div>
-
                                                     ${getStatusBadge(status)}
-
                                                 </div>
 
                                             </div>
-
 
 
                                             <!-- CAR META -->
@@ -1370,34 +1670,34 @@
                                                 ${
                                                     car.seats
                                                         ? `
-                                                        <div
-                                                            class="
-                                                            inline-flex
-                                                            items-center
-                                                            gap-2
-                                                            text-sm
-                                                            text-slate-500
-                                                            "
-                                                        >
-
-                                                            <i
+                                                            <div
                                                                 class="
-                                                                bx
-                                                                bx-user
-                                                                text-lg
-                                                                text-blue-500
+                                                                inline-flex
+                                                                items-center
+                                                                gap-2
+                                                                text-sm
+                                                                text-slate-500
                                                                 "
-                                                            ></i>
+                                                            >
 
-                                                            ${escapeHtml(car.seats)} Seats
+                                                                <i
+                                                                    class="
+                                                                    bx
+                                                                    bx-user
+                                                                    text-lg
+                                                                    text-blue-500
+                                                                    "
+                                                                ></i>
 
-                                                        </div>
+                                                                ${escapeHtml(car.seats)}
+                                                                Seats
+
+                                                            </div>
                                                         `
                                                         : ""
                                                 }
 
                                             </div>
-
 
 
                                             <!-- BOOKING ID -->
@@ -1427,6 +1727,7 @@
                                                     BOOKING ID
                                                 </span>
 
+
                                                 <span
                                                     class="
                                                     text-xs
@@ -1447,10 +1748,7 @@
                                 </div>
 
 
-
-                                <!-- ================================= -->
                                 <!-- BOOKING INFORMATION -->
-                                <!-- ================================= -->
 
                                 <div
                                     class="
@@ -1470,7 +1768,6 @@
                                         gap-5
                                         "
                                     >
-
 
                                         <!-- START DATE -->
 
@@ -1495,11 +1792,12 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${formatBookingDate(booking.startDate)}
+                                                ${formatBookingDate(
+                                                    booking.startDate
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- END DATE -->
@@ -1525,11 +1823,12 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${formatBookingDate(booking.endDate)}
+                                                ${formatBookingDate(
+                                                    booking.endDate
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- PICKUP -->
@@ -1555,11 +1854,13 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${escapeHtml(booking.pickupLocation || "N/A")}
+                                                ${escapeHtml(
+                                                    booking.pickupLocation ||
+                                                    "N/A"
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- DAYS -->
@@ -1585,7 +1886,10 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${escapeHtml(booking.totalDays || 1)} Day(s)
+                                                ${escapeHtml(
+                                                    booking.totalDays || 1
+                                                )}
+                                                Day(s)
                                             </p>
 
                                         </div>
@@ -1593,10 +1897,7 @@
                                     </div>
 
 
-
-                                    <!-- ================================= -->
-                                    <!-- CUSTOMER / OWNER / PRICE -->
-                                    <!-- ================================= -->
+                                    <!-- CUSTOMER / PHONE / PRICE -->
 
                                     <div
                                         class="
@@ -1611,7 +1912,6 @@
                                         border-slate-100
                                         "
                                     >
-
 
                                         <!-- CUSTOMER -->
 
@@ -1636,11 +1936,13 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${escapeHtml(booking.name || "N/A")}
+                                                ${escapeHtml(
+                                                    booking.name ||
+                                                    "N/A"
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- PHONE -->
@@ -1666,11 +1968,13 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ${escapeHtml(booking.phone || "N/A")}
+                                                ${escapeHtml(
+                                                    booking.phone ||
+                                                    "N/A"
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- PRICE -->
@@ -1696,11 +2000,12 @@
                                                 text-slate-800
                                                 "
                                             >
-                                                ₹${formatMoney(pricePerDay)}
+                                                ₹${formatMoney(
+                                                    pricePerDay
+                                                )}
                                             </p>
 
                                         </div>
-
 
 
                                         <!-- TOTAL -->
@@ -1727,7 +2032,9 @@
                                                 text-slate-900
                                                 "
                                             >
-                                                ₹${formatMoney(totalAmount)}
+                                                ₹${formatMoney(
+                                                    totalAmount
+                                                )}
                                             </p>
 
                                         </div>
@@ -1735,10 +2042,7 @@
                                     </div>
 
 
-
-                                    <!-- ================================= -->
                                     <!-- EMAIL -->
-                                    <!-- ================================= -->
 
                                     <div
                                         class="
@@ -1770,263 +2074,91 @@
                                             break-all
                                             "
                                         >
-                                            ${escapeHtml(booking.email || "N/A")}
+                                            ${escapeHtml(
+                                                booking.email ||
+                                                "N/A"
+                                            )}
                                         </p>
 
                                     </div>
 
 
-
-                                    <!-- ================================= -->
-                                    <!-- OWNER NOTE -->
-                                    <!-- ================================= -->
+                                    <!-- NOTE -->
 
                                     ${
                                         note
                                             ? `
-                                            <div
-                                                class="
-                                                mt-6
-                                                p-4
-                                                rounded-xl
-                                                bg-blue-50
-                                                border
-                                                border-blue-100
-                                                "
-                                            >
-
                                                 <div
                                                     class="
-                                                    flex
-                                                    items-start
-                                                    gap-3
+                                                    mt-6
+                                                    p-4
+                                                    rounded-xl
+                                                    bg-blue-50
+                                                    border
+                                                    border-blue-100
                                                     "
                                                 >
 
-                                                    <i
+                                                    <div
                                                         class="
-                                                        bx
-                                                        bx-message-detail
-                                                        text-xl
-                                                        text-blue-600
-                                                        "
-                                                    ></i>
-
-                                                    <div>
-
-                                                        <p
-                                                            class="
-                                                            text-xs
-                                                            font-bold
-                                                            uppercase
-                                                            tracking-wider
-                                                            text-blue-500
-                                                            "
-                                                        >
-                                                            Owner Note
-                                                        </p>
-
-                                                        <p
-                                                            class="
-                                                            mt-1
-                                                            text-sm
-                                                            text-slate-700
-                                                            "
-                                                        >
-                                                            ${escapeHtml(note)}
-                                                        </p>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                            `
-                                            : ""
-                                    }
-
-
-
-                                    <!-- ================================= -->
-                                    <!-- PAYMENT SECTION -->
-                                    <!-- ================================= -->
-
-                                    ${
-                                        isConfirmed
-                                            ? `
-
-                                            <div
-                                                class="
-                                                mt-6
-                                                pt-6
-                                                border-t
-                                                border-slate-200
-                                                flex
-                                                flex-col
-                                                sm:flex-row
-                                                sm:items-center
-                                                sm:justify-between
-                                                gap-4
-                                                "
-                                            >
-
-
-                                                <!-- PAYMENT STATUS -->
-
-                                                <div>
-
-                                                    <p
-                                                        class="
-                                                        text-[10px]
-                                                        font-bold
-                                                        uppercase
-                                                        tracking-wider
-                                                        text-slate-400
+                                                        flex
+                                                        items-start
+                                                        gap-3
                                                         "
                                                     >
-                                                        Payment Status
-                                                    </p>
+
+                                                        <i
+                                                            class="
+                                                            bx
+                                                            bx-message-detail
+                                                            text-xl
+                                                            text-blue-600
+                                                            "
+                                                        ></i>
 
 
-                                                    ${
-                                                        isPaid
-                                                            ? `
+                                                        <div>
 
-                                                            <div
+                                                            <p
                                                                 class="
-                                                                mt-1
-                                                                flex
-                                                                items-center
-                                                                gap-2
+                                                                text-xs
+                                                                font-bold
+                                                                uppercase
+                                                                tracking-wider
+                                                                text-blue-500
                                                                 "
                                                             >
+                                                                Note
+                                                            </p>
 
-                                                                <span
-                                                                    class="
-                                                                    flex
-                                                                    items-center
-                                                                    justify-center
-                                                                    w-6
-                                                                    h-6
-                                                                    rounded-full
-                                                                    bg-emerald-100
-                                                                    text-emerald-600
-                                                                    font-bold
-                                                                    "
-                                                                >
-                                                                    ✓
-                                                                </span>
-
-                                                                <p
-                                                                    class="
-                                                                    text-sm
-                                                                    font-bold
-                                                                    text-emerald-600
-                                                                    "
-                                                                >
-                                                                    Payment Completed
-                                                                </p>
-
-                                                            </div>
-
-                                                            `
-                                                            : `
 
                                                             <p
                                                                 class="
                                                                 mt-1
                                                                 text-sm
-                                                                font-bold
-                                                                text-amber-600
+                                                                text-slate-700
                                                                 "
                                                             >
-                                                                Payment Pending
+                                                                ${escapeHtml(note)}
                                                             </p>
-
-                                                            `
-                                                    }
-
-                                                </div>
-
-
-
-                                                <!-- PAYMENT BUTTON -->
-
-                                                ${
-                                                    isPaid
-                                                        ? `
-
-                                                        <div
-                                                            class="
-                                                            inline-flex
-                                                            items-center
-                                                            justify-center
-                                                            gap-2
-                                                            px-6
-                                                            py-2.5
-                                                            rounded-xl
-                                                            bg-emerald-50
-                                                            border
-                                                            border-emerald-200
-                                                            text-emerald-700
-                                                            text-sm
-                                                            font-bold
-                                                            "
-                                                        >
-
-                                                            <span>
-                                                                ✓
-                                                            </span>
-
-                                                            Paid
 
                                                         </div>
 
-                                                        `
-                                                        : `
+                                                    </div>
 
-                                                        <a
-                                                            href="/payment?booking=${encodeURIComponent(bookingId)}"
-                                                            class="
-                                                            inline-flex
-                                                            items-center
-                                                            justify-center
-                                                            gap-2
-                                                            px-6
-                                                            py-3
-                                                            rounded-xl
-                                                            bg-blue-600
-                                                            text-white
-                                                            text-sm
-                                                            font-bold
-                                                            shadow-sm
-                                                            hover:bg-blue-700
-                                                            hover:-translate-y-0.5
-                                                            transition-all
-                                                            "
-                                                        >
-
-                                                            Pay Now
-
-                                                            <i
-                                                                class="
-                                                                bx
-                                                                bx-right-arrow-alt
-                                                                text-lg
-                                                                "
-                                                            ></i>
-
-                                                        </a>
-
-                                                        `
-                                                }
-
-                                            </div>
-
+                                                </div>
                                             `
                                             : ""
                                     }
 
+
+                                    <!-- PAYMENT / CANCEL -->
+
+                                    ${renderPaymentSection(
+                                        booking,
+                                        status,
+                                        bookingId
+                                    )}
 
                                 </div>
 
@@ -2034,11 +2166,67 @@
 
                         `;
 
-                    }
-                ).join("");
+                    })
+                    .join("");
 
+
+            // =================================================
+            // CANCEL BUTTON EVENTS
+            // =================================================
+
+            document
+                .querySelectorAll("[data-cancel-id]")
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const bookingId =
+                                button.dataset.cancelId;
+
+
+                            const booking =
+                                allBookingsData.find(
+                                    item =>
+                                        String(
+                                            item._id ||
+                                            item.id
+                                        ) ===
+                                        String(bookingId)
+                                );
+
+
+                            /*
+                             * Extra frontend safety:
+                             * stale/paid booking par modal
+                             * open hi nahi hoga.
+                             */
+
+                            if (
+                                !booking ||
+                                !canUserCancelBooking(
+                                    booking
+                                )
+                            ) {
+
+                                alert(
+                                    "This booking cannot be cancelled now."
+                                );
+
+                                return;
+                            }
+
+
+                            openCancelModal(
+                                bookingId
+                            );
+
+                        }
+                    );
+
+                });
         }
-
 
 
         // =================================================
@@ -2082,7 +2270,6 @@
                 );
 
             });
-
 
 
         // =================================================
@@ -2143,9 +2330,7 @@
                 );
 
             }
-
         }
-
 
 
         // =================================================
@@ -2186,7 +2371,9 @@
                         "/api/bookings/my-bookings",
                         {
                             method: "GET",
+
                             credentials: "include",
+
                             headers: {
                                 "Accept":
                                     "application/json"
@@ -2198,21 +2385,19 @@
                 if (!response.ok) {
 
                     if (
-                        response.status ===
-                        401
+                        response.status === 401
                     ) {
 
                         window.location.href =
                             "/login";
 
                         return;
-
                     }
+
 
                     throw new Error(
                         "Unable to fetch bookings."
                     );
-
                 }
 
 
@@ -2235,7 +2420,6 @@
 
                 renderBookings();
 
-
             } catch (error) {
 
                 console.error(
@@ -2257,11 +2441,317 @@
                 errorMessage.textContent =
                     error.message ||
                     "Something went wrong while loading bookings.";
-
             }
-
         }
 
+
+        // =================================================
+        // OPEN CANCEL MODAL
+        // =================================================
+
+        function openCancelModal(bookingId) {
+
+            const booking =
+                allBookingsData.find(
+                    item =>
+                        String(
+                            item._id ||
+                            item.id
+                        ) ===
+                        String(bookingId)
+                );
+
+
+            /*
+             * Never open modal for paid/cancelled/completed
+             * booking.
+             */
+
+            if (
+                !booking ||
+                !canUserCancelBooking(booking)
+            ) {
+
+                return;
+            }
+
+
+            selectedBookingIdForCancel =
+                bookingId;
+
+
+            const modal =
+                document.getElementById(
+                    "cancelModal"
+                );
+
+
+            modal.classList.remove(
+                "hidden"
+            );
+        }
+
+
+        // =================================================
+        // CLOSE CANCEL MODAL
+        // =================================================
+
+        function closeCancelModal() {
+
+            selectedBookingIdForCancel =
+                null;
+
+
+            const modal =
+                document.getElementById(
+                    "cancelModal"
+                );
+
+
+            modal.classList.add(
+                "hidden"
+            );
+        }
+
+
+        document
+            .getElementById(
+                "closeCancelModal"
+            )
+            .addEventListener(
+                "click",
+                closeCancelModal
+            );
+
+
+        // =================================================
+        // CLICK OUTSIDE MODAL
+        // =================================================
+
+        document
+            .getElementById(
+                "cancelModal"
+            )
+            .addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target.id ===
+                        "cancelModal"
+                    ) {
+
+                        closeCancelModal();
+                    }
+                }
+            );
+
+
+        // =================================================
+        // ESC KEY CLOSE MODAL
+        // =================================================
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    closeCancelModal();
+                }
+            }
+        );
+
+
+        // =================================================
+        // USER CANCEL BOOKING
+        // =================================================
+
+        async function cancelBooking() {
+
+            if (
+                !selectedBookingIdForCancel
+            ) {
+
+                return;
+            }
+
+
+            const bookingId =
+                selectedBookingIdForCancel;
+
+
+            const booking =
+                allBookingsData.find(
+                    item =>
+                        String(
+                            item._id ||
+                            item.id
+                        ) ===
+                        String(bookingId)
+                );
+
+
+            /*
+             * FRONTEND SAFETY CHECK
+             */
+
+            if (!booking) {
+
+                alert(
+                    "Booking not found."
+                );
+
+                closeCancelModal();
+
+                return;
+            }
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Paid booking cannot be cancelled.
+             */
+
+            if (
+                !canUserCancelBooking(
+                    booking
+                )
+            ) {
+
+                alert(
+                    "This booking cannot be cancelled now."
+                );
+
+                closeCancelModal();
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "confirmCancelBtn"
+                );
+
+
+            button.disabled = true;
+
+
+            button.innerHTML = `
+                <i
+                    class="
+                    bx
+                    bx-loader-alt
+                    bx-spin
+                    text-lg
+                    "
+                ></i>
+
+                Cancelling...
+            `;
+
+
+            try {
+
+                /*
+                 * USER CANCEL ENDPOINT
+                 *
+                 * POST /api/bookings/:id/cancel
+                 */
+
+                const response =
+                    await fetch(`/api/bookings/${bookingId}/customer-cancel`, {
+                            method: "POST",
+
+                            credentials: "include",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                cancelledBy: "user",
+
+                                note: "User Cancelled",
+
+                                reason: "User Cancelled"
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response
+                        .json()
+                        .catch(
+                            () => ({})
+                        );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to cancel booking."
+                    );
+                }
+
+
+                /*
+                 * Close modal
+                 */
+
+                closeCancelModal();
+
+
+                /*
+                 * Reload latest DB data.
+                 */
+
+                await loadBookings();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Cancel booking error:",
+                    error
+                );
+
+
+                alert(
+                    error.message ||
+                    "Unable to cancel booking."
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+                button.innerHTML =
+                    "Yes, Cancel";
+            }
+        }
+
+
+        document
+            .getElementById(
+                "confirmCancelBtn"
+            )
+            .addEventListener(
+                "click",
+                cancelBooking
+            );
 
 
         // =================================================
@@ -2274,7 +2764,6 @@
                 "click",
                 loadBookings
             );
-
 
 
         // =================================================
@@ -2304,14 +2793,12 @@
                         "/login";
 
                     return;
-
                 }
 
 
-                // fallback
-
                 window.location.href =
                     "/login";
+
 
             } catch (error) {
 
@@ -2320,13 +2807,11 @@
                     error
                 );
 
+
                 window.location.href =
                     "/login";
-
             }
-
         }
-
 
 
         document
@@ -2337,9 +2822,8 @@
             );
 
 
-
         // =================================================
-        // NOTIFICATION BUTTON
+        // NOTIFICATION
         // =================================================
 
         document
@@ -2353,7 +2837,6 @@
 
                 }
             );
-
 
 
         // =================================================

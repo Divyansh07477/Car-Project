@@ -68,13 +68,8 @@ app.use(
 // =====================================================
 // EJS SETUP
 // =====================================================
-
 app.set("view engine", "ejs");
-
-app.set(
-    "views",
-    path.join(__dirname, "views")
-);
+app.set("views", path.join(__dirname, "views"));
 
 
 // =====================================================
@@ -184,6 +179,7 @@ app.get("/booking", (req, res) => {
 });
 
 
+
 app.get("/test", (req, res) => {
 
     res.send(
@@ -221,6 +217,15 @@ app.get("/signup", (req, res) => {
     res.render("signup");
 
 });
+
+
+// ================= BLOG =================
+app.get("/blog", (req, res) => {
+   
+    res.render("blog");
+});
+
+
 
 
 app.get("/contact", (req, res) => {

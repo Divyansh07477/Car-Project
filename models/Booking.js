@@ -89,7 +89,7 @@ note: {
 payment: {
     status: {
         type: String,
-        enum: ["Pending", "Paid", "Failed"],
+        enum: ["Pending", "Paid", "Refunded", "Failed"],
         default: "Pending"
     },
 

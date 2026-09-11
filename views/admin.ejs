@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>RideWave Admin Dashboard</title>
+  <title>RideWave Admin - Dashboard</title>
 
   <link rel="icon" type="image/png" href="/images/title.png.jpeg">
 
@@ -13,202 +13,174 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .modal-scroll::-webkit-scrollbar {
-      width: 5px;
+    .sidebar-link {
+      transition: all 0.2s ease;
     }
 
-    .modal-scroll::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 10px;
+    .sidebar-link:hover {
+      transform: translateX(2px);
     }
 
+    .stat-card {
+      transition: all 0.2s ease;
+    }
 
-    /* =====================================================
-       FLASH MESSAGE
-    ===================================================== */
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+    }
 
-    #flashMessage {
+    .booking-card {
+      transition: all 0.2s ease;
+    }
+
+    .booking-card:hover {
+      background: #f8fafc;
+    }
+
+    .car-card {
+      transition: all 0.2s ease;
+    }
+
+    .car-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.07);
+    }
+
+    .loader {
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #FF462D;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .sidebar {
       position: fixed;
-      top: 25px;
-      right: 25px;
-      z-index: 9999;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 256px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 50;
+    }
 
-      min-width: 320px;
-      max-width: 400px;
+    .main-content {
+      margin-left: 256px;
+      min-height: 100vh;
+    }
 
-      padding: 15px 18px;
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
 
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #0B1536;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #24345e;
+    }
+
+    .car-image {
+      height: 180px;
+      width: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .booking-car-image {
+      width: 105px;
+      height: 78px;
+      object-fit: contain;
       border-radius: 14px;
-
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-
-      transform: translateX(450px);
-      opacity: 0;
-
-      transition: all 0.35s ease;
-
-      pointer-events: none;
+      background: #f8fafc;
+      padding: 5px;
     }
 
+    @media (max-width: 900px) {
 
-    #flashMessage.show {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-
-    /* SUCCESS */
-
-    #flashMessage.success {
-      background: green;
-      border: 1px solid #a7f3d0;
-      color: white;
-    }
-
-
-    #flashMessage.success .flash-icon {
-      background: green;
-      color: white;
-    }
-
-
-    /* ERROR */
-
-    #flashMessage.error {
-      background: #be123c;
-      border: 1px solid #fecdd3;
-      color: white;
-    }
-
-
-    #flashMessage.error .flash-icon {
-      background: #be123c;
-      color: white;
-    }
-
-
-    .flash-icon {
-      width: 38px;
-      height: 38px;
-
-      border-radius: 10px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      flex-shrink: 0;
-    }
-
-
-    .flash-content {
-      flex: 1;
-    }
-
-
-    .flash-title {
-      font-size: 13px;
-      font-weight: 800;
-      margin-bottom: 2px;
-    }
-
-
-    .flash-text {
-      font-size: 11px;
-      font-weight: 500;
-      opacity: 0.85;
-      line-height: 1.4;
-    }
-
-
-    /* MOBILE FLASH */
-
-    @media (max-width: 640px) {
-
-      #flashMessage {
-        top: 15px;
-        left: 15px;
-        right: 15px;
-
-        min-width: auto;
-        max-width: none;
-
-        transform: translateY(-150px);
+      .sidebar {
+        width: 220px;
       }
 
-
-      #flashMessage.show {
-        transform: translateY(0);
+      .main-content {
+        margin-left: 220px;
       }
-
     }
 
+    @media (max-width: 700px) {
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      body {
+        display: block;
+      }
+
+      .booking-car-image {
+        width: 85px;
+        height: 70px;
+      }
+    }
   </style>
-
 </head>
 
 
-<body class="bg-[#F8FAFC] text-slate-800 flex min-h-screen relative">
+<body class="bg-[#F8FAFC] text-slate-800">
 
 
-  <!-- =====================================================
-       FLASH MESSAGE
-  ===================================================== -->
+  <!-- ===================================================== -->
+  <!-- FIXED SIDEBAR -->
+  <!-- ===================================================== -->
 
-  <div id="flashMessage">
-
-    <div class="flash-icon">
-
-      <i
-        id="flashIcon"
-        data-lucide="check-circle-2"
-        class="w-5 h-5"
-      ></i>
-
-    </div>
-
-
-    <div class="flash-content">
-
-      <div
-        id="flashTitle"
-        class="flash-title"
-      >
-        Success
-      </div>
-
-
-      <div
-        id="flashText"
-        class="flash-text"
-      >
-        Booking updated successfully.
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =====================================================
-       SIDEBAR
-  ===================================================== -->
-
-  <aside
-    class="w-64 bg-[#0B1536] text-white flex flex-col justify-between p-6 shrink-0"
-  >
+  <aside class="sidebar bg-[#0B1536] text-white flex flex-col justify-between p-6">
 
     <div>
 
@@ -216,21 +188,16 @@
 
       <div class="flex items-center gap-2 mb-10">
 
-        <span
-          class="text-2xl font-bold tracking-tight text-white"
-        >
+        <span class="text-2xl font-bold tracking-tight text-white">
           Ride<span class="text-[#FF462D]">Wave</span>
         </span>
 
-
         <span
-          class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase"
-        >
+          class="bg-[#FF462D]/15 text-[#FF462D] text-[10px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
           ADMIN
         </span>
 
       </div>
-
 
 
       <!-- NAVIGATION -->
@@ -239,9 +206,7 @@
 
         <div>
 
-          <p
-            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3"
-          >
+          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
             Main
           </p>
 
@@ -250,63 +215,50 @@
 
             <!-- DASHBOARD -->
 
-            <a
-              href="/admin"
-              class="flex items-center gap-3.5 px-4 py-3 bg-[#FF462D] text-white rounded-xl font-medium shadow-md shadow-[#FF462D]/20"
-            >
+            <a href="/admin"
+              class="sidebar-link flex items-center gap-3.5 px-4 py-3 bg-[#FF462D] text-white rounded-xl font-medium shadow-md shadow-[#FF462D]/20">
 
-              <i
-                data-lucide="layout-grid"
-                class="w-5 h-5"
-              ></i>
+              <i data-lucide="layout-grid" class="w-5 h-5"></i>
 
-              <span>Dashboard</span>
+              <span>
+                Dashboard
+              </span>
 
             </a>
 
 
+            <!-- RENTAL CARS -->
 
-            <!-- CARS -->
+            <a href="/carAdmin"
+              class="sidebar-link flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium">
 
-            <a
-              href="/carAdmin"
-              class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition"
-            >
+              <i data-lucide="car" class="w-5 h-5"></i>
 
-              <i
-                data-lucide="car"
-                class="w-5 h-5"
-              ></i>
-
-              <span>Rental Cars</span>
+              <span>
+                Rental Cars
+              </span>
 
             </a>
-
 
 
             <!-- BOOKINGS -->
 
-            <a
-              href="/Customerbooking"
-              class="flex items-center justify-between px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition"
-            >
+            <a href="/Customerbooking"
+              class="sidebar-link flex items-center justify-between px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium">
 
               <div class="flex items-center gap-3.5">
 
-                <i
-                  data-lucide="calendar"
-                  class="w-5 h-5"
-                ></i>
+                <i data-lucide="calendar" class="w-5 h-5"></i>
 
-                <span>Bookings</span>
+                <span>
+                  Bookings
+                </span>
 
               </div>
 
 
-              <span
-                id="sidebarPendingCount"
-                class="bg-[#FF9F1C] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
-              >
+              <span id="pendingSidebarCount"
+                class="bg-[#FF9F1C] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                 0
               </span>
 
@@ -317,31 +269,25 @@
         </div>
 
 
-
         <!-- OTHER -->
 
         <div>
 
-          <p
-            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3"
-          >
+          <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
             Other
           </p>
 
 
           <nav class="space-y-1.5">
 
-            <a
-              href="/"
-              class="flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium transition"
-            >
+            <a href="/"
+              class="sidebar-link flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium">
 
-              <i
-                data-lucide="arrow-left"
-                class="w-5 h-5"
-              ></i>
+              <i data-lucide="arrow-left" class="w-5 h-5"></i>
 
-              <span>Back to Site</span>
+              <span>
+                Back to Site
+              </span>
 
             </a>
 
@@ -354,377 +300,349 @@
     </div>
 
 
+    <!-- SIDEBAR FOOTER -->
 
-    <!-- FOOTER -->
+    <div class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500">
 
-    <div
-      class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500"
-    >
+      <i data-lucide="shield" class="w-4 h-4 text-[#FF462D]"></i>
 
-      <i
-        data-lucide="shield"
-        class="w-4 h-4 text-[#FF462D]"
-      ></i>
-
-      <span>Admin Panel</span>
+      <span>
+        Admin Panel
+      </span>
 
     </div>
 
   </aside>
 
 
+  <!-- ===================================================== -->
+  <!-- MAIN CONTENT -->
+  <!-- ===================================================== -->
 
-  <!-- =====================================================
-       MAIN
-  ===================================================== -->
-
-  <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+  <main class="main-content">
 
 
     <!-- HEADER -->
 
-    <header class="p-8 pb-4 flex justify-between items-start">
+    <header class="p-8 pb-5 flex justify-between items-start gap-4">
 
       <div>
 
-        <h1
-          class="text-2xl font-bold text-[#0B1536]"
-        >
+        <h1 class="text-2xl font-bold text-[#0B1536]">
           Dashboard
         </h1>
 
-        <p
-          class="text-sm text-slate-400 mt-1"
-        >
-          Manage your fleet and customer bookings.
+        <p class="text-sm text-slate-400 mt-1">
+          Welcome back to your RideWave admin panel.
         </p>
 
       </div>
 
 
+      <div
+        class="hidden sm:flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-500">
 
-      <!-- REFRESH -->
+        <i data-lucide="calendar-days" class="w-4 h-4 text-[#FF462D]"></i>
 
-      <button
-        id="refreshBtn"
-        type="button"
-        class="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
-      >
+        <span id="currentDate">
+          Today
+        </span>
 
-        <i
-          id="refreshIcon"
-          data-lucide="refresh-cw"
-          class="w-4 h-4"
-        ></i>
-
-        Refresh
-
-      </button>
+      </div>
 
     </header>
 
 
+    <!-- CONTENT -->
 
-    <div class="p-8 pt-2 space-y-8">
-
-
-      <!-- =====================================================
-           STATS
-      ===================================================== -->
-
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-      >
+    <div class="px-8 pb-10">
 
 
-        <!-- TOTAL CARS -->
+      <!-- ================================================= -->
+      <!-- STAT CARDS -->
+      <!-- ================================================= -->
 
-        <div
-          class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4"
-        >
-
-          <div
-            class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-[#FF462D]"
-          >
-
-            <i
-              data-lucide="car"
-              class="w-6 h-6"
-            ></i>
-
-          </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
 
 
-          <div>
+        <!-- MY CARS -->
 
-            <div
-              id="totalCars"
-              class="text-2xl font-extrabold text-[#0B1536]"
-            >
-              0
+        <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
+
+          <div class="flex items-start justify-between">
+
+            <div>
+
+              <p class="text-xs font-semibold text-slate-400">
+                My Cars
+              </p>
+
+              <h2 id="totalCars"
+                class="text-3xl font-extrabold text-[#0B1536] mt-2">
+                0
+              </h2>
+
             </div>
 
-            <div
-              class="text-xs font-medium text-slate-400"
-            >
-              Total Cars
+            <div class="w-11 h-11 rounded-xl bg-orange-50 text-[#FF462D] flex items-center justify-center">
+
+              <i data-lucide="car" class="w-5 h-5"></i>
+
             </div>
 
           </div>
+
+          <p class="text-[11px] text-slate-400 mt-4">
+            Cars created by you
+          </p>
 
         </div>
 
 
+        <!-- TOTAL BOOKINGS -->
 
-        <!-- CATEGORIES -->
+        <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
-        <div
-          class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4"
-        >
+          <div class="flex items-start justify-between">
 
-          <div
-            class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500"
-          >
+            <div>
 
-            <i
-              data-lucide="grid-2x2"
-              class="w-6 h-6"
-            ></i>
+              <p class="text-xs font-semibold text-slate-400">
+                Total Bookings
+              </p>
 
-          </div>
+              <h2 id="totalBookings"
+                class="text-3xl font-extrabold text-[#0B1536] mt-2">
+                0
+              </h2>
 
-
-          <div>
-
-            <div
-              id="totalCategories"
-              class="text-2xl font-extrabold text-[#0B1536]"
-            >
-              0
             </div>
 
-            <div
-              class="text-xs font-medium text-slate-400"
-            >
-              Categories
+            <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+
+              <i data-lucide="calendar-check" class="w-5 h-5"></i>
+
             </div>
 
           </div>
+
+          <p class="text-[11px] text-slate-400 mt-4">
+            Bookings for your cars
+          </p>
 
         </div>
-
-
-
-        <!-- AVG PRICE -->
-
-        <div
-          class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4"
-        >
-
-          <div
-            class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500"
-          >
-
-            <i
-              data-lucide="dollar-sign"
-              class="w-6 h-6"
-            ></i>
-
-          </div>
-
-
-          <div>
-
-            <div
-              id="avgPrice"
-              class="text-2xl font-extrabold text-[#0B1536]"
-            >
-              $0
-            </div>
-
-            <div
-              class="text-xs font-medium text-slate-400"
-            >
-              Avg Price/Day
-            </div>
-
-          </div>
-
-        </div>
-
 
 
         <!-- PENDING -->
 
-        <div
-          class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4"
-        >
+        <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
-          <div
-            class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500"
-          >
+          <div class="flex items-start justify-between">
 
-            <i
-              data-lucide="clock-3"
-              class="w-6 h-6"
-            ></i>
+            <div>
 
-          </div>
+              <p class="text-xs font-semibold text-slate-400">
+                Pending
+              </p>
 
+              <h2 id="pendingBookings"
+                class="text-3xl font-extrabold text-[#0B1536] mt-2">
+                0
+              </h2>
 
-          <div>
-
-            <div
-              id="pendingBookingsCount"
-              class="text-2xl font-extrabold text-[#0B1536]"
-            >
-              0
             </div>
 
-            <div
-              class="text-xs font-medium text-slate-400"
-            >
-              Pending Bookings
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+
+              <i data-lucide="clock-3" class="w-5 h-5"></i>
+
             </div>
 
           </div>
+
+          <p class="text-[11px] text-slate-400 mt-4">
+            Waiting for your action
+          </p>
+
+        </div>
+
+
+        <!-- CONFIRMED -->
+
+        <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
+
+          <div class="flex items-start justify-between">
+
+            <div>
+
+              <p class="text-xs font-semibold text-slate-400">
+                Confirmed
+              </p>
+
+              <h2 id="confirmedBookings"
+                class="text-3xl font-extrabold text-[#0B1536] mt-2">
+                0
+              </h2>
+
+            </div>
+
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+
+              <i data-lucide="badge-check" class="w-5 h-5"></i>
+
+            </div>
+
+          </div>
+
+          <p class="text-[11px] text-slate-400 mt-4">
+            Active bookings
+          </p>
 
         </div>
 
       </div>
 
 
+      <!-- ================================================= -->
+      <!-- RECENT BOOKINGS - FULL WIDTH -->
+      <!-- ================================================= -->
 
-      <!-- =====================================================
-           RECENT BOOKINGS
-      ===================================================== -->
+      <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden mb-7">
 
-      <div>
 
-        <div
-          class="flex justify-between items-center mb-4"
-        >
+        <!-- HEADER -->
+
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between gap-3">
 
           <div>
 
-            <h2
-              class="text-lg font-bold text-[#0B1536]"
-            >
+            <h2 class="font-bold text-[#0B1536]">
               Recent Bookings
             </h2>
 
-            <p
-              class="text-xs text-slate-400 mt-1"
-            >
-              Latest customer booking requests
+            <p class="text-xs text-slate-400 mt-1">
+              Latest bookings received for your rental cars
             </p>
 
           </div>
 
 
-          <a
-            href="/Customerbooking"
-            class="text-xs font-semibold text-[#FF462D] hover:underline flex items-center gap-1"
-          >
+          <div class="flex items-center gap-4">
 
-            View All
+            <span id="lastUpdated"
+              class="text-[10px] text-slate-400 hidden sm:block">
+              Updating...
+            </span>
 
-            <i
-              data-lucide="arrow-right"
-              class="w-3.5 h-3.5"
-            ></i>
 
-          </a>
+            <a href="/Customerbooking"
+              class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF462D] hover:bg-orange-50 px-3 py-2 rounded-lg transition">
+
+              View All
+
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+
+            </a>
+
+          </div>
 
         </div>
 
 
-
         <!-- LOADING -->
 
-        <div
-          id="loadingState"
-          class="bg-white p-10 rounded-2xl border border-slate-100 text-center"
-        >
+        <div id="bookingLoading"
+          class="p-12 flex flex-col items-center justify-center">
 
-          <div class="flex justify-center mb-3">
+          <div class="loader mb-3"></div>
 
-            <i
-              data-lucide="loader-circle"
-              class="w-7 h-7 text-[#FF462D] animate-spin"
-            ></i>
-
-          </div>
-
-          <p
-            class="text-sm text-slate-400"
-          >
+          <p class="text-xs text-slate-400">
             Loading bookings...
           </p>
 
         </div>
 
 
+        <!-- BOOKINGS -->
 
-        <!-- ERROR -->
-
-        <div
-          id="errorState"
-          class="hidden bg-white p-8 rounded-2xl border border-rose-100 text-center"
-        >
-
-          <i
-            data-lucide="alert-circle"
-            class="w-8 h-8 text-rose-500 mx-auto mb-3"
-          ></i>
-
-          <p
-            id="errorMessage"
-            class="text-sm text-rose-500 font-medium"
-          >
-            Failed to load bookings.
-          </p>
-
-          <button
-            id="retryBtn"
-            type="button"
-            class="mt-4 px-4 py-2 bg-[#FF462D] text-white rounded-lg text-xs font-bold"
-          >
-            Try Again
-          </button>
-
+        <div id="recentBookings"
+          class="divide-y divide-slate-100 hidden">
         </div>
-
 
 
         <!-- EMPTY -->
 
-        <div
-          id="emptyState"
-          class="hidden bg-white p-10 rounded-2xl border border-slate-100 text-center"
-        >
+        <div id="bookingEmpty"
+          class="hidden p-12 text-center">
 
-          <i
-            data-lucide="calendar-x"
-            class="w-10 h-10 text-slate-300 mx-auto mb-3"
-          ></i>
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-3">
 
-          <p
-            class="text-sm text-slate-400"
-          >
-            No bookings found.
+            <i data-lucide="calendar-x" class="w-7 h-7"></i>
+
+          </div>
+
+          <p class="text-sm font-bold text-slate-600">
+            No bookings yet
+          </p>
+
+          <p class="text-xs text-slate-400 mt-1">
+            Customer bookings for your cars will appear here.
           </p>
 
         </div>
 
+      </div>
 
 
-        <!-- BOOKINGS -->
+      <!-- ================================================= -->
+      <!-- MY RENTAL CARS -->
+      <!-- ================================================= -->
 
-        <div
-          id="bookingsContainer"
-          class="hidden space-y-3"
-        ></div>
+      <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+
+
+        <!-- HEADER -->
+
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+
+          <div>
+
+            <h2 class="font-bold text-[#0B1536]">
+              My Rental Cars
+            </h2>
+
+            <p class="text-xs text-slate-400 mt-1">
+              Detailed information about your rental vehicles
+            </p>
+
+          </div>
+
+
+          <a href="/carAdmin"
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF462D] hover:bg-orange-50 px-3 py-2 rounded-lg transition">
+
+            Manage Cars
+
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+
+          </a>
+
+        </div>
+
+
+        <!-- CARS -->
+
+        <div id="myCarsContainer"
+          class="p-5">
+
+          <div class="flex items-center justify-center py-10">
+
+            <div class="loader"></div>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -733,231 +651,12 @@
   </main>
 
 
-
-  <!-- =====================================================
-       UPDATE MODAL
-  ===================================================== -->
-
-  <div
-    id="updateModal"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-[#0B1536]/40 backdrop-blur-sm hidden p-4"
-  >
-
-    <div
-      class="bg-white w-full max-w-[520px] max-h-[90vh] rounded-3xl shadow-2xl relative border border-slate-100 overflow-hidden"
-    >
-
-
-      <!-- CLOSE -->
-
-      <button
-        id="closeModalBtn"
-        type="button"
-        class="absolute top-5 right-5 z-10 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-700"
-      >
-
-        <i
-          data-lucide="x"
-          class="w-4 h-4"
-        ></i>
-
-      </button>
-
-
-
-      <div
-        class="p-7 modal-scroll overflow-y-auto max-h-[90vh]"
-      >
-
-
-        <!-- TITLE -->
-
-        <div class="text-center mb-6">
-
-          <h2
-            class="text-2xl font-extrabold text-[#FF462D]"
-          >
-            Update Booking
-          </h2>
-
-          <p
-            id="modalBookingId"
-            class="text-xs font-semibold text-slate-400 mt-1"
-          >
-            Booking ID
-          </p>
-
-        </div>
-
-
-
-        <!-- BOOKING INFO -->
-
-        <div
-          id="modalBookingInfo"
-          class="bg-slate-50 rounded-2xl p-4 mb-6"
-        ></div>
-
-
-
-        <!-- STATUS -->
-
-        <div class="mb-6">
-
-          <label
-            class="text-xs font-bold text-slate-700 block mb-3"
-          >
-            Booking Status
-          </label>
-
-
-          <div
-            class="grid grid-cols-2 sm:grid-cols-4 gap-3"
-          >
-
-
-            <!-- CONFIRMED -->
-
-            <button
-              type="button"
-              class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition"
-              data-status="confirmed"
-            >
-
-              <i
-                data-lucide="check-circle-2"
-                class="w-5 h-5"
-              ></i>
-
-              <span class="text-xs font-bold">
-                Confirm
-              </span>
-
-            </button>
-
-
-
-            <!-- COMPLETED -->
-
-            <button
-              type="button"
-              class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition"
-              data-status="completed"
-            >
-
-              <i
-                data-lucide="check-check"
-                class="w-5 h-5"
-              ></i>
-
-              <span class="text-xs font-bold">
-                Complete
-              </span>
-
-            </button>
-
-
-
-            <!-- CANCELLED -->
-
-            <button
-              type="button"
-              class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition"
-              data-status="cancelled"
-            >
-
-              <i
-                data-lucide="x-circle"
-                class="w-5 h-5"
-              ></i>
-
-              <span class="text-xs font-bold">
-                Cancel
-              </span>
-
-            </button>
-
-
-
-            <!-- PENDING -->
-
-            <button
-              type="button"
-              class="status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition"
-              data-status="pending"
-            >
-
-              <i
-                data-lucide="clock"
-                class="w-5 h-5"
-              ></i>
-
-              <span class="text-xs font-bold">
-                Pending
-              </span>
-
-            </button>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- NOTE -->
-
-        <form id="statusUpdateForm">
-
-          <div class="space-y-2 mb-6">
-
-            <label
-              class="text-xs font-bold text-slate-700 block"
-            >
-              Reason / Note
-
-              <span
-                class="font-normal text-slate-400"
-              >
-                (optional)
-              </span>
-
-            </label>
-
-
-            <textarea
-              id="modalNoteInput"
-              rows="3"
-              placeholder="Add a reason or note..."
-              class="w-full border border-slate-200 rounded-2xl p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#FF462D] focus:ring-1 focus:ring-[#FF462D] resize-none"
-            ></textarea>
-
-          </div>
-
-
-
-          <button
-            type="submit"
-            id="submitUpdateBtn"
-            class="w-full py-3.5 bg-[#FF462D] hover:bg-[#e03a22] text-white font-bold rounded-2xl text-sm shadow-md transition"
-          >
-            Update Status
-          </button>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
+  <!-- ===================================================== -->
+  <!-- JAVASCRIPT -->
+  <!-- ===================================================== -->
 
   <script>
+
 
     /* =====================================================
        LUCIDE
@@ -966,308 +665,65 @@
     lucide.createIcons();
 
 
-
     /* =====================================================
        ELEMENTS
     ===================================================== */
 
-    const bookingsContainer =
-      document.getElementById("bookingsContainer");
-
-    const loadingState =
-      document.getElementById("loadingState");
-
-    const errorState =
-      document.getElementById("errorState");
-
-    const errorMessage =
-      document.getElementById("errorMessage");
-
-    const emptyState =
-      document.getElementById("emptyState");
-
-    const refreshBtn =
-      document.getElementById("refreshBtn");
-
-    const refreshIcon =
-      document.getElementById("refreshIcon");
-
-    const retryBtn =
-      document.getElementById("retryBtn");
-
-    const sidebarPendingCount =
-      document.getElementById("sidebarPendingCount");
-
-    const pendingBookingsCount =
-      document.getElementById("pendingBookingsCount");
+    const currentDate =
+      document.getElementById("currentDate");
 
     const totalCars =
       document.getElementById("totalCars");
 
-    const totalCategories =
-      document.getElementById("totalCategories");
+    const totalBookings =
+      document.getElementById("totalBookings");
 
-    const avgPrice =
-      document.getElementById("avgPrice");
+    const pendingBookings =
+      document.getElementById("pendingBookings");
 
+    const confirmedBookings =
+      document.getElementById("confirmedBookings");
 
+    const pendingSidebarCount =
+      document.getElementById("pendingSidebarCount");
 
-    /* =====================================================
-       MODAL
-    ===================================================== */
+    const recentBookings =
+      document.getElementById("recentBookings");
 
-    const modal =
-      document.getElementById("updateModal");
+    const bookingLoading =
+      document.getElementById("bookingLoading");
 
-    const closeModalBtn =
-      document.getElementById("closeModalBtn");
+    const bookingEmpty =
+      document.getElementById("bookingEmpty");
 
-    const modalBookingId =
-      document.getElementById("modalBookingId");
+    const myCarsContainer =
+      document.getElementById("myCarsContainer");
 
-    const modalBookingInfo =
-      document.getElementById("modalBookingInfo");
-
-    const statusBtns =
-      document.querySelectorAll(".status-btn");
-
-    const statusForm =
-      document.getElementById("statusUpdateForm");
-
-    const modalNoteInput =
-      document.getElementById("modalNoteInput");
-
-    const submitBtn =
-      document.getElementById("submitUpdateBtn");
-
+    const lastUpdated =
+      document.getElementById("lastUpdated");
 
 
     /* =====================================================
-       FLASH ELEMENTS
+       DATE
     ===================================================== */
 
-    const flashMessage =
-      document.getElementById("flashMessage");
+    function updateDate() {
 
-    const flashIcon =
-      document.getElementById("flashIcon");
+      if (!currentDate) return;
 
-    const flashTitle =
-      document.getElementById("flashTitle");
-
-    const flashText =
-      document.getElementById("flashText");
-
-    let flashTimer = null;
-
-
-
-    /* =====================================================
-       SHOW FLASH
-    ===================================================== */
-
-    function showFlash(
-      type,
-      title,
-      message
-    ) {
-
-      clearTimeout(flashTimer);
-
-
-      flashMessage.classList.remove(
-        "success",
-        "error",
-        "show"
-      );
-
-
-      if (type === "success") {
-
-        flashMessage.classList.add(
-          "success"
-        );
-
-        flashTitle.textContent =
-          title || "Success";
-
-        flashText.textContent =
-          message ||
-          "Operation completed successfully.";
-
-        flashIcon.setAttribute(
-          "data-lucide",
-          "check-circle-2"
-        );
-
-      } else {
-
-        flashMessage.classList.add(
-          "error"
-        );
-
-        flashTitle.textContent =
-          title || "Error";
-
-        flashText.textContent =
-          message ||
-          "Something went wrong.";
-
-        flashIcon.setAttribute(
-          "data-lucide",
-          "alert-circle"
-        );
-
-      }
-
-
-      lucide.createIcons();
-
-
-      requestAnimationFrame(() => {
-
-        flashMessage.classList.add(
-          "show"
-        );
-
-      });
-
-
-      flashTimer = setTimeout(() => {
-
-        flashMessage.classList.remove(
-          "show"
-        );
-
-      }, 1500);
-
-    }
-
-
-
-    /* =====================================================
-       STATUS FLASH MESSAGE
-    ===================================================== */
-
-    function getStatusFlash(status) {
-
-      switch (status) {
-
-        case "confirmed":
-
-          return {
-            title: "Booking Confirmed",
-            message: "Booking has been confirmed successfully."
-          };
-
-
-        case "completed":
-
-          return {
-            title: "Booking Completed",
-            message: "Booking has been marked as completed."
-          };
-
-
-        case "cancelled":
-
-          return {
-            title: "Booking Cancelled",
-            message: "Booking has been cancelled successfully."
-          };
-
-
-        case "pending":
-
-          return {
-            title: "Booking Pending",
-            message: "Booking has been moved to pending."
-          };
-
-
-        default:
-
-          return {
-            title: "Booking Updated",
-            message: "Booking status updated successfully."
-          };
-
-      }
-
-    }
-
-
-
-    /* =====================================================
-       VARIABLES
-    ===================================================== */
-
-    let allBookings = [];
-
-    let currentSelectedBookingId = null;
-
-    let selectedStatus = null;
-
-
-
-    /* =====================================================
-       FORMAT DATE
-    ===================================================== */
-
-    function formatDate(date) {
-
-      if (!date) {
-        return "N/A";
-      }
-
-
-      const d =
-        new Date(date);
-
-
-      if (isNaN(d.getTime())) {
-        return "N/A";
-      }
-
-
-      return d.toLocaleDateString(
-        "en-US",
-        {
-          month: "short",
-          day: "numeric",
-          year: "numeric"
-        }
-      );
-
-    }
-
-
-
-    /* =====================================================
-       FORMAT MONEY
-    ===================================================== */
-
-    function formatMoney(amount) {
-
-      const number =
-        Number(amount);
-
-
-      if (isNaN(number)) {
-        return "$0";
-      }
-
-
-      return "$" +
-        number.toLocaleString(
-          "en-US",
+      currentDate.textContent =
+        new Date().toLocaleDateString(
+          "en-IN",
           {
-            maximumFractionDigits: 2
+            day: "numeric",
+            month: "short",
+            year: "numeric"
           }
         );
 
     }
 
+    updateDate();
 
 
     /* =====================================================
@@ -1280,9 +736,10 @@
         value === null ||
         value === undefined
       ) {
-        return "";
-      }
 
+        return "";
+
+      }
 
       return String(value)
         .replace(/&/g, "&amp;")
@@ -1294,508 +751,723 @@
     }
 
 
-
     /* =====================================================
-       STATUS UI
+       MONEY
     ===================================================== */
 
-    function getStatusHTML(status) {
+    function formatMoney(value) {
 
-      const currentStatus =
-        String(
-          status || "pending"
-        ).toLowerCase();
+      const number = Number(value);
 
-
-      if (
-        currentStatus === "pending"
-      ) {
-
-        return `
-
-          <span
-            class="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase"
-          >
-
-            <span
-              class="w-1.5 h-1.5 rounded-full bg-amber-500"
-            ></span>
-
-            Pending
-
-          </span>
-
-        `;
-
+      if (isNaN(number)) {
+        return "0";
       }
 
-
-      if (
-        currentStatus === "confirmed"
-      ) {
-
-        return `
-
-          <span
-            class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase"
-          >
-
-            <span
-              class="w-1.5 h-1.5 rounded-full bg-emerald-500"
-            ></span>
-
-            Confirmed
-
-          </span>
-
-        `;
-
-      }
-
-
-      if (
-        currentStatus === "completed"
-      ) {
-
-        return `
-
-          <span
-            class="inline-flex items-center gap-1.5 bg-sky-50 text-sky-600 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase"
-          >
-
-            <span
-              class="w-1.5 h-1.5 rounded-full bg-sky-500"
-            ></span>
-
-            Completed
-
-          </span>
-
-        `;
-
-      }
-
-
-      return `
-
-        <span
-          class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-500 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase"
-        >
-
-          <span
-            class="w-1.5 h-1.5 rounded-full bg-rose-500"
-          ></span>
-
-          Cancelled
-
-        </span>
-
-      `;
+      return number.toLocaleString(
+        "en-IN",
+        {
+          maximumFractionDigits: 2
+        }
+      );
 
     }
 
 
-
     /* =====================================================
-       PAYMENT UI
-       ADDED ONLY FOR PAYMENT STATUS
+       DATE FORMAT
     ===================================================== */
 
-    function getPaymentHTML(booking) {
+    function formatDate(value) {
 
-      const paymentStatus =
-        booking.payment &&
-        booking.payment.status
-          ? String(
-              booking.payment.status
-            ).toLowerCase()
-          : "pending";
-
-
-      if (paymentStatus === "paid") {
-
-        return `
-
-          <span
-            class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase"
-          >
-
-            <i
-              data-lucide="badge-check"
-              class="w-3.5 h-3.5"
-            ></i>
-
-            Paid
-
-          </span>
-
-        `;
-
+      if (!value) {
+        return "N/A";
       }
 
+      const date = new Date(value);
 
-      return `
+      if (isNaN(date.getTime())) {
+        return "N/A";
+      }
 
-        <span
-          class="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 border border-amber-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase"
-        >
-
-          <i
-            data-lucide="clock-3"
-            class="w-3.5 h-3.5"
-          ></i>
-
-          Payment Pending
-
-        </span>
-
-      `;
+      return date.toLocaleDateString(
+        "en-IN",
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }
+      );
 
     }
 
 
-
     /* =====================================================
-       RENDER BOOKINGS
+       IMAGE
     ===================================================== */
 
-    function renderBookings() {
+    function getCarImage(car) {
 
-      bookingsContainer.innerHTML = "";
+      if (!car) {
+        return "";
+      }
 
 
-      if (!allBookings.length) {
+      if (
+        typeof car.image === "string" &&
+        car.image.trim()
+      ) {
 
-        bookingsContainer.classList.add(
-          "hidden"
+        return car.image;
+
+      }
+
+
+      if (
+        car.image &&
+        typeof car.image === "object"
+      ) {
+
+        if (
+          car.image.url &&
+          String(car.image.url).trim()
+        ) {
+
+          return car.image.url;
+
+        }
+
+        if (
+          car.image.secure_url &&
+          String(car.image.secure_url).trim()
+        ) {
+
+          return car.image.secure_url;
+
+        }
+
+      }
+
+
+      if (
+        car.imageUrl &&
+        typeof car.imageUrl === "string"
+      ) {
+
+        return car.imageUrl;
+
+      }
+
+
+      if (
+        car.photo &&
+        typeof car.photo === "string"
+      ) {
+
+        return car.photo;
+
+      }
+
+
+      return "";
+
+    }
+
+
+    /* =====================================================
+       FALLBACK IMAGE
+    ===================================================== */
+
+    const fallbackImage =
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="500"
+             height="300"
+             viewBox="0 0 500 300">
+
+          <rect width="500"
+                height="300"
+                fill="#f8fafc"/>
+
+          <text x="250"
+                y="145"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="24"
+                fill="#94a3b8">
+            No Image
+          </text>
+
+          <text x="250"
+                y="180"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="15"
+                fill="#cbd5e1">
+            RideWave
+          </text>
+
+        </svg>
+      `);
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    const statusConfig = {
+
+      pending: {
+        label: "Pending",
+        bg: "bg-amber-50",
+        text: "text-amber-600",
+        icon: "clock-3"
+      },
+
+      confirmed: {
+        label: "Confirmed",
+        bg: "bg-emerald-50",
+        text: "text-emerald-600",
+        icon: "badge-check"
+      },
+
+      completed: {
+        label: "Completed",
+        bg: "bg-sky-50",
+        text: "text-sky-600",
+        icon: "check-check"
+      },
+
+      cancelled: {
+        label: "Cancelled",
+        bg: "bg-rose-50",
+        text: "text-rose-600",
+        icon: "x-circle"
+      }
+
+    };
+
+
+    /* =====================================================
+       PAYMENT STATUS
+    ===================================================== */
+
+    function getPaymentStatus(booking) {
+
+      if (
+        booking?.payment?.status
+      ) {
+
+        return String(
+          booking.payment.status
+        )
+          .toLowerCase()
+          .trim();
+
+      }
+
+      if (
+        booking?.paymentStatus
+      ) {
+
+        return String(
+          booking.paymentStatus
+        )
+          .toLowerCase()
+          .trim();
+
+      }
+
+      return "pending";
+
+    }
+
+
+    /* =====================================================
+       CURRENT USER
+    ===================================================== */
+
+    let currentUser = null;
+
+
+    async function getCurrentUser() {
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/auth/me",
+            {
+              credentials: "include",
+              headers: {
+                "Accept": "application/json"
+              }
+            }
+          );
+
+
+        if (!response.ok) {
+          return null;
+        }
+
+
+        const data =
+          await response.json();
+
+
+        return (
+          data.user ||
+          data.data ||
+          data
         );
 
-        emptyState.classList.remove(
-          "hidden"
+      } catch (error) {
+
+        console.error(
+          "Current user error:",
+          error
         );
+
+        return null;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       OWNER ID
+    ===================================================== */
+
+    function getOwnerId(car) {
+
+      if (!car) {
+        return "";
+      }
+
+
+      if (
+        car.owner &&
+        typeof car.owner === "object"
+      ) {
+
+        return String(
+          car.owner._id ||
+          car.owner.id ||
+          ""
+        );
+
+      }
+
+
+      return String(
+        car.owner || ""
+      );
+
+    }
+
+
+    /* =====================================================
+       LOAD MY CARS
+    ===================================================== */
+
+    async function loadMyCars() {
+
+      try {
+
+        if (!currentUser) {
+
+          currentUser =
+            await getCurrentUser();
+
+        }
+
+
+        if (!currentUser) {
+
+          totalCars.textContent = "0";
+
+          myCarsContainer.innerHTML = `
+
+            <div class="py-10 text-center">
+
+              <div class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
+
+                <i data-lucide="log-in" class="w-6 h-6"></i>
+
+              </div>
+
+              <p class="text-sm font-bold text-slate-600">
+                Please login again
+              </p>
+
+            </div>
+
+          `;
+
+          lucide.createIcons();
+
+          return;
+
+        }
+
+
+        const response =
+          await fetch(
+            "/api/cars",
+            {
+              credentials: "include",
+              headers: {
+                "Accept": "application/json"
+              }
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Failed to load cars"
+          );
+
+        }
+
+
+        const result =
+          await response.json();
+
+
+        let allCars = [];
+
+
+        if (Array.isArray(result)) {
+
+          allCars = result;
+
+        } else if (
+          Array.isArray(result.cars)
+        ) {
+
+          allCars =
+            result.cars;
+
+        }
+
+
+        const myId =
+          String(
+            currentUser._id ||
+            currentUser.id ||
+            ""
+          );
+
+
+        const myCars =
+          allCars.filter(
+            car =>
+              getOwnerId(car) === myId
+          );
+
+
+        totalCars.textContent =
+          myCars.length;
+
+
+        renderMyCars(
+          myCars
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Cars error:",
+          error
+        );
+
+
+        totalCars.textContent = "0";
+
+
+        myCarsContainer.innerHTML = `
+
+          <div class="py-10 text-center">
+
+            <div class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
+
+              <i data-lucide="alert-circle" class="w-6 h-6"></i>
+
+            </div>
+
+            <p class="text-sm font-bold text-slate-600">
+              Unable to load cars
+            </p>
+
+            <p class="text-xs text-slate-400 mt-1">
+              Please try again.
+            </p>
+
+          </div>
+
+        `;
+
+        lucide.createIcons();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       RENDER CARS
+    ===================================================== */
+
+    function renderMyCars(cars) {
+
+      if (
+        !cars ||
+        cars.length === 0
+      ) {
+
+        myCarsContainer.innerHTML = `
+
+          <div class="py-12 text-center">
+
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-3">
+
+              <i data-lucide="car-front" class="w-7 h-7"></i>
+
+            </div>
+
+            <p class="text-sm font-bold text-slate-600">
+              No cars added yet
+            </p>
+
+            <p class="text-xs text-slate-400 mt-1">
+              Add your first rental car from Rental Cars.
+            </p>
+
+            <a href="/carAdmin"
+              class="inline-flex items-center gap-2 mt-4 bg-[#FF462D] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#e83d28] transition">
+
+              <i data-lucide="plus" class="w-4 h-4"></i>
+
+              Add Car
+
+            </a>
+
+          </div>
+
+        `;
+
+        lucide.createIcons();
 
         return;
 
       }
 
 
-      emptyState.classList.add(
-        "hidden"
-      );
+      myCarsContainer.innerHTML = `
 
-      bookingsContainer.classList.remove(
-        "hidden"
-      );
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
+          ${cars.map(car => {
 
-      const recentBookings =
-        allBookings.slice(0, 5);
+            const image =
+              getCarImage(car) ||
+              fallbackImage;
 
+            const name =
+              car.name ||
+              "Rental Car";
 
-      recentBookings.forEach(
-        booking => {
+            const category =
+              car.category ||
+              "Car";
 
-          const car =
-            booking.car || {};
+            const transmission =
+              car.transmission ||
+              "N/A";
 
+            const price =
+              car.pricePerDay ??
+              0;
 
-          const carImage =
-            car.image ||
-            "/images/car-default.png";
+            const available =
+              car.isAvailable !== false;
 
+            const seats =
+              car.seats ||
+              car.capacity ||
+              "N/A";
 
-          const carName =
-            car.name ||
-            "Rental Vehicle";
+            const fuel =
+              car.fuelType ||
+              car.fuel ||
+              "N/A";
 
+            return `
 
-          const status =
-            String(
-              booking.status ||
-              "pending"
-            ).toLowerCase();
+              <div class="car-card border border-slate-100 rounded-2xl overflow-hidden bg-white">
 
+                <!-- IMAGE -->
 
-          const bookingHTML = `
+                <div class="h-[190px] bg-slate-50 flex items-center justify-center overflow-hidden">
 
-            <div
-              class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-sm hover:border-slate-200 transition-all"
-            >
-
-              <div
-                class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"
-              >
-
-
-                <!-- LEFT -->
-
-                <div
-                  class="flex items-start gap-4"
-                >
-
-
-                  <!-- CAR IMAGE -->
-
-                  <div
-                    class="w-28 h-20 bg-slate-50 rounded-xl flex items-center justify-center p-2 shrink-0 border border-slate-100 overflow-hidden"
+                  <img
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(name)}"
+                    class="car-image"
+                    onerror="this.onerror=null;this.src='${fallbackImage}'"
                   >
-
-                    <img
-                      src="${escapeHtml(carImage)}"
-                      alt="${escapeHtml(carName)}"
-                      class="max-h-full max-w-full object-contain"
-                      onerror="this.onerror=null;this.src='/images/car-default.png';"
-                    />
-
-                  </div>
-
-
-
-                  <!-- DETAILS -->
-
-                  <div
-                    class="space-y-1.5 min-w-0"
-                  >
-
-                    <h3
-                      class="font-bold text-[#0B1536] text-base leading-tight"
-                    >
-                      ${escapeHtml(carName)}
-                    </h3>
-
-
-                    <div
-                      class="text-[10px] text-slate-400 font-medium"
-                    >
-
-                      Booking ID:
-
-                      <span
-                        class="text-slate-500 font-semibold"
-                      >
-                        ${escapeHtml(booking._id)}
-                      </span>
-
-                    </div>
-
-
-                    <div
-                      class="flex items-center gap-1.5 text-xs text-slate-400"
-                    >
-
-                      <i
-                        data-lucide="user"
-                        class="w-3.5 h-3.5"
-                      ></i>
-
-                      <span>
-
-                        ${escapeHtml(booking.name)}
-
-                        <span
-                          class="text-slate-500"
-                        >
-                          (${escapeHtml(booking.email)})
-                        </span>
-
-                      </span>
-
-                    </div>
-
-
-                    <div
-                      class="flex items-center gap-1.5 text-xs text-slate-400"
-                    >
-
-                      <i
-                        data-lucide="phone"
-                        class="w-3.5 h-3.5"
-                      ></i>
-
-                      <span>
-                        ${escapeHtml(
-                          booking.phone ||
-                          "N/A"
-                        )}
-                      </span>
-
-                    </div>
-
-
-                    <div
-                      class="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5"
-                    >
-
-                      <span
-                        class="flex items-center gap-1"
-                      >
-
-                        <i
-                          data-lucide="calendar"
-                          class="w-3.5 h-3.5"
-                        ></i>
-
-                        ${formatDate(
-                          booking.startDate
-                        )}
-
-                        <span
-                          class="text-slate-300"
-                        >
-                          →
-                        </span>
-
-                        ${formatDate(
-                          booking.endDate
-                        )}
-
-                      </span>
-
-
-                      <span
-                        class="flex items-center gap-1"
-                      >
-
-                        <i
-                          data-lucide="map-pin"
-                          class="w-3.5 h-3.5"
-                        ></i>
-
-                        ${escapeHtml(
-                          booking.pickupLocation ||
-                          "N/A"
-                        )}
-
-                      </span>
-
-                    </div>
-
-
-                    <div
-                      class="flex flex-wrap items-center gap-3 text-[11px] text-slate-400"
-                    >
-
-                      <span>
-                        ${booking.totalDays || 1}
-                        day(s)
-                      </span>
-
-                      <span>
-                        ${formatMoney(
-                          booking.pricePerDay
-                        )}/day
-                      </span>
-
-                    </div>
-
-                  </div>
 
                 </div>
 
 
+                <!-- DETAILS -->
 
-                <!-- RIGHT -->
+                <div class="p-5">
 
-                <div
-                  class="flex lg:flex-col items-center lg:items-end justify-between gap-3 border-t lg:border-t-0 pt-4 lg:pt-0"
-                >
+                  <div class="flex items-start justify-between gap-3">
 
-                  <div
-                    class="text-right"
-                  >
+                    <div class="min-w-0">
 
-                    <div
-                      class="text-lg font-bold text-[#FF462D]"
-                    >
-                      ${formatMoney(
-                        booking.totalAmount
-                      )}
-                    </div>
+                      <h3 class="text-base font-extrabold text-[#0B1536] truncate">
+                        ${escapeHtml(name)}
+                      </h3>
 
-
-                    <div class="mt-1">
-
-                      ${getStatusHTML(status)}
+                      <p class="text-xs text-slate-400 mt-1">
+                        ${escapeHtml(category)}
+                      </p>
 
                     </div>
 
 
-                    <!-- PAYMENT STATUS -->
+                    <span class="${
+                      available
+                        ? "bg-emerald-50 text-emerald-600"
+                        : "bg-rose-50 text-rose-600"
+                    } text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg shrink-0">
 
-                    <div class="mt-2">
+                      ${
+                        available
+                          ? "AVAILABLE"
+                          : "UNAVAILABLE"
+                      }
 
-                      ${getPaymentHTML(booking)}
+                    </span>
+
+                  </div>
+
+
+                  <!-- DETAILS GRID -->
+
+                  <div class="grid grid-cols-2 gap-3 mt-5">
+
+                    <div class="bg-slate-50 rounded-xl p-3">
+
+                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+
+                        <i data-lucide="gauge" class="w-3.5 h-3.5"></i>
+
+                        <span class="text-[10px] font-semibold">
+                          Transmission
+                        </span>
+
+                      </div>
+
+                      <p class="text-xs font-bold text-[#0B1536]">
+                        ${escapeHtml(transmission)}
+                      </p>
+
+                    </div>
+
+
+                    <div class="bg-slate-50 rounded-xl p-3">
+
+                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+
+                        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+
+                        <span class="text-[10px] font-semibold">
+                          Seats
+                        </span>
+
+                      </div>
+
+                      <p class="text-xs font-bold text-[#0B1536]">
+                        ${escapeHtml(seats)}
+                      </p>
+
+                    </div>
+
+
+                    <div class="bg-slate-50 rounded-xl p-3">
+
+                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+
+                        <i data-lucide="fuel" class="w-3.5 h-3.5"></i>
+
+                        <span class="text-[10px] font-semibold">
+                          Fuel
+                        </span>
+
+                      </div>
+
+                      <p class="text-xs font-bold text-[#0B1536]">
+                        ${escapeHtml(fuel)}
+                      </p>
+
+                    </div>
+
+
+                    <div class="bg-orange-50 rounded-xl p-3">
+
+                      <div class="flex items-center gap-1.5 text-[#FF462D] mb-1">
+
+                        <i data-lucide="indian-rupee" class="w-3.5 h-3.5"></i>
+
+                        <span class="text-[10px] font-semibold">
+                          Price / Day
+                        </span>
+
+                      </div>
+
+                      <p class="text-sm font-extrabold text-[#FF462D]">
+                        ₹${formatMoney(price)}
+                      </p>
 
                     </div>
 
                   </div>
 
 
+                  <!-- MANAGE -->
 
-                  <!-- UPDATE -->
+                  <a href="/carAdmin"
+                    class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-[#0B1536] text-white text-xs font-bold px-4 py-3 rounded-xl hover:bg-[#15234f] transition">
 
-                  <button
-                    type="button"
-                    data-booking-id="${escapeHtml(booking._id)}"
-                    class="open-modal-btn flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
-                  >
+                    <i data-lucide="settings-2" class="w-4 h-4"></i>
 
-                    <i
-                      data-lucide="edit-3"
-                      class="w-3.5 h-3.5"
-                    ></i>
+                    Manage Car
 
-                    Update
-
-                  </button>
+                  </a>
 
                 </div>
 
               </div>
 
-            </div>
+            `;
 
-          `;
+          }).join("")}
 
+        </div>
 
-          bookingsContainer.insertAdjacentHTML(
-            "beforeend",
-            bookingHTML
-          );
-
-        }
-      );
+      `;
 
 
       lucide.createIcons();
 
-
-
-      /* RE-BIND MODAL BUTTONS */
-
-      document
-        .querySelectorAll(
-          ".open-modal-btn"
-        )
-        .forEach(btn => {
-
-          btn.addEventListener(
-            "click",
-            () => {
-
-              openModal(
-                btn.getAttribute(
-                  "data-booking-id"
-                )
-              );
-
-            }
-          );
-
-        });
-
     }
-
 
 
     /* =====================================================
@@ -1804,173 +1476,26 @@
 
     async function loadBookings() {
 
-      loadingState.classList.remove(
-        "hidden"
-      );
-
-      errorState.classList.add(
-        "hidden"
-      );
-
-      emptyState.classList.add(
-        "hidden"
-      );
-
-      bookingsContainer.classList.add(
-        "hidden"
-      );
-
-      refreshIcon.classList.add(
-        "animate-spin"
-      );
-
-
       try {
 
         const response =
           await fetch(
             "/api/bookings/owner-bookings",
             {
-              method: "GET",
-
+              credentials: "include",
               headers: {
-                "Accept":
-                  "application/json"
-              }
-            }
-          );
-
-
-        const contentType =
-          response.headers.get(
-            "content-type"
-          ) || "";
-
-
-        if (
-          !contentType.includes(
-            "application/json"
-          )
-        ) {
-
-          throw new Error(
-            "Server returned HTML instead of JSON. Please check login/session."
-          );
-
-        }
-
-
-        const result =
-          await response.json();
-
-
-        if (
-          !response.ok ||
-          !result.success
-        ) {
-
-          throw new Error(
-            result.message ||
-            "Failed to fetch bookings."
-          );
-
-        }
-
-
-        allBookings =
-          Array.isArray(
-            result.bookings
-          )
-            ? result.bookings
-            : [];
-
-
-
-        /* BOOKING STATS */
-
-        const pendingCount =
-          allBookings.filter(
-            booking =>
-              String(
-                booking.status
-              ).toLowerCase() ===
-              "pending"
-          ).length;
-
-
-        pendingBookingsCount.textContent =
-          pendingCount;
-
-
-        sidebarPendingCount.textContent =
-          pendingCount;
-
-
-        renderBookings();
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Bookings Fetch Error:",
-          error
-        );
-
-
-        loadingState.classList.add(
-          "hidden"
-        );
-
-        errorState.classList.remove(
-          "hidden"
-        );
-
-
-        errorMessage.textContent =
-          error.message ||
-          "Unable to load bookings.";
-
-      }
-
-      finally {
-
-        loadingState.classList.add(
-          "hidden"
-        );
-
-        refreshIcon.classList.remove(
-          "animate-spin"
-        );
-
-      }
-
-    }
-
-
-
-    /* =====================================================
-       LOAD CAR STATS
-    ===================================================== */
-
-    async function loadCarStats() {
-
-      try {
-
-        const response =
-          await fetch(
-            "/api/cars/my-cars",
-            {
-              headers: {
-                "Accept":
-                  "application/json"
+                "Accept": "application/json"
               }
             }
           );
 
 
         if (!response.ok) {
-          return;
+
+          throw new Error(
+            "Unable to load bookings"
+          );
+
         }
 
 
@@ -1978,110 +1503,155 @@
           await response.json();
 
 
-        if (!result.success) {
-          return;
+        let bookings = [];
+
+
+        if (
+          Array.isArray(result.bookings)
+        ) {
+
+          bookings =
+            result.bookings;
+
+        } else if (
+          Array.isArray(result)
+        ) {
+
+          bookings =
+            result;
+
         }
 
 
-        const cars =
-          Array.isArray(
-            result.cars
-          )
-            ? result.cars
-            : [];
+        /* =================================================
+           COUNTS
+        ================================================= */
 
-
-        totalCars.textContent =
-          cars.length;
-
-
-        const categories =
-          new Set(
-            cars
-              .map(
-                car =>
-                  car.category
+        const pending =
+          bookings.filter(
+            booking =>
+              String(
+                booking.status || ""
               )
-              .filter(Boolean)
+                .toLowerCase()
+                .trim() === "pending"
+          ).length;
+
+
+        const confirmed =
+          bookings.filter(
+            booking =>
+              String(
+                booking.status || ""
+              )
+                .toLowerCase()
+                .trim() === "confirmed"
+          ).length;
+
+
+        const completed =
+          bookings.filter(
+            booking =>
+              String(
+                booking.status || ""
+              )
+                .toLowerCase()
+                .trim() === "completed"
+          ).length;
+
+
+        const cancelled =
+          bookings.filter(
+            booking =>
+              String(
+                booking.status || ""
+              )
+                .toLowerCase()
+                .trim() === "cancelled"
+          ).length;
+
+
+        totalBookings.textContent =
+          bookings.length;
+
+        pendingBookings.textContent =
+          pending;
+
+        confirmedBookings.textContent =
+          confirmed;
+
+        pendingSidebarCount.textContent =
+          pending;
+
+
+        renderRecentBookings(
+          bookings
+        );
+
+
+        lastUpdated.textContent =
+          "Updated " +
+          new Date().toLocaleTimeString(
+            "en-IN",
+            {
+              hour: "2-digit",
+              minute: "2-digit"
+            }
           );
 
 
-        totalCategories.textContent =
-          categories.size;
-
-
-        const prices =
-          cars
-            .map(
-              car =>
-                Number(
-                  car.pricePerDay
-                )
-            )
-            .filter(
-              price =>
-                !isNaN(price)
-            );
-
-
-        const average =
-          prices.length
-            ? prices.reduce(
-                (sum, price) =>
-                  sum + price,
-                0
-              ) / prices.length
-            : 0;
-
-
-        avgPrice.textContent =
-          formatMoney(
-            Math.round(
-              average
-            )
-          );
-
-      }
-
-      catch (error) {
+      } catch (error) {
 
         console.error(
-          "Car Stats Error:",
+          "Bookings error:",
           error
         );
+
+
+        bookingLoading.classList.add(
+          "hidden"
+        );
+
+
+        if (
+          recentBookings.children.length === 0
+        ) {
+
+          bookingEmpty.classList.remove(
+            "hidden"
+          );
+
+        }
 
       }
 
     }
 
 
-
     /* =====================================================
-       OPEN MODAL
+       RENDER BOOKINGS
     ===================================================== */
 
-    function openModal(
-      bookingId
+    function renderRecentBookings(
+      bookings
     ) {
 
-      const booking =
-        allBookings.find(
-          item =>
-            String(
-              item._id
-            ) ===
-            String(
-              bookingId
-            )
+      bookingLoading.classList.add(
+        "hidden"
+      );
+
+
+      if (
+        !bookings ||
+        bookings.length === 0
+      ) {
+
+        recentBookings.classList.add(
+          "hidden"
         );
 
-
-      if (!booking) {
-
-        showFlash(
-          "error",
-          "Booking Not Found",
-          "Booking details could not be found."
+        bookingEmpty.classList.remove(
+          "hidden"
         );
 
         return;
@@ -2089,196 +1659,398 @@
       }
 
 
-      currentSelectedBookingId =
-        booking._id;
+      bookingEmpty.classList.add(
+        "hidden"
+      );
+
+      recentBookings.classList.remove(
+        "hidden"
+      );
+
+
+      const sortedBookings =
+        [...bookings]
+          .sort(
+            (a, b) =>
+              new Date(
+                b.createdAt || 0
+              ) -
+              new Date(
+                a.createdAt || 0
+              )
+          )
+          .slice(0, 8);
+
+
+      recentBookings.innerHTML =
+        sortedBookings
+          .map(
+            booking =>
+              createRecentBooking(
+                booking
+              )
+          )
+          .join("");
+
+
+      lucide.createIcons();
+
+    }
+
+
+    /* =====================================================
+       CREATE BOOKING CARD
+    ===================================================== */
+
+    function createRecentBooking(
+      booking
+    ) {
+
+      const status =
+        String(
+          booking.status ||
+          "pending"
+        )
+          .toLowerCase()
+          .trim();
+
+
+      const config =
+        statusConfig[status] ||
+        statusConfig.pending;
 
 
       const car =
-        booking.car || {};
+        booking.car &&
+        typeof booking.car === "object"
+          ? booking.car
+          : null;
 
 
-      modalBookingId.textContent =
-        `Booking #${booking._id}`;
+      const carName =
+        car?.name ||
+        (
+          typeof booking.car === "string"
+            ? booking.car
+            : "Rental Vehicle"
+        );
 
 
-      modalNoteInput.value = "";
+      const carImage =
+        getCarImage(car) ||
+        fallbackImage;
 
 
-      /* MODAL DETAILS */
-
-      modalBookingInfo.innerHTML = `
-
-        <div class="flex gap-4">
-
-          <div
-            class="w-24 h-20 bg-white rounded-xl border border-slate-200 flex items-center justify-center p-2 shrink-0 overflow-hidden"
-          >
-
-            <img
-              src="${escapeHtml(
-                car.image ||
-                "/images/car-default.png"
-              )}"
-              alt="${escapeHtml(
-                car.name ||
-                "Car"
-              )}"
-              class="max-h-full max-w-full object-contain"
-              onerror="this.onerror=null;this.src='/images/car-default.png';"
-            />
-
-          </div>
+      const category =
+        car?.category ||
+        "Car";
 
 
-          <div
-            class="flex-1 min-w-0"
-          >
-
-            <h3
-              class="font-bold text-[#0B1536]"
-            >
-              ${escapeHtml(
-                car.name ||
-                "Rental Vehicle"
-              )}
-            </h3>
+      const transmission =
+        car?.transmission ||
+        "N/A";
 
 
-            <p
-              class="text-[10px] text-slate-400 mt-1 break-all"
-            >
+      const customerName =
+        booking.name ||
+        booking.renter?.name ||
+        "Customer";
 
-              Booking ID:
 
-              <span
-                class="text-slate-500 font-semibold"
+      const customerEmail =
+        booking.email ||
+        booking.renter?.email ||
+        "";
+
+
+      const amount =
+        booking.totalAmount ??
+        booking.amount ??
+        0;
+
+
+      const paymentStatus =
+        getPaymentStatus(
+          booking
+        );
+
+
+      const paymentLabel =
+        paymentStatus === "paid"
+          ? "Paid"
+          : paymentStatus === "refunded"
+            ? "Refunded"
+            : paymentStatus === "failed"
+              ? "Failed"
+              : "Pending";
+
+
+      const paymentClass =
+        paymentStatus === "paid"
+          ? "bg-emerald-50 text-emerald-600"
+          : paymentStatus === "refunded"
+            ? "bg-violet-50 text-violet-600"
+            : paymentStatus === "failed"
+              ? "bg-rose-50 text-rose-600"
+              : "bg-amber-50 text-amber-600";
+
+
+      const bookingId =
+        booking._id ||
+        "";
+
+
+      const days =
+        booking.totalDays ||
+        (
+          booking.startDate &&
+          booking.endDate
+            ? Math.max(
+                1,
+                Math.ceil(
+                  (
+                    new Date(booking.endDate) -
+                    new Date(booking.startDate)
+                  ) /
+                  (1000 * 60 * 60 * 24)
+                )
+              )
+            : 1
+        );
+
+
+      return `
+
+        <div class="booking-card p-5">
+
+          <div class="flex flex-col lg:flex-row lg:items-center gap-5">
+
+
+            <!-- CAR IMAGE -->
+
+            <div class="shrink-0">
+
+              <img
+                src="${escapeHtml(carImage)}"
+                alt="${escapeHtml(carName)}"
+                class="booking-car-image"
+                onerror="this.onerror=null;this.src='${fallbackImage}'"
               >
-                ${escapeHtml(
-                  booking._id
-                )}
-              </span>
 
-            </p>
+            </div>
 
 
-            <div
-              class="grid grid-cols-2 gap-x-4 gap-y-2 mt-3"
-            >
+            <!-- BOOKING DETAILS -->
 
-              <div>
+            <div class="flex-1 min-w-0">
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Customer
-                </p>
 
-                <p
-                  class="text-xs font-semibold text-slate-700"
-                >
-                  ${escapeHtml(
-                    booking.name
-                  )}
-                </p>
+              <!-- TOP -->
+
+              <div class="flex flex-wrap items-center gap-2">
+
+                <h3 class="text-sm font-extrabold text-[#0B1536]">
+                  ${escapeHtml(carName)}
+                </h3>
+
+                <span class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+                  ${escapeHtml(category)}
+                </span>
+
+                <span class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+                  ${escapeHtml(transmission)}
+                </span>
 
               </div>
 
 
-              <div>
+              <!-- CUSTOMER -->
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Phone
-                </p>
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
 
-                <p
-                  class="text-xs font-semibold text-slate-700"
-                >
-                  ${escapeHtml(
-                    booking.phone ||
-                    "N/A"
-                  )}
-                </p>
+                <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
 
-              </div>
+                  <i data-lucide="user"
+                    class="w-3.5 h-3.5 text-slate-400">
+                  </i>
+
+                  <span class="font-semibold">
+                    ${escapeHtml(customerName)}
+                  </span>
+
+                </span>
 
 
-              <div>
+                ${
+                  customerEmail
+                    ? `
+                      <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Pickup
-                </p>
+                        <i data-lucide="mail"
+                          class="w-3.5 h-3.5">
+                        </i>
 
-                <p
-                  class="text-xs font-semibold text-slate-700"
-                >
-                  ${formatDate(
-                    booking.startDate
-                  )}
-                </p>
+                        ${escapeHtml(customerEmail)}
+
+                      </span>
+                    `
+                    : ""
+                }
 
               </div>
 
 
-              <div>
+              <!-- BOOKING INFO -->
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Return
-                </p>
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
 
-                <p
-                  class="text-xs font-semibold text-slate-700"
-                >
-                  ${formatDate(
-                    booking.endDate
-                  )}
-                </p>
+
+                <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
+
+                  <i data-lucide="calendar-days"
+                    class="w-3.5 h-3.5 text-[#FF462D]">
+                  </i>
+
+                  ${formatDate(booking.startDate)}
+
+                  <span>
+                    →
+                  </span>
+
+                  ${formatDate(booking.endDate)}
+
+                </span>
+
+
+                <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
+
+                  <i data-lucide="clock-3"
+                    class="w-3.5 h-3.5">
+                  </i>
+
+                  ${escapeHtml(days)} day(s)
+
+                </span>
+
+
+                ${
+                  booking.pickupLocation
+                    ? `
+                      <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
+
+                        <i data-lucide="map-pin"
+                          class="w-3.5 h-3.5">
+                        </i>
+
+                        ${escapeHtml(
+                          booking.pickupLocation
+                        )}
+
+                      </span>
+                    `
+                    : ""
+                }
+
+              </div>
+
+
+              <!-- PAYMENT -->
+
+              <div class="flex flex-wrap items-center gap-2 mt-3">
+
+                <span class="${paymentClass} text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg">
+
+                  Payment: ${paymentLabel}
+
+                </span>
+
+
+                ${
+                  booking.note
+                    ? `
+                      <span class="bg-slate-50 text-slate-500 text-[9px] font-semibold px-2.5 py-1.5 rounded-lg">
+
+                        ${escapeHtml(
+                          booking.note
+                        )}
+
+                      </span>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="lg:min-w-[155px] lg:text-right shrink-0">
+
+
+              <!-- AMOUNT -->
+
+              <p class="text-lg font-extrabold text-[#FF462D]">
+
+                ₹${formatMoney(amount)}
+
+              </p>
+
+
+              <p class="text-[9px] text-slate-400 mt-0.5">
+                Total booking amount
+              </p>
+
+
+              <!-- STATUS -->
+
+              <div class="flex lg:justify-end mt-2">
+
+                <span
+                  class="inline-flex items-center gap-1.5 ${config.bg} ${config.text} text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg uppercase">
+
+                  <i data-lucide="${config.icon}"
+                    class="w-3.5 h-3.5">
+                  </i>
+
+                  ${config.label}
+
+                </span>
 
               </div>
 
 
-              <div>
+              <!-- UPDATE BUTTON -->
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Location
-                </p>
+              <a
+                href="/Customerbooking"
+                class="mt-3 inline-flex items-center justify-center gap-1.5 w-full lg:w-auto bg-[#0B1536] hover:bg-[#15234f] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg transition">
 
-                <p
-                  class="text-xs font-semibold text-slate-700"
-                >
-                  ${escapeHtml(
-                    booking.pickupLocation ||
-                    "N/A"
-                  )}
-                </p>
+                <i data-lucide="edit-3"
+                  class="w-3.5 h-3.5">
+                </i>
 
-              </div>
+                Update
+
+              </a>
 
 
-              <div>
+              <!-- BOOKING ID -->
 
-                <p
-                  class="text-[10px] text-slate-400"
-                >
-                  Total
-                </p>
+              ${
+                bookingId
+                  ? `
+                    <p class="text-[8px] text-slate-300 mt-2">
 
-                <p
-                  class="text-xs font-bold text-[#FF462D]"
-                >
-                  ${formatMoney(
-                    booking.totalAmount
-                  )}
-                </p>
+                      Booking #${escapeHtml(
+                        String(bookingId).slice(-8)
+                      )}
 
-              </div>
+                    </p>
+                  `
+                  : ""
+              }
 
             </div>
 
@@ -2288,450 +2060,94 @@
 
       `;
 
-
-      /* CURRENT STATUS */
-
-      selectedStatus =
-        String(
-          booking.status ||
-          "pending"
-        ).toLowerCase();
-
-
-      setSelectedStatus(
-        selectedStatus
-      );
-
-
-      modal.classList.remove(
-        "hidden"
-      );
-
-
-      lucide.createIcons();
-
     }
 
 
-
     /* =====================================================
-       SET STATUS
+       REFRESH DASHBOARD
     ===================================================== */
 
-    function setSelectedStatus(
-      status
-    ) {
-
-      selectedStatus =
-        status;
+    let refreshing = false;
 
 
-      statusBtns.forEach(
-        btn => {
+    async function refreshDashboard() {
 
-          btn.className =
-            "status-btn border border-slate-200 text-slate-500 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition";
-
-
-          const btnStatus =
-            btn.getAttribute(
-              "data-status"
-            );
+      if (refreshing) {
+        return;
+      }
 
 
-          if (
-            btnStatus ===
-            status
-          ) {
-
-            if (
-              status ===
-              "confirmed"
-            ) {
-
-              btn.className =
-                "status-btn border-2 border-emerald-500 bg-emerald-50 text-emerald-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition shadow-sm";
-
-            }
-
-            else if (
-              status ===
-              "completed"
-            ) {
-
-              btn.className =
-                "status-btn border-2 border-sky-500 bg-sky-50 text-sky-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition shadow-sm";
-
-            }
-
-            else if (
-              status ===
-              "cancelled"
-            ) {
-
-              btn.className =
-                "status-btn border-2 border-rose-500 bg-rose-50 text-rose-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition shadow-sm";
-
-            }
-
-            else {
-
-              btn.className =
-                "status-btn border-2 border-amber-500 bg-amber-50 text-amber-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1.5 transition shadow-sm";
-
-            }
-
-          }
-
-        }
-      );
-
-    }
+      refreshing = true;
 
 
+      try {
 
-    /* =====================================================
-       STATUS BUTTONS
-    ===================================================== */
+        await Promise.all([
+          loadMyCars(),
+          loadBookings()
+        ]);
 
-    statusBtns.forEach(
-      btn => {
+      } catch (error) {
 
-        btn.addEventListener(
-          "click",
-          () => {
-
-            const status =
-              btn.getAttribute(
-                "data-status"
-              );
-
-
-            setSelectedStatus(
-              status
-            );
-
-          }
+        console.error(
+          "Dashboard refresh error:",
+          error
         );
 
+      } finally {
+
+        refreshing = false;
+
       }
-    );
-
-
-
-    /* =====================================================
-       CLOSE MODAL
-    ===================================================== */
-
-    function closeModal() {
-
-      modal.classList.add(
-        "hidden"
-      );
-
-
-      currentSelectedBookingId =
-        null;
 
     }
-
-
-    closeModalBtn.addEventListener(
-      "click",
-      closeModal
-    );
-
-
-    modal.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          modal
-        ) {
-
-          closeModal();
-
-        }
-
-      }
-    );
-
-
-
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key ===
-            "Escape" &&
-          !modal.classList.contains(
-            "hidden"
-          )
-        ) {
-
-          closeModal();
-
-        }
-
-      }
-    );
-
-
-
-    /* =====================================================
-       UPDATE BOOKING STATUS
-    ===================================================== */
-
-    statusForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        if (
-          !currentSelectedBookingId
-        ) {
-
-          showFlash(
-            "error",
-            "Booking ID Missing",
-            "Booking ID is required."
-          );
-
-          return;
-
-        }
-
-
-        if (!selectedStatus) {
-
-          showFlash(
-            "error",
-            "Status Required",
-            "Please select a booking status."
-          );
-
-          return;
-
-        }
-
-
-        submitBtn.disabled =
-          true;
-
-
-        submitBtn.textContent =
-          "Updating...";
-
-
-        try {
-
-          const response =
-            await fetch(
-              "/api/bookings/update-status",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json",
-
-                  "Accept":
-                    "application/json"
-                },
-
-                body:
-                  JSON.stringify({
-                    bookingId:
-                      currentSelectedBookingId,
-
-                    status:
-                      selectedStatus,
-
-                    note:
-                      modalNoteInput
-                        .value
-                        .trim()
-                  })
-              }
-            );
-
-
-          const contentType =
-            response.headers.get(
-              "content-type"
-            ) || "";
-
-
-          if (
-            !contentType.includes(
-              "application/json"
-            )
-          ) {
-
-            throw new Error(
-              "Server returned HTML instead of JSON. Check the API route."
-            );
-
-          }
-
-
-          const result =
-            await response.json();
-
-
-          if (
-            !response.ok ||
-            !result.success
-          ) {
-
-            throw new Error(
-              result.message ||
-              "Status update failed."
-            );
-
-          }
-
-
-
-          /* =================================================
-             SUCCESS FLASH
-          ================================================= */
-
-          const flash =
-            getStatusFlash(
-              selectedStatus
-            );
-
-
-          showFlash(
-            "success",
-            flash.title,
-            result.message ||
-              flash.message
-          );
-
-
-          closeModal();
-
-
-
-          /* =================================================
-             FRESH DATABASE DATA
-          ================================================= */
-
-          await loadBookings();
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "Status Update Error:",
-            error
-          );
-
-
-          showFlash(
-            "error",
-            "Update Failed",
-            error.message ||
-              "Server communication error."
-          );
-
-        }
-
-        finally {
-
-          submitBtn.disabled =
-            false;
-
-
-          submitBtn.textContent =
-            "Update Status";
-
-        }
-
-      }
-    );
-
-
-
-    /* =====================================================
-       REFRESH
-    ===================================================== */
-
-    refreshBtn.addEventListener(
-      "click",
-      async () => {
-
-        await loadBookings();
-
-        await loadCarStats();
-
-      }
-    );
-
-
-
-    /* =====================================================
-       RETRY
-    ===================================================== */
-
-    retryBtn.addEventListener(
-      "click",
-      async () => {
-
-        await loadBookings();
-
-      }
-    );
-
 
 
     /* =====================================================
        INITIAL LOAD
     ===================================================== */
 
-    loadBookings();
-
-    loadCarStats();
-
+    refreshDashboard();
 
 
     /* =====================================================
        AUTO REFRESH
-       ADDED ONLY FOR PAYMENT STATUS
+       Every 5 seconds
     ===================================================== */
 
     setInterval(
-      async () => {
+      refreshDashboard,
+      5000
+    );
 
-        /*
-         * Refresh booking data every 5 seconds.
-         * This allows admin/owner to see
-         * Confirmed -> Paid automatically
-         * after customer completes payment.
-         */
+
+    /* =====================================================
+       UPDATE DATE
+    ===================================================== */
+
+    setInterval(
+      updateDate,
+      60000
+    );
+
+
+    /* =====================================================
+       REFRESH WHEN TAB BECOMES ACTIVE
+    ===================================================== */
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
 
         if (
-          modal.classList.contains("hidden")
+          document.visibilityState === "visible"
         ) {
 
-          await loadBookings();
+          refreshDashboard();
 
         }
 
-      },
-      5000
+      }
     );
 
   </script>
