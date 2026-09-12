@@ -11,7 +11,10 @@
     >
 
     <title>Payment Successful - RideWave</title>
-
+ <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
     <link
         rel="icon"
         type="image/png"
@@ -25,6 +28,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
 
         body {
 
@@ -45,84 +49,6 @@
             display: flex;
 
             flex-direction: column;
-
-        }
-
-
-        /* =========================
-           NAVBAR
-        ========================== */
-
-        .navbar {
-
-            height: 72px;
-
-            width: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 6%;
-
-            background: rgba(255,255,255,0.96);
-
-            backdrop-filter: blur(12px);
-
-            border-bottom: 1px solid #e5e7eb;
-
-        }
-
-
-        .logo {
-
-            text-decoration: none;
-
-        }
-
-
-        .ridewave-logo {
-
-            width: 125px;
-
-            height: 70px;
-
-            object-fit: contain;
-
-            display: block;
-
-        }
-
-
-        .nav-links {
-
-            display: flex;
-
-            gap: 30px;
-
-        }
-
-
-        .nav-links a {
-
-            text-decoration: none;
-
-            color: #334155;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-            transition: 0.3s;
-
-        }
-
-
-        .nav-links a:hover {
-
-            color: #f97316;
 
         }
 
@@ -150,9 +76,9 @@
 
             width: 100%;
 
-            max-width: 520px;
+            max-width: 540px;
 
-            background: white;
+            background: #ffffff;
 
             border: 1px solid #dcfce7;
 
@@ -176,7 +102,9 @@
 
                 opacity: 0;
 
-                transform: translateY(25px) scale(0.97);
+                transform:
+                    translateY(25px)
+                    scale(0.97);
 
             }
 
@@ -184,7 +112,9 @@
 
                 opacity: 1;
 
-                transform: translateY(0) scale(1);
+                transform:
+                    translateY(0)
+                    scale(1);
 
             }
 
@@ -213,7 +143,8 @@
 
             justify-content: center;
 
-            animation: pop 0.5s ease 0.2s both;
+            animation:
+                pop 0.5s ease 0.2s both;
 
         }
 
@@ -221,21 +152,15 @@
         @keyframes pop {
 
             0% {
-
                 transform: scale(0);
-
             }
 
             70% {
-
                 transform: scale(1.12);
-
             }
 
             100% {
-
                 transform: scale(1);
-
             }
 
         }
@@ -255,7 +180,7 @@
 
 
         /* =========================
-           TEXT
+           HEADING
         ========================== */
 
         .success-card h1 {
@@ -271,7 +196,7 @@
         }
 
 
-        .success-card .subtitle {
+        .subtitle {
 
             color: #64748b;
 
@@ -283,18 +208,18 @@
 
 
         /* =========================
-           DETAILS
+           RECEIPT
         ========================== */
 
-        .details {
+        .receipt {
 
-            background: #f8fafc;
+            background: #ffffff;
 
             border: 1px solid #e2e8f0;
 
-            border-radius: 14px;
+            border-radius: 15px;
 
-            padding: 18px;
+            overflow: hidden;
 
             margin-bottom: 25px;
 
@@ -302,6 +227,62 @@
 
         }
 
+
+        .receipt-header {
+
+            background: #f8fafc;
+
+            padding: 16px 20px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .receipt-title {
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            color: #0f172a;
+
+        }
+
+
+        .receipt-paid {
+
+            color: #16a34a;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            background: #dcfce7;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+        }
+
+
+        .receipt-body {
+
+            padding: 18px 20px;
+
+        }
+
+
+        /* =========================
+           DETAIL ROW
+        ========================== */
 
         .detail-row {
 
@@ -311,7 +292,9 @@
 
             align-items: center;
 
-            padding: 9px 0;
+            gap: 20px;
+
+            padding: 11px 0;
 
             font-size: 14px;
 
@@ -320,7 +303,7 @@
 
         .detail-row:not(:last-child) {
 
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #eef2f7;
 
         }
 
@@ -338,6 +321,8 @@
 
             font-weight: 700;
 
+            text-align: right;
+
         }
 
 
@@ -349,7 +334,160 @@
 
 
         /* =========================
-           BUTTON
+           FARE BREAKDOWN
+        ========================== */
+
+        .fare-section {
+
+            margin-top: 12px;
+
+            padding-top: 12px;
+
+            border-top: 1px dashed #cbd5e1;
+
+        }
+
+
+        .fare-title {
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            color: #334155;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .fare-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 8px 0;
+
+            font-size: 14px;
+
+        }
+
+
+        .fare-row span:first-child {
+
+            color: #64748b;
+
+        }
+
+
+        .fare-row span:last-child {
+
+            color: #111827;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================
+           FINAL TOTAL
+        ========================== */
+
+        .total-row {
+
+            margin-top: 8px;
+
+            padding-top: 14px;
+
+            border-top: 2px solid #e2e8f0;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .total-label {
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            color: #0f172a;
+
+        }
+
+
+        .total-value {
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            color: #16a34a;
+
+        }
+
+
+        /* =========================
+           RECEIPT BUTTON
+        ========================== */
+
+        .receipt-actions {
+
+            margin-top: 18px;
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .print-btn {
+
+            flex: 1;
+
+            height: 48px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .print-btn:hover {
+
+            background: #f8fafc;
+
+            border-color: #94a3b8;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =========================
+           HOME BUTTON
         ========================== */
 
         .confirm-btn {
@@ -428,53 +566,90 @@
 
 
         /* =========================
-           MOBILE
+           PRINT CSS
         ========================== */
 
-        @media (max-width: 600px) {
+        @media print {
 
-            .navbar {
+            body {
 
-                height: 64px;
-
-                padding: 0 18px;
-
-            }
-
-
-            .ridewave-logo {
-
-                width: 105px;
-
-                height: 60px;
-
-            }
-
-
-            .nav-links {
-
-                gap: 12px;
-
-            }
-
-
-            .nav-links a:nth-child(2) {
-
-                display: none;
+                background: white;
 
             }
 
 
             .success-page {
 
-                padding: 30px 15px;
+                padding: 0;
 
             }
 
 
             .success-card {
 
-                padding: 35px 20px;
+                max-width: 100%;
+
+                border: none;
+
+                box-shadow: none;
+
+                padding: 20px;
+
+            }
+
+
+            .success-icon {
+
+                animation: none;
+
+            }
+
+
+            .confirm-btn,
+
+            .booking-btn,
+
+            .receipt-actions {
+
+                display: none !important;
+
+            }
+
+
+            .subtitle {
+
+                margin-bottom: 20px;
+
+            }
+
+
+            .receipt {
+
+                border: 1px solid #999;
+
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            .success-page {
+
+                padding: 25px 14px;
+
+            }
+
+
+            .success-card {
+
+                padding: 32px 18px;
+
+                border-radius: 18px;
 
             }
 
@@ -503,6 +678,36 @@
 
             }
 
+
+            .receipt-header {
+
+                padding: 14px 15px;
+
+            }
+
+
+            .receipt-body {
+
+                padding: 15px;
+
+            }
+
+
+            .detail-row,
+
+            .fare-row {
+
+                font-size: 13px;
+
+            }
+
+
+            .total-value {
+
+                font-size: 18px;
+
+            }
+
         }
 
     </style>
@@ -511,42 +716,6 @@
 
 
 <body>
-
-<!-- 
-     =========================
-         NAVBAR
-    ========================== -->
-<!-- 
-    <nav class="navbar">
-
-        <a href="/" class="logo">
-
-            <img
-                src="/images/logo.png"
-                alt="RideWave"
-                class="ridewave-logo"
-            >
-
-        </a>
-
-
-        <div class="nav-links">
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/search">
-                Cars
-            </a>
-
-            <a href="/Mybookings">
-                My Bookings
-            </a>
-
-        </div>
-
-    </nav> --> 
 
 
     <!-- =========================
@@ -558,7 +727,9 @@
         <div class="success-card">
 
 
-            <!-- SUCCESS ICON -->
+            <!-- =========================
+                 SUCCESS ICON
+            ========================== -->
 
             <div class="success-icon">
 
@@ -592,75 +763,179 @@
             </p>
 
 
-            <!-- PAYMENT DETAILS -->
+            <!-- =========================
+                 RECEIPT
+            ========================== -->
 
-            <div class="details">
+            <div class="receipt">
 
 
-                <div class="detail-row">
+                <!-- RECEIPT HEADER -->
 
-                    <span>
-                        Booking ID
+                <div class="receipt-header">
+
+                    <span class="receipt-title">
+                        Payment Receipt
                     </span>
 
-                    <span>
-                        <%= bookingId || "Not Available" %>
-                    </span>
-
-                </div>
-
-
-                <div class="detail-row">
-
-                    <span>
-                        Amount Paid
-                    </span>
-
-                    <span>
-                        ₹<%= amount || "0" %>
+                    <span class="receipt-paid">
+                        PAID
                     </span>
 
                 </div>
 
 
-                <div class="detail-row">
+                <!-- RECEIPT BODY -->
 
-                    <span>
-                        Payment Method
-                    </span>
+                <div class="receipt-body">
 
-                    <span>
-                        <%= paymentMethod || "Online" %>
-                    </span>
+
+                    <!-- BOOKING ID -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Booking ID
+                        </span>
+
+                        <span>
+                            <%= bookingId || "Not Available" %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Payment Method
+                        </span>
+
+                        <span>
+                            <%= paymentMethod || "Online" %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- PAYMENT STATUS -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Payment Status
+                        </span>
+
+                        <span class="payment-status">
+                            ✓ Paid
+                        </span>
+
+                    </div>
+
+
+                    <!-- =========================
+                         FARE BREAKDOWN
+                    ========================== -->
+
+                    <div class="fare-section">
+
+                        <div class="fare-title">
+                            Fare Breakdown
+                        </div>
+
+
+                        <div class="fare-row">
+
+                            <span>
+                                Base Rental
+                            </span>
+
+                            <span id="baseAmount">
+                                ₹0
+                            </span>
+
+                        </div>
+
+
+                        <div class="fare-row">
+
+                            <span>
+                                GST (18%)
+                            </span>
+
+                            <span id="gstAmount">
+                                ₹0
+                            </span>
+
+                        </div>
+
+
+                        <div class="fare-row">
+
+                            <span>
+                                Security Deposit
+                            </span>
+
+                            <span id="securityDeposit">
+                                ₹3,000
+                            </span>
+
+                        </div>
+
+
+                        <!-- FINAL TOTAL -->
+
+                        <div class="total-row">
+
+                            <span class="total-label">
+                                Total Amount
+                            </span>
+
+                            <span
+                                class="total-value"
+                                id="totalAmount"
+                            >
+                                ₹0
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRINT -->
+
+                    <div class="receipt-actions">
+
+                        <button
+                            type="button"
+                            onclick="window.print()"
+                            class="print-btn"
+                        >
+
+                            🖨 Print Receipt
+
+                        </button>
+
+                    </div>
 
                 </div>
-
-
-                <div class="detail-row">
-
-                    <span>
-                        Payment Status
-                    </span>
-
-                    <span class="payment-status">
-                        ✓ Paid
-                    </span>
-
-                </div>
-
 
             </div>
 
 
-            <!-- CONFIRM BOOKING -->
+            <!-- =========================
+                 THANK YOU BUTTON
+            ========================== -->
 
             <a
-             href="/"
-              
+                href="/"
                 class="confirm-btn"
             >
 
-            Thank You for Booking with RideWave
+                Thank You for Booking with RideWave
 
             </a>
 
@@ -678,6 +953,217 @@
         </div>
 
     </main>
+
+
+    <!-- =========================
+         CALCULATION
+    ========================== -->
+<script>
+
+    // =====================================================
+    // BACKEND VALUES
+    // =====================================================
+
+    const bookingBaseAmount =
+        Number("<%= typeof baseAmount !== 'undefined' ? baseAmount : 0 %>") || 0;
+
+    const bookingGstAmount =
+        Number("<%= typeof gstAmount !== 'undefined' ? gstAmount : 0 %>") || 0;
+
+    const bookingSecurityDeposit =
+        Number("<%= typeof securityDeposit !== 'undefined' ? securityDeposit : 0 %>") || 0;
+
+    const bookingTotalAmount =
+        Number("<%= typeof totalAmount !== 'undefined' ? totalAmount : 0 %>") || 0;
+
+    const oldAmount =
+        Number("<%= amount || 0 %>") || 0;
+
+    const totalDays =
+        Number("<%= typeof totalDays !== 'undefined' ? totalDays : 1 %>") || 1;
+
+    const pricePerDay =
+        Number("<%= typeof pricePerDay !== 'undefined' ? pricePerDay : 0 %>") || 0;
+
+
+    // =====================================================
+    // TOTAL DAYS
+    // =====================================================
+
+    const days = Math.max(1, totalDays);
+
+
+    // =====================================================
+    // BASE RENTAL
+    // =====================================================
+
+    let baseAmount = 0;
+
+    /*
+     * Priority:
+     * 1. Backend baseAmount
+     * 2. pricePerDay × days
+     * 3. old amount
+     */
+
+    if (bookingBaseAmount > 0) {
+
+        baseAmount = bookingBaseAmount;
+
+    } else if (pricePerDay > 0) {
+
+        baseAmount = pricePerDay * days;
+
+    } else if (oldAmount > 0) {
+
+        baseAmount = oldAmount;
+
+    }
+
+
+    // =====================================================
+    // GST 18%
+    // =====================================================
+
+    /*
+     * GST MUST be calculated ONLY on rental amount.
+     * Security deposit par GST nahi lagana.
+     */
+
+    const calculatedGst =
+        Math.round(baseAmount * 18 / 100);
+
+
+    /*
+     * Backend GST agar available hai to use it.
+     * Otherwise calculated GST use hoga.
+     */
+
+    const gstAmount =
+        bookingGstAmount > 0
+            ? bookingGstAmount
+            : calculatedGst;
+
+
+    // =====================================================
+    // SECURITY DEPOSIT
+    // =====================================================
+
+    const securityDeposit =
+        bookingSecurityDeposit > 0
+            ? bookingSecurityDeposit
+            : 3000;
+
+
+    // =====================================================
+    // FINAL TOTAL
+    // =====================================================
+
+    /*
+     * IMPORTANT:
+     *
+     * Do NOT use bookingTotalAmount here.
+     *
+     * Because old totalAmount may contain:
+     * - only rental
+     * - rental + GST
+     * - or some other amount
+     *
+     * So calculate fresh.
+     */
+
+    const finalTotal =
+        baseAmount +
+        gstAmount +
+        securityDeposit;
+
+
+    // =====================================================
+    // FORMAT INR
+    // =====================================================
+
+    function formatINR(value) {
+
+        return new Intl.NumberFormat(
+            "en-IN",
+            {
+                style: "currency",
+                currency: "INR",
+                maximumFractionDigits: 0
+            }
+        ).format(Number(value) || 0);
+
+    }
+
+
+    // =====================================================
+    // DISPLAY
+    // =====================================================
+
+    const baseElement =
+        document.getElementById("baseAmount");
+
+    const gstElement =
+        document.getElementById("gstAmount");
+
+    const securityElement =
+        document.getElementById("securityDeposit");
+
+    const totalElement =
+        document.getElementById("totalAmount");
+
+
+    if (baseElement) {
+
+        baseElement.textContent =
+            formatINR(baseAmount);
+
+    }
+
+
+    if (gstElement) {
+
+        gstElement.textContent =
+            formatINR(gstAmount);
+
+    }
+
+
+    if (securityElement) {
+
+        securityElement.textContent =
+            formatINR(securityDeposit);
+
+    }
+
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            formatINR(finalTotal);
+
+    }
+
+
+    // =====================================================
+    // DEBUG
+    // =====================================================
+
+    console.log("RideWave Booking Calculation");
+
+    console.log("Price Per Day:", pricePerDay);
+
+    console.log("Total Days:", days);
+
+    console.log("Base Rental:", baseAmount);
+
+    console.log("GST 18%:", gstAmount);
+
+    console.log("Security Deposit:", securityDeposit);
+
+    console.log("Final Total:", finalTotal);
+
+</script>
 
 
 </body>

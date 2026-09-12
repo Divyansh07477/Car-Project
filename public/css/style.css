@@ -2596,3 +2596,35 @@ margin-bottom: 3rem;
     background: #fef2f2;
     color: #dc2626;
 }
+/* =====================================================
+   GLOBAL THEME CUSTOM SCROLLBAR (RideWave Orange)
+===================================================== */
+
+/* Chrome, Safari, Edge aur Opera ke liye */
+::-webkit-scrollbar {
+    width: 10px;               /* Vertical scrollbar ki width */
+    height: 10px;              /* Horizontal scrollbar ki height */
+}
+
+/* Scrollbar Track (Background) */
+::-webkit-scrollbar-track {
+    background: #f1f5f9;       /* Light smooth background */
+}
+
+/* Scrollbar Thumb (Draggable Orange Bar) */
+::-webkit-scrollbar-thumb {
+    background: #f97316;       /* RideWave Orange */
+    border-radius: 8px;        /* Rounded pill shape */
+    border: 2px solid #f1f5f9; /* Spacing track ke saath taaki clean dikhe */
+}
+
+/* Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #ea580c;       /* Darker orange on hover */
+}
+
+/* Firefox ke liye */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #f97316 #f1f5f9;
+}

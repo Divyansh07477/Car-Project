@@ -9,7 +9,10 @@
     <title>RideWave - Automotive Films</title>
 
     <link rel="icon" type="image/png" href="/images/title.png.jpeg">
-
+ <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -1726,6 +1729,56 @@ footer {
 
 
 
+/* =========================================
+   VIDEO CONTROLS - HIDDEN BY DEFAULT
+   SHOW ONLY ON HOVER
+========================================= */
+
+.video-card video {
+    cursor: pointer;
+}
+
+/* Chrome / Edge / Safari */
+.video-card video::-webkit-media-controls {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Hover par controls show */
+.video-card:hover video::-webkit-media-controls {
+    opacity: 1;
+}
+
+/* Controls background bhi smooth */
+.video-card video::-webkit-media-controls-panel {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-card:hover video::-webkit-media-controls-panel {
+    opacity: 1;
+}
+
+
+/* Home Hero Video */
+#heroVideo::-webkit-media-controls {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#heroVideo:hover::-webkit-media-controls {
+    opacity: 1;
+}
+
+#heroVideo::-webkit-media-controls-panel {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#heroVideo:hover::-webkit-media-controls-panel {
+    opacity: 1;
+}
+
 
 </style>
 
@@ -1756,8 +1809,8 @@ footer {
     <!-- NAV LINKS -->
     <div class="nav-links" id="navLinks">
 
-        <a href="/" class="active">
-            Home
+        <a href="/clips" class="active">
+            Clips
         </a>
 
         <a href="/#rentals">
@@ -1859,22 +1912,16 @@ footer {
     <!-- RIGHT HERO VIDEO -->
 
     <div class="hero-video">
-
-        <video
-            autoplay
-            muted
-            loop
-            controls
-            playsinline
-            preload="metadata">
-
-            <source
-                src="/images/carLogo.mp4"
-                type="video/mp4">
-
-            Your browser does not support the video tag.
-
-        </video>
+<video 
+    id="heroVideo" 
+    autoplay 
+    loop
+    playsinline 
+    preload="auto"
+    controls>
+    <source src="/images/carLogo.mp4" type="video/mp4">
+              
+</video>
 
     </div>
 
@@ -1991,388 +2038,479 @@ footer {
         id="videoGrid">
 
 
+<!-- =================================================
+     01 — ROLLS-ROYCE GHOST
+================================================= -->
 
-        <!-- ===============================
-             01 MASERATI
-        ================================ -->
+<article
+    class="video-card"
+    data-category="luxury">
 
-        <article
-            class="video-card"
-            data-category="supercar performance">
+    <div class="video-box">
 
-            <div class="video-box">
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+            <source
+                src="/images/rollsRoyce.mp4"
+                type="video/mp4">
 
-                    <source
-                        src="/images/WhatsApp Video 2026-09-10 at 8.05.19 PM (1).mp4"
-                        type="video/mp4">
+        </video>
 
-                </video>
+        <div class="video-number">
+            
+        </div>
 
+    </div>
 
-                <div class="video-number">
 
-                    01
+    <div class="video-info">
 
-                </div>
+        <div class="video-info-top">
 
-            </div>
+            <h3>
+                Rolls-Royce Ghost
+            </h3>
 
+            <span class="video-category">
+                Luxury
+            </span>
 
-            <div class="video-info">
+        </div>
 
-                <div class="video-info-top">
+        <p>
+            Effortless elegance, extraordinary comfort
+            and handcrafted luxury.
+        </p>
 
-                    <h3>
+    </div>
 
-                        Maserati MC20
+</article>
 
-                    </h3>
 
+<!-- =================================================
+     02 — BMW M4 CS
+================================================= -->
 
-                    <span class="video-category">
+<article
+    class="video-card"
+    data-category="performance">
 
-                        Supercar
+    <div class="video-box">
 
-                    </span>
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                </div>
+            <source
+                src="/images/m4.mp4"
+                type="video/mp4">
 
+        </video>
 
-                <p>
+        <div class="video-number">
+            
+        </div>
 
-                    Italian engineering meets dramatic
-                    design in the Maserati MC20.
+    </div>
 
-                </p>
 
-            </div>
+    <div class="video-info">
 
-        </article>
+        <div class="video-info-top">
 
+            <h3>
+                BMW M3 CS
+            </h3>
 
+            <span class="video-category">
+                Performance
+            </span>
 
-        <!-- ===============================
-             02 DEFENDER
-        ================================ -->
+        </div>
 
-        <article
-            class="video-card"
-            data-category="suv">
+        <p>
+            Precision, aggression and M performance
+            in one unforgettable package.
+        </p>
 
-            <div class="video-box">
+    </div>
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+</article>
 
-                    <source
-                        src="/images/WhatsApp Video 2026-09-10 at 8.05.19 PM.mp4"
-                        type="video/mp4">
 
-                </video>
+<!-- =================================================
+     03 — MERCEDES-AMG GT 63
+================================================= -->
 
+<article
+    class="video-card"
+    data-category="luxury performance">
 
-                <div class="video-number">
+    <div class="video-box">
 
-                    02
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                </div>
+            <source
+                src="/images/amg.mp4"
+                type="video/mp4">
 
-            </div>
+        </video>
 
+        <div class="video-number">
+            
+        </div>
 
-            <div class="video-info">
+    </div>
 
-                <div class="video-info-top">
 
-                    <h3>
+    <div class="video-info">
 
-                        Defender
+        <div class="video-info-top">
 
-                    </h3>
+            <h3>
+                Mercedes-AMG GT 63
+            </h3>
 
+            <span class="video-category">
+                Luxury Performance
+            </span>
 
-                    <span class="video-category">
+        </div>
 
-                        SUV
+        <p>
+            A powerful four-door performance machine
+            blending luxury, speed, and AMG character.
+        </p>
 
-                    </span>
+    </div>
 
-                </div>
+</article>
 
 
-                <p>
+<!-- =================================================
+     04 — LAMBORGHINI REVUELTO
+================================================= -->
 
-                    Legendary capability wrapped in
-                    unmistakable British character.
+<article
+    class="video-card"
+    data-category="supercar performance">
 
-                </p>
+    <div class="video-box">
 
-            </div>
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-        </article>
+            <source
+                src="/images/lambo.mp4"
+                type="video/mp4">
 
+        </video>
 
+        <div class="video-number">
+            
+        </div>
 
-        <!-- ===============================
-             03 BMW M4 CS
-        ================================ -->
+    </div>
 
-        <article
-            class="video-card"
-            data-category="performance">
 
-            <div class="video-box">
+    <div class="video-info">
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+        <div class="video-info-top">
 
-                    <source
-                        src="/images/WhatsApp Video 2026-09-10 at 8.05.20 PM (3).mp4"
-                        type="video/mp4">
+            <h3>
+                Lamborghini Revuelto
+            </h3>
 
-                </video>
+            <span class="video-category">
+                Supercar
+            </span>
 
+        </div>
 
-                <div class="video-number">
+        <p>
+            V12 emotion meets electrified performance
+            in Lamborghini's new era.
+        </p>
 
-                    03
+    </div>
 
-                </div>
+</article>
 
-            </div>
 
+<!-- =================================================
+     05 — LAMBORGHINI HURACAN
+================================================= -->
 
-            <div class="video-info">
+<article
+    class="video-card"
+    data-category="supercar performance">
 
-                <div class="video-info-top">
+    <div class="video-box">
 
-                    <h3>
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                        BMW M4 CS
+            <source
+                src="/images/svj.mp4"
+                type="video/mp4">
 
-                    </h3>
+        </video>
 
+        <div class="video-number">
+            
+        </div>
 
-                    <span class="video-category">
+    </div>
 
-                        Performance
 
-                    </span>
+    <div class="video-info">
 
-                </div>
+        <div class="video-info-top">
 
+            <h3>
+                Lamborghini Huracan
+            </h3>
 
-                <p>
+            <span class="video-category">
+                Supercar
+            </span>
 
-                    Precision, aggression and M performance
-                    in one unforgettable package.
+        </div>
 
-                </p>
+        <p>
+            A naturally aspirated V10 icon built
+            for pure driving emotion.
+        </p>
 
-            </div>
+    </div>
 
-        </article>
+</article>
 
 
+<!-- =================================================
+     06 — PORSCHE 911
+================================================= -->
 
-        <!-- ===============================
-             04 ROLLS ROYCE GHOST
-        ================================ -->
+<article
+    class="video-card"
+    data-category="sports car performance">
 
-        <article
-            class="video-card"
-            data-category="luxury">
+    <div class="video-box">
 
-            <div class="video-box">
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+            <source
+                src="/images/911.mp4"
+                type="video/mp4">
 
-                    <source
-                        src="/images/WhatsApp Video 2026-09-10 at 8.05.20 PM (2).mp4"
-                        type="video/mp4">
+        </video>
 
-                </video>
+        <div class="video-number">
+            
+        </div>
 
+    </div>
 
-                <div class="video-number">
 
-                    04
+    <div class="video-info">
 
-                </div>
+        <div class="video-info-top">
 
-            </div>
+            <h3>
+                Porsche 911
+            </h3>
 
+            <span class="video-category">
+                Sports Car
+            </span>
 
-            <div class="video-info">
+        </div>
 
-                <div class="video-info-top">
+        <p>
+            A legendary sports car combining precision,
+            performance, and timeless design.
+        </p>
 
-                    <h3>
+    </div>
 
-                        Rolls-Royce Ghost
+</article>
 
-                    </h3>
 
+<!-- =================================================
+     07 — DEFENDER
+================================================= -->
 
-                    <span class="video-category">
+<article
+    class="video-card"
+    data-category="suv">
 
-                        Luxury
+    <div class="video-box">
 
-                    </span>
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                </div>
+            <source
+                src="/images/defender.mp4"
+                type="video/mp4">
 
+        </video>
 
-                <p>
+        <div class="video-number">
+            
+        </div>
 
-                    Effortless elegance, extraordinary comfort
-                    and handcrafted luxury.
+    </div>
 
-                </p>
 
-            </div>
+    <div class="video-info">
 
-        </article>
+        <div class="video-info-top">
 
+            <h3>
+                Defender
+            </h3>
 
+            <span class="video-category">
+                SUV
+            </span>
 
-        <!-- ===============================
-             05 LAMBORGHINI REVUELTO
-        ================================ -->
+        </div>
 
-        <article
-            class="video-card"
-            data-category="supercar performance">
+        <p>
+            Legendary capability wrapped in
+            unmistakable British character.
+        </p>
 
-            <div class="video-box">
+    </div>
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+</article>
 
-                    <source
-                        src="/images/lambo.mp4"
-                        type="video/mp4">
 
-                </video>
+<!-- =================================================
+     08 — MASERATI MC20
+================================================= -->
 
+<article
+    class="video-card"
+    data-category="supercar performance">
 
-                <div class="video-number">
+    <div class="video-box">
 
-                    05
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
-                </div>
+            <source
+                src="/images/maserati.mp4"
+                type="video/mp4">
 
-            </div>
+        </video>
 
+        <div class="video-number">
+            
+        </div>
 
-            <div class="video-info">
+    </div>
 
-                <div class="video-info-top">
 
-                    <h3>
+    <div class="video-info">
 
-                        Lamborghini Revuelto
+        <div class="video-info-top">
 
-                    </h3>
+            <h3>
+                Maserati MC20
+            </h3>
 
+            <span class="video-category">
+                Supercar
+            </span>
 
-                    <span class="video-category">
+        </div>
 
-                        Supercar
+        <p>
+            Italian engineering meets dramatic
+            design in the Maserati MC20.
+        </p>
 
-                    </span>
+    </div>
 
-                </div>
+</article>
 
 
-                <p>
 
-                    V12 emotion meets electrified performance
-                    in Lamborghini's new era.
+<!-- =================================================
+     09 — MERCEDES-AMG G WAGON
+================================================= -->
 
-                </p>
+<article
+    class="video-card"
+    data-category="luxury suv performance">
 
-            </div>
+    <div class="video-box">
 
-        </article>
+        <video
+            controls
+            preload="metadata"
+            playsinline>
 
+            <source
+                src="/images/gwegon.mp4"
+                type="video/mp4">
 
+        </video>
 
-        <!-- ===============================
-             06 LAMBORGHINI HURACAN
-        ================================ -->
+        <div class="video-number">
+        </div>
 
-        <article
-            class="video-card"
-            data-category="supercar performance">
+    </div>
 
-            <div class="video-box">
 
-                <video
-                    controls
-                    preload="metadata"
-                    playsinline>
+    <div class="video-info">
 
-                    <source
-                        src="/images/WhatsApp Video 2026-09-10 at 8.05.20 PM.mp4"
-                        type="video/mp4">
+        <div class="video-info-top">
 
-                </video>
+            <h3>
+                Mercedes-AMG G 63
+            </h3>
 
+            <span class="video-category">
+                Luxury SUV
+            </span>
 
-                <div class="video-number">
+        </div>
 
-                    06
+        <p>
+            Iconic design meets brutal performance
+            in the legendary Mercedes-AMG G 63.
+        </p>
 
-                </div>
+    </div>
 
-            </div>
+</article>
 
 
-            <div class="video-info">
 
-                <div class="video-info-top">
 
-                    <h3>
 
-                        Lamborghini Huracan
 
-                    </h3>
 
-
-                    <span class="video-category">
-
-                        Supercar
-
-                    </span>
-
-                </div>
-
-
-                <p>
-
-                    A naturally aspirated V10 icon built
-                    for pure driving emotion.
-
-                </p>
-
-            </div>
-
-        </article>
 
 
     </div>

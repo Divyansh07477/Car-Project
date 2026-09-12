@@ -242,10 +242,8 @@ app.get("/carAdmin", (req, res) => {
 });
 
 
-app.get("/booking-confirm", (req, res) => {
-
+app.get(["/booking-confirm", "/bookingConform"], (req, res) => {
     res.render("bookingConform");
-
 });
 
 

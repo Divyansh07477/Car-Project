@@ -8,7 +8,10 @@
   <title>RideWave Admin - Dashboard</title>
 
   <link rel="icon" type="image/png" href="/images/title.png.jpeg">
-
+ <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -137,7 +140,6 @@
     }
 
     @media (max-width: 900px) {
-
       .sidebar {
         width: 220px;
       }
@@ -148,7 +150,6 @@
     }
 
     @media (max-width: 700px) {
-
       .sidebar {
         position: relative;
         width: 100%;
@@ -172,9 +173,7 @@
   </style>
 </head>
 
-
 <body class="bg-[#F8FAFC] text-slate-800">
-
 
   <!-- ===================================================== -->
   <!-- FIXED SIDEBAR -->
@@ -185,7 +184,6 @@
     <div>
 
       <!-- LOGO -->
-
       <div class="flex items-center gap-2 mb-10">
 
         <span class="text-2xl font-bold tracking-tight text-white">
@@ -199,9 +197,7 @@
 
       </div>
 
-
       <!-- NAVIGATION -->
-
       <div class="space-y-6">
 
         <div>
@@ -210,39 +206,29 @@
             Main
           </p>
 
-
           <nav class="space-y-1.5">
 
             <!-- DASHBOARD -->
-
             <a href="/admin"
               class="sidebar-link flex items-center gap-3.5 px-4 py-3 bg-[#FF462D] text-white rounded-xl font-medium shadow-md shadow-[#FF462D]/20">
 
               <i data-lucide="layout-grid" class="w-5 h-5"></i>
 
-              <span>
-                Dashboard
-              </span>
+              <span>Dashboard</span>
 
             </a>
 
-
             <!-- RENTAL CARS -->
-
             <a href="/carAdmin"
               class="sidebar-link flex items-center gap-3.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium">
 
               <i data-lucide="car" class="w-5 h-5"></i>
 
-              <span>
-                Rental Cars
-              </span>
+              <span>Rental Cars</span>
 
             </a>
 
-
             <!-- BOOKINGS -->
-
             <a href="/Customerbooking"
               class="sidebar-link flex items-center justify-between px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl font-medium">
 
@@ -250,12 +236,9 @@
 
                 <i data-lucide="calendar" class="w-5 h-5"></i>
 
-                <span>
-                  Bookings
-                </span>
+                <span>Bookings</span>
 
               </div>
-
 
               <span id="pendingSidebarCount"
                 class="bg-[#FF9F1C] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
@@ -268,15 +251,12 @@
 
         </div>
 
-
         <!-- OTHER -->
-
         <div>
 
           <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-3 px-3">
             Other
           </p>
-
 
           <nav class="space-y-1.5">
 
@@ -285,9 +265,7 @@
 
               <i data-lucide="arrow-left" class="w-5 h-5"></i>
 
-              <span>
-                Back to Site
-              </span>
+              <span>Back to Site</span>
 
             </a>
 
@@ -299,16 +277,12 @@
 
     </div>
 
-
     <!-- SIDEBAR FOOTER -->
-
     <div class="pt-6 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-500">
 
       <i data-lucide="shield" class="w-4 h-4 text-[#FF462D]"></i>
 
-      <span>
-        Admin Panel
-      </span>
+      <span>Admin Panel</span>
 
     </div>
 
@@ -321,9 +295,7 @@
 
   <main class="main-content">
 
-
     <!-- HEADER -->
-
     <header class="p-8 pb-5 flex justify-between items-start gap-4">
 
       <div>
@@ -338,15 +310,12 @@
 
       </div>
 
-
       <div
         class="hidden sm:flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-slate-500">
 
         <i data-lucide="calendar-days" class="w-4 h-4 text-[#FF462D]"></i>
 
-        <span id="currentDate">
-          Today
-        </span>
+        <span id="currentDate">Today</span>
 
       </div>
 
@@ -354,9 +323,7 @@
 
 
     <!-- CONTENT -->
-
     <div class="px-8 pb-10">
-
 
       <!-- ================================================= -->
       <!-- STAT CARDS -->
@@ -364,9 +331,7 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
 
-
         <!-- MY CARS -->
-
         <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
           <div class="flex items-start justify-between">
@@ -384,7 +349,8 @@
 
             </div>
 
-            <div class="w-11 h-11 rounded-xl bg-orange-50 text-[#FF462D] flex items-center justify-center">
+            <div
+              class="w-11 h-11 rounded-xl bg-orange-50 text-[#FF462D] flex items-center justify-center">
 
               <i data-lucide="car" class="w-5 h-5"></i>
 
@@ -400,7 +366,6 @@
 
 
         <!-- TOTAL BOOKINGS -->
-
         <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
           <div class="flex items-start justify-between">
@@ -418,7 +383,8 @@
 
             </div>
 
-            <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div
+              class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
 
               <i data-lucide="calendar-check" class="w-5 h-5"></i>
 
@@ -434,7 +400,6 @@
 
 
         <!-- PENDING -->
-
         <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
           <div class="flex items-start justify-between">
@@ -452,7 +417,8 @@
 
             </div>
 
-            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div
+              class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
 
               <i data-lucide="clock-3" class="w-5 h-5"></i>
 
@@ -468,7 +434,6 @@
 
 
         <!-- CONFIRMED -->
-
         <div class="stat-card bg-white rounded-2xl border border-slate-100 p-5">
 
           <div class="flex items-start justify-between">
@@ -486,7 +451,8 @@
 
             </div>
 
-            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div
+              class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
 
               <i data-lucide="badge-check" class="w-5 h-5"></i>
 
@@ -504,15 +470,13 @@
 
 
       <!-- ================================================= -->
-      <!-- RECENT BOOKINGS - FULL WIDTH -->
+      <!-- RECENT BOOKINGS -->
       <!-- ================================================= -->
 
       <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden mb-7">
 
-
-        <!-- HEADER -->
-
-        <div class="p-5 border-b border-slate-100 flex items-center justify-between gap-3">
+        <div
+          class="p-5 border-b border-slate-100 flex items-center justify-between gap-3">
 
           <div>
 
@@ -526,14 +490,12 @@
 
           </div>
 
-
           <div class="flex items-center gap-4">
 
             <span id="lastUpdated"
               class="text-[10px] text-slate-400 hidden sm:block">
               Updating...
             </span>
-
 
             <a href="/Customerbooking"
               class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF462D] hover:bg-orange-50 px-3 py-2 rounded-lg transition">
@@ -550,7 +512,6 @@
 
 
         <!-- LOADING -->
-
         <div id="bookingLoading"
           class="p-12 flex flex-col items-center justify-center">
 
@@ -564,14 +525,12 @@
 
 
         <!-- BOOKINGS -->
-
         <div id="recentBookings"
           class="divide-y divide-slate-100 hidden">
         </div>
 
 
         <!-- EMPTY -->
-
         <div id="bookingEmpty"
           class="hidden p-12 text-center">
 
@@ -599,12 +558,11 @@
       <!-- MY RENTAL CARS -->
       <!-- ================================================= -->
 
-      <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+      <div
+        class="bg-white rounded-2xl border border-slate-100 overflow-hidden">
 
-
-        <!-- HEADER -->
-
-        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <div
+          class="p-5 border-b border-slate-100 flex items-center justify-between">
 
           <div>
 
@@ -618,7 +576,6 @@
 
           </div>
 
-
           <a href="/carAdmin"
             class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF462D] hover:bg-orange-50 px-3 py-2 rounded-lg transition">
 
@@ -631,10 +588,7 @@
         </div>
 
 
-        <!-- CARS -->
-
-        <div id="myCarsContainer"
-          class="p-5">
+        <div id="myCarsContainer" class="p-5">
 
           <div class="flex items-center justify-center py-10">
 
@@ -657,16 +611,11 @@
 
   <script>
 
-
-    /* =====================================================
-       LUCIDE
-    ===================================================== */
-
     lucide.createIcons();
 
 
     /* =====================================================
-       ELEMENTS
+       DOM ELEMENTS
     ===================================================== */
 
     const currentDate =
@@ -712,14 +661,11 @@
       if (!currentDate) return;
 
       currentDate.textContent =
-        new Date().toLocaleDateString(
-          "en-IN",
-          {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-          }
-        );
+        new Date().toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        });
 
     }
 
@@ -736,9 +682,7 @@
         value === null ||
         value === undefined
       ) {
-
         return "";
-
       }
 
       return String(value)
@@ -752,7 +696,7 @@
 
 
     /* =====================================================
-       MONEY
+       MONEY FORMAT
     ===================================================== */
 
     function formatMoney(value) {
@@ -763,12 +707,9 @@
         return "0";
       }
 
-      return number.toLocaleString(
-        "en-IN",
-        {
-          maximumFractionDigits: 2
-        }
-      );
+      return number.toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+      });
 
     }
 
@@ -789,20 +730,17 @@
         return "N/A";
       }
 
-      return date.toLocaleDateString(
-        "en-IN",
-        {
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        }
-      );
+      return date.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
 
     }
 
 
     /* =====================================================
-       IMAGE
+       CAR IMAGE
     ===================================================== */
 
     function getCarImage(car) {
@@ -811,16 +749,12 @@
         return "";
       }
 
-
       if (
         typeof car.image === "string" &&
         car.image.trim()
       ) {
-
         return car.image;
-
       }
-
 
       if (
         car.image &&
@@ -831,42 +765,31 @@
           car.image.url &&
           String(car.image.url).trim()
         ) {
-
           return car.image.url;
-
         }
 
         if (
           car.image.secure_url &&
           String(car.image.secure_url).trim()
         ) {
-
           return car.image.secure_url;
-
         }
 
       }
-
 
       if (
         car.imageUrl &&
         typeof car.imageUrl === "string"
       ) {
-
         return car.imageUrl;
-
       }
-
 
       if (
         car.photo &&
         typeof car.photo === "string"
       ) {
-
         return car.photo;
-
       }
-
 
       return "";
 
@@ -880,39 +803,49 @@
     const fallbackImage =
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="500"
-             height="300"
-             viewBox="0 0 500 300">
 
-          <rect width="500"
-                height="300"
-                fill="#f8fafc"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="500"
+          height="300"
+          viewBox="0 0 500 300"
+        >
 
-          <text x="250"
-                y="145"
-                text-anchor="middle"
-                font-family="Arial"
-                font-size="24"
-                fill="#94a3b8">
+          <rect
+            width="500"
+            height="300"
+            fill="#f8fafc"
+          />
+
+          <text
+            x="250"
+            y="145"
+            text-anchor="middle"
+            font-family="Arial"
+            font-size="24"
+            fill="#94a3b8"
+          >
             No Image
           </text>
 
-          <text x="250"
-                y="180"
-                text-anchor="middle"
-                font-family="Arial"
-                font-size="15"
-                fill="#cbd5e1">
+          <text
+            x="250"
+            y="180"
+            text-anchor="middle"
+            font-family="Arial"
+            font-size="15"
+            fill="#cbd5e1"
+          >
             RideWave
           </text>
 
         </svg>
+
       `);
 
 
     /* =====================================================
-       STATUS
+       STATUS CONFIG
     ===================================================== */
 
     const statusConfig = {
@@ -954,31 +887,46 @@
 
     function getPaymentStatus(booking) {
 
-      if (
-        booking?.payment?.status
-      ) {
-
-        return String(
-          booking.payment.status
+      const bookingStatus =
+        String(
+          booking?.status || ""
         )
           .toLowerCase()
           .trim();
 
-      }
+      const rawPaymentStatus =
+        booking?.payment?.status ??
+        booking?.paymentStatus ??
+        "";
 
-      if (
-        booking?.paymentStatus
-      ) {
-
-        return String(
-          booking.paymentStatus
-        )
+      const paymentStatus =
+        String(rawPaymentStatus)
           .toLowerCase()
           .trim();
 
+
+      if (paymentStatus === "paid") {
+        return "paid";
       }
 
-      return "pending";
+      if (paymentStatus === "refunded") {
+        return "refunded";
+      }
+
+      if (paymentStatus === "failed") {
+        return "failed";
+      }
+
+
+      if (
+        bookingStatus === "confirmed" ||
+        bookingStatus === "completed"
+      ) {
+        return "pending";
+      }
+
+
+      return "not_required";
 
     }
 
@@ -1068,6 +1016,193 @@
 
 
     /* =====================================================
+       CALCULATE BOOKING TOTAL
+       
+       BASE RENTAL
+       +
+       GST 18%
+       +
+       SECURITY DEPOSIT
+    ===================================================== */
+
+    function calculateBookingTotal(
+      booking,
+      car = null
+    ) {
+
+      /* ===============================
+         TOTAL DAYS
+      =============================== */
+
+      let days =
+        Number(
+          booking?.totalDays
+        );
+
+
+      if (
+        !Number.isFinite(days) ||
+        days <= 0
+      ) {
+
+        if (
+          booking?.startDate &&
+          booking?.endDate
+        ) {
+
+          const start =
+            new Date(
+              booking.startDate
+            );
+
+          const end =
+            new Date(
+              booking.endDate
+            );
+
+
+          const difference =
+            Math.ceil(
+              (
+                end - start
+              ) /
+              (
+                1000 *
+                60 *
+                60 *
+                24
+              )
+            );
+
+
+          days =
+            Math.max(
+              1,
+              difference
+            );
+
+        } else {
+
+          days = 1;
+
+        }
+
+      }
+
+
+      /* ===============================
+         PRICE PER DAY
+      =============================== */
+
+      const pricePerDay =
+        Number(
+          booking?.pricePerDay ??
+          car?.pricePerDay ??
+          0
+        ) || 0;
+
+
+      /* ===============================
+         BASE RENTAL
+      =============================== */
+
+      const storedBaseAmount =
+        Number(
+          booking?.baseAmount
+        );
+
+
+      const baseAmount =
+        Number.isFinite(
+          storedBaseAmount
+        ) &&
+        storedBaseAmount > 0
+
+          ? storedBaseAmount
+
+          : (
+              pricePerDay *
+              days
+            );
+
+
+      /* ===============================
+         GST 18%
+      =============================== */
+
+      const storedGstAmount =
+        Number(
+          booking?.gstAmount
+        );
+
+
+      const gstAmount =
+        Number.isFinite(
+          storedGstAmount
+        ) &&
+        storedGstAmount > 0
+
+          ? storedGstAmount
+
+          : Math.round(
+              (
+                baseAmount *
+                18
+              ) / 100
+            );
+
+
+      /* ===============================
+         SECURITY DEPOSIT
+      =============================== */
+
+      const storedSecurityDeposit =
+        Number(
+          booking?.securityDeposit
+        );
+
+
+      const securityDeposit =
+        Number.isFinite(
+          storedSecurityDeposit
+        ) &&
+        storedSecurityDeposit > 0
+
+          ? storedSecurityDeposit
+
+          : 3000;
+
+
+      /* ===============================
+         FINAL TOTAL
+      =============================== */
+
+      const totalAmount =
+        baseAmount +
+        gstAmount +
+        securityDeposit;
+
+
+      return {
+
+        days,
+
+        pricePerDay,
+
+        baseAmount,
+
+        gstAmount,
+
+        securityDeposit,
+
+        totalAmount
+
+      };
+
+    }
+
+
+    /* =====================================================
        LOAD MY CARS
     ===================================================== */
 
@@ -1087,13 +1222,18 @@
 
           totalCars.textContent = "0";
 
+
           myCarsContainer.innerHTML = `
 
             <div class="py-10 text-center">
 
-              <div class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
+              <div
+                class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
 
-                <i data-lucide="log-in" class="w-6 h-6"></i>
+                <i
+                  data-lucide="log-in"
+                  class="w-6 h-6">
+                </i>
 
               </div>
 
@@ -1104,6 +1244,7 @@
             </div>
 
           `;
+
 
           lucide.createIcons();
 
@@ -1125,11 +1266,9 @@
 
 
         if (!response.ok) {
-
           throw new Error(
             "Failed to load cars"
           );
-
         }
 
 
@@ -1145,7 +1284,9 @@
           allCars = result;
 
         } else if (
-          Array.isArray(result.cars)
+          Array.isArray(
+            result.cars
+          )
         ) {
 
           allCars =
@@ -1177,6 +1318,7 @@
           myCars
         );
 
+
       } catch (error) {
 
         console.error(
@@ -1185,16 +1327,21 @@
         );
 
 
-        totalCars.textContent = "0";
+        totalCars.textContent =
+          "0";
 
 
         myCarsContainer.innerHTML = `
 
           <div class="py-10 text-center">
 
-            <div class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
+            <div
+              class="w-12 h-12 mx-auto rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-3">
 
-              <i data-lucide="alert-circle" class="w-6 h-6"></i>
+              <i
+                data-lucide="alert-circle"
+                class="w-6 h-6">
+              </i>
 
             </div>
 
@@ -1210,6 +1357,7 @@
 
         `;
 
+
         lucide.createIcons();
 
       }
@@ -1218,7 +1366,7 @@
 
 
     /* =====================================================
-       RENDER CARS
+       RENDER MY CARS
     ===================================================== */
 
     function renderMyCars(cars) {
@@ -1232,9 +1380,13 @@
 
           <div class="py-12 text-center">
 
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-3">
+            <div
+              class="w-14 h-14 mx-auto rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mb-3">
 
-              <i data-lucide="car-front" class="w-7 h-7"></i>
+              <i
+                data-lucide="car-front"
+                class="w-7 h-7">
+              </i>
 
             </div>
 
@@ -1246,10 +1398,14 @@
               Add your first rental car from Rental Cars.
             </p>
 
-            <a href="/carAdmin"
+            <a
+              href="/carAdmin"
               class="inline-flex items-center gap-2 mt-4 bg-[#FF462D] text-white text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-[#e83d28] transition">
 
-              <i data-lucide="plus" class="w-4 h-4"></i>
+              <i
+                data-lucide="plus"
+                class="w-4 h-4">
+              </i>
 
               Add Car
 
@@ -1258,6 +1414,7 @@
           </div>
 
         `;
+
 
         lucide.createIcons();
 
@@ -1268,7 +1425,8 @@
 
       myCarsContainer.innerHTML = `
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
           ${cars.map(car => {
 
@@ -1276,42 +1434,50 @@
               getCarImage(car) ||
               fallbackImage;
 
+
             const name =
               car.name ||
               "Rental Car";
+
 
             const category =
               car.category ||
               "Car";
 
+
             const transmission =
               car.transmission ||
               "N/A";
+
 
             const price =
               car.pricePerDay ??
               0;
 
+
             const available =
               car.isAvailable !== false;
+
 
             const seats =
               car.seats ||
               car.capacity ||
               "N/A";
 
+
             const fuel =
               car.fuelType ||
               car.fuel ||
               "N/A";
 
+
             return `
 
-              <div class="car-card border border-slate-100 rounded-2xl overflow-hidden bg-white">
+              <div
+                class="car-card border border-slate-100 rounded-2xl overflow-hidden bg-white">
 
-                <!-- IMAGE -->
-
-                <div class="h-[190px] bg-slate-50 flex items-center justify-center overflow-hidden">
+                <div
+                  class="h-[190px] bg-slate-50 flex items-center justify-center overflow-hidden">
 
                   <img
                     src="${escapeHtml(image)}"
@@ -1323,20 +1489,25 @@
                 </div>
 
 
-                <!-- DETAILS -->
-
                 <div class="p-5">
 
-                  <div class="flex items-start justify-between gap-3">
+                  <div
+                    class="flex items-start justify-between gap-3">
 
                     <div class="min-w-0">
 
-                      <h3 class="text-base font-extrabold text-[#0B1536] truncate">
+                      <h3
+                        class="text-base font-extrabold text-[#0B1536] truncate">
+
                         ${escapeHtml(name)}
+
                       </h3>
 
-                      <p class="text-xs text-slate-400 mt-1">
+                      <p
+                        class="text-xs text-slate-400 mt-1">
+
                         ${escapeHtml(category)}
+
                       </p>
 
                     </div>
@@ -1346,7 +1517,13 @@
                       available
                         ? "bg-emerald-50 text-emerald-600"
                         : "bg-rose-50 text-rose-600"
-                    } text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg shrink-0">
+                    }
+                    text-[9px]
+                    font-extrabold
+                    px-2.5
+                    py-1.5
+                    rounded-lg
+                    shrink-0">
 
                       ${
                         available
@@ -1359,81 +1536,129 @@
                   </div>
 
 
-                  <!-- DETAILS GRID -->
+                  <div
+                    class="grid grid-cols-2 gap-3 mt-5">
 
-                  <div class="grid grid-cols-2 gap-3 mt-5">
 
-                    <div class="bg-slate-50 rounded-xl p-3">
+                    <!-- TRANSMISSION -->
+                    <div
+                      class="bg-slate-50 rounded-xl p-3">
 
-                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+                      <div
+                        class="flex items-center gap-1.5 text-slate-400 mb-1">
 
-                        <i data-lucide="gauge" class="w-3.5 h-3.5"></i>
+                        <i
+                          data-lucide="gauge"
+                          class="w-3.5 h-3.5">
+                        </i>
 
-                        <span class="text-[10px] font-semibold">
+                        <span
+                          class="text-[10px] font-semibold">
+
                           Transmission
+
                         </span>
 
                       </div>
 
-                      <p class="text-xs font-bold text-[#0B1536]">
+                      <p
+                        class="text-xs font-bold text-[#0B1536]">
+
                         ${escapeHtml(transmission)}
+
                       </p>
 
                     </div>
 
 
-                    <div class="bg-slate-50 rounded-xl p-3">
+                    <!-- SEATS -->
+                    <div
+                      class="bg-slate-50 rounded-xl p-3">
 
-                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+                      <div
+                        class="flex items-center gap-1.5 text-slate-400 mb-1">
 
-                        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                        <i
+                          data-lucide="users"
+                          class="w-3.5 h-3.5">
+                        </i>
 
-                        <span class="text-[10px] font-semibold">
+                        <span
+                          class="text-[10px] font-semibold">
+
                           Seats
+
                         </span>
 
                       </div>
 
-                      <p class="text-xs font-bold text-[#0B1536]">
+                      <p
+                        class="text-xs font-bold text-[#0B1536]">
+
                         ${escapeHtml(seats)}
+
                       </p>
 
                     </div>
 
 
-                    <div class="bg-slate-50 rounded-xl p-3">
+                    <!-- FUEL -->
+                    <div
+                      class="bg-slate-50 rounded-xl p-3">
 
-                      <div class="flex items-center gap-1.5 text-slate-400 mb-1">
+                      <div
+                        class="flex items-center gap-1.5 text-slate-400 mb-1">
 
-                        <i data-lucide="fuel" class="w-3.5 h-3.5"></i>
+                        <i
+                          data-lucide="fuel"
+                          class="w-3.5 h-3.5">
+                        </i>
 
-                        <span class="text-[10px] font-semibold">
+                        <span
+                          class="text-[10px] font-semibold">
+
                           Fuel
+
                         </span>
 
                       </div>
 
-                      <p class="text-xs font-bold text-[#0B1536]">
+                      <p
+                        class="text-xs font-bold text-[#0B1536]">
+
                         ${escapeHtml(fuel)}
+
                       </p>
 
                     </div>
 
 
-                    <div class="bg-orange-50 rounded-xl p-3">
+                    <!-- PRICE -->
+                    <div
+                      class="bg-orange-50 rounded-xl p-3">
 
-                      <div class="flex items-center gap-1.5 text-[#FF462D] mb-1">
+                      <div
+                        class="flex items-center gap-1.5 text-[#FF462D] mb-1">
 
-                        <i data-lucide="indian-rupee" class="w-3.5 h-3.5"></i>
+                        <i
+                          data-lucide="indian-rupee"
+                          class="w-3.5 h-3.5">
+                        </i>
 
-                        <span class="text-[10px] font-semibold">
+                        <span
+                          class="text-[10px] font-semibold">
+
                           Price / Day
+
                         </span>
 
                       </div>
 
-                      <p class="text-sm font-extrabold text-[#FF462D]">
+                      <p
+                        class="text-sm font-extrabold text-[#FF462D]">
+
                         ₹${formatMoney(price)}
+
                       </p>
 
                     </div>
@@ -1442,11 +1667,14 @@
 
 
                   <!-- MANAGE -->
-
-                  <a href="/carAdmin"
+                  <a
+                    href="/carAdmin"
                     class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-[#0B1536] text-white text-xs font-bold px-4 py-3 rounded-xl hover:bg-[#15234f] transition">
 
-                    <i data-lucide="settings-2" class="w-4 h-4"></i>
+                    <i
+                      data-lucide="settings-2"
+                      class="w-4 h-4">
+                    </i>
 
                     Manage Car
 
@@ -1507,7 +1735,9 @@
 
 
         if (
-          Array.isArray(result.bookings)
+          Array.isArray(
+            result.bookings
+          )
         ) {
 
           bookings =
@@ -1517,15 +1747,14 @@
           Array.isArray(result)
         ) {
 
-          bookings =
-            result;
+          bookings = result;
 
         }
 
 
-        /* =================================================
-           COUNTS
-        ================================================= */
+        /* ===============================
+           STATUS COUNTS
+        =============================== */
 
         const pending =
           bookings.filter(
@@ -1534,7 +1763,8 @@
                 booking.status || ""
               )
                 .toLowerCase()
-                .trim() === "pending"
+                .trim() ===
+              "pending"
           ).length;
 
 
@@ -1545,44 +1775,30 @@
                 booking.status || ""
               )
                 .toLowerCase()
-                .trim() === "confirmed"
-          ).length;
-
-
-        const completed =
-          bookings.filter(
-            booking =>
-              String(
-                booking.status || ""
-              )
-                .toLowerCase()
-                .trim() === "completed"
-          ).length;
-
-
-        const cancelled =
-          bookings.filter(
-            booking =>
-              String(
-                booking.status || ""
-              )
-                .toLowerCase()
-                .trim() === "cancelled"
+                .trim() ===
+              "confirmed"
           ).length;
 
 
         totalBookings.textContent =
           bookings.length;
 
+
         pendingBookings.textContent =
           pending;
+
 
         confirmedBookings.textContent =
           confirmed;
 
+
         pendingSidebarCount.textContent =
           pending;
 
+
+        /* ===============================
+           RENDER
+        =============================== */
 
         renderRecentBookings(
           bookings
@@ -1629,7 +1845,7 @@
 
 
     /* =====================================================
-       RENDER BOOKINGS
+       RENDER RECENT BOOKINGS
     ===================================================== */
 
     function renderRecentBookings(
@@ -1662,6 +1878,7 @@
       bookingEmpty.classList.add(
         "hidden"
       );
+
 
       recentBookings.classList.remove(
         "hidden"
@@ -1699,7 +1916,7 @@
 
 
     /* =====================================================
-       CREATE BOOKING CARD
+       CREATE RECENT BOOKING
     ===================================================== */
 
     function createRecentBooking(
@@ -1719,6 +1936,10 @@
         statusConfig[status] ||
         statusConfig.pending;
 
+
+      /* ===============================
+         CAR
+      =============================== */
 
       const car =
         booking.car &&
@@ -1751,6 +1972,10 @@
         "N/A";
 
 
+      /* ===============================
+         CUSTOMER
+      =============================== */
+
       const customerName =
         booking.name ||
         booking.renter?.name ||
@@ -1763,11 +1988,45 @@
         "";
 
 
-      const amount =
-        booking.totalAmount ??
-        booking.amount ??
-        0;
+      /* ===============================
+         IMPORTANT:
+         FINAL FARE CALCULATION
+      =============================== */
 
+      const fare =
+        calculateBookingTotal(
+          booking,
+          car
+        );
+
+
+      const days =
+        fare.days;
+
+
+      const pricePerDay =
+        fare.pricePerDay;
+
+
+      const baseAmount =
+        fare.baseAmount;
+
+
+      const gstAmount =
+        fare.gstAmount;
+
+
+      const securityDeposit =
+        fare.securityDeposit;
+
+
+      const totalAmount =
+        fare.totalAmount;
+
+
+      /* ===============================
+         PAYMENT
+      =============================== */
 
       const paymentStatus =
         getPaymentStatus(
@@ -1777,56 +2036,52 @@
 
       const paymentLabel =
         paymentStatus === "paid"
+
           ? "Paid"
+
           : paymentStatus === "refunded"
+
             ? "Refunded"
+
             : paymentStatus === "failed"
+
               ? "Failed"
+
               : "Pending";
 
 
       const paymentClass =
-        paymentStatus === "paid"
-          ? "bg-emerald-50 text-emerald-600"
-          : paymentStatus === "refunded"
-            ? "bg-violet-50 text-violet-600"
-            : paymentStatus === "failed"
-              ? "bg-rose-50 text-rose-600"
-              : "bg-amber-50 text-amber-600";
+        paymentStatus === "paid" ||
+        paymentStatus === "refunded"
+
+          ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+
+          : paymentStatus === "failed"
+
+            ? "bg-rose-50 text-rose-600"
+
+            : "bg-amber-50 text-amber-600";
 
 
       const bookingId =
-        booking._id ||
-        "";
+        booking._id || "";
 
 
-      const days =
-        booking.totalDays ||
-        (
-          booking.startDate &&
-          booking.endDate
-            ? Math.max(
-                1,
-                Math.ceil(
-                  (
-                    new Date(booking.endDate) -
-                    new Date(booking.startDate)
-                  ) /
-                  (1000 * 60 * 60 * 24)
-                )
-              )
-            : 1
-        );
-
+      /* =================================================
+         BOOKING CARD
+      ================================================= */
 
       return `
 
         <div class="booking-card p-5">
 
-          <div class="flex flex-col lg:flex-row lg:items-center gap-5">
+          <div
+            class="flex flex-col lg:flex-row lg:items-center gap-5">
 
 
-            <!-- CAR IMAGE -->
+            <!-- =========================================
+                 CAR IMAGE
+            ========================================== -->
 
             <div class="shrink-0">
 
@@ -1840,42 +2095,62 @@
             </div>
 
 
-            <!-- BOOKING DETAILS -->
+            <!-- =========================================
+                 BOOKING DETAILS
+            ========================================== -->
 
             <div class="flex-1 min-w-0">
 
 
-              <!-- TOP -->
+              <!-- CAR NAME -->
+              <div
+                class="flex flex-wrap items-center gap-2">
 
-              <div class="flex flex-wrap items-center gap-2">
+                <h3
+                  class="text-sm font-extrabold text-[#0B1536]">
 
-                <h3 class="text-sm font-extrabold text-[#0B1536]">
                   ${escapeHtml(carName)}
+
                 </h3>
 
-                <span class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+
+                <span
+                  class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+
                   ${escapeHtml(category)}
+
                 </span>
 
-                <span class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+
+                <span
+                  class="text-[9px] bg-slate-100 text-slate-500 font-bold px-2 py-1 rounded-lg">
+
                   ${escapeHtml(transmission)}
+
                 </span>
 
               </div>
 
 
               <!-- CUSTOMER -->
+              <div
+                class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
 
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
 
-                <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
+                <span
+                  class="text-[11px] text-slate-500 flex items-center gap-1.5">
 
-                  <i data-lucide="user"
+                  <i
+                    data-lucide="user"
                     class="w-3.5 h-3.5 text-slate-400">
                   </i>
 
                   <span class="font-semibold">
-                    ${escapeHtml(customerName)}
+
+                    ${escapeHtml(
+                      customerName
+                    )}
+
                   </span>
 
                 </span>
@@ -1884,15 +2159,21 @@
                 ${
                   customerEmail
                     ? `
-                      <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
 
-                        <i data-lucide="mail"
+                      <span
+                        class="text-[11px] text-slate-400 flex items-center gap-1.5">
+
+                        <i
+                          data-lucide="mail"
                           class="w-3.5 h-3.5">
                         </i>
 
-                        ${escapeHtml(customerEmail)}
+                        ${escapeHtml(
+                          customerEmail
+                        )}
 
                       </span>
+
                     `
                     : ""
                 }
@@ -1900,35 +2181,43 @@
               </div>
 
 
-              <!-- BOOKING INFO -->
+              <!-- DATES -->
+              <div
+                class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
 
-              <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
 
+                <span
+                  class="text-[10px] text-slate-400 flex items-center gap-1.5">
 
-                <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
-
-                  <i data-lucide="calendar-days"
+                  <i
+                    data-lucide="calendar-days"
                     class="w-3.5 h-3.5 text-[#FF462D]">
                   </i>
 
-                  ${formatDate(booking.startDate)}
+                  ${formatDate(
+                    booking.startDate
+                  )}
 
-                  <span>
-                    →
-                  </span>
+                  <span>→</span>
 
-                  ${formatDate(booking.endDate)}
+                  ${formatDate(
+                    booking.endDate
+                  )}
 
                 </span>
 
 
-                <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
+                <span
+                  class="text-[10px] text-slate-400 flex items-center gap-1.5">
 
-                  <i data-lucide="clock-3"
+                  <i
+                    data-lucide="clock-3"
                     class="w-3.5 h-3.5">
                   </i>
 
-                  ${escapeHtml(days)} day(s)
+                  ${escapeHtml(
+                    days
+                  )} day(s)
 
                 </span>
 
@@ -1936,9 +2225,12 @@
                 ${
                   booking.pickupLocation
                     ? `
-                      <span class="text-[10px] text-slate-400 flex items-center gap-1.5">
 
-                        <i data-lucide="map-pin"
+                      <span
+                        class="text-[10px] text-slate-400 flex items-center gap-1.5">
+
+                        <i
+                          data-lucide="map-pin"
                           class="w-3.5 h-3.5">
                         </i>
 
@@ -1947,6 +2239,7 @@
                         )}
 
                       </span>
+
                     `
                     : ""
                 }
@@ -1954,105 +2247,197 @@
               </div>
 
 
-              <!-- PAYMENT -->
+              <!-- =======================================
+                   PAYMENT BADGE
+              ======================================== -->
 
-              <div class="flex flex-wrap items-center gap-2 mt-3">
+              <div
+                class="flex flex-wrap items-center gap-2 mt-3">
 
-                <span class="${paymentClass} text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg">
 
-                  Payment: ${paymentLabel}
+                ${
+                  paymentStatus !==
+                  "not_required"
 
-                </span>
+                    ? `
+
+                      <span
+                        class="${paymentClass} text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg">
+
+                        Payment:
+                        ${paymentLabel}
+
+                      </span>
+
+                    `
+
+                    : ""
+                }
 
 
                 ${
                   booking.note
                     ? `
-                      <span class="bg-slate-50 text-slate-500 text-[9px] font-semibold px-2.5 py-1.5 rounded-lg">
+
+                      <span
+                        class="bg-slate-50 text-slate-500 text-[9px] font-semibold px-2.5 py-1.5 rounded-lg">
 
                         ${escapeHtml(
                           booking.note
                         )}
 
                       </span>
+
                     `
                     : ""
                 }
 
               </div>
 
+
             </div>
 
 
-            <!-- RIGHT SIDE -->
+            <!-- =========================================
+                 RIGHT SIDE
+            ========================================== -->
 
-            <div class="lg:min-w-[155px] lg:text-right shrink-0">
+            <div
+              class="lg:min-w-[190px] lg:text-right shrink-0">
 
 
-              <!-- AMOUNT -->
+              <!-- FINAL TOTAL -->
+              <p
+                class="text-lg font-extrabold text-[#FF462D]">
 
-              <p class="text-lg font-extrabold text-[#FF462D]">
-
-                ₹${formatMoney(amount)}
+                ₹${formatMoney(
+                  totalAmount
+                )}
 
               </p>
 
 
-              <p class="text-[9px] text-slate-400 mt-0.5">
+              <p
+                class="text-[9px] text-slate-400 mt-0.5">
+
                 Total booking amount
+
               </p>
+
+
+              <!-- =======================================
+                   FARE BREAKDOWN
+              ======================================== -->
+
+              <div
+                class="mt-2 text-[9px] text-slate-400 lg:text-right leading-relaxed">
+
+                <div>
+                  Base: ₹${formatMoney(
+                    baseAmount
+                  )}
+                </div>
+
+                <div>
+                  GST 18%: ₹${formatMoney(
+                    gstAmount
+                  )}
+                </div>
+
+                <div>
+                  Security: ₹${formatMoney(
+                    securityDeposit
+                  )}
+                </div>
+
+              </div>
 
 
               <!-- STATUS -->
-
-              <div class="flex lg:justify-end mt-2">
+              <div
+                class="flex lg:justify-end mt-3">
 
                 <span
-                  class="inline-flex items-center gap-1.5 ${config.bg} ${config.text} text-[9px] font-extrabold px-2.5 py-1.5 rounded-lg uppercase">
+                  class="inline-flex items-center gap-1.5
+                  ${config.bg}
+                  ${config.text}
+                  text-[9px]
+                  font-extrabold
+                  px-2.5
+                  py-1.5
+                  rounded-lg
+                  uppercase">
 
-                  <i data-lucide="${config.icon}"
+
+                  <i
+                    data-lucide="${config.icon}"
                     class="w-3.5 h-3.5">
                   </i>
 
+
                   ${config.label}
+
 
                 </span>
 
               </div>
 
 
-              <!-- UPDATE BUTTON -->
-
-              <a
-                href="/Customerbooking"
-                class="mt-3 inline-flex items-center justify-center gap-1.5 w-full lg:w-auto bg-[#0B1536] hover:bg-[#15234f] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg transition">
-
-                <i data-lucide="edit-3"
-                  class="w-3.5 h-3.5">
-                </i>
-
-                Update
-
-              </a>
-
-
-              <!-- BOOKING ID -->
+              <!-- =======================================
+                   UPDATE BUTTON
+              ======================================== -->
 
               ${
-                bookingId
+                status !== "cancelled" &&
+                status !== "completed"
+
                   ? `
-                    <p class="text-[8px] text-slate-300 mt-2">
 
-                      Booking #${escapeHtml(
-                        String(bookingId).slice(-8)
-                      )}
+                    <a
+                      href="/Customerbooking"
+                      class="mt-3 inline-flex items-center justify-center gap-1.5 w-full lg:w-auto bg-[#FF7A00] hover:bg-[#E66E00] text-white text-[10px] font-bold px-4 py-2.5 rounded-lg transition shadow-sm shadow-[#FF7A00]/25">
 
-                    </p>
+                      <i
+                        data-lucide="edit-3"
+                        class="w-3.5 h-3.5">
+                      </i>
+
+                      Update
+
+                    </a>
+
                   `
+
                   : ""
               }
 
+
+              <!-- BOOKING ID -->
+              ${
+                bookingId
+
+                  ? `
+
+                    <p
+                      class="text-[8px] text-slate-300 mt-2">
+
+                      Booking #
+                      ${escapeHtml(
+                        String(
+                          bookingId
+                        ).slice(-8)
+                      )}
+
+                    </p>
+
+                  `
+
+                  : ""
+              }
+
+
             </div>
+
 
           </div>
 
@@ -2112,7 +2497,6 @@
 
     /* =====================================================
        AUTO REFRESH
-       Every 5 seconds
     ===================================================== */
 
     setInterval(
@@ -2120,10 +2504,6 @@
       5000
     );
 
-
-    /* =====================================================
-       UPDATE DATE
-    ===================================================== */
 
     setInterval(
       updateDate,
@@ -2140,7 +2520,8 @@
       () => {
 
         if (
-          document.visibilityState === "visible"
+          document.visibilityState ===
+          "visible"
         ) {
 
           refreshDashboard();
