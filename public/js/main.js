@@ -26,35 +26,33 @@ window.onscroll = () =>{
 
 
 // card hover effect home car only
-const bmwCard = document.querySelector(".bmw-card");
+// const bmwCard = document.querySelector(".bmw-card");
 
-if (bmwCard) {
-    bmwCard.addEventListener("mousemove", (e) => {
+// if (bmwCard) {
+//     bmwCard.addEventListener("mousemove", (e) => {
 
-        const rect = bmwCard.getBoundingClientRect();
+//         const rect = bmwCard.getBoundingClientRect();
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+//         const x = e.clientX - rect.left;
+//         const y = e.clientY - rect.top;
 
-         const centerX = rect.width / 0;
-        const centerY = rect.height / 0; 
-const rotateX = ((y - centerY) / centerY) * -12;
-const rotateY = ((x - centerX) / centerX) * 15;
-        bmwCard.style.transform = `
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            translateY(-12px)
-        `;
-    });
+// const rotateX = ((y - centerY) / centerY) * -10;
+// const rotateY = ((x - centerX) / centerX) * 10;
+//         bmwCard.style.transform = `
+//             rotateX(${rotateX}deg)
+//             rotateY(${rotateY}deg)
+//             translateY(-12px)
+//         `;
+//     });
 
-    bmwCard.addEventListener("mouseleave", () => {
-        bmwCard.style.transform = `
-            rotateX(0deg)
-            rotateY(0deg)
-            translateY(0)
-        `;
-    });
-}
+//     bmwCard.addEventListener("mouseleave", () => {
+//         bmwCard.style.transform = `
+//             rotateX(0deg)
+//             rotateY(0deg)
+//             translateY(0)
+//         `;
+//     });
+// }
 
 
 

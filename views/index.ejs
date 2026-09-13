@@ -538,8 +538,7 @@
                     alt="RideWave"
                 >
 
-            </a>
-
+ 
 
             <!-- =================================================
                  NAV LINKS
@@ -620,6 +619,11 @@
                     >
 
                 </div>
+
+             
+
+
+
 
 
                 <!-- =================================================
@@ -790,7 +794,7 @@
                     >
 
 
-                        <!-- USER INFO -->
+                        <!-- USER INFO -->`
 
                         <div class="px-4 py-3 bg-white">
 
@@ -1002,35 +1006,35 @@
     </section>
 
 
-    <!-- =====================================================
+   <!-- =====================================================
          RENTAL CARS
     ===================================================== -->
 
-    <div class="heading">
+    <section class="rentals" id="rentals">
 
-        <span>
-            Car Rentals
-        </span>
+        <div class="heading">
 
-        <h2>
+            <span>
+                Car Rentals
+            </span>
 
-            Our Top Rentals <br>
+            <h2>
+                Our Top Rentals <br>
+                Comfort, Affordability & Convenience
+            </h2>
 
-            Comfort, Affordability & Convenience
-
-        </h2>
-
-    </div>
+        </div>
 
 
-    <!-- CARS FROM DATABASE -->
+        <!-- CARS FROM DATABASE -->
 
-    <div
-        class="rental-container container"
-        id="rentalContainer"
-    >
-    </div>
+        <div
+            class="rental-container container"
+            id="rentalContainer"
+        >
+        </div>
 
+    </section>
 <!-- =====================================================
      TEAM SECTION
 ===================================================== -->
@@ -2619,6 +2623,42 @@
         }
 
     </script>
+<script>
+const card = document.querySelector('.bmw-card');
+const car = document.querySelector('.bmw-car');
+
+if (card && car) {
+    card.addEventListener('mousemove', (e) => {
+        card.classList.remove('is-leaving');
+        
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Card center relative (-1 to 1)
+        const centerX = (x - rect.width / 2) / (rect.width / 2);
+        const centerY = (y - rect.height / 2) / (rect.height / 2);
+        
+        // Rotation angles & translation distance
+        const rotateY = centerX * 22; // Left-Right tilt
+        const rotateX = -centerY * 15; // Up-Down dive
+        const moveX = centerX * 18;
+        const moveY = centerY * 10 - 14;
+
+        // Dynamic 3D Transform
+        car.style.transform = `translate3d(${moveX}px, ${moveY}px, 40px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        
+        // Ground shadow bhi car ke sath subtly move hogi
+        card.style.setProperty('--shadow-x', `${moveX * 0.6}px`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.classList.add('is-leaving');
+        // Smoothly wapas center me reset ho jayegi
+        car.style.transform = 'translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+}
+</script>
 
 </body>
 

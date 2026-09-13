@@ -2,20 +2,12 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Payment - RideWave</title>
-
     <link rel="icon" type="image/png" href="/images/title.png.jpeg">
- <link
-        rel="stylesheet"
-        href="/css/style.css"
-    >
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -29,38 +21,24 @@
             min-height: 100vh;
         }
 
-
-        /* =========================
-           NAVBAR
-        ========================== */
-
+        /* ========================= NAVBAR ========================== */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 72px;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 0 6%;
-
             background: rgba(255,255,255,0.96);
             backdrop-filter: blur(12px);
-
             border-bottom: 1px solid #e5e7eb;
-
             z-index: 1000;
         }
 
-
-        .logo {
-            text-decoration: none;
-        }
-
-
+        .logo { text-decoration: none; }
         .ridewave-logo {
             width: 125px;
             height: 65px;
@@ -68,13 +46,11 @@
             display: block;
         }
 
-
         .nav-links {
             display: flex;
             align-items: center;
             gap: 30px;
         }
-
 
         .nav-links a {
             text-decoration: none;
@@ -84,2861 +60,885 @@
             transition: 0.3s;
         }
 
+        .nav-links a:hover { color: #f97316; }
 
-        .nav-links a:hover {
-            color: #f97316;
-        }
-
-
-        /* =========================
-           PAGE
-        ========================== */
-
+        /* ========================= PAGE ========================== */
         .payment-page {
             min-height: 100vh;
-
             padding: 115px 20px 60px;
-
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
 
-
         .payment-container {
             width: 100%;
             max-width: 950px;
-
             display: grid;
-
             grid-template-columns: 1fr 1.3fr;
-
             gap: 25px;
         }
 
-
-        /* =========================
-           SUMMARY
-        ========================== */
-
+        /* ========================= SUMMARY ========================== */
         .summary-card {
-
             background: white;
-
             border: 1px solid #e2e8f0;
-
             border-radius: 18px;
-
             padding: 30px;
-
-            box-shadow:
-                0 10px 35px rgba(15,23,42,0.06);
+            box-shadow: 0 10px 35px rgba(15,23,42,0.06);
         }
 
-
         .summary-card h2 {
-
             font-size: 23px;
-
             color: #111827;
-
             margin-bottom: 8px;
         }
 
-
         .summary-subtitle {
-
             color: #64748b;
-
             font-size: 14px;
-
             margin-bottom: 25px;
         }
-
 
         .booking-box {
-
             background: #f8fafc;
-
             border: 1px solid #e2e8f0;
-
             border-radius: 12px;
-
             padding: 15px;
-
             margin-bottom: 25px;
         }
 
-
         .booking-label {
-
             display: block;
-
             font-size: 11px;
-
             text-transform: uppercase;
-
             color: #64748b;
-
             font-weight: 700;
-
             margin-bottom: 5px;
         }
 
-
         .booking-id {
-
             font-size: 14px;
-
             font-weight: 700;
-
             color: #111827;
-
             word-break: break-all;
         }
 
-
         .amount-row {
-
             display: flex;
-
             justify-content: space-between;
-
             padding: 10px 0;
-
             color: #475569;
-
             font-size: 14px;
         }
 
-
         .amount-row span:last-child {
-
             color: #111827;
-
             font-weight: 600;
         }
 
-
         .amount-total {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             border-top: 1px dashed #cbd5e1;
-
             margin-top: 10px;
-
             padding-top: 18px;
         }
 
-
         .amount-total span:first-child {
-
             font-size: 17px;
-
             font-weight: 800;
-
             color: #111827;
         }
 
-
         .amount-total span:last-child {
-
             font-size: 25px;
-
             font-weight: 900;
-
             color: #f97316;
         }
 
-
-        /* =========================
-           PAYMENT CARD
-        ========================== */
-
+        /* ========================= PAYMENT CARD ========================== */
         .payment-card {
-
             background: white;
-
             border: 1px solid #e2e8f0;
-
             border-radius: 18px;
-
             padding: 30px;
-
-            box-shadow:
-                0 10px 35px rgba(15,23,42,0.06);
+            box-shadow: 0 10px 35px rgba(15,23,42,0.06);
         }
 
-
         .payment-header {
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             margin-bottom: 25px;
         }
 
-
         .payment-header h1 {
-
             font-size: 25px;
-
             font-weight: 800;
-
             color: #111827;
         }
 
-
         .secure {
-
             display: flex;
-
             align-items: center;
-
             gap: 5px;
-
             color: #16a34a;
-
             font-size: 12px;
-
             font-weight: 700;
         }
 
-
-        /* =========================
-           METHODS
-        ========================== */
-
+        /* ========================= METHODS ========================== */
         .method-title {
-
             font-size: 13px;
-
             font-weight: 700;
-
             color: #475569;
-
             margin-bottom: 12px;
         }
 
-
         .methods {
-
             display: grid;
-
             grid-template-columns: repeat(3,1fr);
-
             gap: 10px;
-
             margin-bottom: 25px;
         }
 
-
-        .method input {
-
-            display: none;
-        }
-
+        .method input { display: none; }
 
         .method label {
-
             height: 55px;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             border: 1px solid #dbe2ea;
-
             border-radius: 10px;
-
             cursor: pointer;
-
             color: #475569;
-
             font-size: 14px;
-
             font-weight: 700;
-
             transition: 0.3s;
         }
 
-
         .method input:checked + label {
-
             border-color: #f97316;
-
             background: #fff7ed;
-
             color: #ea580c;
         }
 
-
-        /* =========================
-           FORM
-        ========================== */
-
-        .form-group {
-
-            margin-bottom: 17px;
-        }
-
+        /* ========================= FORM ========================== */
+        .form-group { margin-bottom: 17px; }
 
         .form-group label {
-
             display: block;
-
             margin-bottom: 7px;
-
             color: #334155;
-
             font-size: 13px;
-
             font-weight: 700;
         }
 
-
         .form-group input {
-
             width: 100%;
-
             height: 48px;
-
             padding: 0 14px;
-
             border: 1px solid #dbe2ea;
-
             border-radius: 9px;
-
             outline: none;
-
             font-size: 14px;
-
             color: #111827;
-
             background: white;
-
             transition: 0.3s;
         }
 
-
         .form-group input:focus {
-
             border-color: #f97316;
-
-            box-shadow:
-                0 0 0 3px rgba(249,115,22,0.10);
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.10);
         }
 
-
         .card-row {
-
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 15px;
         }
 
+        .upi-section, .cash-section { display: none; }
+        .upi-section.active, .cash-section.active { display: block; }
 
-        .upi-section,
-        .cash-section {
-
-            display: none;
-        }
-
-
-        .upi-section.active,
-        .cash-section.active {
-
-            display: block;
-        }
-
-
-        /* =========================
-           UPI APPS
-        ========================== */
-
+        /* ========================= UPI APPS ========================== */
         .upi-app-title {
-
             font-size: 13px;
-
             font-weight: 700;
-
             color: #334155;
-
             margin-bottom: 10px;
         }
 
-
         .upi-apps {
-
             display: grid;
-
             grid-template-columns: repeat(3,1fr);
-
             gap: 10px;
-
             margin-bottom: 18px;
         }
 
-
-        .upi-app input {
-
-            display: none;
-        }
-
+        .upi-app input { display: none; }
 
         .upi-app label {
-
             height: 70px;
-
             border: 1px solid #dbe2ea;
-
             border-radius: 12px;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 5px;
-
             cursor: pointer;
-
             font-size: 12px;
-
             font-weight: 700;
-
             color: #475569;
-
             transition: 0.3s;
-
             background: white;
         }
 
-
         .upi-app label img {
-
             width: 28px;
-
             height: 28px;
-
             object-fit: contain;
         }
 
-
         .upi-app input:checked + label {
-
             border-color: #f97316;
-
             background: #fff7ed;
-
             color: #ea580c;
-
-            box-shadow:
-                0 0 0 2px rgba(249,115,22,0.08);
+            box-shadow: 0 0 0 2px rgba(249,115,22,0.08);
         }
 
-
-        /* =========================
-           CASH
-        ========================== */
-
+        /* ========================= CASH ========================== */
         .cash-box {
-
             padding: 15px;
-
             border-radius: 10px;
-
             background: #fff7ed;
-
             border: 1px solid #fed7aa;
-
             color: #9a3412;
-
             font-size: 13px;
-
             line-height: 1.6;
-
             margin-bottom: 18px;
         }
 
-
-        /* =========================
-           PAY BUTTON
-        ========================== */
-
+        /* ========================= PAY BUTTON ========================== */
         .pay-btn {
-
             width: 100%;
-
             height: 52px;
-
             margin-top: 8px;
-
             border: none;
-
             border-radius: 10px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #fb923c,
-                    #f97316
-                );
-
+            background: linear-gradient(135deg, #fb923c, #f97316);
             color: white;
-
             font-size: 16px;
-
             font-weight: 800;
-
             cursor: pointer;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 9px;
-
-            box-shadow:
-                0 8px 20px rgba(249,115,22,0.25);
-
+            box-shadow: 0 8px 20px rgba(249,115,22,0.25);
             transition: 0.3s;
         }
 
-
         .pay-btn:hover {
-
             transform: translateY(-2px);
-
-            box-shadow:
-                0 12px 25px rgba(249,115,22,0.32);
+            box-shadow: 0 12px 25px rgba(249,115,22,0.32);
         }
 
-
         .pay-btn:disabled {
-
             opacity: 0.7;
-
             cursor: not-allowed;
-
             transform: none;
         }
 
-
-        .pay-btn svg {
-
-            width: 19px;
-
-            height: 19px;
-        }
-
+        .pay-btn svg { width: 19px; height: 19px; }
 
         .back-btn {
-
             display: block;
-
             text-align: center;
-
             margin-top: 15px;
-
             color: #64748b;
-
             text-decoration: none;
-
             font-size: 13px;
-
             font-weight: 600;
         }
 
+        .back-btn:hover { color: #f97316; }
 
-        .back-btn:hover {
-
-            color: #f97316;
-        }
-
-
-        /* =========================
-           FLASH
-        ========================== */
-
+        /* ========================= FLASH ========================== */
         .flash-message {
-
             position: fixed;
-
             top: 25px;
-
             right: 25px;
-
             min-width: 280px;
-
             max-width: 400px;
-
             padding: 16px 20px;
-
             border-radius: 10px;
-
             color: white;
-
             font-size: 15px;
-
             font-weight: 600;
-
             z-index: 999999;
-
             opacity: 0;
-
             transform: translateX(120%);
-
-            transition:
-                opacity .3s ease,
-                transform .3s ease;
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,.25);
+            transition: opacity .3s ease, transform .3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,.25);
         }
 
+        .flash-message.success { background: #16a34a; }
+        .flash-message.error { background: #dc2626; }
+        .flash-message.show { opacity: 1; transform: translateX(0); }
 
-        .flash-message.success {
-
-            background: #16a34a;
-        }
-
-
-        .flash-message.error {
-
-            background: #dc2626;
-        }
-
-
-        .flash-message.show {
-
-            opacity: 1;
-
-            transform: translateX(0);
-        }
-
-
-        /* =========================
-           UPI PIN OVERLAY
-        ========================== */
-
+        /* ========================= UPI PIN OVERLAY ========================== */
         .upi-pin-overlay {
-
             position: fixed;
-
             inset: 0;
-
-            background:
-                rgba(15, 23, 42, 0.68);
-
+            background: rgba(15, 23, 42, 0.68);
             backdrop-filter: blur(7px);
-
             display: none;
-
             align-items: center;
-
             justify-content: center;
-
             z-index: 999998;
         }
 
-
-        .upi-pin-overlay.show {
-
-            display: flex;
-        }
-
+        .upi-pin-overlay.show { display: flex; }
 
         .upi-pin-box {
-
             width: 350px;
-
             max-width: 92%;
-
             background: white;
-
             border-radius: 18px;
-
             overflow: hidden;
-
-            box-shadow:
-                0 25px 70px rgba(0,0,0,0.40);
-
-            animation:
-                pinPopup .25s ease;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.40);
+            animation: pinPopup .25s ease;
         }
-
 
         @keyframes pinPopup {
-
-            from {
-
-                opacity: 0;
-
-                transform: scale(.92);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform: scale(1);
-
-            }
+            from { opacity: 0; transform: scale(.92); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-
-        /* =========================
-           UPI HEADER
-        ========================== */
-
         .upi-pin-header {
-
             height: 58px;
-
-            background:
-                #1d4ed8;
-
+            background: #1d4ed8;
             color: white;
-
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             padding: 0 18px;
         }
 
-
-        .upi-pin-logo {
-
-            font-size: 19px;
-
-            font-weight: 900;
-
-            letter-spacing: 1px;
-        }
-
+        .upi-pin-logo { font-size: 19px; font-weight: 900; letter-spacing: 1px; }
 
         .upi-pin-close {
-
             border: none;
-
             background: transparent;
-
             color: white;
-
             font-size: 28px;
-
             line-height: 1;
-
             cursor: pointer;
-
             width: 35px;
-
             height: 35px;
-
             border-radius: 50%;
-
             transition: .2s;
         }
 
-
-        .upi-pin-close:hover {
-
-            background:
-                rgba(255,255,255,.15);
-        }
-
-
-        /* =========================
-           PIN CONTENT
-        ========================== */
+        .upi-pin-close:hover { background: rgba(255,255,255,.15); }
 
         .upi-pin-content {
-
             padding: 27px 25px 25px;
-
             text-align: center;
         }
 
-
         .upi-demo-warning {
-
             font-size: 10px;
-
             color: #64748b;
-
             margin-bottom: 18px;
-
             font-weight: 600;
         }
 
-
         .upi-pin-title {
-
             font-size: 15px;
-
             font-weight: 900;
-
             color: #111827;
-
             letter-spacing: 1px;
-
             margin-bottom: 17px;
         }
 
-
         .upi-pin-dots {
-
             display: flex;
-
             justify-content: center;
-
             gap: 10px;
-
             margin-bottom: 27px;
         }
 
-
         .upi-pin-dot {
-
             width: 13px;
-
             height: 13px;
-
             border: 2px solid #64748b;
-
             border-radius: 50%;
-
             transition: .15s;
         }
 
-
-        .upi-pin-dot.filled {
-
-            background: #111827;
-
-            border-color: #111827;
-        }
-
-
-        /* =========================
-           KEYPAD
-        ========================== */
+        .upi-pin-dot.filled { background: #111827; border-color: #111827; }
 
         .upi-keypad {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
-
         .upi-key {
-
             height: 52px;
-
             border: none;
-
             background: #f8fafc;
-
             color: #1e293b;
-
             border-radius: 10px;
-
             font-size: 18px;
-
             font-weight: 700;
-
             cursor: pointer;
-
             transition: .15s;
         }
 
-
-        .upi-key:hover {
-
-            background: #e2e8f0;
-        }
-
-
-        .upi-key:active {
-
-            transform: scale(.94);
-        }
-
-
-        .upi-key.delete {
-
-            font-size: 19px;
-        }
-
+        .upi-key:hover { background: #e2e8f0; }
+        .upi-key:active { transform: scale(.94); }
+        .upi-key.delete { font-size: 19px; }
 
         .upi-key.confirm {
-
             background: #1e3a8a;
-
             color: white;
-
             border-radius: 50%;
-
             width: 48px;
-
             height: 48px;
-
             justify-self: center;
-
             align-self: center;
         }
 
+        .upi-key.confirm:hover { background: #172554; }
 
-        .upi-key.confirm:hover {
-
-            background: #172554;
-        }
-
-
-        @media(max-width:450px) {
-
-            .upi-pin-box {
-
-                width: 320px;
-            }
-
-            .upi-pin-content {
-
-                padding:
-                    23px 20px 22px;
-            }
-
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================== */
-
-        @media(max-width:800px) {
-
-            .payment-container {
-
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-
+        @media(max-width:800px) { .payment-container { grid-template-columns: 1fr; } }
         @media(max-width:550px) {
-
-            .navbar {
-
-                height: 64px;
-
-                padding: 0 20px;
-            }
-
-
-            .ridewave-logo {
-
-                width: 105px;
-
-                height: 55px;
-            }
-
-
-            .nav-links {
-
-                gap: 10px;
-            }
-
-
-            .nav-links a:nth-child(2),
-            .nav-links a:nth-child(3) {
-
-                display: none;
-            }
-
-
-            .payment-page {
-
-                padding:
-                    90px 12px 35px;
-            }
-
-
-            .summary-card,
-            .payment-card {
-
-                padding: 22px;
-            }
-
-
-            .payment-header h1 {
-
-                font-size: 22px;
-            }
-
-
-            .methods {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .upi-apps {
-
-                grid-template-columns:
-                    1fr 1fr 1fr;
-            }
-
-
-            .card-row {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .flash-message {
-
-                top: 15px;
-
-                right: 15px;
-
-                left: 15px;
-
-                min-width: auto;
-
-                max-width: none;
-
-                text-align: center;
-            }
-
+            .navbar { height: 64px; padding: 0 20px; }
+            .ridewave-logo { width: 105px; height: 55px; }
+            .nav-links { gap: 10px; }
+            .nav-links a:nth-child(2), .nav-links a:nth-child(3) { display: none; }
+            .payment-page { padding: 90px 12px 35px; }
+            .summary-card, .payment-card { padding: 22px; }
+            .payment-header h1 { font-size: 22px; }
+            .methods { grid-template-columns: 1fr; }
+            .upi-apps { grid-template-columns: 1fr 1fr 1fr; }
+            .card-row { grid-template-columns: 1fr; }
+            .flash-message { top: 15px; right: 15px; left: 15px; min-width: auto; max-width: none; text-align: center; }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
     <nav class="navbar">
-
         <a href="/" class="logo">
-
-            <img
-                src="/images/logo.png"
-                alt="RideWave"
-                class="ridewave-logo"
-            >
-
+            <img src="/images/logo.png" alt="RideWave" class="ridewave-logo">
         </a>
-
-
         <div class="nav-links">
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/search">
-                Cars
-            </a>
-
-            <a href="/Mybookings">
-                My Bookings
-            </a>
-
+            <a href="/">Home</a>
+            <a href="/search">Cars</a>
+            <a href="/Mybookings">My Bookings</a>
         </div>
-
     </nav>
 
-
-
-    <!-- =========================
-         PAYMENT PAGE
-    ========================== -->
-
     <main class="payment-page">
-
         <div class="payment-container">
 
-
-            <!-- =========================
-                 SUMMARY
-            ========================== -->
-
             <div class="summary-card">
-
-                <h2>
-                    Payment Summary
-                </h2>
-
-
-                <p class="summary-subtitle">
-                    Review your booking before payment.
-                </p>
-
+                <h2>Payment Summary</h2>
+                <p class="summary-subtitle">Review your booking before payment.</p>
 
                 <div class="booking-box">
-
-                    <span class="booking-label">
-                        Booking ID
-                    </span>
-
-
-                    <span
-                        class="booking-id"
-                        id="bookingId"
-                    >
-                        <%= bookingId || "Not Available" %>
-                    </span>
-
+                    <span class="booking-label">Booking ID</span>
+                    <span class="booking-id" id="bookingId"><%= bookingId || "Not Available" %></span>
                 </div>
-
 
                 <div class="amount-row">
-
-                    <span>
-                        Car Rental
-                    </span>
-
-                    <span id="baseAmount">
-                        ₹0
-                    </span>
-
+                    <span>Car Rental</span>
+                    <span id="baseAmount">₹0</span>
                 </div>
-
 
                 <div class="amount-row">
-
-                    <span id="gstLabel">
-                        GST (18%)
-                    </span>
-
-                    <span id="gstAmount">
-                        ₹0
-                    </span>
-
+                    <span id="gstLabel">GST (18%)</span>
+                    <span id="gstAmount">₹0</span>
                 </div>
-
 
                 <div class="amount-row">
-
-                    <span>
-                        Security Deposit
-                    </span>
-
-                    <span id="securityDeposit">
-                        ₹0
-                    </span>
-
+                    <span>Security Deposit</span>
+                    <span id="securityDeposit">₹0</span>
                 </div>
-
 
                 <div class="amount-total">
-
-                    <span>
-                        Total
-                    </span>
-
-                    <span id="totalAmount">
-                        ₹0
-                    </span>
-
+                    <span>Total</span>
+                    <span id="totalAmount">₹0</span>
                 </div>
-
             </div>
-
-
-
-            <!-- =========================
-                 PAYMENT
-            ========================== -->
 
             <div class="payment-card">
-
-
                 <div class="payment-header">
-
-                    <h1>
-                        Make Payment
-                    </h1>
-
-
-                    <div class="secure">
-
-                        🔒 Secure Payment
-
-                    </div>
-
+                    <h1>Make Payment</h1>
+                    <div class="secure">🔒 Secure Payment</div>
                 </div>
 
-
-
-                <p class="method-title">
-                    Select Payment Method
-                </p>
-
+                <p class="method-title">Select Payment Method</p>
 
                 <div class="methods">
-
-
                     <div class="method">
-
-                        <input
-                            type="radio"
-                            name="paymentMethod"
-                            id="cardMethod"
-                            value="Card"
-                            checked
-                        >
-
-                        <label for="cardMethod">
-                            💳 Card
-                        </label>
-
+                        <input type="radio" name="paymentMethod" id="cardMethod" value="Card" checked>
+                        <label for="cardMethod">💳 Card</label>
                     </div>
 
-
                     <div class="method">
-
-                        <input
-                            type="radio"
-                            name="paymentMethod"
-                            id="upiMethod"
-                            value="UPI"
-                        >
-
-                        <label for="upiMethod">
-                            📱 UPI
-                        </label>
-
+                        <input type="radio" name="paymentMethod" id="upiMethod" value="UPI">
+                        <label for="upiMethod">📱 UPI</label>
                     </div>
 
-
                     <div class="method">
-
-                        <input
-                            type="radio"
-                            name="paymentMethod"
-                            id="cashMethod"
-                            value="Cash"
-                        >
-
-                        <label for="cashMethod">
-                            💵 Cash
-                        </label>
-
+                        <input type="radio" name="paymentMethod" id="cashMethod" value="Cash">
+                        <label for="cashMethod">💵 Cash</label>
                     </div>
-
                 </div>
 
-
-
-                <!-- =========================
-                     CARD
-                ========================== -->
-
-                <div
-                    class="card-section"
-                    id="cardSection"
-                >
-
+                <div class="card-section" id="cardSection">
                     <div class="form-group">
-
-                        <label>
-                            Card Holder Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="cardName"
-                            placeholder="Enter card holder name"
-                        >
-
+                        <label>Card Holder Name</label>
+                        <input type="text" id="cardName" placeholder="Enter card holder name">
                     </div>
 
-
                     <div class="form-group">
-
-                        <label>
-                            Card Number
-                        </label>
-
-                        <input
-                            type="text"
-                            id="cardNumber"
-                            maxlength="19"
-                            placeholder="1234 5678 9012 3456"
-                        >
-
+                        <label>Card Number</label>
+                        <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456">
                     </div>
-
 
                     <div class="card-row">
-
                         <div class="form-group">
-
-                            <label>
-                                Expiry Date
-                            </label>
-
-                            <input
-                                type="text"
-                                id="expiry"
-                                maxlength="5"
-                                placeholder="MM/YY"
-                            >
-
+                            <label>Expiry Date</label>
+                            <input type="text" id="expiry" maxlength="5" placeholder="MM/YY">
                         </div>
 
-
                         <div class="form-group">
-
-                            <label>
-                                CVV
-                            </label>
-
-                            <input
-                                type="password"
-                                id="cvv"
-                                maxlength="3"
-                                placeholder="•••"
-                            >
-
+                            <label>CVV</label>
+                            <input type="password" id="cvv" maxlength="3" placeholder="•••">
                         </div>
-
                     </div>
-
                 </div>
 
-
-
-                <!-- =========================
-                     UPI
-                ========================== -->
-
-                <div
-                    class="upi-section"
-                    id="upiSection"
-                >
-
-                    <p class="upi-app-title">
-                        Select UPI App
-                    </p>
-
+                <div class="upi-section" id="upiSection">
+                    <p class="upi-app-title">Select UPI App</p>
 
                     <div class="upi-apps">
-
-
-                        <!-- GOOGLE PAY -->
-
                         <div class="upi-app">
-
-                            <input
-                                type="radio"
-                                name="upiApp"
-                                id="googlePay"
-                                value="Google Pay"
-                            >
-
+                            <input type="radio" name="upiApp" id="googlePay" value="Google Pay">
                             <label for="googlePay">
-
-                                <img
-                                    src="https://cdn.simpleicons.org/googlepay"
-                                    alt="Google Pay"
-                                >
-
+                                <img src="https://cdn.simpleicons.org/googlepay" alt="Google Pay">
                                 Google Pay
-
                             </label>
-
                         </div>
 
-
-
-                        <!-- PHONEPE -->
-
                         <div class="upi-app">
-
-                            <input
-                                type="radio"
-                                name="upiApp"
-                                id="phonePe"
-                                value="PhonePe"
-                            >
-
+                            <input type="radio" name="upiApp" id="phonePe" value="PhonePe">
                             <label for="phonePe">
-
-                                <img
-                                    src="https://cdn.simpleicons.org/phonepe"
-                                    alt="PhonePe"
-                                >
-
+                                <img src="https://cdn.simpleicons.org/phonepe" alt="PhonePe">
                                 PhonePe
-
                             </label>
-
                         </div>
-
-
-
-                        <!-- PAYTM -->
 
                         <div class="upi-app">
-
-                            <input
-                                type="radio"
-                                name="upiApp"
-                                id="paytm"
-                                value="Paytm"
-                            >
-
+                            <input type="radio" name="upiApp" id="paytm" value="Paytm">
                             <label for="paytm">
-
-                                <img
-                                    src="https://cdn.simpleicons.org/paytm"
-                                    alt="Paytm"
-                                >
-
+                                <img src="https://cdn.simpleicons.org/paytm" alt="Paytm">
                                 Paytm
-
                             </label>
-
                         </div>
-
                     </div>
-
-
 
                     <div class="form-group">
-
-                        <label>
-                            UPI ID
-                        </label>
-
-                        <input
-                            type="text"
-                            id="upiId"
-                            placeholder="example@upi"
-                            autocomplete="off"
-                        >
-
+                        <label>UPI ID</label>
+                        <input type="text" id="upiId" placeholder="example@upi" autocomplete="off">
                     </div>
-
                 </div>
 
-
-
-                <!-- =========================
-                     CASH
-                ========================== -->
-
-                <div
-                    class="cash-section"
-                    id="cashSection"
-                >
-
+                <div class="cash-section" id="cashSection">
                     <div class="cash-box">
-
-                        💵 <strong>Cash Payment</strong>
-
-                        <br>
-
-                        Payment will be collected at the time
-                        of car pickup.
-
+                        💵 <strong>Cash Payment</strong><br>
+                        Payment will be collected at the time of car pickup.
                     </div>
-
                 </div>
 
-
-
-                <!-- =========================
-                     PAY NOW
-                ========================== -->
-
-                <button
-                    type="button"
-                    class="pay-btn"
-                    id="payNowButton"
-                >
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.8"
-                        stroke="currentColor"
-                    >
-
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3 10h18M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm11 8h2"
-                        />
-
+                <button type="button" class="pay-btn" id="payNowButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1 2-2Zm11 8h2"/>
                     </svg>
-
                     PAY NOW
-
                 </button>
 
-
-
-                <a
-                    href="/booking-confirm?booking=<%= bookingId %>"
-                    class="back-btn"
-                >
-                    ← Back to Booking
-                </a>
-
-
+                <a href="/Mybookings" class="back-btn">← Back to My Bookings</a>
             </div>
-
         </div>
-
     </main>
 
-
-
-    <!-- =========================
-         UPI PIN DEMO SCREEN
-    ========================== -->
-
-    <div
-        class="upi-pin-overlay"
-        id="upiPinOverlay"
-    >
-
+    <div class="upi-pin-overlay" id="upiPinOverlay">
         <div class="upi-pin-box">
-
-
             <div class="upi-pin-header">
-
-                <div class="upi-pin-logo">
-                    UPI
-                </div>
-
-
-                <button
-                    type="button"
-                    class="upi-pin-close"
-                    id="upiPinClose"
-                >
-                    ×
-                </button>
-
+                <div class="upi-pin-logo">UPI</div>
+                <button type="button" class="upi-pin-close" id="upiPinClose">×</button>
             </div>
-
-
 
             <div class="upi-pin-content">
-
-                <div class="upi-demo-warning">
-                    Demo payment screen — never enter a real UPI PIN.
+                <div class="upi-demo-warning">Demo payment screen — never enter a real UPI PIN.</div>
+                <div class="upi-pin-title">ENTER UPI PIN</div>
+                <div class="upi-pin-dots" id="upiPinDots">
+                    <span class="upi-pin-dot"></span>
+                    <span class="upi-pin-dot"></span>
+                    <span class="upi-pin-dot"></span>
+                    <span class="upi-pin-dot"></span>
+                    <span class="upi-pin-dot"></span>
+                    <span class="upi-pin-dot"></span>
                 </div>
-
-
-                <div class="upi-pin-title">
-                    ENTER UPI PIN
-                </div>
-
-
-                <div
-                    class="upi-pin-dots"
-                    id="upiPinDots"
-                >
-
-                    <span class="upi-pin-dot"></span>
-
-                    <span class="upi-pin-dot"></span>
-
-                    <span class="upi-pin-dot"></span>
-
-                    <span class="upi-pin-dot"></span>
-
-                    <span class="upi-pin-dot"></span>
-
-                    <span class="upi-pin-dot"></span>
-
-                </div>
-
-
-
-                <!-- =========================
-                     KEYPAD
-                ========================== -->
 
                 <div class="upi-keypad">
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="1"
-                    >
-                        1
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="2"
-                    >
-                        2
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="3"
-                    >
-                        3
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="4"
-                    >
-                        4
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="5"
-                    >
-                        5
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="6"
-                    >
-                        6
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="7"
-                    >
-                        7
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="8"
-                    >
-                        8
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="9"
-                    >
-                        9
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="upi-key delete"
-                        id="upiPinDelete"
-                    >
-                        ⌫
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key"
-                        data-key="0"
-                    >
-                        0
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="upi-key confirm"
-                        id="upiPinConfirm"
-                    >
-                        ✓
-                    </button>
-
+                    <button type="button" class="upi-key" data-key="1">1</button>
+                    <button type="button" class="upi-key" data-key="2">2</button>
+                    <button type="button" class="upi-key" data-key="3">3</button>
+                    <button type="button" class="upi-key" data-key="4">4</button>
+                    <button type="button" class="upi-key" data-key="5">5</button>
+                    <button type="button" class="upi-key" data-key="6">6</button>
+                    <button type="button" class="upi-key" data-key="7">7</button>
+                    <button type="button" class="upi-key" data-key="8">8</button>
+                    <button type="button" class="upi-key" data-key="9">9</button>
+                    <button type="button" class="upi-key delete" id="upiPinDelete">⌫</button>
+                    <button type="button" class="upi-key" data-key="0">0</button>
+                    <button type="button" class="upi-key confirm" id="upiPinConfirm">✓</button>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
-
-
 <script>
+    const bookingId = "<%= bookingId %>";
+    const baseAmount = document.getElementById("baseAmount");
+    const gstAmount = document.getElementById("gstAmount");
+    const securityDeposit = document.getElementById("securityDeposit");
+    const totalAmount = document.getElementById("totalAmount");
 
+    function showFlash(message, type = "success") {
+        const oldFlash = document.querySelector(".flash-message");
+        if (oldFlash) oldFlash.remove();
 
-    /* =========================
-       BOOKING ID
-    ========================== */
-
-    const bookingId =
-        "<%= bookingId %>";
-
-
-    const baseAmount =
-        document.getElementById("baseAmount");
-
-
-    const gstAmount =
-        document.getElementById("gstAmount");
-
-
-    const securityDeposit =
-        document.getElementById("securityDeposit");
-
-
-    const totalAmount =
-        document.getElementById("totalAmount");
-
-
-
-    /* =========================
-       FLASH MESSAGE
-    ========================== */
-
-    function showFlash(
-        message,
-        type = "success"
-    ) {
-
-        const oldFlash =
-            document.querySelector(
-                ".flash-message"
-            );
-
-
-        if (oldFlash) {
-
-            oldFlash.remove();
-
-        }
-
-
-        const flash =
-            document.createElement("div");
-
-
-        flash.className =
-            `flash-message ${type}`;
-
-
-        flash.textContent =
-            message;
-
-
+        const flash = document.createElement("div");
+        flash.className = `flash-message ${type}`;
+        flash.textContent = message;
         document.body.appendChild(flash);
 
-
+        setTimeout(() => flash.classList.add("show"), 50);
         setTimeout(() => {
-
-            flash.classList.add("show");
-
-        }, 50);
-
-
-        setTimeout(() => {
-
             flash.classList.remove("show");
-
-
-            setTimeout(() => {
-
-                flash.remove();
-
-            }, 300);
-
-        }, 3000);
-
+            setTimeout(() => flash.remove(), 300);
+        }, 3500);
     }
-
-
-
-    /* =========================
-       MONEY
-    ========================== */
 
     function formatMoney(amount) {
-
-        return "₹" +
-            Number(amount || 0)
-                .toLocaleString("en-IN");
-
+        return "₹" + Number(amount || 0).toLocaleString("en-IN");
     }
-
-
-
-    /* =========================
-       LOAD BOOKING
-    ========================== */
 
     async function loadBooking() {
-
         if (!bookingId) {
-
-            showFlash(
-                "Booking ID is missing.",
-                "error"
-            );
-
+            showFlash("Booking ID is missing.", "error");
             return;
-
         }
-
 
         try {
+            const response = await fetch(`/api/bookings/${encodeURIComponent(bookingId)}`, {
+                method: "GET",
+                credentials: "include"
+            });
 
-            const response =
-                await fetch(
-                    `/api/bookings/${encodeURIComponent(bookingId)}`,
-                    {
-                        method: "GET",
-                        credentials: "include"
-                    }
-                );
-
-
-            const text =
-                await response.text();
-
-
-            let data;
-
-
-            try {
-
-                data =
-                    JSON.parse(text);
-
-            } catch (jsonError) {
-
-                console.error(
-                    "Server returned non-JSON:",
-                    text
-                );
-
-
-                throw new Error(
-                    "Unable to load booking details."
-                );
-
+            const data = await response.json();
+            if (!response.ok || !data.success || !data.booking) {
+                throw new Error(data.message || "Booking not found");
             }
 
+            const booking = data.booking || {};
+            const car = booking.car && typeof booking.car === "object" ? booking.car : {};
 
-            if (
-                !response.ok ||
-                !data.success ||
-                !data.booking
-            ) {
+            const days = Number(booking.totalDays || 1);
+            const dailyRate = Number(car.pricePerDay || booking.pricePerDay || 0);
+            const base = dailyRate * days;
 
-                throw new Error(
-                    data.message ||
-                    "Booking not found"
-                );
+            baseAmount.textContent = formatMoney(base);
 
-            }
+            const gstRate = 18;
+            const gst = (base * gstRate) / 100;
+            gstAmount.textContent = formatMoney(gst);
 
+            const deposit = 3000;
+            securityDeposit.textContent = formatMoney(deposit);
 
-            const booking =
-                data.booking || {};
+            const total = booking.totalAmount || (base + gst + deposit);
+            totalAmount.textContent = formatMoney(total);
 
-
-            const car =
-                booking.car &&
-                typeof booking.car === "object"
-                    ? booking.car
-                    : {};
-
-
-            const days =
-                Number(
-                    booking.totalDays || 1
-                );
-
-
-            const dailyRate =
-                Number(
-                    car.pricePerDay ||
-                    booking.pricePerDay ||
-                    0
-                );
-
-
-            const storedBase =
-                Number(
-                    booking.baseAmount || 0
-                );
-
-
-            const calculatedBase =
-                dailyRate * days;
-
-
-            const base =
-                storedBase > 0
-                    ? storedBase
-                    : calculatedBase;
-
-
-            baseAmount.textContent =
-                formatMoney(base);
-
-
-
-            /* GST */
-
-            const gstRate =
-                Number(
-                    booking.gstRate ?? 18
-                );
-
-
-            document.getElementById(
-                "gstLabel"
-            ).textContent =
-                `GST (${gstRate}%)`;
-
-
-            const storedGst =
-                Number(
-                    booking.gstAmount || 0
-                );
-
-
-            const calculatedGst =
-                (base * gstRate) / 100;
-
-
-            const gst =
-                storedGst > 0
-                    ? storedGst
-                    : calculatedGst;
-
-
-            gstAmount.textContent =
-                formatMoney(gst);
-
-
-
-            /* DEPOSIT */
-
-            const storedDeposit =
-                Number(
-                    booking.securityDeposit || 0
-                );
-
-
-            const deposit =
-                storedDeposit > 0
-                    ? storedDeposit
-                    : 3000;
-
-
-            securityDeposit.textContent =
-                formatMoney(deposit);
-
-
-
-            /* TOTAL */
-
-            const storedTotal =
-                Number(
-                    booking.totalPrice || 0
-                );
-
-
-            const calculatedTotal =
-                base + gst + deposit;
-
-
-            const total =
-                storedTotal > 0
-                    ? storedTotal
-                    : calculatedTotal;
-
-
-            totalAmount.textContent =
-                formatMoney(total);
-
+        } catch (error) {
+            console.error("Payment booking error:", error);
+            showFlash(error.message || "Unable to load booking.", "error");
         }
-
-        catch (error) {
-
-            console.error(
-                "Payment booking error:",
-                error
-            );
-
-
-            showFlash(
-                error.message ||
-                "Unable to load booking.",
-                "error"
-            );
-
-        }
-
     }
 
+    function executePaymentRedirect(method, extraQuery = "") {
+        const btn = document.getElementById("payNowButton");
+        btn.disabled = true;
+        btn.innerHTML = "Processing Payment...";
 
+        showFlash("Processing payment...", "success");
 
-    /* =========================
-       PAYMENT METHOD
-    ========================== */
+        setTimeout(() => {
+            window.location.href = `/payment-success?booking=${encodeURIComponent(bookingId)}&method=${encodeURIComponent(method)}${extraQuery}`;
+        }, 800);
+    }
 
-    const cardMethod =
-        document.getElementById(
-            "cardMethod"
-        );
+    /* PAYMENT METHOD SWITCHING */
+    const cardMethod = document.getElementById("cardMethod");
+    const upiMethod = document.getElementById("upiMethod");
+    const cashMethod = document.getElementById("cashMethod");
 
-
-    const upiMethod =
-        document.getElementById(
-            "upiMethod"
-        );
-
-
-    const cashMethod =
-        document.getElementById(
-            "cashMethod"
-        );
-
-
-    const cardSection =
-        document.getElementById(
-            "cardSection"
-        );
-
-
-    const upiSection =
-        document.getElementById(
-            "upiSection"
-        );
-
-
-    const cashSection =
-        document.getElementById(
-            "cashSection"
-        );
-
-
+    const cardSection = document.getElementById("cardSection");
+    const upiSection = document.getElementById("upiSection");
+    const cashSection = document.getElementById("cashSection");
 
     function updatePaymentMethod() {
+        cardSection.style.display = "none";
+        upiSection.classList.remove("active");
+        cashSection.classList.remove("active");
 
-        cardSection.style.display =
-            "none";
-
-
-        upiSection.classList.remove(
-            "active"
-        );
-
-
-        cashSection.classList.remove(
-            "active"
-        );
-
-
-        if (cardMethod.checked) {
-
-            cardSection.style.display =
-                "block";
-
-        }
-
-
-        if (upiMethod.checked) {
-
-            upiSection.classList.add(
-                "active"
-            );
-
-        }
-
-
-        if (cashMethod.checked) {
-
-            cashSection.classList.add(
-                "active"
-            );
-
-        }
-
+        if (cardMethod.checked) cardSection.style.display = "block";
+        if (upiMethod.checked) upiSection.classList.add("active");
+        if (cashMethod.checked) cashSection.classList.add("active");
     }
 
+    cardMethod.addEventListener("change", updatePaymentMethod);
+    upiMethod.addEventListener("change", updatePaymentMethod);
+    cashMethod.addEventListener("change", updatePaymentMethod);
 
-    cardMethod.addEventListener(
-        "change",
-        updatePaymentMethod
-    );
+    /* CARD FORMAT */
+    document.getElementById("cardNumber").addEventListener("input", function () {
+        let value = this.value.replace(/\D/g, "").substring(0, 16);
+        this.value = value.match(/.{1,4}/g)?.join(" ") || "";
+    });
 
+    /* EXPIRY FORMAT */
+    document.getElementById("expiry").addEventListener("input", function () {
+        let value = this.value.replace(/\D/g, "").substring(0, 4);
+        if (value.length >= 3) {
+            value = value.substring(0, 2) + "/" + value.substring(2);
+        }
+        this.value = value;
+    });
 
-    upiMethod.addEventListener(
-        "change",
-        updatePaymentMethod
-    );
-
-
-    cashMethod.addEventListener(
-        "change",
-        updatePaymentMethod
-    );
-
-
-
-    /* =========================
-       CARD FORMAT
-    ========================== */
-
-    document
-        .getElementById("cardNumber")
-        .addEventListener(
-            "input",
-            function () {
-
-                let value =
-                    this.value
-                        .replace(/\D/g, "")
-                        .substring(0, 16);
-
-
-                value =
-                    value
-                        .match(/.{1,4}/g)
-                        ?.join(" ") || "";
-
-
-                this.value =
-                    value;
-
-            }
-        );
-
-
-
-    /* =========================
-       EXPIRY FORMAT
-    ========================== */
-
-    document
-        .getElementById("expiry")
-        .addEventListener(
-            "input",
-            function () {
-
-                let value =
-                    this.value
-                        .replace(/\D/g, "")
-                        .substring(0, 4);
-
-
-                if (value.length >= 3) {
-
-                    value =
-                        value.substring(0, 2)
-                        + "/" +
-                        value.substring(2);
-
-                }
-
-
-                this.value =
-                    value;
-
-            }
-        );
-
-
-
-    /* =========================
-       UPI PIN VARIABLES
-    ========================== */
-
-    const upiPinOverlay =
-        document.getElementById(
-            "upiPinOverlay"
-        );
-
-
-    const upiPinDots =
-        document.querySelectorAll(
-            ".upi-pin-dot"
-        );
-
-
-    const upiPinDelete =
-        document.getElementById(
-            "upiPinDelete"
-        );
-
-
-    const upiPinConfirm =
-        document.getElementById(
-            "upiPinConfirm"
-        );
-
-
-    const upiPinClose =
-        document.getElementById(
-            "upiPinClose"
-        );
-
-
+    /* UPI PIN OVERLAY */
+    const upiPinOverlay = document.getElementById("upiPinOverlay");
+    const upiPinDots = document.querySelectorAll(".upi-pin-dot");
+    const upiPinDelete = document.getElementById("upiPinDelete");
+    const upiPinConfirm = document.getElementById("upiPinConfirm");
+    const upiPinClose = document.getElementById("upiPinClose");
     let enteredUpiPin = "";
 
-
-
-    /* =========================
-       UPDATE PIN DOTS
-    ========================== */
-
     function updateUpiPinDots() {
-
-        upiPinDots.forEach(
-            (dot, index) => {
-
-                if (
-                    index <
-                    enteredUpiPin.length
-                ) {
-
-                    dot.classList.add(
-                        "filled"
-                    );
-
-                } else {
-
-                    dot.classList.remove(
-                        "filled"
-                    );
-
-                }
-
-            }
-        );
-
+        upiPinDots.forEach((dot, index) => {
+            if (index < enteredUpiPin.length) dot.classList.add("filled");
+            else dot.classList.remove("filled");
+        });
     }
 
-
-
-    /* =========================
-       UPI NUMBER KEYPAD
-    ========================== */
-
-    document
-        .querySelectorAll(
-            ".upi-key[data-key]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        if (
-                            enteredUpiPin.length >= 6
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        enteredUpiPin +=
-                            this.dataset.key;
-
-
-                        updateUpiPinDots();
-
-                    }
-                );
-
-            }
-        );
-
-
-
-    /* =========================
-       DELETE PIN
-    ========================== */
-
-    upiPinDelete.addEventListener(
-        "click",
-        function () {
-
-            enteredUpiPin =
-                enteredUpiPin.slice(
-                    0,
-                    -1
-                );
-
-
+    document.querySelectorAll(".upi-key[data-key]").forEach(button => {
+        button.addEventListener("click", function () {
+            if (enteredUpiPin.length >= 6) return;
+            enteredUpiPin += this.dataset.key;
             updateUpiPinDots();
+        });
+    });
 
+    upiPinDelete.addEventListener("click", () => {
+        enteredUpiPin = enteredUpiPin.slice(0, -1);
+        updateUpiPinDots();
+    });
+
+    upiPinClose.addEventListener("click", () => {
+        upiPinOverlay.classList.remove("show");
+        enteredUpiPin = "";
+        updateUpiPinDots();
+    });
+
+    /* PAY NOW BUTTON CLICK */
+    document.getElementById("payNowButton").addEventListener("click", function () {
+        if (!bookingId) {
+            showFlash("Booking ID is missing.", "error");
+            return;
         }
-    );
 
+        const selected = document.querySelector('input[name="paymentMethod"]:checked');
+        if (!selected) {
+            showFlash("Please select a payment method.", "error");
+            return;
+        }
 
+        const method = selected.value;
 
-    /* =========================
-       CLOSE PIN
-    ========================== */
+        if (method === "Card") {
+            const name = document.getElementById("cardName").value.trim();
+            const number = document.getElementById("cardNumber").value.replace(/\s/g, "");
+            const expiry = document.getElementById("expiry").value.trim();
+            const cvv = document.getElementById("cvv").value.trim();
 
-    upiPinClose.addEventListener(
-        "click",
-        function () {
+            if (!name) return showFlash("Please enter card holder name.", "error");
+            if (number.length !== 16) return showFlash("Please enter a valid 16-digit card number.", "error");
+            if (expiry.length !== 5) return showFlash("Please enter expiry as MM/YY.", "error");
+            if (cvv.length !== 3) return showFlash("Please enter a valid 3-digit CVV.", "error");
 
-            upiPinOverlay.classList.remove(
-                "show"
-            );
+            executePaymentRedirect("Card");
+        }
 
+        if (method === "UPI") {
+            const selectedApp = document.querySelector('input[name="upiApp"]:checked');
+            if (!selectedApp) return showFlash("Please select a UPI app.", "error");
+
+            const upi = document.getElementById("upiId").value.trim();
+            const upiRegex = /^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9._-]{2,}$/;
+
+            if (!upi || !upiRegex.test(upi)) {
+                return showFlash("Please enter a valid UPI ID (e.g. name@upi).", "error");
+            }
 
             enteredUpiPin = "";
-
-
             updateUpiPinDots();
-
+            upiPinOverlay.classList.add("show");
         }
-    );
 
-
-
-    /* =========================
-       PAY NOW
-    ========================== */
-
-    document
-        .getElementById("payNowButton")
-        .addEventListener(
-            "click",
-            function () {
-
-                const button =
-                    this;
-
-
-                if (!bookingId) {
-
-                    showFlash(
-                        "Booking ID is missing.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                const selected =
-                    document.querySelector(
-                        'input[name="paymentMethod"]:checked'
-                    );
-
-
-                if (!selected) {
-
-                    showFlash(
-                        "Please select a payment method.",
-                        "error"
-                    );
-
-                    return;
-
-                }
-
-
-                const method =
-                    selected.value;
-
-
-
-                /* =========================
-                   CARD PAYMENT
-                ========================== */
-
-                if (method === "Card") {
-
-                    const name =
-                        document
-                            .getElementById(
-                                "cardName"
-                            )
-                            .value
-                            .trim();
-
-
-                    const number =
-                        document
-                            .getElementById(
-                                "cardNumber"
-                            )
-                            .value
-                            .trim();
-
-
-                    const expiry =
-                        document
-                            .getElementById(
-                                "expiry"
-                            )
-                            .value
-                            .trim();
-
-
-                    const cvv =
-                        document
-                            .getElementById(
-                                "cvv"
-                            )
-                            .value
-                            .trim();
-
-
-
-                    if (!name) {
-
-                        showFlash(
-                            "Please enter card holder name.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (!number) {
-
-                        showFlash(
-                            "Please enter card number.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        number
-                            .replace(/\s/g, "")
-                            .length !== 16
-                    ) {
-
-                        showFlash(
-                            "Please enter a valid 16-digit card number.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (!expiry) {
-
-                        showFlash(
-                            "Please enter expiry date.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (expiry.length !== 5) {
-
-                        showFlash(
-                            "Please enter expiry as MM/YY.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (!cvv) {
-
-                        showFlash(
-                            "Please enter CVV.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (cvv.length !== 3) {
-
-                        showFlash(
-                            "Please enter a valid 3-digit CVV.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    button.disabled =
-                        true;
-
-
-                    button.innerHTML =
-                        "✓ PAYMENT PROCESSING...";
-
-
-                    setTimeout(
-                        () => {
-
-                            showFlash(
-                                "Payment successful!",
-                                "success"
-                            );
-
-
-                            setTimeout(
-                                () => {
-
-                                    window.location.href =
-                                        `/payment-success?booking=${encodeURIComponent(bookingId)}&method=Card`;
-
-                                },
-                                1000
-                            );
-
-                        },
-                        1200
-                    );
-
-
-                    return;
-
-                }
-
-
-
-                /* =========================
-                   UPI PAYMENT
-                ========================== */
-
-                if (method === "UPI") {
-
-                    const selectedApp =
-                        document.querySelector(
-                            'input[name="upiApp"]:checked'
-                        );
-
-
-                    if (!selectedApp) {
-
-                        showFlash(
-                            "Please select a UPI app.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-                    const upi =
-                        document
-                            .getElementById(
-                                "upiId"
-                            )
-                            .value
-                            .trim();
-
-
-
-                    /* =========================
-                       UPI EMPTY CHECK
-                    ========================== */
-
-                    if (!upi) {
-
-                        showFlash(
-                            "Please enter your UPI ID.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-
-                    /* =========================
-                       UPI VALIDATION
-                    ========================== */
-
-                    const upiRegex =
-                        /^[a-zA-Z0-9._-]{2,}@[a-zA-Z0-9._-]{2,}$/;
-
-
-                    const emailDomains = [
-
-                        "gmail.com",
-
-                        "yahoo.com",
-
-                        "outlook.com",
-
-                        "hotmail.com",
-
-                        "icloud.com",
-
-                        "rediffmail.com",
-
-                        "protonmail.com",
-
-                        "live.com",
-
-                        "mail.com"
-
-                    ];
-
-
-                    const upiParts =
-                        upi.split("@");
-
-
-                    const domain =
-                        upiParts[1]
-                            ?.toLowerCase();
-
-
-
-                    if (
-                        !upiRegex.test(upi) ||
-                        emailDomains.includes(domain)
-                    ) {
-
-                        showFlash(
-                            "Invalid UPI ID. Please enter a valid UPI ID like 9876543210@upi.",
-                            "error"
-                        );
-
-                        return;
-
-                    }
-
-
-
-                    /* =========================
-                       SHOW UPI PIN SCREEN
-                    ========================== */
-
-                    enteredUpiPin =
-                        "";
-
-
-                    updateUpiPinDots();
-
-
-                    upiPinOverlay.classList.add(
-                        "show"
-                    );
-
-
-                    return;
-
-                }
-
-
-
-                /* =========================
-                   CASH PAYMENT
-                ========================== */
-
-                if (method === "Cash") {
-
-                    button.disabled =
-                        true;
-
-
-                    button.innerHTML =
-                        "✓ CASH PAYMENT SELECTED";
-
-
-                    showFlash(
-                        "Payment will be collected at pickup.",
-                        "success"
-                    );
-
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                `/payment-success?booking=${encodeURIComponent(bookingId)}&method=Cash`;
-
-                        },
-                        1200
-                    );
-
-
-                    return;
-
-                }
-
-            }
-        );
-
-
-
-    /* =========================
-       UPI PIN CONFIRM
-    ========================== */
-
-    upiPinConfirm.addEventListener(
-        "click",
-        function () {
-
-            if (
-                enteredUpiPin.length !== 6
-            ) {
-
-                showFlash(
-                    "Please enter 6 digits for the demo PIN.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * IMPORTANT:
-             * This demo PIN is never sent
-             * to the server or stored.
-             */
-
-            upiPinOverlay.classList.remove(
-                "show"
-            );
-
-
-            const button =
-                document.getElementById(
-                    "payNowButton"
-                );
-
-
-            button.disabled =
-                true;
-
-
-            button.innerHTML =
-                "✓ PAYMENT PROCESSING...";
-
-
-            setTimeout(
-                () => {
-
-                    const selectedApp =
-                        document.querySelector(
-                            'input[name="upiApp"]:checked'
-                        );
-
-
-                    showFlash(
-                        `Payment successful via ${selectedApp.value}!`,
-                        "success"
-                    );
-
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                `/payment-success?booking=${encodeURIComponent(bookingId)}&method=UPI&app=${encodeURIComponent(selectedApp.value)}`;
-
-                        },
-                        1000
-                    );
-
-                },
-                1200
-            );
-
+        if (method === "Cash") {
+            executePaymentRedirect("Cash");
         }
-    );
+    });
 
+    /* UPI PIN CONFIRM */
+    upiPinConfirm.addEventListener("click", function () {
+        if (enteredUpiPin.length !== 6) {
+            showFlash("Please enter 6 digits for the demo PIN.", "error");
+            return;
+        }
 
-
-    /* =========================
-       START
-    ========================== */
+        upiPinOverlay.classList.remove("show");
+        const selectedApp = document.querySelector('input[name="upiApp"]:checked');
+        const appName = selectedApp ? selectedApp.value : "UPI";
+        executePaymentRedirect("UPI", `&app=${encodeURIComponent(appName)}`);
+    });
 
     loadBooking();
-
 </script>
 
-
 </body>
-
 </html>

@@ -72,6 +72,7 @@ img{
     align-items: center;
     justify-content: space-between;
     padding: 12px 20px;
+
 }
 
 
@@ -110,7 +111,8 @@ img{
 .nav-links{
     display:flex;
     align-items:center;
-    column-gap: 1.5rem;  
+    column-gap: 1.5rem; 
+     margin-left: -20%;
 }
 .nav-link{
     font-size:1rem;
@@ -156,6 +158,20 @@ margin-bottom: 3rem;
     background:transparent;
     font-size: 1rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* =========================
    LOGIN & SIGNUP BUTTONS
@@ -760,12 +776,27 @@ margin-bottom: 3rem;
 
 
 
+/* =========================
+   BMW CARD - ONLY HOVER
+========================= */
 
+.bmw-card {
+    transition: transform 0.35s ease !important;
+    transform: translateX(0) translateY(0) !important;
+}
 
+.bmw-card:hover {
+    transform: translateX(0) translateY(-15px) !important;
+}
 
+/* Car itself - no 3D movement */
+.bmw-card .bmw-car {
+    transform: none !important;
+}
 
-
-
+.bmw-card:hover .bmw-car {
+    transform: scale(1.07) !important;
+}
 
 
 
