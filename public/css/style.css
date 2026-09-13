@@ -338,7 +338,7 @@ margin-bottom: 3rem;
     display: flex;
     align-items: center;
     margin-top: 60px;
-    /* margin-left:20px; */
+     /* margin-left:60px;  */
 }
 
 .home-container{
@@ -359,6 +359,8 @@ margin-bottom: 3rem;
     max-width: 340px;
     border-radius: 0.4rem;
     box-shadow: 0 4px 16px hsl(355deg 25% 15% / 10%);
+    
+    margin-left: 30px;
 }
 
 .home-form h2{
@@ -518,6 +520,7 @@ margin-bottom: 3rem;
     width: 650px;
     max-width: 55vw;
     position: absolute;
+   
 
     right: 5%;
     top: 180px;

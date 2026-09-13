@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Our Team | RideWave</title>
-      <link rel="icon" type="image/png" href="images/title.png.jpeg">
+    <link rel="icon" type="image/png" href="images/title.png.jpeg">
     <link rel="stylesheet" href="/css/style.css">
 
     <!-- Boxicons -->
     <link
         href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
         rel="stylesheet">
-        <style>
+
+    <style>
+
 /* =====================================================
    RIDEWAVE - PREMIUM TEAM PAGE
    ===================================================== */
@@ -21,7 +23,7 @@
     width: 100%;
     min-height: 100vh;
     padding: 110px 6% 70px;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,6 +36,7 @@
 
 
 /* Background glow */
+
 .team-page::before {
     content: "";
     position: absolute;
@@ -131,7 +134,7 @@
 .team-container {
     width: 100%;
     max-width: 1050px;
-     
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 
@@ -140,9 +143,11 @@
     position: relative;
     z-index: 2;
 }
-.team-heading{
+
+.team-heading {
     margin-bottom: 50px;
 }
+
 
 /* =====================================================
    TEAM CARD
@@ -153,6 +158,7 @@
 
     padding: 10px;
     margin-top: 30px;
+
     border-radius: 25px;
 
     background: rgba(255, 255, 255, 0.88);
@@ -185,11 +191,6 @@
 
     display: block;
 
-    /*
-       IMPORTANT:
-       cover ki jagah contain
-       isse photo crop nahi hogi
-    */
     object-fit: contain;
 
     object-position: center;
@@ -412,6 +413,7 @@
         height: 35px;
     }
 }
+
 
 /* =========================================
    TEAM MODAL
@@ -785,12 +787,6 @@
 }
 
 
-
-
-
-
-
-
 /* =========================
    BLURRED BACKGROUND
 ========================= */
@@ -800,7 +796,7 @@
     position: fixed;
     inset: 0;
 
-   background-image: url("/images/background.png");
+    background-image: url("/images/background.png");
 
     background-size: cover;
     background-position: center;
@@ -831,19 +827,14 @@
     z-index: -2;
 }
 
-
-
-
-
-
-
-        </style>
+    </style>
 </head>
 
 <body>
 
-    <!-- TEAM PAGE -->
-   <section class="team-page" id="team">
+<!-- TEAM PAGE -->
+
+<section class="team-page" id="team">
 
     <a href="/" class="back-home-btn">
         <i class="bx bx-arrow-back"></i>
@@ -851,6 +842,7 @@
     </a>
 
     <div class="team-heading">
+
         <h1>
             Meet Our Expert Members
         </h1>
@@ -862,91 +854,112 @@
         <p>
             Meet the talented people behind RideWave.
         </p>
+
     </div>
 
 
-        <!-- Team Container -->
-        <div class="team-container">
+    <!-- Team Container -->
 
-            <!-- Team 1 -->
-           
+    <div class="team-container">
 
 
-            <!-- Team 1 -->
-           <div class="team-box" onclick="openTeamModal('divyansh')">
+        <!-- =========================
+             DIVYANSH
+        ========================== -->
 
-                <img
-                    src="/images/ceo.png.png"
-                    alt="Divyansh Singh"
-                    class="team-img"
-                >
+        <div class="team-box" onclick="openTeamModal('divyansh')">
 
-                <div class="team-data">
+            <img
+                src="/images/ceo.png.png"
+                alt="Divyansh Singh"
+                class="team-img"
+            >
 
-                    <h3>Divyansh Singh</h3>
-<div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
+            <div class="team-data">
 
-      <a href="https://github.com/Divyansh07477/Car-Project.git" target="_blank" rel="noopener noreferrer">
-    <i class="bx bxl-github"></i>
-</a>
+                <div class="team-social">
 
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-facebook"></i>
+                    </a>
 
-    <a href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
+                    <a
+                        href="https://github.com/Divyansh07477/Car-Project.git"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+                    <a
+                        href="https://twitter.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-twitter"></i>
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-linkedin"></i>
+                    </a>
 
                 </div>
+
             </div>
-
-
-            <!-- Team 2 -->
-       <div class="team-box" onclick="openTeamModal('nikhil')">
-
-                <img
-                    src="/images/manager.png"
-                    alt="Nikhil Dhakad"
-                    class="team-img"
-                >
-
-                <div class="team-data">
-
-                    <h3>Nikhil Dhakad</h3>
-<div class="team-social">
-    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
-
-    <a href="https://github.com/NikhilDhakad14/CAR-RENTALS" target="_blank" rel="noopener noreferrer">
-    <i class="bx bxl-github"></i>
-</a>
-
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
-
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
-</div>
-                </div>
-            </div>
-
-
-      
-           
-            
 
         </div>
 
-    </section>
 
+        <!-- =========================
+             NIKHIL
+        ========================== -->
+
+        <div class="team-box" onclick="openTeamModal('nikhil')">
+
+            <img
+                src="/images/manager.png"
+                alt="Nikhil Dhakad"
+                class="team-img"
+            >
+
+            <div class="team-data">
+
+                <div class="team-social">
+
+                    <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-facebook"></i>
+                    </a>
+
+                    <a
+                        href="https://github.com/NikhilDhakad14/CAR-RENTALS"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-github"></i>
+                    </a>
+
+                    <a
+                        href="https://twitter.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-twitter"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
 <!-- ================= TEAM MODAL ================= -->
@@ -955,67 +968,125 @@
 
     <div class="team-modal-box">
 
-        <button type="button" id="closeTeamModal" class="team-modal-close">
+        <button
+            type="button"
+            id="closeTeamModal"
+            class="team-modal-close">
+
             <i class="bx bx-x"></i>
+
         </button>
 
+
         <div class="team-modal-image">
-            <img id="modalTeamImage" src="" alt="">
+
+            <img
+                id="modalTeamImage"
+                src=""
+                alt="">
+
         </div>
+
 
         <div class="team-modal-content">
 
-            <span id="modalTeamRole" class="modal-role"></span>
+            <span
+                id="modalTeamRole"
+                class="modal-role">
+            </span>
+
 
             <h2 id="modalTeamName"></h2>
 
+
             <p id="modalTeamDescription"></p>
+
 
             <div class="modal-details">
 
                 <div>
+
                     <i class="bx bx-briefcase"></i>
+
                     <span id="modalTeamPosition"></span>
+
                 </div>
 
+
                 <div>
+
                     <i class="bx bx-car"></i>
+
                     <span>RideWave</span>
+
                 </div>
 
             </div>
 
-         <div class="modal-social">
 
-    <a id="modalFacebook"
-       href="#"
-       target="_blank"
-       rel="noopener noreferrer">
-        <i class="bx bxl-facebook"></i>
-    </a>
+            <!-- =========================
+                 MODAL SOCIAL LINKS
+            ========================== -->
 
-    <a id="modalGithub"
-       href="#"
-       target="_blank"
-       rel="noopener noreferrer">
-        <i class="bx bxl-github"></i>
-    </a>
+            <div class="modal-social">
 
-    <a id="modalInstagram"
-       href="#"
-       target="_blank"
-       rel="noopener noreferrer">
-        <i class="bx bxl-instagram"></i>
-    </a>
+                <a
+                    id="modalFacebook"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
 
-    <a id="modalLinkedin"
-       href="#"
-       target="_blank"
-       rel="noopener noreferrer">
-        <i class="bx bxl-linkedin"></i>
-    </a>
+                    <i class="bx bxl-facebook"></i>
 
-</div>
+                </a>
+
+
+                <a
+                    id="modalGithub"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <i class="bx bxl-github"></i>
+
+                </a>
+
+
+                <a
+                    id="modalInstagram"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <i class="bx bxl-instagram"></i>
+
+                </a>
+
+
+                <!-- TWITTER -->
+
+                <a
+                    id="modalTwitter"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <i class="bx bxl-twitter"></i>
+
+                </a>
+
+
+                <a
+                    id="modalLinkedin"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <i class="bx bxl-linkedin"></i>
+
+                </a>
+
+            </div>
 
         </div>
 
@@ -1024,44 +1095,70 @@
 </div>
 
 
-
-
 <script>
 
 const teamMembers = {
 
+    // =========================
+    // DIVYANSH
+    // =========================
+
     divyansh: {
+
         name: "Divyansh Singh",
+
         role: "CEO",
+
         position: "Chief Executive Officer",
+
         image: "/images/ceo.png.png",
 
         description:
             "Divyansh Singh is leading RideWave toward a smarter, more convenient, and customer-focused future in car rental mobility.",
 
         social: {
+
             facebook: "https://www.facebook.com/",
+
             github: "https://github.com/Divyansh07477",
-            instagram: "https://www.instagram.com/",
-            linkedin: "https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+
+            twitter: "https://twitter.com/",
+
+            linkedin:
+                "https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+
         }
+
     },
 
+
+    // =========================
+    // NIKHIL
+    // =========================
+
     nikhil: {
+
         name: "Nikhil Dhakad",
+
         role: "Owner & Founder",
+
         position: "Founder & Business Head",
+
         image: "/images/manager.png",
 
         description:
             "Nikhil Dhakad is the Owner & Founder of RideWave, driving the company’s vision with a strong focus on trust, innovation, and delivering a seamless car rental experience for every customer.",
 
         social: {
+
             facebook: "https://www.facebook.com/",
+
             github: "https://github.com/NikhilDhakad14",
-            instagram: "https://www.instagram.com/",
-            linkedin: "https://www.linkedin.com/"
+
+            twitter: "https://twitter.com/"
+
         }
+
     }
 
 };
@@ -1076,15 +1173,29 @@ function openTeamModal(memberName) {
     const member = teamMembers[memberName];
 
     if (!member) {
+
         console.log("Member not found");
+
         return;
+
     }
 
-    // IMAGE
-    document.getElementById("modalTeamImage").src = member.image;
-    document.getElementById("modalTeamImage").alt = member.name;
 
+    // =========================
+    // IMAGE
+    // =========================
+
+    document.getElementById("modalTeamImage").src =
+        member.image;
+
+    document.getElementById("modalTeamImage").alt =
+        member.name;
+
+
+    // =========================
     // BASIC DETAILS
+    // =========================
+
     document.getElementById("modalTeamName").textContent =
         member.name;
 
@@ -1108,19 +1219,88 @@ function openTeamModal(memberName) {
     document.getElementById("modalGithub").href =
         member.social.github;
 
-    document.getElementById("modalInstagram").href =
-        member.social.instagram;
 
-    document.getElementById("modalLinkedin").href =
-        member.social.linkedin;
+    // =========================
+    // INSTAGRAM
+    // =========================
+
+    const instagramBtn =
+        document.getElementById("modalInstagram");
+
+    if (member.social.instagram) {
+
+        instagramBtn.href =
+            member.social.instagram;
+
+        instagramBtn.style.display =
+            "flex";
+
+    } else {
+
+        instagramBtn.style.display =
+            "none";
+
+    }
 
 
+    // =========================
+    // TWITTER
+    // =========================
+
+    const twitterBtn =
+        document.getElementById("modalTwitter");
+
+    if (member.social.twitter) {
+
+        twitterBtn.href =
+            member.social.twitter;
+
+        twitterBtn.style.display =
+            "flex";
+
+    } else {
+
+        twitterBtn.style.display =
+            "none";
+
+    }
+
+
+    // =========================
+    // LINKEDIN
+    // =========================
+
+    const linkedinBtn =
+        document.getElementById("modalLinkedin");
+
+    if (member.social.linkedin) {
+
+        linkedinBtn.href =
+            member.social.linkedin;
+
+        linkedinBtn.style.display =
+            "flex";
+
+    } else {
+
+        linkedinBtn.style.display =
+            "none";
+
+    }
+
+
+    // =========================
     // OPEN MODAL
-    const modal = document.getElementById("teamModal");
+    // =========================
+
+    const modal =
+        document.getElementById("teamModal");
 
     modal.classList.add("active");
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+        "hidden";
+
 }
 
 
@@ -1130,11 +1310,14 @@ function openTeamModal(memberName) {
 
 function closeTeamModal() {
 
-    const modal = document.getElementById("teamModal");
+    const modal =
+        document.getElementById("teamModal");
 
     modal.classList.remove("active");
 
-    document.body.style.overflow = "";
+    document.body.style.overflow =
+        "";
+
 }
 
 
@@ -1142,64 +1325,79 @@ function closeTeamModal() {
 // CLOSE BUTTON
 // =========================
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    const closeBtn =
-        document.getElementById("closeTeamModal");
+        const closeBtn =
+            document.getElementById(
+                "closeTeamModal"
+            );
 
-    if (closeBtn) {
 
-        closeBtn.addEventListener("click", function (event) {
+        if (closeBtn) {
 
-            event.stopPropagation();
+            closeBtn.addEventListener(
+                "click",
+                function (event) {
 
-            closeTeamModal();
+                    event.stopPropagation();
 
-        });
+                    closeTeamModal();
+
+                }
+            );
+
+        }
+
+
+        // =========================
+        // CLICK OUTSIDE MODAL
+        // =========================
+
+        const modal =
+            document.getElementById("teamModal");
+
+
+        if (modal) {
+
+            modal.addEventListener(
+                "click",
+                function (event) {
+
+                    if (event.target === modal) {
+
+                        closeTeamModal();
+
+                    }
+
+                }
+            );
+
+        }
 
     }
-
-
-    // =========================
-    // CLICK OUTSIDE MODAL
-    // =========================
-
-    const modal =
-        document.getElementById("teamModal");
-
-    if (modal) {
-
-        modal.addEventListener("click", function (event) {
-
-            if (event.target === modal) {
-
-                closeTeamModal();
-
-            }
-
-        });
-
-    }
-
-});
+);
 
 
 // =========================
 // ESC KEY
 // =========================
 
-document.addEventListener("keydown", function (event) {
+document.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "Escape") {
+        if (event.key === "Escape") {
 
-        closeTeamModal();
+            closeTeamModal();
+
+        }
 
     }
-
-});
+);
 
 </script>
-
 
 
 </body>
