@@ -913,84 +913,86 @@
 
         <div class="home-container">
 
+<!-- =================================================
+     HOME FORM
+================================================= -->
 
-            <!-- HOME FORM -->
+<form
+    action="/search"
+    method="GET"
+    class="home-form"
+>
 
-            <form
-                action="/search"
-                method="GET"
-                class="home-form"
-            >
-
-                <h2>
-
-                    Find your perfect
-
-                    <span>
-                        rental car today
-                    </span>
-
-                </h2>
+    <h2>
+        Find your perfect
+        <span>
+            rental car today
+        </span>
+    </h2>
 
 
-                <select
-                    name=""
-                    id="cars"
-                >
+    <!-- CAR TYPE -->
+    <select
+        name="q"
+        id="cars"
+    >
 
-                    <option value="cars">
-                        Select Car Type
-                    </option>
+        <option value="">
+            Select Car Type
+        </option>
 
+        <option value="sedan">
+            Sedan
+        </option>
 
-                    <option value="cars">
-                        Sedan
-                    </option>
+        <option value="suv">
+            SUV
+        </option>
 
+        <option value="sports">
+            Sports
+        </option>
 
-                    <option value="cars">
-                        SUV
-                    </option>
+        <option value="luxury">
+            Luxury
+        </option>
 
-
-                    <option value="cars">
-                        Sports
-                    </option>
-
-                </select>
-
-
-                <input
-                    type="date"
-                    name=""
-                    id=""
-                    placeholder="Pick-up Date"
-                >
+    </select>
 
 
-                <input
-                    type="date"
-                    name=""
-                    id=""
-                    placeholder="Return Date"
-                >
+    <!-- PICK-UP DATE -->
+    <input
+        type="date"
+        name="pickupDate"
+        id="pickupDate"
+    >
 
 
-                <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Pick-up Location"
-                >
+    <!-- RETURN DATE -->
+    <input
+        type="date"
+        name="returnDate"
+        id="returnDate"
+    >
 
 
-                <input
-                    type="submit"
-                    value="Search"
-                    class="home-form-btn"
-                >
+    <!-- PICK-UP LOCATION -->
+    <input
+        type="text"
+        name="location"
+        id="pickupLocation"
+        placeholder="Pick-up Location"
+    >
 
-            </form>
+
+    <!-- SEARCH BUTTON -->
+    <input
+        type="submit"
+        value="Search"
+        class="home-form-btn"
+    >
+
+</form>
 
 
             <!-- BMW -->
@@ -1694,7 +1696,7 @@
 
                     <img
                         src="/images/footer.png"
-                        alt="RideWave"
+                        alt="RideWave" 
                     >
 
                 </a>
@@ -1733,6 +1735,19 @@
                             class="bx bxl-instagram"
                         ></i>
                     </a> -->
+
+
+
+                    <a
+                        href="https://www.linkedin.com/in/divyansh-singh-b48198345?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bx bxl-linkedin"></i>
+                    </a>
+
+
+
+
 
 
                     <a
@@ -2537,91 +2552,56 @@
 
     </script>
 
+<!-- =====================================================
+     HOME SEARCH JS
+===================================================== -->
 
-    <!-- =====================================================
-         HOME SEARCH JS
-    ===================================================== -->
+<script>
 
-    <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-        const homeSearch =
-            document.getElementById(
-                "homeSearch"
-            );
+        const homeSearch = document.getElementById("homeSearch");
 
-
-        const homeSearchBtn =
-            document.getElementById(
-                "homeSearchBtn"
-            );
-
+        if (!homeSearch) {
+            console.error("❌ homeSearch input not found");
+            return;
+        }
 
         function goToSearch() {
 
-            const query =
-                homeSearch.value.trim();
-
+            const query = homeSearch.value.trim();
 
             if (query === "") {
-
-                window.location.href =
-                    "/search";
-
+                window.location.href = "/search";
                 return;
+            }
+
+            window.location.href =
+                "/search?q=" + encodeURIComponent(query);
+
+        }
+
+
+        /* ==========================================
+           ENTER KEY
+        ========================================== */
+
+        homeSearch.addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                goToSearch();
 
             }
 
+        });
 
-            window.location.href =
-                "/search?q=" +
-                encodeURIComponent(
-                    query
-                );
+    });
 
-        }
-
-
-        /* SEARCH BUTTON */
-
-        if (homeSearchBtn) {
-
-            homeSearchBtn.addEventListener(
-                "click",
-                function () {
-
-                    goToSearch();
-
-                }
-            );
-
-        }
-
-
-        /* ENTER KEY */
-
-        if (homeSearch) {
-
-            homeSearch.addEventListener(
-                "keydown",
-                function (event) {
-
-                    if (
-                        event.key === "Enter"
-                    ) {
-
-                        event.preventDefault();
-
-                        goToSearch();
-
-                    }
-
-                }
-            );
-
-        }
-
-    </script>
-<script>
+</script>
+<!-- <script>
 const card = document.querySelector('.bmw-card');
 const car = document.querySelector('.bmw-car');
 
@@ -2655,7 +2635,32 @@ if (card && car) {
         // Smoothly wapas center me reset ho jayegi
         car.style.transform = 'translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) scale(1)';
     });
-}
+} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 </body>
