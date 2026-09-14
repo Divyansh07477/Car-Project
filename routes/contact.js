@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Contact = require("../models/Contact");
-
+const Contact = require("../models/contact");
 // SEND CONTACT MESSAGE
 router.post("/", async (req, res) => {
   try {
@@ -25,7 +24,7 @@ router.post("/", async (req, res) => {
     await contact.save();
 
     res.status(201).json({
-      message: "Your message has been sent successfully!",
+      message: "Your message has been sent successfully",
     });
   } catch (error) {
     console.error("Contact Error:", error);
