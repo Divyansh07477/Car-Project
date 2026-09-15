@@ -1330,22 +1330,29 @@
                 </div>
 
 
-                <!-- PHONE -->
+               
+<!-- PHONE -->
 
-                <div class="form-group">
+<div class="form-group">
 
-                    <label for="phone">
-                        Phone Number
-                    </label>
+    <label for="phone">
+        Phone Number
+    </label>
 
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        placeholder="Enter your phone number"
-                    >
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter your phone number"
+        minlength="10"
+        maxlength="10"
+        pattern="[0-9]{10}"
+        inputmode="numeric"
+        required
+    >
 
-                </div>
+</div>
+
 
 
                 <!-- SUBJECT -->
