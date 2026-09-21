@@ -11,10 +11,12 @@
     >
 
     <title>Payment Successful - RideWave</title>
- <link
+
+    <link
         rel="stylesheet"
         href="/css/style.css"
     >
+
     <link
         rel="icon"
         type="image/png"
@@ -32,7 +34,10 @@
 
         body {
 
-            font-family: "Segoe UI", Arial, sans-serif;
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
 
             min-height: 100vh;
 
@@ -49,7 +54,6 @@
             display: flex;
 
             flex-direction: column;
-
         }
 
 
@@ -68,7 +72,6 @@
             justify-content: center;
 
             padding: 50px 20px;
-
         }
 
 
@@ -76,7 +79,7 @@
 
             width: 100%;
 
-            max-width: 540px;
+            max-width: 560px;
 
             background: #ffffff;
 
@@ -89,10 +92,11 @@
             text-align: center;
 
             box-shadow:
-                0 20px 60px rgba(15,23,42,0.10);
+                0 20px 60px
+                rgba(15, 23, 42, 0.10);
 
-            animation: cardIn 0.5s ease;
-
+            animation:
+                cardIn 0.5s ease;
         }
 
 
@@ -105,7 +109,6 @@
                 transform:
                     translateY(25px)
                     scale(0.97);
-
             }
 
             to {
@@ -115,9 +118,7 @@
                 transform:
                     translateY(0)
                     scale(1);
-
             }
-
         }
 
 
@@ -145,7 +146,6 @@
 
             animation:
                 pop 0.5s ease 0.2s both;
-
         }
 
 
@@ -162,7 +162,6 @@
             100% {
                 transform: scale(1);
             }
-
         }
 
 
@@ -175,7 +174,6 @@
             color: #16a34a;
 
             stroke-width: 2.5;
-
         }
 
 
@@ -192,7 +190,6 @@
             margin-bottom: 10px;
 
             font-weight: 800;
-
         }
 
 
@@ -203,7 +200,6 @@
             font-size: 15px;
 
             margin-bottom: 28px;
-
         }
 
 
@@ -224,7 +220,6 @@
             margin-bottom: 25px;
 
             text-align: left;
-
         }
 
 
@@ -234,14 +229,14 @@
 
             padding: 16px 20px;
 
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom:
+                1px solid #e2e8f0;
 
             display: flex;
 
             justify-content: space-between;
 
             align-items: center;
-
         }
 
 
@@ -252,7 +247,6 @@
             font-weight: 800;
 
             color: #0f172a;
-
         }
 
 
@@ -269,14 +263,12 @@
             padding: 6px 10px;
 
             border-radius: 20px;
-
         }
 
 
         .receipt-body {
 
             padding: 18px 20px;
-
         }
 
 
@@ -297,21 +289,19 @@
             padding: 11px 0;
 
             font-size: 14px;
-
         }
 
 
         .detail-row:not(:last-child) {
 
-            border-bottom: 1px solid #eef2f7;
-
+            border-bottom:
+                1px solid #eef2f7;
         }
 
 
         .detail-row span:first-child {
 
             color: #64748b;
-
         }
 
 
@@ -322,14 +312,12 @@
             font-weight: 700;
 
             text-align: right;
-
         }
 
 
         .payment-status {
 
             color: #16a34a !important;
-
         }
 
 
@@ -339,25 +327,24 @@
 
         .fare-section {
 
-            margin-top: 12px;
+            margin-top: 15px;
 
-            padding-top: 12px;
+            padding-top: 15px;
 
-            border-top: 1px dashed #cbd5e1;
-
+            border-top:
+                1px dashed #cbd5e1;
         }
 
 
         .fare-title {
 
-            font-size: 13px;
+            font-size: 14px;
 
             font-weight: 800;
 
             color: #334155;
 
             margin-bottom: 5px;
-
         }
 
 
@@ -369,17 +356,15 @@
 
             align-items: center;
 
-            padding: 8px 0;
+            padding: 9px 0;
 
             font-size: 14px;
-
         }
 
 
         .fare-row span:first-child {
 
             color: #64748b;
-
         }
 
 
@@ -388,50 +373,47 @@
             color: #111827;
 
             font-weight: 700;
-
         }
 
 
         /* =========================
-           FINAL TOTAL
+           TOTAL
         ========================== */
 
         .total-row {
 
-            margin-top: 8px;
+            margin-top: 10px;
 
-            padding-top: 14px;
+            padding-top: 15px;
 
-            border-top: 2px solid #e2e8f0;
+            border-top:
+                2px solid #e2e8f0;
 
             display: flex;
 
             justify-content: space-between;
 
             align-items: center;
-
         }
 
 
         .total-label {
 
-            font-size: 16px;
+            font-size: 17px;
 
             font-weight: 800;
 
             color: #0f172a;
-
         }
 
 
         .total-value {
 
-            font-size: 21px;
+            font-size: 22px;
 
             font-weight: 900;
 
             color: #16a34a;
-
         }
 
 
@@ -446,17 +428,17 @@
             display: flex;
 
             gap: 10px;
-
         }
 
 
         .print-btn {
 
-            flex: 1;
+            width: 100%;
 
             height: 48px;
 
-            border: 1px solid #cbd5e1;
+            border:
+                1px solid #cbd5e1;
 
             border-radius: 10px;
 
@@ -471,7 +453,6 @@
             cursor: pointer;
 
             transition: 0.3s;
-
         }
 
 
@@ -481,8 +462,8 @@
 
             border-color: #94a3b8;
 
-            transform: translateY(-1px);
-
+            transform:
+                translateY(-1px);
         }
 
 
@@ -524,20 +505,21 @@
             justify-content: center;
 
             box-shadow:
-                0 8px 20px rgba(22,163,74,0.22);
+                0 8px 20px
+                rgba(22, 163, 74, 0.22);
 
             transition: 0.3s;
-
         }
 
 
         .confirm-btn:hover {
 
-            transform: translateY(-2px);
+            transform:
+                translateY(-2px);
 
             box-shadow:
-                0 12px 25px rgba(22,163,74,0.30);
-
+                0 12px 25px
+                rgba(22, 163, 74, 0.30);
         }
 
 
@@ -554,14 +536,12 @@
             font-size: 13px;
 
             font-weight: 600;
-
         }
 
 
         .booking-btn:hover {
 
             color: #f97316;
-
         }
 
 
@@ -572,16 +552,12 @@
         @media print {
 
             body {
-
                 background: white;
-
             }
 
 
             .success-page {
-
                 padding: 0;
-
             }
 
 
@@ -594,41 +570,34 @@
                 box-shadow: none;
 
                 padding: 20px;
-
             }
 
 
             .success-icon {
 
                 animation: none;
-
             }
 
 
             .confirm-btn,
-
             .booking-btn,
-
             .receipt-actions {
 
                 display: none !important;
-
             }
 
 
             .subtitle {
 
                 margin-bottom: 20px;
-
             }
 
 
             .receipt {
 
-                border: 1px solid #999;
-
+                border:
+                    1px solid #999;
             }
-
         }
 
 
@@ -641,7 +610,6 @@
             .success-page {
 
                 padding: 25px 14px;
-
             }
 
 
@@ -650,14 +618,12 @@
                 padding: 32px 18px;
 
                 border-radius: 18px;
-
             }
 
 
             .success-card h1 {
 
                 font-size: 25px;
-
             }
 
 
@@ -666,7 +632,6 @@
                 width: 78px;
 
                 height: 78px;
-
             }
 
 
@@ -675,39 +640,32 @@
                 width: 42px;
 
                 height: 42px;
-
             }
 
 
             .receipt-header {
 
                 padding: 14px 15px;
-
             }
 
 
             .receipt-body {
 
                 padding: 15px;
-
             }
 
 
             .detail-row,
-
             .fare-row {
 
                 font-size: 13px;
-
             }
 
 
             .total-value {
 
-                font-size: 18px;
-
+                font-size: 19px;
             }
-
         }
 
     </style>
@@ -727,9 +685,7 @@
         <div class="success-card">
 
 
-            <!-- =========================
-                 SUCCESS ICON
-            ========================== -->
+            <!-- SUCCESS ICON -->
 
             <div class="success-icon">
 
@@ -757,9 +713,7 @@
 
 
             <p class="subtitle">
-
                 Your payment has been successfully completed.
-
             </p>
 
 
@@ -770,7 +724,7 @@
             <div class="receipt">
 
 
-                <!-- RECEIPT HEADER -->
+                <!-- HEADER -->
 
                 <div class="receipt-header">
 
@@ -785,7 +739,7 @@
                 </div>
 
 
-                <!-- RECEIPT BODY -->
+                <!-- BODY -->
 
                 <div class="receipt-body">
 
@@ -799,7 +753,9 @@
                         </span>
 
                         <span>
-                            <%= bookingId || "Not Available" %>
+                            <%= typeof bookingId !== "undefined"
+                                ? bookingId
+                                : "Not Available" %>
                         </span>
 
                     </div>
@@ -814,7 +770,9 @@
                         </span>
 
                         <span>
-                            <%= paymentMethod || "Online" %>
+                            <%= typeof paymentMethod !== "undefined"
+                                ? paymentMethod
+                                : "Online" %>
                         </span>
 
                     </div>
@@ -841,15 +799,48 @@
 
                     <div class="fare-section">
 
+
                         <div class="fare-title">
-                            Fare Breakdown
+                            Car Rental Charges
                         </div>
 
+
+                        <!-- PRICE PER DAY -->
 
                         <div class="fare-row">
 
                             <span>
-                                Base Rental
+                                Price Per Day
+                            </span>
+
+                            <span id="pricePerDayAmount">
+                                ₹0
+                            </span>
+
+                        </div>
+
+
+                        <!-- RENTAL DAYS -->
+
+                        <div class="fare-row">
+
+                            <span>
+                                Rental Days
+                            </span>
+
+                            <span id="rentalDays">
+                                1 Day
+                            </span>
+
+                        </div>
+
+
+                        <!-- BASE RENTAL -->
+
+                        <div class="fare-row">
+
+                            <span>
+                                Car Rental
                             </span>
 
                             <span id="baseAmount">
@@ -858,6 +849,8 @@
 
                         </div>
 
+
+                        <!-- GST -->
 
                         <div class="fare-row">
 
@@ -872,6 +865,8 @@
                         </div>
 
 
+                        <!-- SECURITY -->
+
                         <div class="fare-row">
 
                             <span>
@@ -885,7 +880,7 @@
                         </div>
 
 
-                        <!-- FINAL TOTAL -->
+                        <!-- TOTAL -->
 
                         <div class="total-row">
 
@@ -901,6 +896,7 @@
                             </span>
 
                         </div>
+
 
                     </div>
 
@@ -921,14 +917,13 @@
 
                     </div>
 
+
                 </div>
 
             </div>
 
 
-            <!-- =========================
-                 THANK YOU BUTTON
-            ========================== -->
+            <!-- HOME -->
 
             <a
                 href="/"
@@ -953,134 +948,55 @@
         </div>
 
     </main>
+<!-- =========================
+     CALCULATION
+========================== -->
 
-
-    <!-- =========================
-         CALCULATION
-    ========================== -->
 <script>
 
-    // =====================================================
-    // BACKEND VALUES
-    // =====================================================
-
-    const bookingBaseAmount =
-        Number("<%= typeof baseAmount !== 'undefined' ? baseAmount : 0 %>") || 0;
-
-    const bookingGstAmount =
-        Number("<%= typeof gstAmount !== 'undefined' ? gstAmount : 0 %>") || 0;
-
-    const bookingSecurityDeposit =
-        Number("<%= typeof securityDeposit !== 'undefined' ? securityDeposit : 0 %>") || 0;
-
-    const bookingTotalAmount =
-        Number("<%= typeof totalAmount !== 'undefined' ? totalAmount : 0 %>") || 0;
-
-    const oldAmount =
-        Number("<%= amount || 0 %>") || 0;
-
-    const totalDays =
-        Number("<%= typeof totalDays !== 'undefined' ? totalDays : 1 %>") || 1;
+    // =============================================
+    // VALUES FROM APP.JS
+    // =============================================
 
     const pricePerDay =
-        Number("<%= typeof pricePerDay !== 'undefined' ? pricePerDay : 0 %>") || 0;
+        Number(
+            "<%= typeof pricePerDay !== 'undefined' ? pricePerDay : 0 %>"
+        ) || 0;
 
 
-    // =====================================================
-    // TOTAL DAYS
-    // =====================================================
-
-    const days = Math.max(1, totalDays);
-
-
-    // =====================================================
-    // BASE RENTAL
-    // =====================================================
-
-    let baseAmount = 0;
-
-    /*
-     * Priority:
-     * 1. Backend baseAmount
-     * 2. pricePerDay × days
-     * 3. old amount
-     */
-
-    if (bookingBaseAmount > 0) {
-
-        baseAmount = bookingBaseAmount;
-
-    } else if (pricePerDay > 0) {
-
-        baseAmount = pricePerDay * days;
-
-    } else if (oldAmount > 0) {
-
-        baseAmount = oldAmount;
-
-    }
+    const totalDays =
+        Number(
+            "<%= typeof totalDays !== 'undefined' ? totalDays : 1 %>"
+        ) || 1;
 
 
-    // =====================================================
-    // GST 18%
-    // =====================================================
+    const baseAmount =
+        Number(
+            "<%= typeof baseAmount !== 'undefined' ? baseAmount : 0 %>"
+        ) || 0;
 
-    /*
-     * GST MUST be calculated ONLY on rental amount.
-     * Security deposit par GST nahi lagana.
-     */
-
-    const calculatedGst =
-        Math.round(baseAmount * 18 / 100);
-
-
-    /*
-     * Backend GST agar available hai to use it.
-     * Otherwise calculated GST use hoga.
-     */
 
     const gstAmount =
-        bookingGstAmount > 0
-            ? bookingGstAmount
-            : calculatedGst;
+        Number(
+            "<%= typeof gstAmount !== 'undefined' ? gstAmount : 0 %>"
+        ) || 0;
 
-
-    // =====================================================
-    // SECURITY DEPOSIT
-    // =====================================================
 
     const securityDeposit =
-        bookingSecurityDeposit > 0
-            ? bookingSecurityDeposit
-            : 3000;
+        Number(
+            "<%= typeof securityDeposit !== 'undefined' ? securityDeposit : 3000 %>"
+        ) || 3000;
 
 
-    // =====================================================
-    // FINAL TOTAL
-    // =====================================================
-
-    /*
-     * IMPORTANT:
-     *
-     * Do NOT use bookingTotalAmount here.
-     *
-     * Because old totalAmount may contain:
-     * - only rental
-     * - rental + GST
-     * - or some other amount
-     *
-     * So calculate fresh.
-     */
-
-    const finalTotal =
-        baseAmount +
-        gstAmount +
-        securityDeposit;
+    const totalAmount =
+        Number(
+            "<%= typeof totalAmount !== 'undefined' ? totalAmount : 0 %>"
+        ) || 0;
 
 
-    // =====================================================
-    // FORMAT INR
-    // =====================================================
+    // =============================================
+    // FORMAT INDIAN RUPEES
+    // =============================================
 
     function formatINR(value) {
 
@@ -1091,27 +1007,85 @@
                 currency: "INR",
                 maximumFractionDigits: 0
             }
-        ).format(Number(value) || 0);
+        ).format(
+            Number(value) || 0
+        );
 
     }
 
 
-    // =====================================================
-    // DISPLAY
-    // =====================================================
+    // =============================================
+    // GET HTML ELEMENTS
+    // =============================================
+
+    const priceElement =
+        document.getElementById(
+            "pricePerDayAmount"
+        );
+
+
+    const daysElement =
+        document.getElementById(
+            "rentalDays"
+        );
+
 
     const baseElement =
-        document.getElementById("baseAmount");
+        document.getElementById(
+            "baseAmount"
+        );
+
 
     const gstElement =
-        document.getElementById("gstAmount");
+        document.getElementById(
+            "gstAmount"
+        );
+
 
     const securityElement =
-        document.getElementById("securityDeposit");
+        document.getElementById(
+            "securityDeposit"
+        );
+
 
     const totalElement =
-        document.getElementById("totalAmount");
+        document.getElementById(
+            "totalAmount"
+        );
 
+
+    // =============================================
+    // DISPLAY PRICE PER DAY
+    // =============================================
+
+    if (priceElement) {
+
+        priceElement.textContent =
+            formatINR(pricePerDay);
+
+    }
+
+
+    // =============================================
+    // DISPLAY RENTAL DAYS
+    // =============================================
+
+    if (daysElement) {
+
+        daysElement.textContent =
+            totalDays +
+            (
+                totalDays === 1
+                    ? " Day"
+                    : " Days"
+            );
+
+    }
+
+
+    // =============================================
+    // DISPLAY CAR RENTAL
+    // =============================================
 
     if (baseElement) {
 
@@ -1121,6 +1095,10 @@
     }
 
 
+    // =============================================
+    // DISPLAY GST
+    // =============================================
+
     if (gstElement) {
 
         gstElement.textContent =
@@ -1128,6 +1106,10 @@
 
     }
 
+
+    // =============================================
+    // DISPLAY SECURITY DEPOSIT
+    // =============================================
 
     if (securityElement) {
 
@@ -1137,31 +1119,59 @@
     }
 
 
+    // =============================================
+    // DISPLAY TOTAL
+    // =============================================
+
     if (totalElement) {
 
         totalElement.textContent =
-            formatINR(finalTotal);
+            formatINR(totalAmount);
 
     }
 
 
-    // =====================================================
+    // =============================================
     // DEBUG
-    // =====================================================
+    // =============================================
 
-    console.log("RideWave Booking Calculation");
+    console.log(
+        "========== RideWave Payment =========="
+    );
 
-    console.log("Price Per Day:", pricePerDay);
+    console.log(
+        "Price Per Day:",
+        pricePerDay
+    );
 
-    console.log("Total Days:", days);
+    console.log(
+        "Rental Days:",
+        totalDays
+    );
 
-    console.log("Base Rental:", baseAmount);
+    console.log(
+        "Car Rental:",
+        baseAmount
+    );
 
-    console.log("GST 18%:", gstAmount);
+    console.log(
+        "GST 18%:",
+        gstAmount
+    );
 
-    console.log("Security Deposit:", securityDeposit);
+    console.log(
+        "Security Deposit:",
+        securityDeposit
+    );
 
-    console.log("Final Total:", finalTotal);
+    console.log(
+        "Total Amount:",
+        totalAmount
+    );
+
+    console.log(
+        "======================================"
+    );
 
 </script>
 

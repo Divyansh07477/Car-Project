@@ -94,6 +94,79 @@ app.use((req, res, next) => {
 });
 
 // =====================================================
+// HELPERS: BOOKING PRICE CALCULATION
+// =====================================================
+
+const GST_RATE = 18;
+const DEFAULT_SECURITY_DEPOSIT = 3000;
+
+// "1,500" / "₹1500" / 1500 -> 1500
+function toNum(value) {
+    const n = Number(String(value ?? "").replace(/[^0-9.]/g, ""));
+    return Number.isFinite(n) ? n : 0;
+}
+
+function calculateBookingAmounts(booking, car) {
+    // ---------- DAYS ----------
+    let totalDays = toNum(booking.totalDays);
+
+    if (totalDays <= 0 && booking.startDate && booking.endDate) {
+        const diff =
+            new Date(booking.endDate).getTime() -
+            new Date(booking.startDate).getTime();
+        totalDays = Math.ceil(diff / (24 * 60 * 60 * 1000));
+    }
+
+    totalDays = Math.max(1, totalDays || 1);
+
+    // ---------- PRICE PER DAY ----------
+    // Priority: booking.pricePerDay -> car.pricePerDay
+    let pricePerDay = toNum(booking.pricePerDay);
+    if (pricePerDay <= 0 && car) {
+        pricePerDay = toNum(car.pricePerDay);
+    }
+
+    // ---------- BASE RENTAL ----------
+    // Priority: booking.baseAmount -> pricePerDay x days -> old totalAmount
+    let baseAmount = toNum(booking.baseAmount);
+    if (baseAmount <= 0 && pricePerDay > 0) {
+        baseAmount = pricePerDay * totalDays;
+    }
+    if (baseAmount <= 0) {
+        baseAmount = toNum(booking.totalAmount);
+    }
+
+    // Agar pricePerDay abhi bhi 0 hai lekin baseAmount mil gaya
+    if (pricePerDay <= 0 && baseAmount > 0) {
+        pricePerDay = Math.round(baseAmount / totalDays);
+    }
+
+    // ---------- GST (sirf rental par, deposit par nahi) ----------
+    const gstAmount =
+        toNum(booking.gstAmount) > 0
+            ? toNum(booking.gstAmount)
+            : Math.round((baseAmount * GST_RATE) / 100);
+
+    // ---------- SECURITY DEPOSIT ----------
+    const securityDeposit =
+        toNum(booking.securityDeposit) > 0
+            ? toNum(booking.securityDeposit)
+            : DEFAULT_SECURITY_DEPOSIT;
+
+    // ---------- FINAL TOTAL ----------
+    const totalAmount = baseAmount + gstAmount + securityDeposit;
+
+    return {
+        totalDays,
+        pricePerDay,
+        baseAmount,
+        gstAmount,
+        securityDeposit,
+        totalAmount
+    };
+}
+
+// =====================================================
 // API ROUTES
 // =====================================================
 
@@ -167,12 +240,9 @@ app.get("/refunds", (req, res) => {
     res.render("refunds");
 });
 
-
 app.get("/cookies", (req, res) => {
     res.render("cookies");
 });
-
-
 
 // BLOG 1
 app.get("/blog/rental-tips-2026", (req, res) => {
@@ -216,7 +286,7 @@ app.get("/payment-success", async (req, res) => {
             return res.redirect("/login");
         }
 
-        if (!bookingId) {
+        if (!bookingId || !mongoose.Types.ObjectId.isValid(bookingId)) {
             return res.redirect("/");
         }
 
@@ -273,16 +343,30 @@ app.get("/payment-success", async (req, res) => {
             });
         }
 
-        const amount = Number(booking.totalAmount) || 0;
+        // ---------------------------------------------
+        // 6. FETCH CAR + CALCULATE AMOUNTS (FIX)
+        // Pehle sirf booking.totalAmount use ho raha tha jo 0 tha.
+        // Ab dates + car.pricePerDay se fresh calculation hota hai.
+        // ---------------------------------------------
+        const car = await Car.findById(booking.car);
+        const carName = car && car.name ? car.name : "your car";
+
+        const amounts = calculateBookingAmounts(booking, car);
+        const amount = amounts.totalAmount;
 
         // ---------------------------------------------
-        // 6. UPDATE PAYMENT STATUS TO 'PAID'
+        // 7. UPDATE PAYMENT STATUS TO 'PAID'
         // ---------------------------------------------
         if (!booking.payment) {
             booking.payment = {};
         }
 
         const wasAlreadyPaid = (booking.payment.status === "Paid");
+
+        // Sahi total booking me save karo (agar 0 tha)
+        if (toNum(booking.totalAmount) !== amount) {
+            booking.totalAmount = amount;
+        }
 
         booking.payment.status = "Paid";
         booking.payment.method = paymentMethod;
@@ -291,11 +375,8 @@ app.get("/payment-success", async (req, res) => {
 
         await booking.save();
 
-        const car = await Car.findById(booking.car);
-        const carName = car && car.name ? car.name : "your car";
-
         // ---------------------------------------------
-        // 7. AUTO-CANCEL OVERLAPPING BOOKINGS
+        // 8. AUTO-CANCEL OVERLAPPING BOOKINGS
         // (Sirf pehli baar pay hone par trigger karo)
         // ---------------------------------------------
         if (!wasAlreadyPaid) {
@@ -340,13 +421,26 @@ app.get("/payment-success", async (req, res) => {
         }
 
         // ---------------------------------------------
-        // 8. RENDER SUCCESS PAGE
+        // 9. RENDER SUCCESS PAGE
+        // Saari values NUMBER me bhejo (formatted string me nahi),
+        // taaki template ki Number(...) conversion NaN na ho.
         // ---------------------------------------------
         return res.render("payment-success", {
             bookingId,
-            amount: amount.toLocaleString("en-IN"),
             paymentMethod,
-            upiApp
+            upiApp,
+
+            // numeric values (template script inhe use karti hai)
+            amount: amounts.totalAmount,
+            totalAmount: amounts.totalAmount,
+            baseAmount: amounts.baseAmount,
+            gstAmount: amounts.gstAmount,
+            securityDeposit: amounts.securityDeposit,
+            totalDays: amounts.totalDays,
+            pricePerDay: amounts.pricePerDay,
+
+            // sirf display ke liye agar template me chahiye
+            amountFormatted: amounts.totalAmount.toLocaleString("en-IN")
         });
 
     } catch (error) {
@@ -453,7 +547,6 @@ app.get("/confirmationPage", (req, res) => {
         bookingId: req.query.booking || ""
     });
 });
-
 
 // =====================================================
 // MONGODB + SERVER START

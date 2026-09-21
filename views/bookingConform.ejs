@@ -103,6 +103,53 @@
                 border: 1px solid #e2e8f0;
             }
         }
+
+
+ /* =========================
+   RECEIPT BUTTON
+========================== */
+
+.receipt-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.print-btn {
+    width: 100%;
+    height: 60px;              /* pehle 52px tha, ab bada */
+    padding: 0 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    border: 2px solid orange;
+    border-radius: 16px;
+
+    background: orange;
+    color: #ffffff;
+
+    font-family: "Outfit", sans-serif;
+    font-size: 18px;           /* text bhi thoda bada */
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.print-btn:hover {
+    background: #ffffff;       
+    color: orange;             
+    border-color: orange;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 165, 0, 0.3);
+}
+
+.print-btn:active {
+    transform: translateY(0);
+}
     </style>
 </head>
 
@@ -805,7 +852,6 @@
 
 
 
-                <!-- PRINT -->
 
                
 
