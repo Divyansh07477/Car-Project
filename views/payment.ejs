@@ -721,13 +721,14 @@
             </div>
         </div>
     </div>
-
 <script>
     const bookingId = "<%= bookingId %>";
-    const baseAmount = document.getElementById("baseAmount");
-    const gstAmount = document.getElementById("gstAmount");
-    const securityDeposit = document.getElementById("securityDeposit");
-    const totalAmount = document.getElementById("totalAmount");
+
+    // DOM Elements
+    const baseAmountEl = document.getElementById("baseAmount");
+    const gstAmountEl = document.getElementById("gstAmount");
+    const securityDepositEl = document.getElementById("securityDeposit");
+    const totalAmountEl = document.getElementById("totalAmount");
 
     function showFlash(message, type = "success") {
         const oldFlash = document.querySelector(".flash-message");
@@ -771,19 +772,25 @@
 
             const days = Number(booking.totalDays || 1);
             const dailyRate = Number(car.pricePerDay || booking.pricePerDay || 0);
+            
+            // 1. Calculate Base Rental
             const base = dailyRate * days;
 
-            baseAmount.textContent = formatMoney(base);
-
+            // 2. Calculate GST (18%)
             const gstRate = 18;
             const gst = (base * gstRate) / 100;
-            gstAmount.textContent = formatMoney(gst);
 
+            // 3. Security Deposit
             const deposit = 3000;
-            securityDeposit.textContent = formatMoney(deposit);
 
-            const total = booking.totalAmount || (base + gst + deposit);
-            totalAmount.textContent = formatMoney(total);
+            // 4. Grand Total Calculation (Forced recalculation)
+            const calculatedTotal = base + gst + deposit;
+
+            // Update UI
+            baseAmountEl.textContent = formatMoney(base);
+            gstAmountEl.textContent = formatMoney(gst);
+            securityDepositEl.textContent = formatMoney(deposit);
+            totalAmountEl.textContent = formatMoney(calculatedTotal);
 
         } catch (error) {
             console.error("Payment booking error:", error);
