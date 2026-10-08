@@ -1176,6 +1176,55 @@
 </script>
 
 
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    let played = false;
+
+    function playPaymentSound() {
+        if (played) return;
+        played = true;
+
+        const audioContext = new (
+            window.AudioContext || window.webkitAudioContext
+        )();
+
+        // Chhota, pleasant success chime
+        [523.25, 659.25, 783.99].forEach((frequency, index) => {
+            const oscillator = audioContext.createOscillator();
+            const volume = audioContext.createGain();
+            const startTime = audioContext.currentTime + index * 0.13;
+
+            oscillator.type = "sine";
+            oscillator.frequency.value = frequency;
+
+            volume.gain.setValueAtTime(0.001, startTime);
+            volume.gain.exponentialRampToValueAtTime(0.18, startTime + 0.02);
+            volume.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+
+            oscillator.connect(volume);
+            volume.connect(audioContext.destination);
+
+            oscillator.start(startTime);
+            oscillator.stop(startTime + 0.36);
+        });
+    }
+
+    // Page khulte hi sound try karega
+    playPaymentSound();
+
+    // Browser autoplay block kare toh pehli user interaction par bajega
+    document.addEventListener("pointerdown", playPaymentSound, { once: true });
+    document.addEventListener("keydown", playPaymentSound, { once: true });
+});
+</script>
+
+
+
 </body>
 
 </html>
