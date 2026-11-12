@@ -1,5 +1,19 @@
 require("dotenv").config();
 
+
+console.log("GEMINI KEY LOADED:", !!process.env.GEMINI_API_KEY);
+
+const { GoogleGenAI } = require("@google/genai");
+
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
+});
+
+
+
+
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -97,8 +111,8 @@ app.use((req, res, next) => {
 // HELPERS: BOOKING PRICE CALCULATION
 // =====================================================
 
-const GST_RATE = 18;
-const DEFAULT_SECURITY_DEPOSIT = 3000;
+const GST_RATE = 8;
+const DEFAULT_SECURITY_DEPOSIT = 1500;
 
 // "1,500" / "₹1500" / 1500 -> 1500
 function toNum(value) {
@@ -165,6 +179,69 @@ function calculateBookingAmounts(booking, car) {
         totalAmount
     };
 }
+
+
+
+// ==========================================
+// RIDEWAVE MJ - GEMINI AI API
+// ==========================================
+
+app.post("/api/mj/ask", async (req, res) => {
+    try {
+        const { message, language } = req.body;
+
+        if (!message || typeof message !== "string") {
+            return res.status(400).json({
+                success: false,
+                reply: "Please ask me something."
+            });
+        }
+const prompt = `
+You are MJ, the smart AI voice assistant of RideWave.
+
+RULES:
+1. Understand Hindi, English and Hinglish naturally.
+2. Reply in the same language as the user.
+3. Address the user politely as Sir.
+4. Answer general knowledge questions, even if phrased
+   differently or unexpectedly.
+5. Answer questions about cars, companies, countries,
+   technology, programming, education and daily life.
+6. Give clear and accurate answers.
+7. Keep answers short and natural for voice.
+8. Never say you cannot answer just because the question
+   does not match a predefined command.
+9. Never invent RideWave prices, bookings or car availability.
+10. For live information like today's weather, be honest
+    if live data is unavailable.
+11. Website navigation is handled separately.
+
+User language: ${language || "auto"}
+User question: ${message}
+`;
+
+        const result = await ai.models.generateContent({
+           model: "gemini-3.5-flash-lite",
+            contents: prompt
+        });
+
+        return res.json({
+            success: true,
+            reply: result.text || "Sorry Sir, mujhe iska answer nahi mila."
+        });
+
+    } catch (error) {
+        console.error("MJ Gemini Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            reply: "Sorry Sir, abhi AI service respond nahi kar rahi hai."
+        });
+    }
+});
+
+
+
 
 // =====================================================
 // API ROUTES

@@ -3406,3 +3406,72 @@ section {
         gap: 3px;
     }
 }
+
+/* =========================
+   RIDEWAVE MJ MIC BUTTON
+========================= */
+/* =========================
+   RIDEWAVE MJ MIC BUTTON
+========================= */
+
+.mj-mic-btn {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 9999;
+
+    width: 64px;
+    height: 64px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+
+    background: linear-gradient(145deg, #ed3b28, #ed3b28);
+    color: white;
+
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(196, 59, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.mj-mic-btn:hover {
+    transform: scale(1.08);
+}
+
+/* Listening animation */
+.mj-mic-btn.mj-listening {
+    animation: mjListening 1.2s infinite;
+    background: #ed3b28;
+}
+
+@keyframes mjListening {
+    0% {
+        box-shadow: 0 0 0 0 rgba(208, 58, 3, 0.7);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 13px rgba(255, 100, 0, 0.15);
+        transform: scale(1.08);
+    }
+
+    100% {
+        box-shadow: 0 0 0 22px rgba(255, 100, 0, 0);
+        transform: scale(1);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .mj-mic-btn {
+        width: 54px;
+        height: 54px;
+        right: 18px;
+        bottom: 20px;
+        font-size: 25px;
+    }
+}

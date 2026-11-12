@@ -8,6 +8,7 @@
   <title>RideWave Admin - Dashboard</title>
 
   <link rel="icon" type="image/png" href="/images/title.png.jpeg">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
  <link
         rel="stylesheet"
         href="/css/style.css"
@@ -171,6 +172,47 @@
       }
     }
 
+
+    
+/* =========================
+   RIDEWAVE MJ MIC BUTTON
+========================= */
+ /* PREMIUM RIDEWAVE MJ BUTTON */
+/* Normal state */
+.mj-mic-btn {
+    animation: none;
+}
+
+/* User clicks and MJ starts listening */
+.mj-mic-btn.active {
+    animation: mjListening 1.2s infinite;
+}
+
+@keyframes mjListening {
+    0% {
+        box-shadow: 0 0 0 0 rgba(208, 58, 3, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 13px rgba(255, 100, 0, 0.15);
+        transform: scale(1.08);
+    }
+    100% {
+        box-shadow: 0 0 0 22px rgba(255, 100, 0, 0);
+        transform: scale(1);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .mj-mic-btn {
+        width: 54px;
+        height: 54px;
+        right: 18px;
+        bottom: 20px;
+        font-size: 25px;
+    }
+}
 
 
 
@@ -2546,7 +2588,11 @@
     );
 
   </script>
+<button id="mjMicBtn" class="mj-mic-btn" type="button" title="Talk to MJ">
+    <i class="bx bxs-microphone"></i>
+</button>
 
+<script src="/js/mj.js"></script>
 </body>
 
 </html>

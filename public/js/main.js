@@ -505,3 +505,7 @@ document.addEventListener("click", (event) => {
     }
 
 });
+
+
+// mj
+const mjMicBtn = document.getElementById("mjMicBtn");
