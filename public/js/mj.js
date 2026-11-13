@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 speech.voice = mjHindiVoice;
             }
 
-            speech.rate = 1.16;
+            speech.rate = 1.15;
             speech.pitch = 1.05;
 
         } else {
@@ -191,24 +191,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     // ==========================================
     // TEXT NORMALIZATION
     // ==========================================
@@ -1041,6 +1023,303 @@ async function handleInventory(command) {
     }
 
 
+    // ==========================================
+    // NOTIFICATION READER
+    // "meri notification padho" / "koi nayi notification aayi hai?"
+    // ==========================================
+
+    async function handleNotificationQuestion(text) {
+
+        const command = normalize(text);
+
+        // "notif" loose match: speech recognition ki galtiyon ke liye
+        // (notification, notifiaction, notifications etc.)
+        const mentionsNotification =
+            /notif|\b(alerts?|sandesh|suchna)\b/.test(command);
+
+        const isHowTo = /\b(kaise|how to|band|off|disable)\b/.test(command);
+
+        if (!mentionsNotification || isHowTo) return false;
+
+        const asksCount =
+            /\b(kitni|kitne|how many|count)\b/.test(command);
+
+        try {
+            const response = await fetch("/api/notifications", {
+                method: "GET",
+                credentials: "include",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.status === 401) {
+                say(
+                    "Sir, please login first so I can read your notifications.",
+                    "Sir, pehle login kijiye, phir main aapki notifications padh dungi."
+                );
+                return true;
+            }
+
+            if (!response.ok) {
+                throw new Error("Notifications API request failed.");
+            }
+
+            const data = await response.json();
+            const list = Array.isArray(data.notifications) ? data.notifications : [];
+
+            // Sabse nayi notification pehle
+            list.sort((a, b) =>
+                new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+            );
+
+            const isUnread = item =>
+                item.isRead === false || item.read === false;
+
+            const unread = list.filter(isUnread);
+
+            if (asksCount) {
+                say(
+                    `Sir, you have ${unread.length} unread notification${unread.length === 1 ? "" : "s"}.`,
+                    `Sir, aapki ${unread.length} nayi notification${unread.length === 1 ? "" : "s"} hain.`
+                );
+                return true;
+            }
+
+            if (list.length === 0) {
+                say(
+                    "Sir, you have no notifications right now.",
+                    "Sir, abhi aapki koi notification nahi hai."
+                );
+                return true;
+            }
+
+            if (unread.length === 0) {
+                say(
+                    "Sir, you have no new notifications.",
+                    "Sir, aapki koi nayi notification nahi hai."
+                );
+                return true;
+            }
+
+            // Sabse upar wali (latest) 3 unread notifications padho
+            const toRead = unread.slice(0, 3);
+
+            const introEn = toRead.length === 1
+                ? "Sir, you have one new notification."
+                : `Sir, you have ${unread.length} new notifications. Here are the latest ${toRead.length}.`;
+
+            const introHi = toRead.length === 1
+                ? "Sir, aapki ek nayi notification hai."
+                : `Sir, aapki ${unread.length} nayi notifications hain. Ye sabse nayi ${toRead.length} hain.`;
+
+            const bodyEn = toRead
+                .map((item, index) => `Number ${index + 1}. ${item.message}`)
+                .join(" ");
+
+            const bodyHi = toRead
+                .map((item, index) => `Number ${index + 1}. ${item.message}`)
+                .join(" ");
+
+            say(
+                `${introEn} ${bodyEn}`,
+                `${introHi} ${bodyHi}`
+            );
+
+            return true;
+
+        } catch (error) {
+            console.error("MJ Notification Error:", error);
+
+            say(
+                "Sorry Sir, I could not read your notifications right now.",
+                "Sorry Sir, abhi main aapki notifications nahi padh paayi."
+            );
+
+            return true;
+        }
+    }
+
+
+    // ==========================================
+    // BOOKING STATUS QUESTION
+    // "meri booking confirm hui?" -> pending / confirmed / cancelled
+    // ==========================================
+
+    async function handleBookingStatusQuestion(text) {
+
+        const command = normalize(text);
+
+        // Booking ki taraf ishara karne wale words
+        // ("booking", "request", "owner", "payment", "car" etc.)
+        const mentionsBooking =
+            /\b(booking|bookings|book|booked|request|requests|status|reservation|refund|refunded|paise|paisa|payment|owner|car|gaadi|gadi|rent|rental|ride|order)\b/.test(command);
+
+        // Status poochne wale words (speech recognition ki galtiyon ke saath:
+        // "conform", "cancle", "cansel" etc.)
+        const asksStatus =
+            /\b(confirm|confirmed|confirmation|conform|confrm|conferm|kanform|accept|accepted|approve|approved|approval|manzoor|manjoor|cancel|cancelled|canceled|cancle|cansel|reject|rejected|pending|status|owner|complete|completed|refund|refunded|wapas|hui|hua|hue|hoi|hogai|hogayi|hogaya|reply|replied|jawab|response|respond|kari|kiya|diya|mila)\b/.test(command) ||
+            /ho gayi|ho gaya|ho gai|abhi tak|kar diya|kar di|kar dia/.test(command);
+
+        const asksRefund = /refund|wapas/.test(command);
+
+        const isHowTo = /\b(kaise|how)\b/.test(command) && !asksRefund;
+
+        // "BMW book karni hai" / "car chahiye" jaise commands status nahi hain
+        const isActionRequest =
+            /\b(chahiye|leni|lena|karni|karna|kar do|karo|dikhao|dikha do|batao kaun)\b/.test(command) &&
+            !/(hui|hua|hue|ho gayi|ho gaya|abhi tak|kari|kiya|diya)/.test(command);
+
+        if (!mentionsBooking || !asksStatus || isHowTo || isActionRequest) return false;
+
+        try {
+            const response = await fetch("/api/bookings/my-bookings", {
+                method: "GET",
+                credentials: "include",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.status === 401) {
+                say(
+                    "Sir, please login first so I can check your booking.",
+                    "Sir, pehle login kijiye, phir main aapki booking check kar dungi."
+                );
+                return true;
+            }
+
+            if (!response.ok) {
+                throw new Error("Bookings API request failed.");
+            }
+
+            const data = await response.json();
+            const bookings = Array.isArray(data.bookings) ? data.bookings : [];
+
+            if (bookings.length === 0) {
+                say(
+                    "Sir, I could not find any booking on your account.",
+                    "Sir, aapke account par mujhe koi booking nahi mili."
+                );
+                return true;
+            }
+
+            // Sabse latest booking (API already latest first deti hai)
+            bookings.sort((a, b) =>
+                new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+            );
+
+            const booking = bookings[0];
+
+            const carName = booking.car?.name || "your car";
+            const status = normalize(booking.status);
+            const paymentStatus = normalize(booking.payment?.status);
+            const note = String(booking.note || "").trim();
+            const cancelledByUser =
+                booking.cancelledBy === "customer" ||
+                normalize(note) === "user cancelled";
+
+            const refundAmount = Number(booking.payment?.refundAmount) || 0;
+
+            const refundTextEn = paymentStatus === "refunded"
+                ? (refundAmount
+                    ? ` Your payment of ${refundAmount} rupees has been marked as refunded.`
+                    : " Your payment has been marked as refunded.")
+                : "";
+
+            const refundTextHi = paymentStatus === "refunded"
+                ? (refundAmount
+                    ? ` Aapki ${refundAmount} rupees ki payment refund mark kar di gayi hai.`
+                    : " Aapki payment refund mark kar di gayi hai.")
+                : "";
+
+            // REFUND SAWAAL: booking cancel nahi hui hai to samjhao
+            if (asksRefund && status !== "cancelled") {
+
+                if (status === "completed") {
+                    say(
+                        `Sir, your booking for ${carName} is already completed, so there is no refund.`,
+                        `Sir, aapki ${carName} ki booking complete ho chuki hai, isliye refund nahi hoga.`
+                    );
+                } else if (paymentStatus === "paid") {
+                    say(
+                        `Sir, your payment for ${carName} is done. If you cancel this booking, your payment will be marked as refunded. You can cancel it from the My Bookings page.`,
+                        `Sir, aapki ${carName} ki payment ho chuki hai. Agar aap ye booking cancel karenge, to aapki payment refund mark ho jayegi. Cancel karne ke liye My Bookings page par cancel button dabaiye.`
+                    );
+                } else {
+                    say(
+                        `Sir, you have not paid for ${carName} yet, so there is nothing to refund.`,
+                        `Sir, aapne ${carName} ki payment abhi nahi ki hai, isliye refund ki zaroorat nahi hai.`
+                    );
+                }
+
+                return true;
+            }
+
+            switch (status) {
+
+                case "pending":
+                    say(
+                        `Sir, your request for ${carName} has been sent to the owner. The owner has not confirmed it yet, please wait a little.`,
+                        `Sir, aapki ${carName} ki request owner ko bhej di gayi hai. Owner ne abhi confirm nahi kiya hai, thoda wait kijiye.`
+                    );
+                    break;
+
+                case "confirmed":
+                    if (paymentStatus === "paid") {
+                        say(
+                            `Sir, your payment is done and your booking for ${carName} is confirmed. Happy journey!`,
+                            `Sir, aapki payment ho chuki hai aur ${carName} ki booking pakki hai. Happy journey!`
+                        );
+                    } else {
+                        say(
+                            `Yes Sir, your request for ${carName} has been accepted. The owner has confirmed it, you can now make the payment.`,
+                            `Ji Sir, aapki ${carName} ki request accept ho gayi hai. Owner ne confirm kar diya hai, ab aap payment kar sakte hain niche paid ka button aa rha hoga. Agar aapko payment ka option na dikhe, to ek baar page refresh karke dekhiye.`
+                        );
+                    }
+                    break;
+
+                case "cancelled":
+                    if (cancelledByUser) {
+                        say(
+                            `Sir, this booking for ${carName} was cancelled by you.${refundTextEn}`,
+                            `Sir, ${carName} ki ye booking aapne khud cancel ki thi.${refundTextHi}`
+                        );
+                    } else {
+                        const refundEn = refundTextEn;
+                        const refundHi = refundTextHi;
+
+                        say(
+                            `Sorry Sir, the owner has cancelled your booking for ${carName}.${note ? " Reason: " + note + "." : ""}${refundEn} You can look at another car.`,
+                            `Sorry Sir, owner ne aapki ${carName} ki booking cancel kar di hai.${note ? " Reason: " + note + "." : ""}${refundHi} Aap koi dusri car dekh sakte hain.`
+                        );
+                    }
+                    break;
+
+                case "completed":
+                    say(
+                        `Sir, your booking for ${carName} has been completed. Thank you for riding with RideWave!`,
+                        `Sir, aapki ${carName} ki booking complete ho chuki hai. RideWave ke saath ride karne ke liye shukriya!`
+                    );
+                    break;
+
+                default:
+                    say(
+                        "Sir, I cannot check the booking status right now. Please try again in a moment.",
+                        "Sir, abhi booking ka status check nahi ho pa raha. Thodi der baad try kijiye."
+                    );
+            }
+
+            return true;
+
+        } catch (error) {
+            console.error("MJ Booking Status Error:", error);
+
+            say(
+                "Sorry Sir, I could not check your booking status right now.",
+                "Sorry Sir, abhi booking status check nahi ho paaya."
+            );
+
+            return true;
+        }
+    }
+
 
     // ==========================================
     // BOOKING INTENT
@@ -1648,6 +1927,16 @@ async function handleInventory(command) {
 // CAR DATABASE QUESTION (BMW kitni hai, price etc.)
 // NOTE: Ye handleInventory se PEHLE hona zaroori hai.
 // ==========================================
+
+// NOTIFICATION READER (meri notification padho)
+if (await handleNotificationQuestion(text)) {
+    return;
+}
+
+// BOOKING STATUS QUESTION (meri booking confirm hui ya nahi)
+if (await handleBookingStatusQuestion(text)) {
+    return;
+}
 
 // CATEGORY CARS QUESTION (SUV / Luxury me kaun si cars hain)
 // PRICE RANK QUESTION (sabse mahangi / sasti car)

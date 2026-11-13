@@ -1213,6 +1213,35 @@
         let allCars = [];
 
         let activeCategory = "all";
+       
+// Get category from Home page URL se connect ke liye, agar user ne kisi category pe click kiya ho to search page pe woh category active ho jaye.
+const urlParams = new URLSearchParams(window.location.search);
+
+const requestedCategory = urlParams.get("category");
+
+if (requestedCategory) {
+
+    activeCategory = requestedCategory;
+
+    filterButtons.forEach(function(button) {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.category.toLowerCase() ===
+            requestedCategory.toLowerCase()
+        );
+
+    });
+
+}
+
+
+
+
+
+
+
+
 
 
         /* =====================================================
@@ -1345,83 +1374,52 @@
             let cars =
                 [...allCars];
 
+     /* SEARCH */
+const searchValue = searchInput
+    ? searchInput.value.trim().toLowerCase()
+    : "";
 
-            /* SEARCH */
+const searchTerms = searchValue
+    .split(/\s+/)
+    .filter(Boolean);
 
-            const searchValue =
-                searchInput
-                    ? searchInput.value
-                        .trim()
-                        .toLowerCase()
-                    : "";
+cars = cars.filter(function (car) {
 
+    const searchableText = [
+        car.name,
+        car.brand,
+        car.model,
+        car.category,
+        car.transmission,
+        car.fuelType,
+        car.fuel,
+        car.location,
+        car.year
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
 
-            cars =
-                cars.filter(
-                    function(car) {
+    // Search ke saare words car ke data mein hone chahiye
+    const matchesSearch = searchTerms.every(function (term) {
+        return searchableText.includes(term);
+    });
 
-                       const name =
-    String(car.name || "").toLowerCase();
+    const category = String(car.category || "")
+        .toLowerCase()
+        .trim();
 
-const brand =
-    String(car.brand || "").toLowerCase();
+    const matchesCategory =
+        activeCategory === "all" ||
+        category === activeCategory.toLowerCase();
 
-const model =
-    String(car.model || "").toLowerCase();
+    return matchesSearch && matchesCategory;
 
-const category =
-    String(car.category || "").toLowerCase();
+});
 
-const transmission =
-    String(car.transmission || "").toLowerCase();
-
-const fuelType =
-    String(car.fuelType || car.fuel || "").toLowerCase();
-
-const location =
-    String(car.location || "").toLowerCase();
-
-const year =
-    String(car.year || "").toLowerCase();
-
-
-const matchesSearch =
-    !searchValue ||
-    name.includes(searchValue) ||
-    brand.includes(searchValue) ||
-    model.includes(searchValue) ||
-    category.includes(searchValue) ||
-    transmission.includes(searchValue) ||
-    fuelType.includes(searchValue) ||
-    location.includes(searchValue) ||
-    year.includes(searchValue);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        const matchesCategory =
-                            activeCategory === "all" ||
-                            category ===
-                            activeCategory.toLowerCase();
-
-
-                        return (
-                            matchesSearch &&
-                            matchesCategory
-                        );
-
-                    }
-                );
 
 
             /* SORT */

@@ -79,42 +79,63 @@ const bookingSchema = new mongoose.Schema(
             required: true,
             min: 0
         },
+
         // Optional note/reason added by car owner
-note: {
-    type: String,
-    trim: true,
-    default: ""
-},
-// Payment details
-payment: {
-    status: {
-        type: String,
-        enum: ["Pending", "Paid", "Refunded", "Failed"],
-        default: "Pending"
-    },
+        note: {
+            type: String,
+            trim: true,
+            default: ""
+        },
 
-    method: {
-        type: String,
-        default: "Other"
-    },
+        // Payment details
+        payment: {
+            status: {
+                type: String,
+                enum: ["Pending", "Paid", "Refunded", "Failed"],
+                default: "Pending"
+            },
 
-    amountPaid: {
-        type: Number,
-        default: 0,
-        min: 0
-    },
+            method: {
+                type: String,
+                default: "Other"
+            },
 
-    amountRemaining: {
-        type: Number,
-        default: 0,
-        min: 0
-    }
-},
+            amountPaid: {
+                type: Number,
+                default: 0,
+                min: 0
+            },
+
+            amountRemaining: {
+                type: Number,
+                default: 0,
+                min: 0
+            },
+
+            // NEW: refund details (booking cancel hone par bharta hai)
+            refundAmount: {
+                type: Number,
+                default: 0,
+                min: 0
+            },
+
+            refundedAt: {
+                type: Date,
+                default: null
+            }
+        },
 
         // Actual date when owner marks rental completed
         actualReturnDate: {
             type: Date,
             default: null
+        },
+
+        // NEW: booking kisne cancel ki ("owner" ya "customer")
+        cancelledBy: {
+            type: String,
+            enum: ["", "owner", "customer"],
+            default: ""
         },
 
         // Booking lifecycle

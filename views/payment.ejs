@@ -568,7 +568,7 @@
                 </div>
 
                 <div class="amount-row">
-                    <span id="gstLabel">GST (18%)</span>
+                    <span id="gstLabel">GST (8%)</span>
                     <span id="gstAmount">₹0</span>
                 </div>
 
@@ -777,12 +777,12 @@
             // 1. Calculate Base Rental
             const base = dailyRate * days;
 
-            // 2. Calculate GST (18%)
-            const gstRate = 18;
+            // 2. Calculate GST (8%)
+            const gstRate = 8;
             const gst = (base * gstRate) / 100;
 
             // 3. Security Deposit
-            const deposit = 3000;
+            const deposit = 1500; // Fixed security deposit
 
             // 4. Grand Total Calculation (Forced recalculation)
             const calculatedTotal = base + gst + deposit;

@@ -7,6 +7,35 @@ const Notification = require("../models/Notification");
 
 
 // =====================================================
+// HELPER: REFUND IF PAID
+// Agar booking ki payment ho chuki hai to usse Refunded mark karta hai
+// aur refund ki amount return karta hai (unpaid booking par 0).
+// NOTE: Ye sirf database me refund mark karta hai. Asli paisa wapas
+// bhejne ke liye payment gateway (Razorpay etc.) ka refund API alag se
+// call karna padega.
+// =====================================================
+function refundIfPaid(booking) {
+    const paymentStatus = booking.payment && booking.payment.status
+        ? String(booking.payment.status).toLowerCase().trim()
+        : "pending";
+
+    if (paymentStatus !== "paid") return 0;
+
+    const amount =
+        Number(booking.payment.amountPaid) ||
+        Number(booking.totalAmount) ||
+        0;
+
+    booking.payment.status = "Refunded";
+    booking.payment.refundAmount = amount;
+    booking.payment.refundedAt = new Date();
+    booking.payment.amountRemaining = 0;
+
+    return amount;
+}
+
+
+// =====================================================
 // 1. OWNER BOOKINGS
 // =====================================================
 router.get("/owner-bookings", async (req, res) => {
@@ -350,15 +379,13 @@ router.post("/update-status", async (req, res) => {
             booking.actualReturnDate = new Date();
         }
 
-        let paymentWasRefunded = false;
-        if (newStatus === "cancelled" && booking.payment && booking.payment.status) {
-            const currentPaymentStatus = String(booking.payment.status).toLowerCase().trim();
-            if (currentPaymentStatus === "paid") {
-                booking.payment.status = "Refunded";
-                booking.payment.amountRemaining = 0;
-                paymentWasRefunded = true;
-            }
+        // REFUND: owner cancel kare aur payment ho chuki ho to refund
+        let refundAmount = 0;
+        if (newStatus === "cancelled") {
+            refundAmount = refundIfPaid(booking);
+            booking.cancelledBy = "owner";
         }
+        const paymentWasRefunded = refundAmount > 0;
 
         booking.status = newStatus;
         await booking.save();
@@ -372,7 +399,7 @@ router.post("/update-status", async (req, res) => {
             notificationType = "booking_confirmed";
         } else if (newStatus === "cancelled") {
             notificationMessage = paymentWasRefunded
-                ? `Your booking for ${carName} has been cancelled by the owner. Your payment has been marked as refunded.`
+                ? `Your booking for ${carName} has been cancelled by the owner. Your payment of Rs ${refundAmount} has been marked as refunded.`
                 : `Your booking for ${carName} has been cancelled by the owner.`;
             notificationType = "booking_cancelled";
         } else if (newStatus === "completed") {
@@ -580,6 +607,7 @@ router.post("/:id/confirm", async (req, res) => {
 
 // =====================================================
 // 8. OWNER CANCEL BOOKING
+// Payment ho chuki ho to automatic refund mark hota hai.
 // =====================================================
 router.post("/:id/cancel", async (req, res) => {
     try {
@@ -613,14 +641,11 @@ router.post("/:id/cancel", async (req, res) => {
         }
 
         booking.note = typeof req.body.note === "string" ? req.body.note.trim() : "";
-        let paymentWasRefunded = false;
 
-        if (booking.payment && booking.payment.status && String(booking.payment.status).toLowerCase().trim() === "paid") {
-            booking.payment.status = "Refunded";
-            booking.payment.amountRemaining = 0;
-            paymentWasRefunded = true;
-        }
+        const refundAmount = refundIfPaid(booking);
+        const paymentWasRefunded = refundAmount > 0;
 
+        booking.cancelledBy = "owner";
         booking.status = "cancelled";
         await booking.save();
 
@@ -631,7 +656,7 @@ router.post("/:id/cancel", async (req, res) => {
             user: booking.renter,
             booking: booking._id,
             message: paymentWasRefunded
-                ? `Your booking for ${carName} has been cancelled by the owner. Your payment has been marked as refunded.`
+                ? `Your booking for ${carName} has been cancelled by the owner. Your payment of Rs ${refundAmount} has been marked as refunded.`
                 : `Your booking for ${carName} has been cancelled by the owner.`,
             type: "booking_cancelled"
         });
@@ -641,6 +666,7 @@ router.post("/:id/cancel", async (req, res) => {
             message: paymentWasRefunded
                 ? "Booking cancelled and payment marked as refunded."
                 : "Booking cancelled successfully.",
+            refundAmount,
             booking
         });
 
@@ -656,6 +682,8 @@ router.post("/:id/cancel", async (req, res) => {
 
 // =====================================================
 // 9. CUSTOMER CANCEL BOOKING
+// CHANGE: Pehle payment ke baad cancel BLOCK tha.
+// Ab payment ke baad bhi cancel ho sakti hai aur refund mark hota hai.
 // =====================================================
 router.post("/:id/customer-cancel", async (req, res) => {
     try {
@@ -688,31 +716,44 @@ router.post("/:id/customer-cancel", async (req, res) => {
             });
         }
 
-        let paymentStatus = booking.payment?.status ? String(booking.payment.status).toLowerCase().trim() : "pending";
-        if (paymentStatus === "paid" || paymentStatus === "refunded") {
-            return res.status(400).json({
-                success: false,
-                message: "You cannot cancel this booking after payment."
-            });
-        }
-
         const car = await Car.findById(booking.car);
         const carName = car && car.name ? car.name : "the car";
 
+        // Payment ho chuki ho to refund mark karo (unpaid par 0 aayega)
+        const refundAmount = refundIfPaid(booking);
+        const paymentWasRefunded = refundAmount > 0;
+
         booking.note = "User Cancelled";
+        booking.cancelledBy = "customer";
         booking.status = "cancelled";
         await booking.save();
 
+        // Owner ko batao
         await Notification.create({
             user: booking.owner,
             booking: booking._id,
-            message: `User Cancelled the booking for ${carName}.`,
+            message: paymentWasRefunded
+                ? `User Cancelled the booking for ${carName}. The paid amount of Rs ${refundAmount} has been marked as refunded to the customer.`
+                : `User Cancelled the booking for ${carName}.`,
             type: "booking_cancelled"
         });
 
+        // Customer ko bhi confirmation do
+        if (paymentWasRefunded) {
+            await Notification.create({
+                user: booking.renter,
+                booking: booking._id,
+                message: `You cancelled your booking for ${carName}. Your payment of Rs ${refundAmount} has been marked as refunded.`,
+                type: "booking_cancelled"
+            });
+        }
+
         return res.status(200).json({
             success: true,
-            message: "Booking cancelled successfully.",
+            message: paymentWasRefunded
+                ? "Booking cancelled and your payment has been marked as refunded."
+                : "Booking cancelled successfully.",
+            refundAmount,
             booking
         });
 
