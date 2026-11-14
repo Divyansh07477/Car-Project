@@ -1322,6 +1322,141 @@ async function handleInventory(command) {
 
 
     // ==========================================
+    // OPEN CAR COMMAND
+    // "BMW open karo" / "Fortuner kholo" / "open Defender"
+    // ==========================================
+
+    // Do words me kitna farak hai (speech recognition ki chhoti galtiyon ke liye)
+    function mjEditDistance(a, b) {
+
+        const rows = a.length + 1;
+        const cols = b.length + 1;
+        const grid = Array.from({ length: rows }, () => new Array(cols).fill(0));
+
+        for (let i = 0; i < rows; i++) grid[i][0] = i;
+        for (let j = 0; j < cols; j++) grid[0][j] = j;
+
+        for (let i = 1; i < rows; i++) {
+            for (let j = 1; j < cols; j++) {
+                const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                grid[i][j] = Math.min(
+                    grid[i - 1][j] + 1,
+                    grid[i][j - 1] + 1,
+                    grid[i - 1][j - 1] + cost
+                );
+            }
+        }
+
+        return grid[a.length][b.length];
+    }
+
+    // Normal match na mile to: "for tuner" -> "fortuner", "fortunar" -> "fortuner"
+    function findCarLoosely(command, cars) {
+
+        const squashedCommand = command.replace(/\s/g, "");
+        const commandWords = command.split(" ").filter(Boolean);
+
+        for (const car of cars) {
+
+            const carName = normalize(car.name);
+            const squashedName = carName.replace(/\s/g, "");
+
+            if (squashedName.length > 3 && squashedCommand.includes(squashedName)) {
+                return car;
+            }
+        }
+
+        // Car ke naam ka koi lamba word (jaise "fortuner") jab bolne me
+        // alag alag tut gaya ho ("for tuner")
+        for (const car of cars) {
+
+            const longWords = normalize(car.name)
+                .split(" ")
+                .filter(word => word.length >= 5);
+
+            if (longWords.some(word => squashedCommand.includes(word))) {
+                return car;
+            }
+        }
+
+        for (const car of cars) {
+
+            const carWords = normalize(car.name)
+                .split(" ")
+                .filter(word => word.length >= 5);
+
+            for (const carWord of carWords) {
+
+                const allowed = carWord.length >= 8 ? 2 : 1;
+
+                const close = commandWords.some(word =>
+                    word.length >= 4 &&
+                    Math.abs(word.length - carWord.length) <= allowed &&
+                    mjEditDistance(word, carWord) <= allowed
+                );
+
+                if (close) return car;
+            }
+        }
+
+        return null;
+    }
+
+    async function handleOpenCarCommand(text) {
+
+        const command = normalize(text);
+
+        const wantsOpen =
+            /\b(open|kholo|khol|kholiye|dikhao|dikha|dekhna|dekho|dekhni|chalo|jao|show|view|visit)\b/.test(command) ||
+            /khol do|le chalo/.test(command);
+
+        if (!wantsOpen) return false;
+
+        // "BMW book karni hai" jaise commands booking wale handler ke paas jayenge
+        if (hasBookingIntent(command)) return false;
+
+        try {
+            const cars = await getMongoCars();
+
+            const selectedCar =
+                findBestCar(command, cars) ||
+                findCarLoosely(command, cars);
+
+            // Car ka naam nahi mila -> baaki handlers / AI ko chance do
+            if (!selectedCar) return false;
+
+            if (selectedCar.isAvailable === false) {
+                say(
+                    `Sorry Sir, ${selectedCar.name} is not available right now.`,
+                    `Sorry Sir, ${selectedCar.name} abhi available nahi hai.`
+                );
+                return true;
+            }
+
+            sessionStorage.setItem("mjSearchCar", selectedCar.name);
+
+            openPage(
+                "/search",
+                `Opening ${selectedCar.name}, Sir.`,
+                `Ji Sir, ${selectedCar.name} khol rahi hoon.`
+            );
+
+            return true;
+
+        } catch (error) {
+            console.error("MJ Open Car Error:", error);
+
+            say(
+                "Sorry Sir, I could not open that car right now.",
+                "Sorry Sir, abhi ye car open nahi ho paayi."
+            );
+
+            return true;
+        }
+    }
+
+
+    // ==========================================
     // BOOKING INTENT
     // ==========================================
 
@@ -2123,7 +2258,7 @@ if (
     text.includes("mujhe off road car chahiye")
 ) {
     say(
-        "Certainly, Sir! For SUV and adventure driving, I recommend the Land Rover Defender. It offers versatility, comfort and capability for different driving conditions.",
+        " Sir! For SUV and adventure driving, I recommend the Land Rover Defender. It offers versatility, comfort and capability for different driving conditions.",
         "Bilkul Sir! SUV aur adventure driving ke liye meri recommendation Land Rover Defender hai. Ye comfort, versatility aur different driving conditions ke liye ek achha option hai."
     );
     return;
@@ -2157,7 +2292,7 @@ if (
     text.includes("hey mj premium car dikhao")
 ) {
     say(
-        "Certainly, Sir! For a luxurious experience, I recommend the Rolls-Royce Ghost. It offers exceptional comfort, elegance and a prestigious experience.",
+        " Sir! For a luxurious experience, I recommend the Rolls-Royce Ghost. It offers exceptional comfort, elegance and a prestigious experience.",
         "Bilkul Sir! Luxury experience ke liye meri recommendation Rolls-Royce Ghost hai. Ye exceptional comfort, elegance aur royal experience deti hai."
     );
     return;
@@ -2189,8 +2324,8 @@ if (
     text.includes("hey mj supercar dikhao")
 ) {
     say(
-        "Certainly, Sir! If you are looking for the most expensive car in RideWave, I recommend the Pagani Huayra. It offers an extraordinary combination of luxury, stunning design and exceptional performance.",
-        "Certainly Sir! Agar aap RideWave ki sabse expensive car experience karna chahte hain, toh meri recommendation Pagani Huayra hai. Ye apne premium luxury, stunning design aur outstanding performance ke liye jaani jaati hai."
+        " Sir If you are looking for the most expensive car in RideWave, I recommend the Pagani Huayra. It offers an extraordinary combination of luxury, stunning design and exceptional performance.",
+        "Sir! Agar aap RideWave ki sabse expensive car experience karna chahte hain, toh meri recommendation Pagani or Nisaan GTR hai. Ye apne premium luxury, stunning design aur outstanding performance ke liye jaani jaati hai."
     );
     return;
 }
@@ -2469,6 +2604,14 @@ if (
                 "Opening Booking Form page, Sir.",
                 "Sir, Booking Form page khol rahi hoon."
             );
+            return;
+        }
+
+        // ==========================================
+        // OPEN CAR (car ka naam bolke "open karo" / "kholo")
+        // ==========================================
+
+        if (await handleOpenCarCommand(text)) {
             return;
         }
 

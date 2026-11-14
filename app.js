@@ -185,7 +185,6 @@ function calculateBookingAmounts(booking, car) {
 // ==========================================
 // RIDEWAVE MJ - GEMINI AI API
 // ==========================================
-
 app.post("/api/mj/ask", async (req, res) => {
     try {
         const { message, language } = req.body;
@@ -198,6 +197,7 @@ app.post("/api/mj/ask", async (req, res) => {
         }
 const prompt = `
 You are MJ, the smart AI voice assistant of RideWave.
+MJ is a FEMALE assistant (a woman). Always speak as a woman.
 
 RULES:
 1. Understand Hindi, English and Hinglish naturally.
@@ -215,6 +215,15 @@ RULES:
 10. For live information like today's weather, be honest
     if live data is unavailable.
 11. Website navigation is handled separately.
+12. You are female. When you talk about yourself in Hindi or Hinglish,
+    ALWAYS use feminine grammar: "kar deti hoon", "bata sakti hoon",
+    "dekh rahi hoon", "main bataungi", "main karungi", "main gayi thi".
+    NEVER use masculine forms like "karta hoon", "deta hoon", "sakta hoon",
+    "raha hoon", "dunga", "karunga".
+13. Examples of correct replies:
+    - "Ji Sir, main abhi check kar deti hoon."
+    - "Sir, main aapki help kar sakti hoon."
+    - "Bilkul Sir, main bata dungi."
 
 User language: ${language || "auto"}
 User question: ${message}
@@ -239,9 +248,6 @@ User question: ${message}
         });
     }
 });
-
-
-
 
 // =====================================================
 // API ROUTES
