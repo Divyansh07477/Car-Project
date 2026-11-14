@@ -76,14 +76,69 @@ document.addEventListener("DOMContentLoaded", () => {
     window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
 
     // ==========================================
+    // MJ KI AWAAZ HAMESHA LADKI WALI
+    // AI (Gemini) kabhi kabhi "kar deta hoon" jaisa ladke wala
+    // jawab bhejta hai. Bolne se pehle use "kar deti hoon" bana dete hain.
+    // ==========================================
+
+    function mjFeminize(message) {
+
+        let text = String(message || "");
+
+        // Roman: "karta hoon" -> "karti hoon", "deta hu" -> "deti hu", "sakta hoon" -> "sakti hoon"
+        const keepAsIs = ["data", "meta", "beta"];
+
+        text = text.replace(
+            /\b([A-Za-z]+)ta(\s+)(hoon|hun|hu|hoo)\b/gi,
+            (whole, stem, space, verb) =>
+                keepAsIs.includes((stem + "ta").toLowerCase())
+                    ? whole
+                    : `${stem}ti${space}${verb}`
+        );
+
+        // "kar raha hoon" -> "kar rahi hoon"
+        text = text.replace(
+            /\braha(\s+)(hoon|hun|hu|hoo)\b/gi,
+            (whole, space, verb) => `rahi${space}${verb}`
+        );
+
+        // "gaya hoon" -> "gayi hoon", "aaya hoon" -> "aayi hoon"
+        text = text.replace(
+            /\b(gaya|aaya)(\s+)(hoon|hun|hu|hoo)\b/gi,
+            (whole, word, space, verb) =>
+                `${word.slice(0, -1)}i${space}${verb}`
+        );
+
+        // "dunga" -> "dungi", "karunga" -> "karungi", "bataunga" -> "bataungi"
+        text = text.replace(/\b([A-Za-z]+)unga\b/gi, (whole, stem) => `${stem}ungi`);
+
+        // Devanagari: "करता हूँ" -> "करती हूँ", "रहा हूँ" -> "रही हूँ", "दूँगा" -> "दूँगी"
+        text = text.replace(/ता(\s+)(हूँ|हूं|हू)/g, "ती$1$2");
+        text = text.replace(/रहा(\s+)(हूँ|हूं|हू)/g, "रही$1$2");
+        text = text.replace(/(ू[ंँ])गा/g, "$1गी");
+
+        return text;
+    }
+
+    // ==========================================
     // SPEECH FUNCTION
     // ==========================================
 
     function speakMJ(message, language = currentLanguage, callback) {
 
+        // Hamesha ladki wali grammar me bolo
+        message = mjFeminize(message);
+
         const thisSpeechId = ++speechId;
 
-        window.speechSynthesis.cancel();
+        // Cancel sirf tab karo jab MJ pehle se bol rahi ho.
+        // Mobile par bekaar cancel karne se awaaz late aati hai.
+        const wasSpeaking =
+            window.speechSynthesis.speaking || window.speechSynthesis.pending;
+
+        if (wasSpeaking) {
+            window.speechSynthesis.cancel();
+        }
 
         console.log("MJ Response:", message);
 
@@ -148,7 +203,19 @@ document.addEventListener("DOMContentLoaded", () => {
             finishSpeech();
         };
 
-        window.speechSynthesis.speak(speech);
+        // Android Chrome par cancel ke turant baad speak karne se awaaz
+        // late aati hai ya aati hi nahi, isliye us case me thoda ruk kar bolo.
+        const startSpeaking = () => {
+            if (thisSpeechId !== speechId) return;
+            window.speechSynthesis.resume();
+            window.speechSynthesis.speak(speech);
+        };
+
+        if (wasSpeaking) {
+            setTimeout(startSpeaking, 120);
+        } else {
+            startSpeaking();
+        }
     }
 
     // ==========================================
@@ -334,7 +401,15 @@ function handlePageNavigation(text) {
     // GET CARS FROM DATABASE
     // ==========================================
 
+    // Cars ki list thodi der yaad rakho, taaki har sawal par dobara
+    // network call na ho (mobile par isi se MJ late bolti thi).
+    let mjCarsCache = { time: 0, cars: null };
+
     async function getMongoCars() {
+
+        if (mjCarsCache.cars && Date.now() - mjCarsCache.time < 30000) {
+            return mjCarsCache.cars;
+        }
 
         const response = await fetch("/api/cars", {
             method: "GET",
@@ -355,6 +430,8 @@ function handlePageNavigation(text) {
         }
 
         console.log("MJ MongoDB Cars:", data.cars);
+
+        mjCarsCache = { time: Date.now(), cars: data.cars };
 
         return data.cars;
     }
@@ -917,7 +994,22 @@ async function handleInventory(command) {
         /kitn|how many|total/.test(command) &&
         /categor/.test(command);
 
-    const asksInventory = asksCategoryLoose || inventoryWords.some(word =>
+    // "apne paas total car kitni he", "car kitni hai", "kitni gaadi hai",
+    // "total kar kitni hai" (mic "car" ko "kar" sun leta hai) - sab pakdo.
+    const asksCountWord =
+        /\b(kitni|kitne|kitna|how many|total|count|number of)\b/.test(command);
+
+    const mentionsCarWord =
+        /\b(cars?|kars|gaadi|gaadiyan|gadi|gadiyan|vehicles?)\b/.test(command) ||
+        (/\bkar\b/.test(command) && /\b(apne|aapke|hamare|paas|pass|available|total)\b/.test(command));
+
+    const isPriceOrBookingTalk =
+        /\b(price|prices|rate|rent|kiraya|per day|daily|paise|paisa|cost|mehngi|mehangi|mahangi|sasti|sasta|booking|bookings|book)\b/.test(command);
+
+    const asksCarCountLoose =
+        asksCountWord && mentionsCarWord && !isPriceOrBookingTalk;
+
+    const asksInventory = asksCategoryLoose || asksCarCountLoose || inventoryWords.some(word =>
         command.includes(word)
     );
 
@@ -958,10 +1050,20 @@ async function handleInventory(command) {
             .map(car => car.name)
             .filter(Boolean);
 
-        say(
-            `Sir, we have ${names.length} cars available. ${names.join(", ")}.`,
-            `Sir, RideWave mein ${names.length} cars available hain. Inke naam hain: ${names.join(", ")}.`
-        );
+        const totalCars = cars.length;
+
+        if (totalCars > names.length) {
+            // Kuch cars abhi available nahi hain -> total aur available dono batao
+            say(
+                `Sir, RideWave has ${totalCars} cars in total, and ${names.length} of them are available right now. The available cars are: ${names.join(", ")}.`,
+                `Sir, RideWave mein total ${totalCars} cars hain, jinme se abhi ${names.length} cars available hain. Available cars ke naam hain: ${names.join(", ")}.`
+            );
+        } else {
+            say(
+                `Sir, we have ${names.length} cars available. ${names.join(", ")}.`,
+                `Sir, RideWave mein ${names.length} cars available hain. Inke naam hain: ${names.join(", ")}.`
+            );
+        }
 
         return true;
 
@@ -2879,6 +2981,9 @@ if (
     }
 
     applySavedCommands();
+
+    // Cars pehle se load kar lo, taaki pehla sawal bhi jaldi bole
+    getMongoCars().catch(() => {});
 
     console.log("RideWave MJ initialized successfully.");
 
