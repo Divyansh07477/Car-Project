@@ -537,6 +537,7 @@ function handlePageNavigation(text) {
             }
 
             sessionStorage.setItem("mjSearchCar", selectedCar.name);
+            mjRememberCar(selectedCar.name);
 
             openPage(
                 "/search",
@@ -590,6 +591,8 @@ function handlePageNavigation(text) {
             if (!selectedCar._id) {
                 throw new Error("Car ID not found.");
             }
+
+            mjRememberCar(selectedCar.name);
 
             openPage(
                 `/booking?car=${encodeURIComponent(selectedCar._id)}`,
@@ -1242,6 +1245,153 @@ async function handleInventory(command) {
 
 
     // ==========================================
+    // OWNER BOOKING REQUESTS
+    // Owner poochhe: "koi booking aayi?" -> car ka naam + kisne booking ki
+    // NOTE: Server sirf login kiye hue user ki apni cars ki bookings deta hai
+    // (owner-bookings route session userId se filter karta hai), isliye
+    // dusre user ko kisi aur ki booking kabhi nahi dikhegi.
+    // ==========================================
+
+    async function handleOwnerBookingQuestion(text) {
+
+        const command = normalize(text);
+
+        const mentionsBooking =
+            /\b(booking|bookings|request|requests|book)\b/.test(command);
+
+        // Owner wale sawal: "koi booking aayi", "kisi ne meri car book ki",
+        // "new booking request", "meri car pe booking"
+        const ownerIntent =
+            /\b(booking|bookings|request|requests)\s+(i|e|ae|ai)\b/.test(command) ||
+            /\b(a+y+[aei]+|a+[ie]+|aayi|aai|ayi|aaya|aya|aaye|aye|received|receive|aa gayi|aa gai|aa gaya|aagayi|aagai|aagaya|aati|aate|aana|mili|mila|mil gayi|mil gai)\b/.test(command) ||
+            /\b(kisi ne|kisine|koi customer|koi user|new booking|naya booking|nayi booking|new request|naya request|nayi request|customer ne|customers ne|customer booking|pending request|pending requests)\b/.test(command) ||
+            /\b(koi|kuch|kitni|kitne|any)\s+(nayi\s+|naya\s+|new\s+)?(booking|bookings|request|requests)\b/.test(command) ||
+            /\b(meri|my|mere)\s+(car|cars|gaadi|gadi)\b/.test(command);
+
+        // Customer wale sawal ("meri booking confirm hui?") status handler ke paas jayenge
+        const isCustomerStatus =
+            /\b(confirm|confirmed|accept|accepted|cancel|cancelled|canceled|refund|refunded|payment|status|complete|completed)\b/.test(command);
+
+        const isHowTo = /\b(kaise|how)\b/.test(command);
+
+        if (!mentionsBooking || !ownerIntent || isCustomerStatus || isHowTo) return false;
+
+        console.log("MJ Owner Booking: checking owner bookings...");
+
+        try {
+            const response = await fetch("/api/bookings/owner-bookings", {
+                method: "GET",
+                credentials: "include",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.status === 401) {
+                say(
+                    "Sir, please login with your owner account first so I can check your booking requests.",
+                    "Sir, pehle apne owner account se login kijiye, phir main aapki booking requests check kar dungi."
+                );
+                return true;
+            }
+
+            if (!response.ok) {
+                throw new Error("Owner bookings API request failed.");
+            }
+
+            const data = await response.json();
+            const bookings = Array.isArray(data.bookings) ? data.bookings : [];
+
+            console.log("MJ Owner Bookings received:", bookings);
+
+            if (bookings.length === 0) {
+                say(
+                    "Sir, no one has booked any of your cars yet.",
+                    "Sir, abhi aapki kisi car par koi booking nahi aayi hai."
+                );
+                return true;
+            }
+
+            bookings.sort((a, b) =>
+                new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+            );
+
+            // Nayi requests = jinhe owner ne abhi tak confirm/cancel nahi kiya
+            const pending = bookings.filter(item =>
+                normalize(item.status) === "pending"
+            );
+
+            if (pending.length === 0) {
+                say(
+                    `Sir, there is no new booking request right now. In total, your cars have ${bookings.length} booking${bookings.length === 1 ? "" : "s"}.`,
+                    `Sir, abhi koi nayi booking request nahi aayi hai. Aapki cars par total ${bookings.length} booking${bookings.length === 1 ? "" : "s"} hain.`
+                );
+                return true;
+            }
+
+            const formatDate = value => {
+                const date = new Date(value);
+                return isNaN(date.getTime())
+                    ? ""
+                    : date.toLocaleDateString("en-IN", { day: "numeric", month: "long" });
+            };
+
+            const describe = (item, english) => {
+
+                const carName = item.car?.name || "your car";
+                const customer = item.name || item.renter?.name || "a customer";
+                const from = formatDate(item.startDate);
+                const to = formatDate(item.endDate);
+
+                if (english) {
+                    return from && to
+                        ? `${carName}, requested by ${customer} from ${from} to ${to}.`
+                        : `${carName}, requested by ${customer}.`;
+                }
+
+                return from && to
+                    ? `${carName}, ${customer} ne ${from} se ${to} tak ke liye request ki hai.`
+                    : `${carName}, ${customer} ne request ki hai.`;
+            };
+
+            // Sabse nayi 3 requests bolo
+            const toRead = pending.slice(0, 3);
+
+            if (toRead.length === 1) {
+                say(
+                    `Sir, you have one new booking request. ${describe(toRead[0], true)} You can confirm or cancel it from the Customer Booking page.`,
+                    `Sir, aapki ek nayi booking request aayi hai. ${describe(toRead[0], false)} Aap ise Customer Booking page par confirm ya cancel kar sakte hain.`
+                );
+                return true;
+            }
+
+            const listEn = toRead
+                .map((item, index) => `Number ${index + 1}. ${describe(item, true)}`)
+                .join(" ");
+
+            const listHi = toRead
+                .map((item, index) => `Number ${index + 1}. ${describe(item, false)}`)
+                .join(" ");
+
+            say(
+                `Sir, you have ${pending.length} new booking requests. Here are the latest ${toRead.length}. ${listEn} You can confirm or cancel them from the Customer Booking page.`,
+                `Sir, aapki ${pending.length} nayi booking requests aayi hain. Ye sabse nayi ${toRead.length} hain. ${listHi} Aap inhe Customer Booking page par confirm ya cancel kar sakte hain.`
+            );
+
+            return true;
+
+        } catch (error) {
+            console.error("MJ Owner Booking Error:", error);
+
+            say(
+                "Sorry Sir, I could not check your booking requests right now.",
+                "Sorry Sir, abhi main aapki booking requests check nahi kar paayi."
+            );
+
+            return true;
+        }
+    }
+
+
+    // ==========================================
     // BOOKING STATUS QUESTION
     // "meri booking confirm hui?" -> pending / confirmed / cancelled
     // ==========================================
@@ -1536,6 +1686,7 @@ async function handleInventory(command) {
             }
 
             sessionStorage.setItem("mjSearchCar", selectedCar.name);
+            mjRememberCar(selectedCar.name);
 
             openPage(
                 "/search",
@@ -1551,6 +1702,194 @@ async function handleInventory(command) {
             say(
                 "Sorry Sir, I could not open that car right now.",
                 "Sorry Sir, abhi ye car open nahi ho paayi."
+            );
+
+            return true;
+        }
+    }
+
+
+    // ==========================================
+    // CAR RENT / PRICE QUESTION
+    // "Fortuner ka rent kitna hai" / "ye car ka rent kitna hai"
+    // ==========================================
+
+    // Pichli car yaad rakho, taaki "ye car ka rent kitna hai" samajh aaye
+    function mjRememberCar(name) {
+        try {
+            if (name) sessionStorage.setItem("mjLastCar", name);
+        } catch (error) {
+            console.warn("MJ could not remember car:", error);
+        }
+    }
+
+    // Command me jin cars ke naam bole gaye hain unki list
+    function mjFindCarsMentioned(command, cars) {
+
+        const ignore = new Set([
+            "car", "cars", "gaadi", "gadi", "ka", "ki", "ke", "ko", "rent",
+            "kiraya", "price", "prices", "rate", "cost", "charge", "charges",
+            "kitna", "kitne", "kitni", "hai", "he", "hain", "batao", "bata",
+            "bataiye", "ye", "yeh", "is", "iss", "this", "the", "a", "an",
+            "what", "how", "much", "per", "day", "daily", "of", "sir", "mj",
+            "tell", "me", "for", "kya", "ho", "hota", "hoga", "lagega",
+            "lagta", "aur", "mujhe", "mera", "meri", "please", "fare",
+            "paise", "paisa", "kimat", "keemat", "daam", "dam"
+        ]);
+
+        const commandWords = command
+            .split(" ")
+            .filter(word => word && !ignore.has(word));
+
+        const squashedCommand = command.replace(/\s/g, "");
+
+        const full = [];
+        const partial = [];
+
+        for (const car of cars) {
+
+            const carName = normalize(car.name);
+            if (!carName) continue;
+
+            const carWords = carName.split(" ");
+            const matched = carWords.filter(word =>
+                word.length >= 3 && commandWords.includes(word)
+            );
+
+            const squashedName = carName.replace(/\s/g, "");
+
+            if (
+                matched.length === carWords.filter(word => word.length >= 3).length &&
+                matched.length > 0
+            ) {
+                full.push(car);
+            } else if (squashedName.length > 3 && squashedCommand.includes(squashedName)) {
+                full.push(car);
+            } else if (matched.length > 0) {
+                partial.push(car);
+            }
+        }
+
+        if (full.length > 0) return full;
+        if (partial.length > 0) return partial;
+
+        // Mic ki chhoti galti: "for tuner", "fortunar" etc.
+        const loose = findCarLoosely(command, cars);
+        return loose ? [loose] : [];
+    }
+
+    async function handleCarRentQuestion(text) {
+
+        const command = normalize(text);
+
+        const mentionsPrice =
+            /\b(rent|kiraya|kirayaa|price|prices|rate|cost|charge|charges|fare|per day|daily|paise|paisa|kimat|keemat|daam|dam|bhada|bhaada|rupees|rupaye|kitne ka|kitne ki|kitne mein|kitne me|kitna lagega|kitna padega)\b/.test(command);
+
+        if (!mentionsPrice) return false;
+
+        const isQuestion =
+            /\b(kitna|kitne|kitni|how much|what|kya|batao|bata|bataiye|tell|price|prices|rate|cost)\b/.test(command);
+
+        // "BMW rent pe leni hai" -> ye booking hai, price ka sawal nahi
+        if (hasBookingIntent(command) && !isQuestion) return false;
+
+        // "rent kaise lete hain" jaise how-to sawal
+        if (/\b(kaise|how to)\b/.test(command)) return false;
+
+        // Cheapest / costliest alag handler karta hai
+        if (/\b(sabse|cheapest|costliest|most expensive|least expensive)\b/.test(command)) return false;
+
+        try {
+            const cars = await getMongoCars();
+
+            let selected = mjFindCarsMentioned(command, cars);
+
+            // Car ka naam nahi bola -> "ye car" ka matlab: page par khuli car
+            // ya MJ ne jo car pichli baar kholi thi
+            if (selected.length === 0) {
+
+                const carId = new URLSearchParams(window.location.search).get("car");
+
+                let contextCar = carId
+                    ? cars.find(car => String(car._id) === String(carId))
+                    : null;
+
+                if (!contextCar) {
+                    const lastCarName = sessionStorage.getItem("mjLastCar");
+                    contextCar = lastCarName
+                        ? cars.find(car => normalize(car.name) === normalize(lastCarName))
+                        : null;
+                }
+
+                if (!contextCar) {
+                    say(
+                        "Sir, which car's rent would you like to know? Please tell me the car name.",
+                        "Sir, aap kis car ka rent jaanna chahte hain? Please car ka naam bataiye."
+                    );
+                    return true;
+                }
+
+                selected = [contextCar];
+            }
+
+            const priceOf = car => {
+                const value = Number(car.pricePerDay ?? car.price);
+                return Number.isFinite(value) ? value : null;
+            };
+
+            if (selected.length === 1) {
+
+                const car = selected[0];
+                const price = priceOf(car);
+
+                mjRememberCar(car.name);
+
+                if (price === null) {
+                    say(
+                        `Sorry Sir, I do not have the rent details for ${car.name} right now.`,
+                        `Sorry Sir, ${car.name} ke rent ki details abhi mere paas nahi hain.`
+                    );
+                    return true;
+                }
+
+                const unavailable = car.isAvailable === false;
+
+                say(
+                    `Sir, the rent of ${car.name} is ${price} rupees per day.${unavailable ? " It is currently unavailable." : ""}`,
+                    `Sir, ${car.name} ka rent ${price} rupees per day hai.${unavailable ? " Ye abhi available nahi hai." : ""}`
+                );
+
+                return true;
+            }
+
+            // Ek se zyada cars (jaise "Lamborghini ka rent")
+            const detailsEn = selected.map(car => {
+                const price = priceOf(car);
+                return price === null
+                    ? `${car.name}, price not available`
+                    : `${car.name} at ${price} rupees per day`;
+            }).join(", ");
+
+            const detailsHi = selected.map(car => {
+                const price = priceOf(car);
+                return price === null
+                    ? `${car.name}, price available nahi hai`
+                    : `${car.name}, ${price} rupees per day`;
+            }).join(", ");
+
+            say(
+                `Sir, I found ${selected.length} matching cars. ${detailsEn}.`,
+                `Sir, mujhe ${selected.length} matching cars mili hain. ${detailsHi}.`
+            );
+
+            return true;
+
+        } catch (error) {
+            console.error("MJ Car Rent Error:", error);
+
+            say(
+                "Sorry Sir, I could not check the rent right now.",
+                "Sorry Sir, abhi rent check nahi ho paaya."
             );
 
             return true;
@@ -2170,6 +2509,11 @@ if (await handleNotificationQuestion(text)) {
     return;
 }
 
+// OWNER BOOKING REQUESTS (koi booking aayi? - sirf owner ke login par data aata hai)
+if (await handleOwnerBookingQuestion(text)) {
+    return;
+}
+
 // BOOKING STATUS QUESTION (meri booking confirm hui ya nahi)
 if (await handleBookingStatusQuestion(text)) {
     return;
@@ -2178,6 +2522,11 @@ if (await handleBookingStatusQuestion(text)) {
 // CATEGORY CARS QUESTION (SUV / Luxury me kaun si cars hain)
 // PRICE RANK QUESTION (sabse mahangi / sasti car)
 if (await handlePriceRankQuestion(text)) {
+    return;
+}
+
+// CAR RENT QUESTION ("Fortuner ka rent kitna hai" / "ye car ka rent kitna hai")
+if (await handleCarRentQuestion(text)) {
     return;
 }
 
@@ -2985,6 +3334,6 @@ if (
     // Cars pehle se load kar lo, taaki pehla sawal bhi jaldi bole
     getMongoCars().catch(() => {});
 
-    console.log("RideWave MJ initialized successfully.");
+    console.log("RideWave MJ initialized successfully. [build: owner-booking-v3]");
 
 });

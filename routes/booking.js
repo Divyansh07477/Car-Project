@@ -36,31 +36,44 @@ function refundIfPaid(booking) {
 
 
 // =====================================================
-// 1. OWNER BOOKINGS
+// 1. OWNER BOOKINGS - MJ AI API
 // =====================================================
 router.get("/owner-bookings", async (req, res) => {
     try {
         if (!req.session.userId) {
             return res.status(401).json({
                 success: false,
-                message: "Please login first."
+                message: "Please login first.",
+                bookings: []
             });
         }
 
-        const bookings = await Booking.find({
+        // Step 1: Logged-in owner ki cars find karo
+        const userCars = await Car.find({
             owner: req.session.userId
+        }).select("_id");
+
+        const carIds = userCars.map(car => car._id);
+
+        // Step 2: Unhi cars ki bookings find karo
+        const bookings = await Booking.find({
+            car: { $in: carIds }
         })
             .populate("car")
             .populate("renter", "name email")
             .populate("owner", "name email")
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .lean();
 
         return res.status(200).json({
             success: true,
-            bookings: bookings || []
+            totalBookings: bookings.length,
+            bookings
         });
+
     } catch (error) {
-        console.error("Owner Bookings Fetch Error:", error);
+        console.error("MJ Owner Bookings Error:", error);
+
         return res.status(500).json({
             success: false,
             message: "Failed to fetch owner bookings.",
@@ -68,6 +81,14 @@ router.get("/owner-bookings", async (req, res) => {
         });
     }
 });
+
+
+
+
+
+
+
+
 
 
 // =====================================================
