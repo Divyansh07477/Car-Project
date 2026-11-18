@@ -1213,10 +1213,15 @@
         let allCars = [];
 
         let activeCategory = "all";
-       
-// Get category from Home page URL se connect ke liye, agar user ne kisi category pe click kiya ho to search page pe woh category active ho jaye.
 const urlParams = new URLSearchParams(window.location.search);
 
+// Home page se search query receive karo
+const requestedSearch = urlParams.get("q") || "";
+
+// Search box mein query automatically fill karo
+searchInput.value = requestedSearch;
+
+// Category receive karo
 const requestedCategory = urlParams.get("category");
 
 if (requestedCategory) {
