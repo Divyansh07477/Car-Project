@@ -87,6 +87,26 @@ const bookingSchema = new mongoose.Schema(
             default: ""
         },
 
+
+     // Customer identity documents
+aadhaarNumber: {
+    type: String,
+    trim: true,
+    default: ""
+},
+
+aadhaarDocument: {
+    filename: String,
+    path: String
+},
+
+drivingLicenceDocument: {
+    filename: String,
+    path: String
+},
+
+
+
         // Payment details
         payment: {
             status: {

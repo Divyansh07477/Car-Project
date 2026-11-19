@@ -902,10 +902,19 @@
             const status =
                 getBookingStatus(booking);
 
+function canUserCancelBooking(booking) {
+    if (!booking) return false;
 
-            if (isBookingPaid(booking)) {
-                return false;
-            }
+    const status = getBookingStatus(booking);
+
+    if (isBookingRefunded(booking)) return false;
+
+    if (status === "cancelled" || status === "completed") {
+        return false;
+    }
+
+    return status === "pending" || status === "confirmed";
+}
 
             if (isBookingRefunded(booking)) {
                 return false;
@@ -930,7 +939,7 @@
         /* =====================================================
            TOTAL AMOUNT CALCULATION
            
-           BASE + GST 18% + SECURITY DEPOSIT
+           BASE + GST 8% + SECURITY DEPOSIT
         ===================================================== */
 
         function calculateBookingAmount(booking, car) {
@@ -1021,7 +1030,7 @@
 
                     ? storedSecurityDeposit
 
-                    : 3000;
+                    : 1500;
 
 
             /* FINAL TOTAL */
@@ -1358,13 +1367,20 @@
 
             }
 
+if (status === "confirmed") {
+    if (paid) {
+        return `
+            ${paidPaymentHtml()}
 
-            if (status === "confirmed") {
-
-                if (paid) {
-                    return paidPaymentHtml();
+            <div class="mt-4 flex justify-end">
+                ${
+                    canUserCancelBooking(booking)
+                        ? cancelButtonHtml(bookingId, "Cancel Booking")
+                        : ""
                 }
-
+            </div>
+        `;
+    }
 
                 return `
 

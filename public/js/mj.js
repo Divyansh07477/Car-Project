@@ -2331,6 +2331,23 @@ async function handleInventory(command) {
             return;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // INTRODUCTION
         if (
             text.includes("who are you") ||
@@ -2442,7 +2459,9 @@ async function handleInventory(command) {
         // GREETING
         if (
             text.includes("hello") ||
+            text.includes("hey mj can you help me for booking") ||
             text.includes("hey mj") ||
+            text.includes("hi mj") ||
             text.includes("hi mj") ||
             text.includes("namaste")
         ) {

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +9,7 @@
     <title>Booking Submitted - RideWave</title>
 
     <link rel="icon" type="image/png" href="/images/title.png.jpeg">
- <link
-        rel="stylesheet"
-        href="/css/style.css"
-    >
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -33,10 +31,13 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            padding-top: 72px !important;
         }
 
         .ridewave-navbar {
@@ -44,14 +45,14 @@
             top: 0 !important;
             left: 0 !important;
             width: 100% !important;
-            height: 72px !important;
+            height: 102px !important;
             background: #ffffff !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 40px;
             border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             z-index: 99998;
         }
 
@@ -60,7 +61,6 @@
             height: 90px;
             object-fit: contain;
             display: block;
-            background: transparent;
         }
 
         .ridewave-nav-links {
@@ -85,8 +85,113 @@
             color: #FF6B35 !important;
         }
 
-        body {
-            padding-top: 72px !important;
+        /* TRUST & SECURITY SECTION */
+
+        .trust-section {
+            width: 100%;
+            background: #f8fafc;
+            padding: 65px 7%;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .trust-container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .trust-heading {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .trust-heading h2 {
+            color: #08123B;
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .trust-heading h2 span {
+            color: #FF6B35;
+        }
+
+        .trust-heading p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .trust-card {
+            background: #ffffff;
+            padding: 27px 22px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            transition: 0.3s ease;
+        }
+
+        .trust-card:hover {
+            transform: translateY(-5px);
+            border-color: #FF6B35;
+            box-shadow: 0 10px 25px rgba(8,18,59,0.07);
+        }
+
+        .trust-icon {
+            width: 52px;
+            height: 52px;
+            background: #fff0e9;
+            color: #FF6B35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .trust-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #08123B;
+            margin-bottom: 9px;
+        }
+
+        .trust-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .trust-note {
+            margin-top: 35px;
+            padding: 20px;
+            background: #08123B;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .trust-note i {
+            color: #FF6B35;
+            font-size: 30px;
+            flex-shrink: 0;
+        }
+
+        .trust-note p {
+            color: #e2e8f0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .trust-note strong {
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -94,18 +199,57 @@
                 height: 64px !important;
                 padding: 0 18px;
             }
+
             .ridewave-logo {
                 width: 105px;
                 height: 38px;
             }
+
             .ridewave-nav-links {
                 gap: 14px;
             }
+
             .ridewave-nav-links a {
-                font-size: 14px;
+                font-size: 13px;
             }
+
             body {
                 padding-top: 64px !important;
+            }
+
+            .trust-section {
+                padding: 45px 20px;
+            }
+
+            .trust-heading h2 {
+                font-size: 25px;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 13px;
+            }
+
+            .trust-card {
+                padding: 20px 15px;
+            }
+
+            .trust-card h3 {
+                font-size: 15px;
+            }
+
+            .trust-card p {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-note {
+                align-items: flex-start;
             }
         }
     </style>
@@ -115,11 +259,13 @@
 
     <!-- NAVBAR -->
     <header class="ridewave-navbar">
+
         <a href="/" class="flex items-center">
             <img src="/images/logo.png" alt="RideWave" class="ridewave-logo">
         </a>
 
         <nav class="ridewave-nav-links">
+
             <a href="/">
                 <span>&larr;</span>
                 <span>Back to Cars</span>
@@ -127,56 +273,232 @@
 
             <a href="/Mybookings">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-5 7h14a7 7 0 00-7-7z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-5 7h14a7 7 0 00-7-7z">
+                    </path>
                 </svg>
                 <span>My Bookings</span>
             </a>
+
         </nav>
     </header>
 
+
     <!-- MAIN CONFIRMATION CONTENT -->
+
     <main class="flex-grow flex items-center justify-center px-4 py-16">
+
         <div class="max-w-md w-full text-center flex flex-col items-center">
-            
-            <!-- Success Green Check Icon -->
+
             <div class="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/20 mb-6">
-                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white"
+                fill="none" stroke="currentColor" stroke-width="3"
+                viewBox="0 0 24 24">
+
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M5 13l4 4L19 7"></path>
+
                 </svg>
+
             </div>
 
-            <!-- Title -->
             <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0B1527] tracking-tight">
                 Booking <span class="text-brand-primary">Submitted!</span>
             </h1>
 
-            <!-- Subtitle Description -->
             <p class="mt-3 text-slate-500 text-sm sm:text-base leading-relaxed max-w-xs sm:max-w-sm">
                 Your booking is pending confirmation. We'll review it shortly.
             </p>
 
-            <!-- Action Buttons -->
             <div class="mt-8 flex items-center justify-center gap-3 w-full">
-                <a href="/Mybookings" class="px-5 sm:px-6 py-2.5 rounded-lg bg-brand-primary hover:bg-brand-primary-hover text-white text-sm sm:text-base font-semibold transition-all shadow-md active:scale-95 text-center">
+
+                <a href="/Mybookings"
+                class="px-5 sm:px-6 py-2.5 rounded-lg bg-brand-primary hover:bg-brand-primary-hover text-white text-sm sm:text-base font-semibold transition-all shadow-md active:scale-95 text-center">
                     View My Bookings
                 </a>
 
-                <a href="/" class="px-5 sm:px-6 py-2.5 rounded-lg bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0B1527] text-sm sm:text-base font-semibold transition-all active:scale-95 text-center">
+                <a href="/"
+                class="px-5 sm:px-6 py-2.5 rounded-lg bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0B1527] text-sm sm:text-base font-semibold transition-all active:scale-95 text-center">
                     Browse More Cars
                 </a>
+
             </div>
 
         </div>
+
     </main>
 
-    <!-- FOOTER -->
-    <footer class="py-6 text-center text-gray-400 border-t border-gray-100">
-        <p class="text-xs tracking-wider">CARPOOL VENOM</p>
-    </footer>
-<button id="mjMicBtn" class="mj-mic-btn" type="button" title="Talk to MJ">
-    <i class="bx bxs-microphone"></i>
-</button>
 
-<script src="/js/mj.js"></script>
+    <!-- RIDEWAVE TRUST & SECURITY SECTION -->
+
+    <section class="trust-section">
+
+        <div class="trust-container">
+
+            <div class="trust-heading">
+
+                <h2>
+                    Why Choose <span>RideWave?</span>
+                </h2>
+
+                <p>
+                    Your journey matters to us. Enjoy a transparent,
+                    convenient and customer-focused car rental experience.
+                </p>
+
+            </div>
+
+
+            <div class="trust-grid">
+
+                <!-- CARD 1 -->
+
+                <div class="trust-card">
+
+                    <div class="trust-icon">
+                        <i class='bx bx-shield-quarter'></i>
+                    </div>
+
+                    <h3>Secure Booking</h3>
+
+                    <p>
+                        Your booking details are handled through
+                        RideWave's booking system with access controls.
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 2 -->
+
+                <div class="trust-card">
+
+                    <div class="trust-icon">
+                        <i class='bx bx-car'></i>
+                    </div>
+
+                    <h3>Vehicle Information</h3>
+
+                    <p>
+                        Explore available cars with their listed
+                        details, images and rental information. and less price as compared to other car rental services.
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 3 -->
+
+                <div class="trust-card">
+
+                    <div class="trust-icon">
+                        <i class='bx bx-wallet'></i>
+                    </div>
+
+                    <h3>Transparent Pricing</h3>
+
+                    <p>
+                        Check the displayed rental price and
+                        booking details before making your request.
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 4 -->
+
+                <div class="trust-card">
+
+                    <div class="trust-icon">
+                        <i class='bx bx-calendar-check'></i>
+                    </div>
+
+                    <h3>Flexible Booking</h3>
+
+                    <p>
+                        Submit your rental request and track its
+                        confirmation status through My Bookings.
+                    </p>
+
+                </div>
+
+
+             <!-- CARD 5 -->
+
+<div class="trust-card">
+
+    <div class="trust-icon">
+        <i class='bx bx-bot'></i>
+    </div>
+
+    <h3>RideWave MJ AI Assistant</h3>
+
+    <p>
+        Meet MJ, your smart AI voice assistant. Ask questions,
+        explore cars, get recommendations and navigate RideWave
+        easily using voice commands.
+    </p>
+
+</div>
+
+
+                <!-- CARD 6 -->
+
+                <div class="trust-card">
+
+                    <div class="trust-icon">
+                        <i class='bx bx-user-check'></i>
+                    </div>
+
+                    <h3>Account Privacy</h3>
+
+                    <p>
+                        Your account and booking information
+                        should only be accessible to authorized users.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY NOTE -->
+
+            <div class="trust-note">
+
+                <i class='bx bx-info-circle'></i>
+
+                <p>
+                    <strong>Booking Transparency:</strong>
+                    Submitting a booking request does not mean
+                    it is confirmed. Please check your My Bookings
+                    section for the latest booking status and confirmation.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="py-6 text-center text-gray-400 border-t border-gray-100">
+
+        <p class="text-xs tracking-wider">RIDEWAVE</p>
+
+    </footer>
+
+
+    <!-- MJ VOICE ASSISTANT -->
+
+    <button id="mjMicBtn" class="mj-mic-btn" type="button" title="Talk to MJ">
+        <i class="bx bxs-microphone"></i>
+    </button>
+
+    <script src="/js/mj.js"></script>
+
 </body>
 </html>
